@@ -14,4 +14,4 @@ export const firebaseConfig = {
 };
 
 // reCAPTCHA v3 site key (the public one), from Security > App Check > Apps.
-export const recaptchaSiteKey = 'PASTE_ME';
+export const recaptchaSiteKey = '6Ldp_SouAAAAABynBwg5tY7_V0bHIhfC7ugwmKxZ';
