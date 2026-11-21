@@ -74,6 +74,15 @@ test('punctuation at the very start or end of a quote is forgiven', () => {
   assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: ', I stayed in the robotics lab' }), true);
   assert.equal(verifyQuote(sections, { sectionId: 'short', quote: 'Co-Captain.' }), true);
   assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'Every day after school … until seven!' }), true);
+  // Real case from the third run: a stray bracket before the activity line.
+  assert.equal(verifyQuote(sections, { sectionId: 'activity', quote: ']Hours per week: 6' }), true);
+  assert.equal(verifyQuote(sections, { sectionId: 'activity', quote: '"Hours per week: 6"' }), true);
+});
+
+test('edge trimming never changes a word or number', () => {
+  assert.equal(verifyQuote(sections, { sectionId: 'activity', quote: ']Hours per week: 7' }), false);
+  assert.equal(verifyQuote(sections, { sectionId: 'activity', quote: 'Hours per week: 60' }), false);
+  assert.equal(verifyQuote(sections, { sectionId: 'activity', quote: '(Hours per day: 6)' }), false);
 });
 
 test('punctuation inside a quote must still match exactly', () => {

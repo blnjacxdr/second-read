@@ -14,9 +14,11 @@
 //     Normalization never changes letters, digits or word order.
 //   - Very short quotes are rejected (see MIN_WORDS), because a quote like "the"
 //     would match almost anything and prove nothing.
-//   - Punctuation at the very start or end of a quote (or of an ellipsis piece)
-//     is ignored, because cutting a sentence changes its closing mark. Found
-//     in the first real on-device run: "until seven," came back "until seven.".
+//   - Non-letter, non-digit characters at the very start or end of a quote (or
+//     of an ellipsis piece) are ignored: cutting a sentence changes its closing
+//     mark, and small models add stray edge characters. Found in real
+//     on-device runs: "until seven," came back "until seven.", and
+//     "Hours per week: 6" came back "]Hours per week: 6".
 
 /** A quote may skip words with " … " (space, ellipsis, space), as legal citations do. */
 export const ELLIPSIS = ' … ';
@@ -41,13 +43,14 @@ export function normalizeForMatch(text) {
 }
 
 /**
- * Removes sentence punctuation at the very start and end of a quote only.
- * When a quote cuts a sentence, the closing mark is the quoter's choice
- * ("until seven," quoted as "until seven."). Words and any punctuation inside
- * the quote must still match exactly.
+ * Removes anything that isn't a letter or digit from the very start and end
+ * of a quote: punctuation, brackets, quote marks. When a quote cuts a
+ * sentence, its closing mark is the quoter's choice, and small models add
+ * stray edge characters. Everything from the first letter or digit to the
+ * last must still match exactly, including punctuation inside.
  */
 export function trimEdgePunctuation(text) {
-  return text.replace(/^[.,;:!?]+\s*/, '').replace(/\s*[.,;:!?]+$/, '');
+  return text.replace(/^[^\p{L}\p{N}]+/u, '').replace(/[^\p{L}\p{N}]+$/u, '');
 }
 
 function wordCount(text) {
