@@ -67,3 +67,17 @@ test('keepVerifiedFlags drops a flag if any of its quotes fails', () => {
   assert.deepEqual(kept, [good]);
   assert.deepEqual(dropped, [half, none]);
 });
+
+test('punctuation at the very start or end of a quote is forgiven', () => {
+  // Real case from the first on-device run: the source has "until seven," and the model ended with a period.
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'Every day after school, I stayed in the robotics lab until seven.' }), true);
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: ', I stayed in the robotics lab' }), true);
+  assert.equal(verifyQuote(sections, { sectionId: 'short', quote: 'Co-Captain.' }), true);
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'Every day after school … until seven!' }), true);
+});
+
+test('punctuation inside a quote must still match exactly', () => {
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'Every day after school I stayed in the robotics lab' }), false);
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'Every day after school; I stayed in the lab' }), false);
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: '.,;' }), false);
+});

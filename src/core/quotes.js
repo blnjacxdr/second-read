@@ -14,6 +14,9 @@
 //     Normalization never changes letters, digits or word order.
 //   - Very short quotes are rejected (see MIN_WORDS), because a quote like "the"
 //     would match almost anything and prove nothing.
+//   - Punctuation at the very start or end of a quote (or of an ellipsis piece)
+//     is ignored, because cutting a sentence changes its closing mark. Found
+//     in the first real on-device run: "until seven," came back "until seven.".
 
 /** A quote may skip words with " … " (space, ellipsis, space), as legal citations do. */
 export const ELLIPSIS = ' … ';
@@ -37,6 +40,16 @@ export function normalizeForMatch(text) {
     .trim();
 }
 
+/**
+ * Removes sentence punctuation at the very start and end of a quote only.
+ * When a quote cuts a sentence, the closing mark is the quoter's choice
+ * ("until seven," quoted as "until seven."). Words and any punctuation inside
+ * the quote must still match exactly.
+ */
+export function trimEdgePunctuation(text) {
+  return text.replace(/^[.,;:!?]+\s*/, '').replace(/\s*[.,;:!?]+$/, '');
+}
+
 function wordCount(text) {
   return text.split(' ').filter(Boolean).length;
 }
@@ -55,10 +68,10 @@ export function verifyQuote(sections, citation) {
   if (typeof raw !== 'string') return false;
 
   const source = normalizeForMatch(raw);
-  const quote = normalizeForMatch(citation.quote);
+  const quote = trimEdgePunctuation(normalizeForMatch(citation.quote));
   if (quote.length === 0) return false;
 
-  const isWholeField = quote === source;
+  const isWholeField = quote === source || quote === trimEdgePunctuation(source);
   if (!isWholeField && wordCount(quote.replaceAll('…', ' ')) < MIN_WORDS) return false;
 
   if (source.includes(quote)) return true;
@@ -67,7 +80,7 @@ export function verifyQuote(sections, citation) {
   // Spacing around the ellipsis is forgiven ("a … b", "a…b", "a ... b").
   // A leading or trailing ellipsis ("… the lab until 7") only marks a cut, so
   // it is ignored; an empty piece in the middle ("a … … b") is rejected.
-  const pieces = quote.split('…').map((piece) => piece.trim());
+  const pieces = quote.split('…').map((piece) => trimEdgePunctuation(piece.trim()));
   if (pieces.length < 2) return false;
   if (pieces[0] === '') pieces.shift();
   if (pieces.length > 0 && pieces[pieces.length - 1] === '') pieces.pop();
