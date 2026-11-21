@@ -4,6 +4,8 @@ Second Read is a private consistency checker for a Common App application, built
 #BuildHybridAI 2026 (deadline Nov 30, 2026, 2:00 PM Pacific). It flags problems with
 exact quotes from both places. It NEVER writes, rewrites or suggests application text.
 
+For history, decisions, setup and the day-by-day plan, read `docs/HANDOFF.md` first.
+
 ## Privacy rules (non-negotiable)
 1. Application text goes only to deterministic code and the on-device model
    (`InferenceMode.ONLY_ON_DEVICE`). Never `PREFER_ON_DEVICE` or `PREFER_IN_CLOUD`: both
