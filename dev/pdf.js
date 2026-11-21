@@ -58,7 +58,7 @@ $('file').addEventListener('change', async (event) => {
         ['Organization, position', a.heading],
         ['Description', `${a.description} (${a.description.length} characters)`],
         ['Grades', (a.grades ?? []).join(', ')], ['Timing', a.timing],
-        ['Hours per week', a.hoursPerWeek], ['Weeks per year', a.weeksPerYear], ['Plans', a.plans],
+        ['Hours per week', a.hoursPerWeek], ['Weeks per year', a.weeksPerYear], ['Plans', a.plans ?? '(none selected)'],
       ])));
     }
 
