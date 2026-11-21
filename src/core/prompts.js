@@ -48,14 +48,20 @@ export function contradictionPrompt(activityText, essayText) {
 }
 
 /**
- * Prompt for the cloud model with Google Search grounding. It may contain only
- * public names (organizations, programs, colleges), never application text.
+ * Prompt for the cloud model. It may contain only public names
+ * (organizations, programs, colleges), never application text.
+ * With search, the model is told to use Google Search; without it, the model
+ * answers from its own knowledge and is told to say when it is unsure.
  * @param {string[]} publicNames
+ * @param {{ withSearch?: boolean }} [options]
  */
-export function publicNamesPrompt(publicNames) {
+export function publicNamesPrompt(publicNames, { withSearch = true } = {}) {
   if (!Array.isArray(publicNames) || publicNames.length === 0) throw new Error('publicNamesPrompt: need at least one name');
+  const how = withSearch
+    ? 'Use Google Search to check each name below. For each one, answer on one line:'
+    : 'Check each name below from what you know. If you are not sure, say UNSURE. For each one, answer on one line:';
   return [
-    'Use Google Search to check each name below. For each one, answer on one line:',
+    how,
     'the name as given, then EXISTS or NOT FOUND, then the correct official name and where it is based if the given name or place is wrong.',
     '',
     ...publicNames.map((name) => `- ${name}`),

@@ -53,7 +53,15 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL, tools: [{ googleSearch: {} }] },
   });
 
-  return { privateModel, publicModel };
+  // Same cloud model without Google Search. Search grounding is not in the
+  // Gemini free tier, so this is the fallback if billing is not linked: it
+  // checks names from the model's own knowledge, with no sources to show.
+  const publicModelWithoutSearch = getGenerativeModel(ai, {
+    mode: InferenceMode.ONLY_IN_CLOUD,
+    inCloudParams: { model: CLOUD_MODEL },
+  });
+
+  return { privateModel, publicModel, publicModelWithoutSearch };
 }
 
 /** Chrome's own report on the on-device model, or undefined if the API is missing. */
@@ -82,12 +90,13 @@ export async function findContradictionsOnDevice(privateModel, activityText, ess
 }
 
 /**
- * Checks public names in the cloud with Google Search grounding.
+ * Checks public names in the cloud. Pass the model and withSearch together:
+ * publicModel with withSearch true, or publicModelWithoutSearch with false.
  * The full prompt is recorded in sentLog before it is sent.
  */
-export async function checkPublicNamesInCloud(publicModel, publicNames, sentLog) {
-  const prompt = publicNamesPrompt(publicNames);
-  sentLog.record('Check public names with Google Search', prompt);
+export async function checkPublicNamesInCloud(publicModel, publicNames, sentLog, { withSearch = true } = {}) {
+  const prompt = publicNamesPrompt(publicNames, { withSearch });
+  sentLog.record(withSearch ? 'Check public names with Google Search' : 'Check public names (no search)', prompt);
   const result = await publicModel.generateContent(prompt);
   return readGroundedAnswer(result.response);
 }

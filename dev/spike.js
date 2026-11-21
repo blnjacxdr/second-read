@@ -18,7 +18,7 @@ import { applicationSections } from '../src/core/sections.js';
 
 const $ = (id) => document.getElementById(id);
 const sentLog = createSentLog();
-const { privateModel, publicModel } = createSecondReadAI();
+const { privateModel, publicModel, publicModelWithoutSearch } = createSecondReadAI();
 const sample = await (await fetch('../sample/application.json')).json();
 
 // The spike pairs the Robotics activity with the main-essay paragraph about it.
@@ -75,24 +75,22 @@ $('runDevice').addEventListener('click', async () => {
   }
 });
 
-$('runCloud').addEventListener('click', async () => {
+async function runCloudCheck(withSearch) {
   const out = $('cloudOut');
   out.replaceChildren(el('p', 'Asking the cloud model…', 'muted'));
   try {
-    const answer = await checkPublicNamesInCloud(publicModel, sample.publicNames, sentLog);
+    const model = withSearch ? publicModel : publicModelWithoutSearch;
+    const answer = await checkPublicNamesInCloud(model, sample.publicNames, sentLog, { withSearch });
     out.replaceChildren(
-      el('p', `Answered by: ${answer.inferenceSource}. Grounded: ${answer.grounded ? 'yes' : 'no (the model did not search)'}`),
+      el('p', `Answered by: ${answer.inferenceSource}. Grounded: ${answer.grounded ? 'yes' : 'no (no Google Search, so no sources)'}`),
       el('pre', answer.text),
     );
 
     // Required by Google: show the search suggestions as provided. Shadow DOM
     // keeps their styles from leaking into the page.
     const host = $('suggestions');
-    host.replaceChildren();
-    if (answer.searchSuggestionsHtml) {
-      const shadow = host.shadowRoot || host.attachShadow({ mode: 'open' });
-      shadow.innerHTML = answer.searchSuggestionsHtml;
-    }
+    const shadow = host.shadowRoot || host.attachShadow({ mode: 'open' });
+    shadow.innerHTML = answer.searchSuggestionsHtml || ''; // clear the previous run's suggestions
 
     // Required by Google: show the sources.
     const list = el('ul');
@@ -102,12 +100,15 @@ $('runCloud').addEventListener('click', async () => {
       a.href = source.uri; a.target = '_blank'; a.rel = 'noopener noreferrer';
       li.append(a); list.append(li);
     }
-    $('sources').replaceChildren(el('p', 'Sources:'), list);
+    $('sources').replaceChildren(el('p', answer.sources.length ? 'Sources:' : 'Sources: none'), list);
   } catch (err) {
     out.replaceChildren(el('p', `${err.name}: ${err.message}`, 'bad'));
   }
   renderSentLog();
-});
+}
+
+$('runCloud').addEventListener('click', () => runCloudCheck(true));
+$('runCloudNoSearch').addEventListener('click', () => runCloudCheck(false));
 
 function renderSentLog() {
   const entries = sentLog.entries();

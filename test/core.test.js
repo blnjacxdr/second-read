@@ -81,3 +81,10 @@ test('public names prompt contains the names and nothing else of the user\'s', (
   assert.match(prompt, /- Oregon Museum of Science and Industry$/);
   assert.throws(() => publicNamesPrompt([]));
 });
+
+test('the no-search prompt does not claim to search and allows UNSURE', () => {
+  const prompt = publicNamesPrompt(['FIRST Robotics Competition'], { withSearch: false });
+  assert.doesNotMatch(prompt, /Google Search/);
+  assert.match(prompt, /UNSURE/);
+  assert.match(publicNamesPrompt(['x y z']), /Use Google Search/);
+});
