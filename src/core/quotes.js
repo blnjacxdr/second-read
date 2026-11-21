@@ -19,6 +19,7 @@
 //     mark, and small models add stray edge characters. Found in real
 //     on-device runs: "until seven," came back "until seven.", and
 //     "Hours per week: 6" came back "]Hours per week: 6".
+//   - Matching ignores upper/lower case ("Every day" quoted as "every day").
 
 /** A quote may skip words with " … " (space, ellipsis, space), as legal citations do. */
 export const ELLIPSIS = ' … ';
@@ -70,8 +71,11 @@ export function verifyQuote(sections, citation) {
   const raw = sections[citation.sectionId];
   if (typeof raw !== 'string') return false;
 
-  const source = normalizeForMatch(raw);
-  const quote = trimEdgePunctuation(normalizeForMatch(citation.quote));
+  // Lowercase both sides: quoting from mid-sentence often changes the first
+  // letter's case ("Every day" quoted as "every day"), and case never changes
+  // which words are matched.
+  const source = normalizeForMatch(raw).toLowerCase();
+  const quote = trimEdgePunctuation(normalizeForMatch(citation.quote)).toLowerCase();
   if (quote.length === 0) return false;
 
   const isWholeField = quote === source || quote === trimEdgePunctuation(source);

@@ -90,3 +90,10 @@ test('punctuation inside a quote must still match exactly', () => {
   assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'Every day after school; I stayed in the lab' }), false);
   assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: '.,;' }), false);
 });
+
+test('capital letters do not matter, words still do', () => {
+  // Real case from the fifth run: the model lowercased the first word.
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'every day after school, I stayed in the robotics lab until seven' }), true);
+  assert.equal(verifyQuote(sections, { sectionId: 'activity', quote: 'HOURS PER WEEK: 6' }), true);
+  assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'every night after school, I stayed in the robotics lab' }), false);
+});
