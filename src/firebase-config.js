@@ -13,5 +13,7 @@ export const firebaseConfig = {
   appId: '1:476319821403:web:9e041b3070c786962c197e',
 };
 
-// reCAPTCHA v3 site key (the public one), from Security > App Check > Apps.
-export const recaptchaSiteKey = '6Ldp_SouAAAAABynBwg5tY7_V0bHIhfC7ugwmKxZ';
+// Fraud Defense (reCAPTCHA Enterprise) key ID, from Google Cloud console >
+// Fraud Defense > second-read-web. Public by design; it is also registered in
+// Firebase > Security > App Check > Apps.
+export const recaptchaSiteKey = '6Let0CouAAAAAN9gGnBBKs8MbA6zDp4IcTxQT68Q';

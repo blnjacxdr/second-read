@@ -10,7 +10,7 @@
 // downloading). test/guards.test.js fails if either appears in src/.
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js';
-import { initializeAppCheck, ReCaptchaV3Provider } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app-check.js';
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app-check.js';
 import { getAI, getGenerativeModel, GoogleAIBackend, InferenceMode } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-ai.js';
 
 import { firebaseConfig, recaptchaSiteKey } from './firebase-config.js';
@@ -28,7 +28,9 @@ export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
 export function createSecondReadAI() {
   const app = initializeApp(firebaseConfig);
   initializeAppCheck(app, {
-    provider: new ReCaptchaV3Provider(recaptchaSiteKey),
+    // Fraud Defense (formerly reCAPTCHA Enterprise). Firebase marks classic
+    // reCAPTCHA v3 as deprecated, so we use this provider instead.
+    provider: new ReCaptchaEnterpriseProvider(recaptchaSiteKey),
     isTokenAutoRefreshEnabled: true,
   });
   const ai = getAI(app, { backend: new GoogleAIBackend() });
