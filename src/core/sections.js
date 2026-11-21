@@ -31,7 +31,8 @@ export function activityText(activity) {
     `${activity.hoursPerWeek} hr/wk, ${activity.weeksPerYear} wk/yr`,
     activity.plans,
   ];
-  return [activity.category ?? activity.type, heading, activity.description, ...details].filter(Boolean).join('\n');
+  const description = activity.sport ? `${activity.sport}, ${activity.description}` : activity.description; // as the PDF prints it
+  return [activity.category ?? activity.type, heading, description, ...details].filter(Boolean).join('\n');
 }
 
 /** Text for one honor, in the PDF's order: title, level of recognition, grades. */

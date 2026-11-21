@@ -270,9 +270,10 @@ export function checkInputFromPdf(result) {
     activityIds: result.activities.map((a) => a.id),
     essayIds,
     collegeEssayIds,
-    // No activity limits for PDFs: Common App's form already checked them, and on a real
-    // submitted PDF our count (158) disagreed with Common App's 150 limit (Nov 22), so the
-    // counting rules differ. Limits stay on for pasted drafts (checkActivityDescriptionDraft).
+    // No activity limits for PDFs: Common App's form already enforces them, so an over-limit
+    // description in a PDF can only mean a reading bug (as on Nov 21, when the sport printed
+    // before athletics descriptions was counted). Tests assert parsed descriptions fit instead.
+    // Limits stay on for pasted drafts (checkActivityDescriptionDraft).
     activities: [],
   };
 }

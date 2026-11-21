@@ -114,7 +114,8 @@ async function buildFor(supplement) {
     const width = X.right - X.activityRight;
     const right = [
       ...wrap(`${a.organization}, ${a.position}`, bold, SIZE.body, width).map((t) => ({ t, font: bold })),
-      ...wrap(a.description, regular, SIZE.body, width).map((t) => ({ t, font: regular })),
+      // Athletics: the PDF prints the sport before the description.
+      ...wrap(a.sport ? `${a.sport}, ${a.description}` : a.description, regular, SIZE.body, width).map((t) => ({ t, font: regular })),
     ];
     for (let r = 0; r < Math.max(left.length, right.length); r++) {
       ensureRoom(LINE);

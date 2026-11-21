@@ -146,6 +146,8 @@ for (const college of ['michigan', 'northwestern']) {
       assert.equal(a.category, expected.type);
       assert.equal(a.heading, `${expected.organization}, ${expected.position}`);
       assert.equal(a.description, expected.description);
+      assert.equal(a.sport, expected.sport);
+      assert.ok(a.description.length <= 150, `${a.id} description is ${a.description.length} characters`);
       assert.deepEqual(a.grades, expected.grades);
       assert.deepEqual([a.timing, a.hoursPerWeek, a.weeksPerYear, a.plans],
         [expected.timing, expected.hoursPerWeek, expected.weeksPerYear, expected.plans]);

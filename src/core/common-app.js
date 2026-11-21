@@ -160,6 +160,11 @@ function readActivity(id, category, rows) {
     }
   }
   const activity = { id, category, heading: joinLines(headingLines), description: joinLines(descriptionLines), details };
+  // For athletics, the PDF prints the sport before the description ("Soccer, First team…"),
+  // but the sport isn't part of the 150-character description. Found on a real PDF (Nov 21):
+  // the description measured 158 with the sport, exactly 150 in Common App without it.
+  const sport = /^Athletics/.test(category) && activity.description.match(/^([^,;.]{2,40}), (.+)$/);
+  if (sport) Object.assign(activity, { sport: sport[1], description: sport[2] });
   for (const detail of details) {
     const gradesAndTiming = parseGradesAndTiming(detail);
     const hours = detail.match(/^(\d+) hr\/wk, (\d+) wk\/yr$/);
