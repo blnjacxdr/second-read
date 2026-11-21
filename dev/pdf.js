@@ -3,6 +3,7 @@
 import { readPdfRows } from '../src/pdf.js';
 import { readCommonApp } from '../src/core/common-app.js';
 import { countWords } from '../src/core/sections.js';
+import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -22,6 +23,27 @@ function fieldList(fields) {
 function card(title, ...children) {
   const box = el('div', undefined, 'card');
   box.append(el('h3', title), ...children);
+  return box;
+}
+
+/** A readable name for a section id, for the results view. */
+function sectionLabel(result, sectionId) {
+  const activity = result.activities.find((a) => a.id === sectionId);
+  if (activity) return `Activity ${sectionId.split('-')[1]}: ${activity.category}`;
+  const essay = result.collegeEssays.find((e) => e.id === sectionId);
+  if (essay) return `${result.college} essay (${essay.group})`;
+  return { 'personal-essay': 'Personal essay', 'additional-information': 'Additional information' }[sectionId] ?? sectionId;
+}
+
+function flagCard(result, flag) {
+  const box = el('div', undefined, 'card flag');
+  const quotes = el('div', undefined, 'quotes');
+  for (const citation of flag.citations) {
+    const q = el('figure', undefined, 'quote');
+    q.append(el('figcaption', sectionLabel(result, citation.sectionId)), el('blockquote', citation.quote));
+    quotes.append(q);
+  }
+  box.append(el('h3', flag.title), el('p', flag.detail, 'muted'), quotes);
   return box;
 }
 
@@ -51,6 +73,11 @@ $('file').addEventListener('change', async (event) => {
 
     const out = $('out');
     out.replaceChildren();
+
+    const flags = runCodeChecks(checkInputFromPdf(result));
+    out.append(el('h2', `Things to check (${flags.length})`));
+    if (flags.length === 0) out.append(el('p', 'The code checks found nothing to check.', 'ok'));
+    for (const flag of flags) out.append(flagCard(result, flag));
 
     out.append(el('h2', `Activities (${result.activities.length})`));
     for (const a of result.activities) {

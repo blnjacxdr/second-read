@@ -14,7 +14,7 @@ Built for #BuildHybridAI 2026 with Firebase AI Logic.
 
 ## Status
 Nov 20: on-device and cloud prompts working (`dev/spike.html`).
-Nov 21: reads real Common App preview PDFs for any college (`dev/pdf.html`).
+Nov 21: reads real Common App preview PDFs for any college, and runs the code-only checks (`dev/pdf.html`).
 
 ## Layout
 
@@ -24,6 +24,8 @@ Nov 21: reads real Common App preview PDFs for any college (`dev/pdf.html`).
 | `src/core/quotes.js` | `verifyQuote`: every quote must appear word for word in its section (adapted from Hashmark). |
 | `src/core/pdf-lines.js` | Turns pdf.js text pieces into rows of cells with position and boldness; drops page chrome. |
 | `src/core/common-app.js` | Reads any college's Common App preview PDF by its template formatting: activities, honors, essays, college questions. |
+| `src/core/checks.js` | Code-only checks: another college's name, mismatched start years, repeated passages, limits. |
+| `src/core/colleges.js` | College names and safe short names for the other-college check. |
 | `src/core/sections.js` | Turns an application into `{ sectionId: text }`, plus Common App limits. |
 | `src/core/privacy.js` | `assertOnDevice` and the on-device status messages. |
 | `src/core/prompts.js` | Prompt text and the on-device JSON schema. |

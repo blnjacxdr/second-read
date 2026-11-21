@@ -9,8 +9,8 @@
 //   regular       an answer: right column for short answers, full width for essays
 //
 // Only the parts the checks need are kept: activities, honors, essays and the
-// college's own questions. Addresses, family details, grades and test scores
-// are read past and never stored.
+// college's own questions. Addresses, family details, grades, test scores and
+// personal details in college answers (contacts, residency) are never stored.
 
 import { activityText, honorText } from './sections.js';
 
@@ -22,6 +22,16 @@ const ANSWER_COLUMN = 150;
 const LABEL_COLUMN_END = 176; // wrapped question text ends before the answer column (x = 179)
 
 const COLLEGE_SECTION = /^(.+) questions$/;
+
+// Data minimization: college answers that are personal details no check needs
+// (contacts, family, residency, discipline) are never kept.
+const PERSONAL_GROUPS = /^(Family|Contacts|Residency|Disciplinary Action)$/i;
+const PERSONAL_LABEL = /\b(name|phone|e-?mail|address|birth|citizen|social security|guardian|parent)/i;
+
+/** True for a college answer the checks never need and the app shouldn't keep. */
+export function isPersonalAnswer(group, label) {
+  return PERSONAL_GROUPS.test(group) || PERSONAL_LABEL.test(label);
+}
 
 /** A heading is a row with a single bold cell at heading size. */
 function headingLevel(row) {
@@ -225,7 +235,9 @@ export function readCommonApp(rows) {
     } else if (collegeMatch && subsection) {
       result.college = collegeMatch[1].trim();
       const { fields, essays } = readQuestions(block.rows);
-      for (const field of fields) result.collegeAnswers.push({ group: subsection, ...field });
+      for (const field of fields) {
+        if (!isPersonalAnswer(subsection, field.label)) result.collegeAnswers.push({ group: subsection, ...field });
+      }
       for (const essay of essays) {
         if (!essay.text) continue;
         result.collegeEssays.push({ id: `college-essay-${result.collegeEssays.length + 1}`, group: subsection, ...essay });
