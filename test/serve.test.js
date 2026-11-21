@@ -21,6 +21,7 @@ test('paths that try to leave the root are refused', () => {
 
 test('JavaScript is served with a JavaScript type, so modules load', () => {
   assert.match(contentTypeFor('src/ai.js'), /^text\/javascript/);
+  assert.match(contentTypeFor('vendor/pdfjs/pdf.min.mjs'), /^text\/javascript/);
   assert.match(contentTypeFor('dev/spike.html'), /^text\/html/);
   assert.equal(contentTypeFor('sample/application-michigan.pdf'), 'application/pdf');
   assert.equal(contentTypeFor('weird.xyz'), 'application/octet-stream');

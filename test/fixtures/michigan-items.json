@@ -1,0 +1,881 @@
+{
+ "source": "sample/application-michigan.pdf",
+ "pages": [
+  [
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 756,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 30,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "Application preview for University of Michigan (sample)",
+    "x": 60,
+    "y": 712,
+    "width": 475.11,
+    "height": 18
+   },
+   {
+    "str": "Name: Riley Tanaka-Brooks",
+    "x": 60,
+    "y": 676.8,
+    "width": 137.53,
+    "height": 11
+   },
+   {
+    "str": "School: Juniper Ridge High School (fictional), Bend, Oregon",
+    "x": 60,
+    "y": 661.4,
+    "width": 292.24,
+    "height": 11
+   },
+   {
+    "str": "Graduation year: 2027",
+    "x": 60,
+    "y": 646,
+    "width": 109.45,
+    "height": 11
+   },
+   {
+    "str": "Email: riley.tanaka-brooks@example.com",
+    "x": 60,
+    "y": 630.6,
+    "width": 203.1,
+    "height": 11
+   },
+   {
+    "str": "Activities and Experiences",
+    "x": 60,
+    "y": 603.2,
+    "width": 177.41,
+    "height": 14
+   },
+   {
+    "str": "Activity 1",
+    "x": 60,
+    "y": 577.6,
+    "width": 48.91,
+    "height": 11
+   },
+   {
+    "str": "Activity type: Athletics: JV/Varsity",
+    "x": 60,
+    "y": 560.2,
+    "width": 162,
+    "height": 11
+   },
+   {
+    "str": "Position: Varsity Co-Captain",
+    "x": 60,
+    "y": 544.8,
+    "width": 137.54,
+    "height": 11
+   },
+   {
+    "str": "Organization: Juniper Ridge High School Varsity Soccer",
+    "x": 60,
+    "y": 529.4,
+    "width": 272.66,
+    "height": 11
+   },
+   {
+    "str": "Description: Co-captain senior year. Plan preseason fitness, lead warmups and mentor freshmen.",
+    "x": 60,
+    "y": 514,
+    "width": 474.41,
+    "height": 11
+   },
+   {
+    "str": "Team reached the state quarterfinals in 2025.",
+    "x": 60,
+    "y": 498.6,
+    "width": 221.95,
+    "height": 11
+   },
+   {
+    "str": "Grades: 9, 10, 11, 12",
+    "x": 60,
+    "y": 483.2,
+    "width": 103.34,
+    "height": 11
+   },
+   {
+    "str": "Timing: During school year",
+    "x": 60,
+    "y": 467.8,
+    "width": 130.81,
+    "height": 11
+   },
+   {
+    "str": "Hours per week: 12",
+    "x": 60,
+    "y": 452.4,
+    "width": 95.37,
+    "height": 11
+   },
+   {
+    "str": "Weeks per year: 16",
+    "x": 60,
+    "y": 437,
+    "width": 95.37,
+    "height": 11
+   },
+   {
+    "str": "Activity 2",
+    "x": 60,
+    "y": 411.6,
+    "width": 48.91,
+    "height": 11
+   },
+   {
+    "str": "Activity type: Robotics",
+    "x": 60,
+    "y": 394.2,
+    "width": 107.59,
+    "height": 11
+   },
+   {
+    "str": "Position: Lead Programmer",
+    "x": 60,
+    "y": 378.8,
+    "width": 133.88,
+    "height": 11
+   },
+   {
+    "str": "Organization: Juniper Ridge Robotics (FIRST Robotics Competition)",
+    "x": 60,
+    "y": 363.4,
+    "width": 331.94,
+    "height": 11
+   },
+   {
+    "str": "Description: Write autonomous code in Java for our competition robot. Taught 8 new members to use",
+    "x": 60,
+    "y": 348,
+    "width": 492.15,
+    "height": 11
+   },
+   {
+    "str": "version control. Build season runs Jan to Mar.",
+    "x": 60,
+    "y": 332.6,
+    "width": 223.15,
+    "height": 11
+   },
+   {
+    "str": "Grades: 10, 11, 12",
+    "x": 60,
+    "y": 317.2,
+    "width": 91.11,
+    "height": 11
+   },
+   {
+    "str": "Timing: During school year",
+    "x": 60,
+    "y": 301.8,
+    "width": 130.81,
+    "height": 11
+   },
+   {
+    "str": "Hours per week: 6",
+    "x": 60,
+    "y": 286.4,
+    "width": 89.25,
+    "height": 11
+   },
+   {
+    "str": "Weeks per year: 30",
+    "x": 60,
+    "y": 271,
+    "width": 95.37,
+    "height": 11
+   },
+   {
+    "str": "Activity 3",
+    "x": 60,
+    "y": 245.6,
+    "width": 48.91,
+    "height": 11
+   },
+   {
+    "str": "Activity type: Community Service (Volunteer)",
+    "x": 60,
+    "y": 228.2,
+    "width": 217.61,
+    "height": 11
+   },
+   {
+    "str": "Position: Founder and Lead Tutor",
+    "x": 60,
+    "y": 212.8,
+    "width": 163.87,
+    "height": 11
+   },
+   {
+    "str": "Organization: Juniper Ridge Peer Math Tutoring",
+    "x": 60,
+    "y": 197.4,
+    "width": 233.54,
+    "height": 11
+   },
+   {
+    "str": "Description: Founded club in 2024. Recruited 14 tutors who run free sessions twice a week for 60+",
+    "x": 60,
+    "y": 182,
+    "width": 479.63,
+    "height": 11
+   },
+   {
+    "str": "students in Algebra and Geometry.",
+    "x": 60,
+    "y": 166.6,
+    "width": 169.97,
+    "height": 11
+   },
+   {
+    "str": "Grades: 10, 11, 12",
+    "x": 60,
+    "y": 151.2,
+    "width": 91.11,
+    "height": 11
+   },
+   {
+    "str": "Timing: During school year",
+    "x": 60,
+    "y": 135.8,
+    "width": 130.81,
+    "height": 11
+   },
+   {
+    "str": "Hours per week: 3",
+    "x": 60,
+    "y": 120.4,
+    "width": 89.25,
+    "height": 11
+   },
+   {
+    "str": "Weeks per year: 32",
+    "x": 60,
+    "y": 105,
+    "width": 95.37,
+    "height": 11
+   }
+  ],
+  [
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 756,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 30,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "Activity 4",
+    "x": 60,
+    "y": 712,
+    "width": 48.91,
+    "height": 11
+   },
+   {
+    "str": "Activity type: Work (Paid)",
+    "x": 60,
+    "y": 694.6,
+    "width": 122.86,
+    "height": 11
+   },
+   {
+    "str": "Position: Baker's Assistant",
+    "x": 60,
+    "y": 679.2,
+    "width": 129.26,
+    "height": 11
+   },
+   {
+    "str": "Organization: Cascade Crumb Bakery (fictional)",
+    "x": 60,
+    "y": 663.8,
+    "width": 232.9,
+    "height": 11
+   },
+   {
+    "str": "Description: Open the bakery Saturdays and Sundays at 5 a.m. Shape bread, run the register and",
+    "x": 60,
+    "y": 648.4,
+    "width": 475.69,
+    "height": 11
+   },
+   {
+    "str": "train new weekend staff.",
+    "x": 60,
+    "y": 633,
+    "width": 118.61,
+    "height": 11
+   },
+   {
+    "str": "Grades: 11, 12",
+    "x": 60,
+    "y": 617.6,
+    "width": 72.76,
+    "height": 11
+   },
+   {
+    "str": "Timing: All year",
+    "x": 60,
+    "y": 602.2,
+    "width": 75.79,
+    "height": 11
+   },
+   {
+    "str": "Hours per week: 12",
+    "x": 60,
+    "y": 586.8,
+    "width": 95.37,
+    "height": 11
+   },
+   {
+    "str": "Weeks per year: 40",
+    "x": 60,
+    "y": 571.4,
+    "width": 95.37,
+    "height": 11
+   },
+   {
+    "str": "Activity 5",
+    "x": 60,
+    "y": 546,
+    "width": 48.91,
+    "height": 11
+   },
+   {
+    "str": "Activity type: Research",
+    "x": 60,
+    "y": 528.6,
+    "width": 111.87,
+    "height": 11
+   },
+   {
+    "str": "Position: Summer Research Student",
+    "x": 60,
+    "y": 513.2,
+    "width": 177.9,
+    "height": 11
+   },
+   {
+    "str": "Organization: Research Science Institute (RSI) at Stanford University",
+    "x": 60,
+    "y": 497.8,
+    "width": 336.24,
+    "height": 11
+   },
+   {
+    "str": "Description: Six-week program. Studied why low-cost soil moisture sensors drift over time and",
+    "x": 60,
+    "y": 482.4,
+    "width": 456.63,
+    "height": 11
+   },
+   {
+    "str": "presented findings at the final symposium.",
+    "x": 60,
+    "y": 467,
+    "width": 205.42,
+    "height": 11
+   },
+   {
+    "str": "Grades: 11",
+    "x": 60,
+    "y": 451.6,
+    "width": 54.42,
+    "height": 11
+   },
+   {
+    "str": "Timing: During school break",
+    "x": 60,
+    "y": 436.2,
+    "width": 136.93,
+    "height": 11
+   },
+   {
+    "str": "Hours per week: 40",
+    "x": 60,
+    "y": 420.8,
+    "width": 95.37,
+    "height": 11
+   },
+   {
+    "str": "Weeks per year: 6",
+    "x": 60,
+    "y": 405.4,
+    "width": 89.25,
+    "height": 11
+   },
+   {
+    "str": "Activity 6",
+    "x": 60,
+    "y": 380,
+    "width": 48.91,
+    "height": 11
+   },
+   {
+    "str": "Activity type: Science/Math",
+    "x": 60,
+    "y": 362.6,
+    "width": 131.44,
+    "height": 11
+   },
+   {
+    "str": "Position: Volunteer Explainer",
+    "x": 60,
+    "y": 347.2,
+    "width": 141.23,
+    "height": 11
+   },
+   {
+    "str": "Organization: Oregon Museum of Science and Industry",
+    "x": 60,
+    "y": 331.8,
+    "width": 268.4,
+    "height": 11
+   },
+   {
+    "str": "Description: Run hands-on chemistry demos for visiting families during summer camps and weekend",
+    "x": 60,
+    "y": 316.4,
+    "width": 489.65,
+    "height": 11
+   },
+   {
+    "str": "events.",
+    "x": 60,
+    "y": 301,
+    "width": 35.46,
+    "height": 11
+   },
+   {
+    "str": "Grades: 10, 11",
+    "x": 60,
+    "y": 285.6,
+    "width": 72.76,
+    "height": 11
+   },
+   {
+    "str": "Timing: During school break",
+    "x": 60,
+    "y": 270.2,
+    "width": 136.93,
+    "height": 11
+   },
+   {
+    "str": "Hours per week: 8",
+    "x": 60,
+    "y": 254.8,
+    "width": 89.25,
+    "height": 11
+   },
+   {
+    "str": "Weeks per year: 8",
+    "x": 60,
+    "y": 239.4,
+    "width": 89.25,
+    "height": 11
+   },
+   {
+    "str": "Honors",
+    "x": 60,
+    "y": 206,
+    "width": 49,
+    "height": 14
+   },
+   {
+    "str": "Honor 1",
+    "x": 60,
+    "y": 180.4,
+    "width": 41.56,
+    "height": 11
+   },
+   {
+    "str": "Title: State Science Fair, 2nd Place, Environmental Science",
+    "x": 60,
+    "y": 163,
+    "width": 290.4,
+    "height": 11
+   },
+   {
+    "str": "Grades: 11",
+    "x": 60,
+    "y": 147.6,
+    "width": 54.42,
+    "height": 11
+   },
+   {
+    "str": "Level of recognition: State/Regional",
+    "x": 60,
+    "y": 132.2,
+    "width": 173.65,
+    "height": 11
+   },
+   {
+    "str": "Honor 2",
+    "x": 60,
+    "y": 106.8,
+    "width": 41.56,
+    "height": 11
+   },
+   {
+    "str": "Title: AP Scholar with Distinction",
+    "x": 60,
+    "y": 89.4,
+    "width": 158.32,
+    "height": 11
+   }
+  ],
+  [
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 756,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 30,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "Grades: 11",
+    "x": 60,
+    "y": 712,
+    "width": 54.42,
+    "height": 11
+   },
+   {
+    "str": "Level of recognition: National",
+    "x": 60,
+    "y": 696.6,
+    "width": 141.84,
+    "height": 11
+   },
+   {
+    "str": "Honor 3",
+    "x": 60,
+    "y": 671.2,
+    "width": 41.56,
+    "height": 11
+   },
+   {
+    "str": "Title: All-Conference Second Team, Boys Soccer",
+    "x": 60,
+    "y": 653.8,
+    "width": 239.03,
+    "height": 11
+   },
+   {
+    "str": "Grades: 11",
+    "x": 60,
+    "y": 638.4,
+    "width": 54.42,
+    "height": 11
+   },
+   {
+    "str": "Level of recognition: State/Regional",
+    "x": 60,
+    "y": 623,
+    "width": 173.65,
+    "height": 11
+   },
+   {
+    "str": "Personal Essay",
+    "x": 60,
+    "y": 589.6,
+    "width": 103.5,
+    "height": 14
+   },
+   {
+    "str": "Personal essay (250 to 650 words)",
+    "x": 60,
+    "y": 564,
+    "width": 179.13,
+    "height": 11
+   },
+   {
+    "str": "Forty seconds into our first qualifying match, our robot drove straight into the wall and stayed there.",
+    "x": 60,
+    "y": 542.6,
+    "width": 481.16,
+    "height": 11
+   },
+   {
+    "str": "The crowd groaned. Our drive team turned and looked at me, because I had written the autonomous",
+    "x": 60,
+    "y": 527.2,
+    "width": 487.92,
+    "height": 11
+   },
+   {
+    "str": "code, and I had told everyone it was ready.",
+    "x": 60,
+    "y": 511.8,
+    "width": 209.73,
+    "height": 11
+   },
+   {
+    "str": "That night I did what I always do. Every day after school, I stayed in the robotics lab until seven, and",
+    "x": 60,
+    "y": 488.4,
+    "width": 486.08,
+    "height": 11
+   },
+   {
+    "str": "that week I stayed until the custodian turned off the hallway lights. As lead programmer, I had tested",
+    "x": 60,
+    "y": 473,
+    "width": 486.08,
+    "height": 11
+   },
+   {
+    "str": "every line on a practice field that was two inches shorter than the real one. Debugging taught me that",
+    "x": 60,
+    "y": 457.6,
+    "width": 490.97,
+    "height": 11
+   },
+   {
+    "str": "the problem is almost never where I first look. The bug hides one layer down, in the assumption I was",
+    "x": 60,
+    "y": 442.2,
+    "width": 492.77,
+    "height": 11
+   },
+   {
+    "str": "too sure of to question.",
+    "x": 60,
+    "y": 426.8,
+    "width": 111.9,
+    "height": 11
+   },
+   {
+    "str": "On Saturday and Sunday mornings I work at Cascade Crumb Bakery, where I unlock the door at five",
+    "x": 60,
+    "y": 403.4,
+    "width": 489.1,
+    "height": 11
+   },
+   {
+    "str": "and shape the first loaves before the sun is up. Bread is patient in a way that code is not. If the dough",
+    "x": 60,
+    "y": 388,
+    "width": 492.84,
+    "height": 11
+   },
+   {
+    "str": "is cold, it simply waits, and I have learned to wait with it. Mrs. Alvarez, the owner, never tells me when",
+    "x": 60,
+    "y": 372.6,
+    "width": 493.95,
+    "height": 11
+   },
+   {
+    "str": "a loaf is finished. She hands it to me and asks how it sounds when I tap the bottom.",
+    "x": 60,
+    "y": 357.2,
+    "width": 406,
+    "height": 11
+   },
+   {
+    "str": "Last summer I brought that same patience to a research question: why do cheap soil moisture",
+    "x": 60,
+    "y": 333.8,
+    "width": 456.71,
+    "height": 11
+   },
+   {
+    "str": "sensors drift over a growing season? I buried twelve of them in my neighbor’s garden and logged",
+    "x": 60,
+    "y": 318.4,
+    "width": 471.38,
+    "height": 11
+   },
+   {
+    "str": "readings every hour for six weeks. Most of the drift came from temperature, not age, which surprised",
+    "x": 60,
+    "y": 303,
+    "width": 488.47,
+    "height": 11
+   },
+   {
+    "str": "both me and my mentor. The project won first place at the state science fair, but the result I am",
+    "x": 60,
+    "y": 287.6,
+    "width": 460.99,
+    "height": 11
+   },
+   {
+    "str": "proudest of is a correction table that our school garden club now uses every spring.",
+    "x": 60,
+    "y": 272.2,
+    "width": 404.74,
+    "height": 11
+   },
+   {
+    "str": "I think about that wall a lot. We fixed the robot before our next match by measuring the real field",
+    "x": 60,
+    "y": 248.8,
+    "width": 464.67,
+    "height": 11
+   },
+   {
+    "str": "instead of trusting my numbers, and we made it to the semifinals. Since then I start every project,",
+    "x": 60,
+    "y": 233.4,
+    "width": 471.37,
+    "height": 11
+   },
+   {
+    "str": "from a tutoring lesson to a sourdough starter, by asking what I am assuming. It is a small question,",
+    "x": 60,
+    "y": 218,
+    "width": 478.71,
+    "height": 11
+   },
+   {
+    "str": "but it has made me slower to be certain and quicker to learn. I don’t think I will ever stop being the",
+    "x": 60,
+    "y": 202.6,
+    "width": 475.06,
+    "height": 11
+   },
+   {
+    "str": "person who checks the field.",
+    "x": 60,
+    "y": 187.2,
+    "width": 138.79,
+    "height": 11
+   }
+  ],
+  [
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 756,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "SAMPLE - Fictional applicant made up for testing Second Read. Not a real person or application.",
+    "x": 60,
+    "y": 30,
+    "width": 412.6,
+    "height": 9
+   },
+   {
+    "str": "Questions and Writing for University of Michigan",
+    "x": 60,
+    "y": 704,
+    "width": 325.16,
+    "height": 14
+   },
+   {
+    "str": "Describe a community you belong to and your place in it. (Made-up prompt, up to 300 words.)",
+    "x": 60,
+    "y": 678.4,
+    "width": 488.38,
+    "height": 11
+   },
+   {
+    "str": "The community I care about most meets in Room 114 on Tuesday and Thursday afternoons. Since I",
+    "x": 60,
+    "y": 657,
+    "width": 487.28,
+    "height": 11
+   },
+   {
+    "str": "started the tutoring club in 2023, it has grown from three friends with a whiteboard to fourteen tutors",
+    "x": 60,
+    "y": 641.6,
+    "width": 483.63,
+    "height": 11
+   },
+   {
+    "str": "and more than sixty students. As captain of the varsity soccer team, I already knew how to run a",
+    "x": 60,
+    "y": 626.2,
+    "width": 467.1,
+    "height": 11
+   },
+   {
+    "str": "practice, so I ran our sessions the same way: a short warmup problem, small groups, and one",
+    "x": 60,
+    "y": 610.8,
+    "width": 456.07,
+    "height": 11
+   },
+   {
+    "str": "question everyone answers out loud.",
+    "x": 60,
+    "y": 595.4,
+    "width": 179.15,
+    "height": 11
+   },
+   {
+    "str": "Tutoring changed how I explain things. Debugging taught me that the problem is almost never where I",
+    "x": 60,
+    "y": 572,
+    "width": 495.24,
+    "height": 11
+   },
+   {
+    "str": "first look. The bug hides one layer down, in the assumption I was too sure of to question. Math works",
+    "x": 60,
+    "y": 556.6,
+    "width": 489.73,
+    "height": 11
+   },
+   {
+    "str": "the same way. When a student is stuck on a geometry proof, the mistake is usually two steps earlier,",
+    "x": 60,
+    "y": 541.2,
+    "width": 489.09,
+    "height": 11
+   },
+   {
+    "str": "in a line they wrote down without thinking.",
+    "x": 60,
+    "y": 525.8,
+    "width": 202.98,
+    "height": 11
+   },
+   {
+    "str": "I want to keep building communities like this one in college, through peer tutoring and student",
+    "x": 60,
+    "y": 502.4,
+    "width": 453.67,
+    "height": 11
+   },
+   {
+    "str": "engineering teams. That is the kind of community I hope to find at Northwestern.",
+    "x": 60,
+    "y": 487,
+    "width": 390.07,
+    "height": 11
+   }
+  ]
+ ]
+}

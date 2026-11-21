@@ -35,3 +35,9 @@ test('Firebase AI Logic is only imported in src/ai.js', () => {
     assert.doesNotMatch(readFileSync(file, 'utf8'), /firebase-ai\.js|from ['"]firebase\/ai['"]/, file);
   }
 });
+
+test('the PDF reader loads pdf.js from the repo, never from another website', () => {
+  const text = readFileSync(join(root, 'src', 'pdf.js'), 'utf8');
+  assert.match(text, /from '\.\.\/vendor\/pdfjs\/pdf\.min\.mjs'/);
+  assert.doesNotMatch(text, /https?:\/\//);
+});

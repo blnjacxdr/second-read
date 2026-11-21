@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 const CONTENT_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8', // must be a JavaScript type, or browsers refuse to load modules
+  '.mjs': 'text/javascript; charset=utf-8', // pdf.js ships as .mjs
   '.css': 'text/css; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.pdf': 'application/pdf',
