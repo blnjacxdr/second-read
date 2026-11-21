@@ -1,0 +1,21 @@
+# Runs the test suite on every push and pull request. GitHub shows the result
+# as a green check (or red cross) next to each commit.
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # The tests use only Node's built-in modules, so there is nothing to install.
+      - run: npm test
