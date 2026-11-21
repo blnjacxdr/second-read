@@ -1,7 +1,7 @@
 // Turns a structured application into sections: { sectionId: text }.
 //
 // This is the shape every check works on, and the shape quotes are verified
-// against. The PDF/paste-in sectioner (Nov 21) must produce the same shape, so
+// against. The PDF reader (src/core/common-app.js) produces the same shape, so
 // the same checks and quote rules work whichever way the text came in.
 
 /** Common App field limits, characters (2026-27; unchanged from earlier years). */
@@ -12,27 +12,31 @@ export const LIMITS = {
   honorTitle: 100,
 };
 
-/** Text for one activity, one labeled line per field, in Common App order. */
+/**
+ * Text for one activity, laid out the way the Common App preview PDF shows it,
+ * so quotes look like the student's own application:
+ *   Computer or technology
+ *   Juniper Ridge Robotics (FIRST Robotics Competition), Lead Programmer
+ *   Write autonomous code in Java…
+ *   10, 11, 12 (School)
+ *   6 hr/wk, 30 wk/yr
+ *   Will continue
+ * Accepts an activity read from a PDF (category, heading, details) or one from
+ * the sample JSON (type, organization, position, grades, timing, hours, plans).
+ */
 export function activityText(activity) {
-  return [
-    `Activity type: ${activity.type}`,
-    `Position: ${activity.position}`,
-    `Organization: ${activity.organization}`,
-    `Description: ${activity.description}`,
-    `Grades: ${activity.grades.join(', ')}`,
-    `Timing: ${activity.timing}`,
-    `Hours per week: ${activity.hoursPerWeek}`,
-    `Weeks per year: ${activity.weeksPerYear}`,
-  ].join('\n');
+  const heading = activity.heading ?? [activity.organization, activity.position].filter(Boolean).join(', ');
+  const details = activity.details ?? [
+    `${activity.grades.join(', ')} (${activity.timing})`,
+    `${activity.hoursPerWeek} hr/wk, ${activity.weeksPerYear} wk/yr`,
+    activity.plans,
+  ];
+  return [activity.category ?? activity.type, heading, activity.description, ...details].filter(Boolean).join('\n');
 }
 
-/** Text for one honor. */
+/** Text for one honor, in the PDF's order: title, level of recognition, grades. */
 export function honorText(honor) {
-  return [
-    `Title: ${honor.title}`,
-    `Grades: ${honor.grades.join(', ')}`,
-    `Level of recognition: ${honor.level}`,
-  ].join('\n');
+  return [honor.title, honor.level, honor.grades.join(', ')].filter(Boolean).join('\n');
 }
 
 /**

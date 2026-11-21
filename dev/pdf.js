@@ -1,6 +1,7 @@
-// Nov 21: read a sample PDF and show how it was split into sections. Dev only.
-import { readPdfLines } from '../src/pdf.js';
-import { splitApplication, SAMPLE_LAYOUT } from '../src/core/sectioner.js';
+// Nov 21: read a Common App preview PDF and show what was found. Dev only.
+// Works with any college's PDF: the reader goes by the template's formatting.
+import { readPdfRows } from '../src/pdf.js';
+import { readCommonApp } from '../src/core/common-app.js';
 import { countWords } from '../src/core/sections.js';
 
 const $ = (id) => document.getElementById(id);
@@ -24,6 +25,11 @@ function card(title, ...children) {
   return box;
 }
 
+function essayCard(title, essay) {
+  const paragraphs = essay.text.split('\n\n').map((p) => el('p', p, 'prose'));
+  return card(`${title} (${countWords(essay.text)} words)`, el('p', essay.prompt ?? '(no prompt)', 'muted'), ...paragraphs);
+}
+
 $('file').addEventListener('change', async (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -31,47 +37,46 @@ $('file').addEventListener('change', async (event) => {
   $('status').className = 'muted';
   const started = performance.now();
   try {
-    const { pageCount, lines } = await readPdfLines(file);
-    const result = splitApplication(lines, SAMPLE_LAYOUT);
+    const { pageCount, rows } = await readPdfRows(file);
+    const result = readCommonApp(rows);
     const ms = Math.round(performance.now() - started);
 
-    const missing = result.unmatchedHeadings;
-    $('status').textContent = missing.length
-      ? `Read ${pageCount} pages in ${ms} ms, but these sections were not found: ${missing.join(', ')}. This PDF may use a different layout.`
-      : `Read ${pageCount} pages in ${ms} ms. Found ${result.activities.length} activities, ${result.honors.length} honors, the personal essay and the ${result.supplement.college} supplement.`;
-    $('status').className = missing.length ? 'bad' : 'ok';
+    const found = `${result.activities.length} activities, ${result.honors.length} honors, ` +
+      `${result.personalEssay ? 'the personal essay' : 'no personal essay'} and ` +
+      `${result.collegeEssays.length} essay(s) for ${result.college ?? 'an unknown college'}`;
+    $('status').textContent = result.missing.length
+      ? `Read ${pageCount} pages in ${ms} ms. Found ${found}, but could not find: ${result.missing.join(', ')}. Is this a Common App preview PDF?`
+      : `Read ${pageCount} pages in ${ms} ms. Found ${found}.`;
+    $('status').className = result.missing.length ? 'bad' : 'ok';
 
     const out = $('out');
     out.replaceChildren();
 
     out.append(el('h2', `Activities (${result.activities.length})`));
     for (const a of result.activities) {
-      out.append(card(a.id, fieldList([
-        ['Type', a.type], ['Position', a.position], ['Organization', a.organization],
-        ['Description', `${a.description} (${a.description?.length ?? 0} characters)`],
-        ['Grades', a.grades.join(', ')], ['Timing', a.timing],
-        ['Hours per week', a.hoursPerWeek], ['Weeks per year', a.weeksPerYear],
+      out.append(card(`${a.id}: ${a.category}`, fieldList([
+        ['Organization, position', a.heading],
+        ['Description', `${a.description} (${a.description.length} characters)`],
+        ['Grades', (a.grades ?? []).join(', ')], ['Timing', a.timing],
+        ['Hours per week', a.hoursPerWeek], ['Weeks per year', a.weeksPerYear], ['Plans', a.plans],
       ])));
     }
 
     out.append(el('h2', `Honors (${result.honors.length})`));
     for (const h of result.honors) {
-      out.append(card(h.id, fieldList([['Title', h.title], ['Grades', h.grades.join(', ')], ['Level', h.level]])));
+      out.append(card(h.id, fieldList([['Title', h.title], ['Level', h.level], ['Grades', h.grades.join(', ')]])));
     }
 
-    if (result.personalEssay) {
-      out.append(el('h2', `Personal essay (${countWords(result.personalEssay.text)} words)`));
-      out.append(card(result.personalEssay.prompt ?? 'Prompt not found', el('p', result.personalEssay.text, 'prose')));
-    }
+    out.append(el('h2', 'Common App writing'));
+    if (result.personalEssay) out.append(essayCard('Personal essay', result.personalEssay));
+    if (result.additionalInformation) out.append(essayCard('Additional information', result.additionalInformation));
 
-    if (result.supplement) {
-      out.append(el('h2', `${result.supplement.college} supplement (${countWords(result.supplement.text)} words)`));
-      out.append(card(result.supplement.prompt ?? 'Prompt not found', el('p', result.supplement.text, 'prose')));
+    out.append(el('h2', `${result.college ?? 'College'} questions`));
+    for (const essay of result.collegeEssays) out.append(essayCard(`${essay.id} (${essay.group})`, essay));
+    if (result.collegeAnswers.length) {
+      out.append(card(`Short answers (${result.collegeAnswers.length})`,
+        fieldList(result.collegeAnswers.map((a) => [`${a.group}: ${a.label}`, a.values.join(' | ')]))));
     }
-
-    const raw = el('details');
-    raw.append(el('summary', `All ${lines.length} lines as read (for debugging)`), el('pre', lines.join('\n')));
-    out.append(raw);
   } catch (err) {
     $('status').textContent = `Could not read this PDF: ${err.message}`;
     $('status').className = 'bad';

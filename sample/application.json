@@ -9,14 +9,20 @@
   "activities": [
     {
       "id": "activity-1",
-      "type": "Athletics: JV/Varsity",
+      "type": "Athletics (JV or varsity)",
       "position": "Varsity Co-Captain",
       "organization": "Juniper Ridge High School Varsity Soccer",
       "description": "Co-captain senior year. Plan preseason fitness, lead warmups and mentor freshmen. Team reached the state quarterfinals in 2025.",
-      "grades": [9, 10, 11, 12],
-      "timing": "During school year",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
       "hoursPerWeek": 12,
-      "weeksPerYear": 16
+      "weeksPerYear": 16,
+      "plans": "Will continue"
     },
     {
       "id": "activity-2",
@@ -24,32 +30,46 @@
       "position": "Lead Programmer",
       "organization": "Juniper Ridge Robotics (FIRST Robotics Competition)",
       "description": "Write autonomous code in Java for our competition robot. Taught 8 new members to use version control. Build season runs Jan to Mar.",
-      "grades": [10, 11, 12],
-      "timing": "During school year",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
       "hoursPerWeek": 6,
-      "weeksPerYear": 30
+      "weeksPerYear": 30,
+      "plans": "Will continue"
     },
     {
       "id": "activity-3",
-      "type": "Community Service (Volunteer)",
+      "type": "Community service or volunteer work",
       "position": "Founder and Lead Tutor",
       "organization": "Juniper Ridge Peer Math Tutoring",
       "description": "Founded club in 2024. Recruited 14 tutors who run free sessions twice a week for 60+ students in Algebra and Geometry.",
-      "grades": [10, 11, 12],
-      "timing": "During school year",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
       "hoursPerWeek": 3,
-      "weeksPerYear": 32
+      "weeksPerYear": 32,
+      "plans": "Will continue"
     },
     {
       "id": "activity-4",
-      "type": "Work (Paid)",
+      "type": "Employment or work (paid)",
       "position": "Baker's Assistant",
       "organization": "Cascade Crumb Bakery (fictional)",
       "description": "Open the bakery Saturdays and Sundays at 5 a.m. Shape bread, run the register and train new weekend staff.",
-      "grades": [11, 12],
-      "timing": "All year",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
       "hoursPerWeek": 12,
-      "weeksPerYear": 40
+      "weeksPerYear": 40,
+      "plans": "Might continue"
     },
     {
       "id": "activity-5",
@@ -57,46 +77,59 @@
       "position": "Summer Research Student",
       "organization": "Research Science Institute (RSI) at Stanford University",
       "description": "Six-week program. Studied why low-cost soil moisture sensors drift over time and presented findings at the final symposium.",
-      "grades": [11],
-      "timing": "During school break",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
       "hoursPerWeek": 40,
-      "weeksPerYear": 6
+      "weeksPerYear": 6,
+      "plans": "Will not continue"
     },
     {
       "id": "activity-6",
-      "type": "Science/Math",
+      "type": "Science or math",
       "position": "Volunteer Explainer",
       "organization": "Oregon Museum of Science and Industry",
       "description": "Run hands-on chemistry demos for visiting families during summer camps and weekend events.",
-      "grades": [10, 11],
-      "timing": "During school break",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "Break",
       "hoursPerWeek": 8,
-      "weeksPerYear": 8
+      "weeksPerYear": 8,
+      "plans": "Might continue"
     }
   ],
   "honors": [
     {
       "id": "honor-1",
       "title": "State Science Fair, 2nd Place, Environmental Science",
-      "grades": [11],
+      "grades": [
+        11
+      ],
       "level": "State/Regional"
     },
     {
       "id": "honor-2",
       "title": "AP Scholar with Distinction",
-      "grades": [11],
+      "grades": [
+        11
+      ],
       "level": "National"
     },
     {
       "id": "honor-3",
       "title": "All-Conference Second Team, Boys Soccer",
-      "grades": [11],
+      "grades": [
+        11
+      ],
       "level": "State/Regional"
     }
   ],
   "personalEssay": {
     "id": "personal-essay",
-    "prompt": "Personal essay (250 to 650 words)",
+    "prompt": "Describe a time something you built did not work, and what you did next. (Made-up prompt.)",
     "wordLimit": 650,
     "text": "Forty seconds into our first qualifying match, our robot drove straight into the wall and stayed there. The crowd groaned. Our drive team turned and looked at me, because I had written the autonomous code, and I had told everyone it was ready.\n\nThat night I did what I always do. Every day after school, I stayed in the robotics lab until seven, and that week I stayed until the custodian turned off the hallway lights. As lead programmer, I had tested every line on a practice field that was two inches shorter than the real one. Debugging taught me that the problem is almost never where I first look. The bug hides one layer down, in the assumption I was too sure of to question.\n\nOn Saturday and Sunday mornings I work at Cascade Crumb Bakery, where I unlock the door at five and shape the first loaves before the sun is up. Bread is patient in a way that code is not. If the dough is cold, it simply waits, and I have learned to wait with it. Mrs. Alvarez, the owner, never tells me when a loaf is finished. She hands it to me and asks how it sounds when I tap the bottom.\n\nLast summer I brought that same patience to a research question: why do cheap soil moisture sensors drift over a growing season? I buried twelve of them in my neighbor’s garden and logged readings every hour for six weeks. Most of the drift came from temperature, not age, which surprised both me and my mentor. The project won first place at the state science fair, but the result I am proudest of is a correction table that our school garden club now uses every spring.\n\nI think about that wall a lot. We fixed the robot before our next match by measuring the real field instead of trusting my numbers, and we made it to the semifinals. Since then I start every project, from a tutoring lesson to a sourdough starter, by asking what I am assuming. It is a small question, but it has made me slower to be certain and quicker to learn. I don’t think I will ever stop being the person who checks the field."
   },
@@ -104,16 +137,52 @@
     {
       "id": "supplement-michigan",
       "college": "University of Michigan",
-      "prompt": "Describe a community you belong to and your place in it. (Made-up prompt, up to 300 words.)",
+      "prompt": "Describe a community you belong to and your place in it.",
       "wordLimit": 300,
-      "text": "The community I care about most meets in Room 114 on Tuesday and Thursday afternoons. Since I started the tutoring club in 2023, it has grown from three friends with a whiteboard to fourteen tutors and more than sixty students. As captain of the varsity soccer team, I already knew how to run a practice, so I ran our sessions the same way: a short warmup problem, small groups, and one question everyone answers out loud.\n\nTutoring changed how I explain things. Debugging taught me that the problem is almost never where I first look. The bug hides one layer down, in the assumption I was too sure of to question. Math works the same way. When a student is stuck on a geometry proof, the mistake is usually two steps earlier, in a line they wrote down without thinking.\n\nI want to keep building communities like this one in college, through peer tutoring and student engineering teams. That is the kind of community I hope to find at Northwestern."
+      "text": "The community I care about most meets in Room 114 on Tuesday and Thursday afternoons. Since I started the tutoring club in 2023, it has grown from three friends with a whiteboard to fourteen tutors and more than sixty students. As captain of the varsity soccer team, I already knew how to run a practice, so I ran our sessions the same way: a short warmup problem, small groups, and one question everyone answers out loud.\n\nTutoring changed how I explain things. Debugging taught me that the problem is almost never where I first look. The bug hides one layer down, in the assumption I was too sure of to question. Math works the same way. When a student is stuck on a geometry proof, the mistake is usually two steps earlier, in a line they wrote down without thinking.\n\nI want to keep building communities like this one in college, through peer tutoring and student engineering teams. That is the kind of community I hope to find at Northwestern.",
+      "answers": [
+        {
+          "group": "General",
+          "label": "Preferred start term",
+          "value": "Fall 2027"
+        },
+        {
+          "group": "General",
+          "label": "Admission plan",
+          "value": "Early Action"
+        },
+        {
+          "group": "General",
+          "label": "First-choice major",
+          "value": "Mechanical Engineering"
+        }
+      ],
+      "group": "Writing Questions"
     },
     {
       "id": "supplement-northwestern",
       "college": "Northwestern University",
-      "prompt": "Why are you interested in this college? (Made-up prompt, up to 300 words.)",
+      "prompt": "Why are you interested in this college?",
       "wordLimit": 300,
-      "text": "I want to study engineering somewhere that treats a wrong answer as the start of the work. When I read about design projects in the first year at Northwestern, I recognized the way our robotics team works: build something rough, test it on the real field, and fix what breaks. As co-captain of my soccer team, I have learned that a group improves fastest when everyone is allowed to point out a problem, and I want classmates who do that. I also hope to keep tutoring, because explaining an idea is the quickest way I know to find out whether I understand it."
+      "text": "I want to study engineering somewhere that treats a wrong answer as the start of the work. When I read about design projects in the first year at Northwestern, I recognized the way our robotics team works: build something rough, test it on the real field, and fix what breaks. As co-captain of my soccer team, I have learned that a group improves fastest when everyone is allowed to point out a problem, and I want classmates who do that. I also hope to keep tutoring, because explaining an idea is the quickest way I know to find out whether I understand it.",
+      "answers": [
+        {
+          "group": "General",
+          "label": "Preferred start term",
+          "value": "Fall 2027"
+        },
+        {
+          "group": "General",
+          "label": "Admission plan",
+          "value": "Regular Decision"
+        },
+        {
+          "group": "General",
+          "label": "Intended school",
+          "value": "McCormick School of Engineering"
+        }
+      ],
+      "group": "Writing Questions"
     }
   ],
   "publicNames": [
