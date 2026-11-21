@@ -73,6 +73,8 @@ test('contradiction prompt contains both texts and forbids rewriting', () => {
   assert.match(prompt, /ACT TEXT/);
   assert.match(prompt, /ESSAY TEXT/);
   assert.match(prompt, /Do not rewrite/);
+  // Quotes under 3 words are dropped by verifyQuote, so the prompt must ask for longer ones.
+  assert.match(prompt, /at least 3 words/);
   assert.deepEqual(CONTRADICTION_SCHEMA.properties.contradictions.items.properties.kind.enum, CONTRADICTION_KINDS);
 });
 

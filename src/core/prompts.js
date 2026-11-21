@@ -37,6 +37,8 @@ export function contradictionPrompt(activityText, essayText) {
     'Only report a contradiction when both parts state facts that cannot both be true:',
     'hours or how often (hours), a role or title (role), a year, date or grade (dates), an award or placing (award).',
     'For each contradiction, copy one exact quote from the ACTIVITY and one exact quote from the ESSAY, character for character.',
+    'Each quote must be at least 3 words long. From the ACTIVITY, copy the whole line, including its label (for example "Hours per week: 6").',
+    'From the ESSAY, copy the whole phrase that states the conflicting fact, not just a number or one or two words.',
     'Do not rewrite, suggest or explain anything. If there is no contradiction, return an empty list.',
     '',
     'ACTIVITY:',
