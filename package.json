@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "test": "node --test",
-    "dev": "npx --yes http-server . -p 8080 -c-1",
+    "dev": "node tools/serve.js",
     "sample:pdf": "node tools/make-sample-pdf.js"
   },
   "devDependencies": {

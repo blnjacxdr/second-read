@@ -30,6 +30,7 @@ Nov 20 spike: one on-device prompt and one grounded cloud prompt (`dev/spike.htm
 | `src/firebase-config.js` | Your Firebase web config and reCAPTCHA site key. |
 | `dev/spike.html` | Development page. Turns on the App Check debug token; never deploy it. |
 | `sample/` | A fictional applicant: JSON source, one PDF per college (shared Common App sections + that college's supplement), paste-in drafts, and the answer key. |
+| `tools/serve.js` | Tiny local dev server (Node built-ins only). |
 | `tools/make-sample-pdf.js` | Rebuilds the per-college sample PDFs from the JSON. |
 | `test/` | `node --test` suites, including privacy guards that scan the source. |
 
@@ -38,7 +39,7 @@ Nov 20 spike: one on-device prompt and one grounded cloud prompt (`dev/spike.htm
 ```bash
 npm install          # once (only needed for the sample PDF tool)
 npm test             # all tests
-npm run dev          # serves the repo at http://localhost:8080
+npm run dev          # serves the repo at http://localhost:8080 (tools/serve.js, no downloads)
 npm run sample:pdf   # rebuilds sample/application-<college>.pdf
 ```
 
