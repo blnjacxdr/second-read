@@ -1,0 +1,5 @@
+SAMPLE. Fictional applicant (Riley Tanaka-Brooks), made up for testing Second Read.
+Drafts typed in a notes app before entering them into Common App.
+
+ACTIVITY DRAFT: Juniper Ridge Robotics (FIRST Robotics Competition)
+Description: Write autonomous code in Java for our competition robot, taught eight new members how to use Git and GitHub, and helped the drive team practice every week.

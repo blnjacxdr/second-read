@@ -1,0 +1,19 @@
+{
+  "name": "second-read",
+  "version": "0.1.0",
+  "description": "A private consistency checker for a Common App application. Flags problems with exact quotes; never writes or rewrites text.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "dev": "npx --yes http-server . -p 8080 -c-1",
+    "sample:pdf": "node tools/make-sample-pdf.js"
+  },
+  "devDependencies": {
+    "pdf-lib": "^1.17.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

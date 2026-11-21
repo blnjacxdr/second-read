@@ -1,0 +1,163 @@
+{
+  "about": "Answer key for sample/application.json. Each flag lists the check that should catch it, the exact quotes it should show, and which college PDFs it appears in (each college's PDF holds the shared Common App sections plus only that college's supplement). test/sample.test.js checks every quote here verifies against the sample, so this key can't drift from the sample text.",
+  "flags": [
+    {
+      "id": "hours-robotics",
+      "check": "device",
+      "kind": "hours",
+      "inPdfs": [
+        "michigan",
+        "northwestern"
+      ],
+      "summary": "Robotics is listed as 6 hours a week, but the essay says every day after school until seven.",
+      "citations": [
+        {
+          "sectionId": "activity-2",
+          "quote": "Hours per week: 6"
+        },
+        {
+          "sectionId": "personal-essay",
+          "quote": "Every day after school, I stayed in the robotics lab until seven"
+        }
+      ]
+    },
+    {
+      "id": "role-soccer",
+      "check": "device",
+      "kind": "role",
+      "inPdfs": [
+        "michigan"
+      ],
+      "summary": "Activity says co-captain; the Michigan supplement says captain.",
+      "citations": [
+        {
+          "sectionId": "activity-1",
+          "quote": "Position: Varsity Co-Captain"
+        },
+        {
+          "sectionId": "supplement-michigan",
+          "quote": "As captain of the varsity soccer team"
+        }
+      ]
+    },
+    {
+      "id": "dates-tutoring",
+      "check": "code",
+      "kind": "dates",
+      "inPdfs": [
+        "michigan"
+      ],
+      "summary": "Tutoring club founded in 2024 per the activity; the Michigan supplement says 2023.",
+      "citations": [
+        {
+          "sectionId": "activity-3",
+          "quote": "Founded club in 2024"
+        },
+        {
+          "sectionId": "supplement-michigan",
+          "quote": "Since I started the tutoring club in 2023"
+        }
+      ]
+    },
+    {
+      "id": "award-science-fair",
+      "check": "device",
+      "kind": "award",
+      "inPdfs": [
+        "michigan",
+        "northwestern"
+      ],
+      "summary": "Honors list 2nd place at the state science fair; the essay says first place.",
+      "citations": [
+        {
+          "sectionId": "honor-1",
+          "quote": "State Science Fair, 2nd Place"
+        },
+        {
+          "sectionId": "personal-essay",
+          "quote": "The project won first place at the state science fair"
+        }
+      ]
+    },
+    {
+      "id": "wrong-college-michigan",
+      "check": "code",
+      "kind": "other-college-name",
+      "inPdfs": [
+        "michigan"
+      ],
+      "summary": "The University of Michigan supplement names Northwestern (copy-paste).",
+      "citations": [
+        {
+          "sectionId": "supplement-michigan",
+          "quote": "the kind of community I hope to find at Northwestern"
+        }
+      ]
+    },
+    {
+      "id": "repeated-debugging-passage",
+      "check": "code",
+      "kind": "repeated-passage",
+      "inPdfs": [
+        "michigan"
+      ],
+      "summary": "The same two sentences appear in the personal essay and the Michigan supplement.",
+      "citations": [
+        {
+          "sectionId": "personal-essay",
+          "quote": "Debugging taught me that the problem is almost never where I first look. The bug hides one layer down, in the assumption I was too sure of to question."
+        },
+        {
+          "sectionId": "supplement-michigan",
+          "quote": "Debugging taught me that the problem is almost never where I first look. The bug hides one layer down, in the assumption I was too sure of to question."
+        }
+      ]
+    },
+    {
+      "id": "public-name-rsi",
+      "check": "cloud",
+      "kind": "public-name",
+      "inPdfs": [
+        "michigan",
+        "northwestern"
+      ],
+      "summary": "The Research Science Institute is held at MIT, not Stanford. Only the public name is sent to the cloud.",
+      "citations": [
+        {
+          "sectionId": "activity-5",
+          "quote": "Research Science Institute (RSI) at Stanford University"
+        }
+      ]
+    }
+  ],
+  "mustNotFlag": [
+    {
+      "id": "bakery-weekends",
+      "why": "Activity 4 (Saturdays and Sundays, 12 hours a week) agrees with the essay's Saturday and Sunday mornings."
+    },
+    {
+      "id": "northwestern-in-northwestern",
+      "why": "Northwestern named inside the Northwestern supplement is correct."
+    },
+    {
+      "id": "co-captain-in-northwestern",
+      "why": "The Northwestern supplement says co-captain, matching Activity 1. A naive check for the word \"captain\" would wrongly flag it."
+    },
+    {
+      "id": "omsi-exists",
+      "why": "Oregon Museum of Science and Industry is a real museum, named correctly."
+    },
+    {
+      "id": "curly-apostrophes",
+      "why": "The essay uses curly apostrophes (neighbor’s, don’t). Quotes typed with straight ones must still verify."
+    }
+  ],
+  "pasteInOnly": [
+    {
+      "id": "over-limit-activity-draft",
+      "check": "code",
+      "kind": "character-limit",
+      "summary": "A draft activity description in sample/paste-in-drafts.txt is over the 150-character limit. Common App's form blocks this, so it can only happen in paste-in drafts, never in a preview PDF."
+    }
+  ]
+}

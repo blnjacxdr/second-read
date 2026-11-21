@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Read: Nov 20 spike (dev only)</title>
+<style>
+  body { font: 15px/1.5 system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1d1d1f; }
+  h1 { font-size: 1.3rem; } h2 { font-size: 1.05rem; margin-top: 2rem; }
+  .dev { background: #fff4ce; border: 1px solid #e0c46c; padding: .5rem .75rem; border-radius: 6px; }
+  button { font: inherit; padding: .45rem .9rem; margin: .25rem .5rem .25rem 0; cursor: pointer; }
+  pre { background: #f5f5f7; padding: .75rem; border-radius: 6px; white-space: pre-wrap; word-break: break-word; }
+  .ok { color: #0a7d32; } .bad { color: #b00020; } .muted { color: #666; }
+  #suggestions { margin: .5rem 0; }
+</style>
+</head>
+<body>
+<h1>Second Read: Nov 20 spike</h1>
+<p class="dev">Development page. It turns on the App Check debug token, so it must never be deployed.
+Data comes from the fictional sample applicant in <code>sample/application.json</code>.</p>
+
+<p id="status" class="muted">Checking the on-device model…</p>
+
+<h2>1. On-device prompt (private text, never leaves this computer)</h2>
+<button id="prepare">Prepare on-device model</button>
+<button id="runDevice">Run on-device check</button>
+<p class="muted">Open DevTools &gt; Network and filter by <code>googleapis</code> before clicking.
+The on-device check should make no request there.</p>
+<div id="deviceOut"></div>
+
+<h2>2. Cloud prompt with Google Search (public names only)</h2>
+<button id="runCloud">Run cloud name check</button>
+<div id="cloudOut"></div>
+<div id="suggestions"></div>
+<div id="sources"></div>
+
+<h2>What we sent to the cloud</h2>
+<div id="sent"><p class="muted">Nothing yet.</p></div>
+
+<script type="module" src="./spike.js"></script>
+</body>
+</html>
