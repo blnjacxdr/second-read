@@ -23,7 +23,7 @@
     },
     {
       "id": "role-soccer",
-      "check": "device",
+      "check": "code",
       "kind": "role",
       "inPdfs": [
         "michigan"

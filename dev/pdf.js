@@ -7,7 +7,7 @@ import { readPdfRows } from '../src/pdf.js';
 import { readCommonApp } from '../src/core/common-app.js';
 import { countWords } from '../src/core/sections.js';
 import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
-import { planComparisons, aiFlagsFromAnswer, dedupeFlags, orderWithMentionAnswers } from '../src/core/ai-checks.js';
+import { planComparisons, aiFlagsFromAnswer, dedupeFlags, orderWithMentionAnswers, applySecondOpinion } from '../src/core/ai-checks.js';
 import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privacy.js';
 // src/ai.js (Firebase, loaded from Google's servers) is imported only when the AI
 // button is clicked, so reading the PDF and the code checks work even where
@@ -110,7 +110,7 @@ $('runAi').addEventListener('click', async () => {
       });
       ai = { ...module, models: module.createSecondReadAI() };
     }
-    const { models, prepareOnDeviceModel, findContradictionsOnDevice, askMentionOnDevice } = ai;
+    const { models, prepareOnDeviceModel, findContradictionsOnDevice, askMentionOnDevice, askSecondOpinionOnDevice } = ai;
     if ((await onDeviceAvailability()) !== 'available') {
       await prepareOnDeviceModel(models.privateModel, (f) => { $('aiStatus').textContent = `Downloading Gemini Nano: ${Math.round(f * 100)}%`; });
       if ((await onDeviceAvailability()) !== 'available') {
@@ -137,6 +137,19 @@ $('runAi').addEventListener('click', async () => {
       }
     }
 
+    // Second opinion: a narrower yes/no question for each flag kept so far.
+    const candidates = dedupeFlags(kept);
+    const verdicts = new Map();
+    for (const [i, flag] of candidates.entries()) {
+      $('aiStatus').textContent = `Double-checking ${i + 1} of ${candidates.length} on this computer…`;
+      try {
+        verdicts.set(flag.id, await askSecondOpinionOnDevice(models.secondOpinionModel, flag));
+      } catch (err) {
+        console.warn('second opinion failed:', err.name, err.message);
+      }
+    }
+    const confirmed = applySecondOpinion(candidates, verdicts);
+
     const mentionAnswers = new Map();
     for (const flag of current.codeFlags.filter((f) => f.kind === 'other-college-name')) {
       $('aiStatus').textContent = `Reading the ${flag.mentionName} mention on this computer…`;
@@ -148,11 +161,11 @@ $('runAi').addEventListener('click', async () => {
     }
 
     const seconds = ((performance.now() - started) / 1000).toFixed(1);
-    current.aiFlags = dedupeFlags(kept);
+    current.aiFlags = confirmed.kept;
     current.mentionAnswers = mentionAnswers;
     current.aiNote = `Gemini Nano made ${plan.length} comparisons on this computer in ${seconds} s. ` +
       `${current.aiFlags.length} flag(s) kept; ${dropped.length} answer(s) dropped because a quote wasn't in your application ` +
-      `or didn't state the fact${failed ? `; ${failed} comparison(s) failed` : ''}.`;
+      `or didn't state the fact; ${confirmed.removed} removed by the second opinion${failed ? `; ${failed} comparison(s) failed` : ''}.`;
     renderFlags();
     $('aiStatus').textContent = `Done: ${current.aiFlags.length} AI flag(s). Details above the flags.`;
     $('aiStatus').className = 'ok';

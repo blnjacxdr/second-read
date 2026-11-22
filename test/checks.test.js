@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import {
   wordsOf, sentencesOf, findCollegeMentions, checkOtherCollegeNames, checkStartYears,
   sharedPassages, checkRepeatedPassages, checkActivityDescriptionDraft, checkLimits, runCodeChecks, checkInputFromPdf,
+  checkQualifiedTitles,
 } from '../src/core/checks.js';
 import { buildRows } from '../src/core/pdf-lines.js';
 import { readCommonApp, isPersonalAnswer } from '../src/core/common-app.js';
@@ -125,3 +126,16 @@ for (const college of ['michigan', 'northwestern']) {
     for (const flag of flags) for (const c of flag.citations) assert.equal(verifyQuote(result.sections, c), true, flag.id);
   });
 }
+
+test('qualified titles: "Co-Captain" in an activity vs a bare "captain" in an essay about it', () => {
+  const sections = {
+    'activity-1': 'Athletics\nRiver Valley Rowing Club, Co-Captain\nLed practices.',
+    'activity-2': 'Club\nDebate Society, Vice President\nRan tournaments.',
+    e1: 'As captain of the rowing club, I set the schedule. As co-captain of the debate team I spoke.',
+    e2: 'I was president of the debate society for a year.',
+    e3: 'Our captain at the chess club was great.', // different activity: no shared word
+  };
+  const flags = checkQualifiedTitles(app({ sections, activityIds: ['activity-1', 'activity-2'], essayIds: ['e1', 'e2', 'e3'] }));
+  assert.deepEqual(flags.map((f) => f.title), ['"Co-Captain" in an activity, "captain" in an essay', '"Vice President" in an activity, "president" in an essay']);
+  assert.equal(flags[0].citations[1].quote, 'As captain of the rowing club, I set the schedule.');
+});

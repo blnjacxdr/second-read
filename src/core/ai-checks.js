@@ -19,6 +19,16 @@ function paragraphsOf(text) {
   return text.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
 }
 
+/**
+ * One shared common word ("science") linked a museum activity to an unrelated
+ * paragraph in the first real run (Nov 21). A link needs two shared words, or
+ * one that the paragraph writes as a name (capitalized mid-sentence).
+ */
+export function isStrongLink(shared, passage) {
+  if (shared.length >= 2) return true;
+  return shared.some((word) => new RegExp(`(?<![.!?]\\s)(?<!^)\\b${word[0].toUpperCase()}${word.slice(1)}\\b`).test(passage));
+}
+
 /** Distinctive words of an honor's title (its first line). */
 function honorKeywords(honorText) {
   return activityKeywords(`honor\n${honorText.split('\n')[0]}`);
@@ -43,7 +53,7 @@ export function planComparisons(app) {
       for (const passage of paragraphsOf(app.sections[essayId])) {
         const words = new Set(wordsOf(passage).map((w) => w.word));
         const shared = [...item.keywords].filter((k) => words.has(k));
-        if (shared.length > 0) pairs.push({ itemId: item.id, essayId, itemText: app.sections[item.id], passage, shared });
+        if (isStrongLink(shared, passage)) pairs.push({ itemId: item.id, essayId, itemText: app.sections[item.id], passage, shared });
       }
     }
   }
@@ -55,8 +65,11 @@ export function planComparisons(app) {
 // A flag of each kind must mention that kind of fact on BOTH sides. Real case
 // (Nov 20): a "dates" flag paired "Grades: 10, 11, 12" with "That night I did
 // what I always do." Both quotes were real, but only one had a date.
+// Hours: a bare number is not enough on the essay side; a year ("in 2023")
+// passed that way in the first real run. It must say how often or how long.
+const HOURS_ESSAY = /\b(every|each|daily|weekly|nightly|weekends?|hours?|hrs?|days?|nights?|weeks?|months?|times|always|mornings?|afternoons?|evenings?|after school)\b/i;
 const KIND_GUARDS = {
-  hours: /\d|\b(every|daily|weekly|weekends?|hours?|days?|nights?|weeks?|times)\b/i,
+  hours: { item: /\d+ hr\/wk|\bhours?\b/i, essay: HOURS_ESSAY },
   role: /\b(co-?captain|captain|president|vice|founder|co-?founder|lead|leader|head|chair|editor|director|manager|officer|member|programmer|tutor|coach|treasurer|secretary|organizer|instructor|starter|volunteer)\b/i,
   dates: /\b(19|20)\d\d\b|'\d\d\b|\b(grade|freshman|sophomore|junior|senior|summer|spring|fall|winter|january|february|march|april|may|june|july|august|september|october|november|december)\b|\b(9|10|11|12)(th)?\b/i,
   award: /\b(1st|2nd|3rd|\d+th|first|second|third|place|won|winner|finalist|semifinal\w*|champion\w*|award\w*|medal\w*|prize|honorable|ranked)\b/i,
@@ -72,7 +85,10 @@ const KIND_TITLES = {
 /** True if both quotes mention the kind of fact the flag is about. "other" never passes: too vague to trust. */
 export function passesKindGuard(kind, itemQuote, essayQuote) {
   const guard = KIND_GUARDS[kind];
-  return Boolean(guard) && guard.test(itemQuote) && guard.test(essayQuote);
+  if (!guard) return false;
+  const itemGuard = guard.item ?? guard;
+  const essayGuard = guard.essay ?? guard;
+  return itemGuard.test(itemQuote) && essayGuard.test(essayQuote);
 }
 
 /**
@@ -113,6 +129,47 @@ export function aiFlagsFromAnswer(comparison, answer, sections) {
 export function dedupeFlags(flags) {
   const seen = new Set();
   return flags.filter((f) => !seen.has(f.id) && seen.add(f.id));
+}
+
+// ---------- 2b. a second opinion on every AI flag ----------
+
+/** JSON Schema for the second-opinion question. */
+export const SECOND_OPINION_SCHEMA = {
+  type: 'object',
+  properties: { contradicts: { type: 'boolean' } },
+  required: ['contradicts'],
+};
+
+const KIND_WORDS = { hours: 'how much time was spent', role: 'a role or title', dates: 'a date or year', award: 'an award or placing' };
+
+/**
+ * A narrower yes/no question about one flag: do these two statements really
+ * contradict each other? Asking a model to judge one specific claim catches
+ * many of its own false alarms (Nov 21: "40 hr/wk, 6 wk/yr" vs "every hour for
+ * six weeks" was flagged, though both say six weeks).
+ */
+export function secondOpinionPrompt(flag) {
+  const [item, essay] = flag.citations;
+  return [
+    'Two statements come from the same student\'s college application.',
+    `Do they contradict each other about ${KIND_WORDS[flag.kind] ?? 'a fact'}, so that both cannot be true at the same time?`,
+    'Answer contradicts: false if they agree, describe different things or different times, or one only adds detail.',
+    '',
+    `STATEMENT A: ${item.quote}`,
+    `STATEMENT B: ${essay.quote}`,
+  ].join('\n');
+}
+
+/**
+ * Keeps AI flags the second opinion confirmed. A flag whose second opinion
+ * failed (no answer) is kept: the student can judge it, and hiding a real
+ * problem is worse than showing a doubtful one.
+ * @param {object[]} flags
+ * @param {Map<string, boolean>} verdicts  flag id -> contradicts
+ */
+export function applySecondOpinion(flags, verdicts) {
+  const kept = flags.filter((f) => verdicts.get(f.id) !== false);
+  return { kept, removed: flags.length - kept.length };
 }
 
 // ---------- 3. other-college mentions ----------

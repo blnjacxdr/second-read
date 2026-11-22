@@ -156,6 +156,49 @@ export function checkStartYears(app) {
   return flags;
 }
 
+// ---------- 2b. a qualified title written without its qualifier ----------
+
+const QUALIFIED_TITLE = /\b(co-|co |vice-|vice |assistant |deputy )(captain|founder|president|chair|director|editor|lead|leader|manager|coach)\b/i;
+
+/**
+ * An activity says "Co-Captain" (or Vice President, Assistant Coach...) and an
+ * essay sentence about the same activity uses the bare title ("captain").
+ * Code, not AI: Gemini Nano missed this in the first real run (Nov 21).
+ */
+export function checkQualifiedTitles(app) {
+  const flags = [];
+  for (const activityId of app.activityIds) {
+    const activityText = app.sections[activityId];
+    const headingLine = activityText.split('\n')[1] ?? '';
+    const qualified = headingLine.match(QUALIFIED_TITLE);
+    if (!qualified) continue;
+    const [fullTitle, , base] = qualified;
+    const bare = new RegExp(`(?<!co-|co |vice-|vice |assistant |deputy )\\b${base}\\b`, 'i');
+    const keywords = activityKeywords(activityText);
+    for (const essayId of app.essayIds) {
+      const essay = app.sections[essayId];
+      for (const sentence of sentencesOf(essay)) {
+        if (QUALIFIED_TITLE.test(sentence.text)) continue; // the sentence uses a qualified title itself
+        const match = sentence.text.match(bare);
+        if (!match || !wordsOf(sentence.text).some((w) => keywords.has(w.word))) continue;
+        const at = sentence.start + match.index;
+        flags.push({
+          id: `title:${activityId}:${essayId}:${sentence.start}`,
+          check: 'code',
+          kind: 'role',
+          title: `"${fullTitle}" in an activity, "${match[0]}" in an essay`,
+          detail: 'These seem to describe the same role. Check which title is right.',
+          citations: [
+            { sectionId: activityId, quote: headingLine },
+            { sectionId: essayId, quote: quoteAround(essay, sentence, at, at + match[0].length) },
+          ],
+        });
+      }
+    }
+  }
+  return flags;
+}
+
 // ---------- 3. the same passage in two places ----------
 
 /** Runs of at least MIN_REPEAT_WORDS identical words shared by two texts. */
@@ -255,6 +298,7 @@ export function runCodeChecks(app) {
   return [
     ...checkOtherCollegeNames(app),
     ...checkStartYears(app),
+    ...checkQualifiedTitles(app),
     ...checkRepeatedPassages(app),
     ...checkLimits(app),
   ];
