@@ -69,7 +69,7 @@ test('the student\'s own school is offered but unticked; the rest start ticked',
 test('a short name inside a longer one is merged', () => {
   const s = { a: 'Research Science Institute (RSI) at Stanford University' };
   const { names } = mergePublicNames([], [{ name: 'Research Science Institute (RSI)', kind: 'program' }, { name: 'RSI', kind: 'program' }], s);
-  assert.deepEqual(names.map((n) => n.name), ['Research Science Institute (RSI)']);
+  assert.deepEqual(names.map((n) => n.name), ['Research Science Institute']); // brackets split, then RSI merges by first letters
 });
 
 test('Nano reads a few texts, not one per sentence, and its prompt has no real applicant text', async () => {
@@ -105,4 +105,41 @@ test('abbreviations merge by rule for any program: written inside, or first lett
   const s = { a: 'Research Science Institute in summer.', b: 'At RSI I learned to fail fast.' };
   const { names } = mergePublicNames([], [{ name: 'Research Science Institute', kind: 'program' }, { name: 'RSI', kind: 'program' }], s);
   assert.deepEqual(names.map((n) => n.name), ['Research Science Institute']);
+});
+
+test('role and filler words come off; two names joined by "&" split; one name with "&" stays', async () => {
+  const { coreName, splitNames } = await import('../src/core/public-names.js');
+  assert.equal(coreName('Inducted Member - National Honor Society'), 'National Honor Society');
+  assert.equal(coreName('Partnership with Lakeview Clinic'), 'Lakeview Clinic');
+  assert.equal(coreName('Westbrook FC state team'), 'Westbrook FC');
+  assert.equal(coreName('Ohio State'), 'Ohio State');
+  assert.equal(coreName('Telluride Summer Program'), 'Telluride Summer Program');
+  assert.deepEqual(splitNames('Brookfield College & Close Up Foundation'), ['Brookfield College', 'Close Up Foundation']);
+  assert.deepEqual(splitNames('Johnson & Johnson'), ['Johnson & Johnson']);
+  assert.deepEqual(splitNames('ECNL (top youth league)'), ['ECNL', 'top youth league']);
+});
+
+test('the position is split off even with odd spacing before the comma', () => {
+  const r = { activities: [{ id: 'activity-1', heading: 'Rivertown FC Academy , Winger/Midfielder' }], honors: [{ id: 'honor-1', title: 'Honor Roll' }] };
+  const names = namesFromStructure(r).map((n) => n.name);
+  assert.deepEqual(names, ['Rivertown FC Academy', 'Honor Roll']);
+  const { names: kept } = mergePublicNames(namesFromStructure(r), [], { 'activity-1': 'Athletics\nRivertown FC Academy , Winger/Midfielder', 'honor-1': 'Honor Roll' });
+  assert.deepEqual(kept.map((n) => n.name), ['Rivertown FC Academy']); // "Honor Roll" is too generic to check
+});
+
+test('names with a person inside, or only in essays, are shown but start unticked', () => {
+  const s = {
+    'activity-1': 'Other\nSam Ortiz\'s Kids Sports Camps, Coach',
+    'activity-2': 'Science\nBrookfield Science Center, Volunteer',
+    'personal-essay': 'I built a robot I called Gizmotron and posted it on VideoTube.',
+  };
+  const fromCode = [{ name: 'Sam Ortiz\'s Kids Sports Camps' }, { name: 'Brookfield Science Center' }];
+  const nano = [{ name: 'Sam Ortiz', kind: 'person' }, { name: 'Gizmotron', kind: 'program' }, { name: 'VideoTube', kind: 'organization' }];
+  const { names } = mergePublicNames(fromCode, nano, s);
+  const by = Object.fromEntries(names.map((n) => [n.name, n]));
+  assert.equal(by['Brookfield Science Center'].defaultOn, true);
+  assert.equal(by["Sam Ortiz's Kids Sports Camps"].defaultOn, false);
+  assert.equal(by.Gizmotron.defaultOn, false);
+  assert.match(by.Gizmotron.why, /essays/);
+  assert.equal(names[0].name, 'Brookfield Science Center'); // ticked names come first
 });

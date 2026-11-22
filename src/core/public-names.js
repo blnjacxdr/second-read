@@ -24,7 +24,9 @@ const GENERIC = new Set(`a an and the of for in at on to with &
   soccer football basketball baseball softball volleyball tennis golf swim swimming diving track cross country
   wrestling lacrosse hockey cheer dance theater theatre drama debate speech robotics coding math science
   art music newspaper yearbook journalism model un government leadership internship job work part time
-  first place second third honor honors award awards prize scholar scholarship winner finalist semifinalist`.split(/\s+/));
+  first place second third honor honors award awards prize scholar scholarship winner finalist semifinalist
+  roll member members inducted delegate partnership independent projects build restoration local
+  captain president founder officer volunteer intern assistant coach player manager lead`.split(/\s+/));
 
 // Names that may point to the student's own school. Offered, but unticked by
 // default: a school name plus rare activities can identify a person.
@@ -57,6 +59,37 @@ function withParentheses(name) {
   return [name.replace(/\s*\([^)]*\)\s*/g, ' ').trim(), ...inside];
 }
 
+/**
+ * Splits one candidate into the names it holds: brackets ("Lakeview Robotics
+ * (FIRST Tech Challenge)") and "&" between two full names ("Stanford University &
+ * Close Up Foundation"), but not "&" inside one name ("Johnson & Johnson").
+ */
+export function splitNames(name) {
+  const out = [];
+  for (const part of withParentheses(name)) {
+    const sides = part.split(/\s+&\s+/);
+    if (sides.length === 2 && sides.every((side) => side.trim().split(/\s+/).length >= 2)) out.push(...sides);
+    else out.push(part);
+  }
+  return out.map(coreName);
+}
+
+/**
+ * Removes role and filler words around a name: "Inducted Member - National
+ * Honor Society" -> "National Honor Society", "Partnership with Lakeview Clinic"
+ * -> "Lakeview Clinic", "Westbrook FC state team" -> "Westbrook FC".
+ */
+export function coreName(name) {
+  let out = name.replace(/\s+/g, ' ').trim();
+  const dash = out.match(/^(.+?)\s+[-–—:]\s+(.+)$/);
+  if (dash && words(dash[1]).every((w) => GENERIC.has(w))) out = dash[2];
+  const lead = out.match(/^(.+?)\s+(with|of|at|for)\s+(.+)$/i);
+  if (lead && words(lead[1]).every((w) => GENERIC.has(w))) out = lead[3];
+  // Only a few tail words are filler; "Ohio State" and "Telluride Summer Program" keep their last word.
+  const trimmed = out.replace(/\s+(?:(?:state|national|regional|varsity|jv)\s+)?(?:team|teams|squad)$|\s+(?:build|restoration)$/i, '');
+  return trimmed.includes(' ') || trimmed.length >= 3 ? trimmed : out;
+}
+
 const SMALL_WORDS = new Set(['of', 'the', 'and', 'for', 'at', 'in', 'on', '&', 'a', 'an']);
 
 /** First letters of a name's words, skipping small words: "Massachusetts Institute of Technology" -> "MIT". */
@@ -84,14 +117,14 @@ export function isAbbreviationOf(short, long) {
 export function namesFromStructure(result) {
   const found = [];
   for (const a of result.activities ?? []) {
-    const heading = a.heading ?? '';
-    const comma = heading.lastIndexOf(', ');
-    const org = comma > 0 ? heading.slice(0, comma) : heading; // "Org, Position": the position is never a name
-    for (const n of withParentheses(org)) found.push({ name: n, sectionId: a.id });
+    const heading = (a.heading ?? '').replace(/\s+/g, ' ');
+    // "Org, Position": the position is never a name. Tolerates odd spacing ("Org , Position").
+    const org = heading.replace(/\s*,\s*[^,]*$/, '');
+    for (const n of splitNames(org)) found.push({ name: n, sectionId: a.id });
   }
   for (const h of result.honors ?? []) {
     const title = (h.title ?? '').split(', ')[0]; // "State Science Fair, 2nd Place" -> the fair
-    for (const n of withParentheses(title)) found.push({ name: n, sectionId: h.id });
+    for (const n of splitNames(title)) found.push({ name: n, sectionId: h.id });
   }
   return found;
 }
@@ -128,13 +161,28 @@ export function mergePublicNames(fromCode, fromNano, sections) {
     byKey.set(key, { name, kind, source, sectionIds, defaultOn: !OWN_SCHOOL.test(name) });
   };
   for (const c of fromCode) add(c.name, 'organization', 'code');
-  for (const n of fromNano) add(n?.name, n?.kind, 'nano');
+  for (const n of fromNano) for (const part of splitNames(cleanName(n?.name))) add(part, n?.kind, 'nano');
 
   // An abbreviation written inside a longer name ("RSI" in "Research Science Institute (RSI)") is the same thing.
   // Two different names that merely share words ("Lakeview Robotics", "FIRST Tech Challenge") both stay.
   const names = [...byKey.values()];
   const kept = names.filter((n) => !names.some((m) => m !== n && isAbbreviationOf(n.name, m.name)));
   for (const n of names) if (!kept.includes(n)) dropped.push({ name: n.name, reason: 'abbreviation of a longer name' });
+
+  // Start unticked (still shown, the student decides):
+  // - a name with a person's name inside ("Jordan Lee's Soccer Camps"): people are never sent;
+  // - a name found only in essays: rarely worth fact-checking, and personal project names can identify a student.
+  const people = dropped.filter((d) => /person/.test(d.reason)).map((d) => normalizeForMatch(d.name).toLowerCase());
+  const essayOnly = (ids) => ids.every((id) => !/^(activity|honor)-/.test(id));
+  for (const n of kept) {
+    const lower = normalizeForMatch(n.name).toLowerCase();
+    if (people.some((p) => p.length >= 3 && lower.includes(p))) { n.defaultOn = false; n.why = 'has a person\'s name in it'; }
+    else if (essayOnly(n.sectionIds)) { n.defaultOn = false; n.why = 'only in your essays'; }
+    else if (!n.defaultOn) n.why = 'looks like your own school';
+  }
+  // Ticked first, then in the order they appear in the application.
+  const order = (n) => Object.keys(sections).indexOf(n.sectionIds[0]);
+  kept.sort((a, b) => (b.defaultOn - a.defaultOn) || (order(a) - order(b)));
   return { names: kept, dropped };
 }
 

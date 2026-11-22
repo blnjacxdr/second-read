@@ -174,11 +174,11 @@ $('findNames').addEventListener('click', async () => {
     const out = await findPublicNames({ result: current.result, askNames, onProgress: (m) => { $('namesStatus').textContent = m; } });
     const list = el('ul');
     for (const n of out.names) {
-      list.append(el('li', `${n.defaultOn ? '[x]' : '[ ]'} ${n.name} (${n.kind}, found by ${n.source}, in ${n.sectionIds.join(', ')})`));
+      list.append(el('li', `${n.defaultOn ? '[x]' : '[ ]'} ${n.name} (${n.kind}, found by ${n.source}, in ${n.sectionIds.join(', ')}${n.why ? `; unticked: ${n.why}` : ''})`));
     }
     const droppedList = el('ul');
     for (const d of out.dropped) droppedList.append(el('li', `${d.name}: ${d.reason}`, 'muted'));
-    $('names').replaceChildren(card(`${out.names.length} public name(s) offered`, list), card(`${out.dropped.length} left out`, droppedList));
+    $('names').replaceChildren(card(`${out.names.length} public name(s) offered, ${out.names.filter((n) => n.defaultOn).length} ticked`, list), card(`${out.dropped.length} left out`, droppedList));
     $('namesStatus').textContent = askNames
       ? `Done, with Gemini Nano on this computer${out.failed ? ` (${out.failed} search(es) failed)` : ''}.`
       : 'Done, code only (Gemini Nano is not ready on this computer).';
