@@ -10,7 +10,7 @@ GlobalWorkerOptions.workerSrc = new URL('../vendor/pdfjs/pdf.worker.min.mjs', im
 
 /**
  * @param {File} file  from an <input type="file">
- * @returns {Promise<{ pageCount: number, rows: ReturnType<typeof buildRows> }>}  page chrome removed
+ * @returns {Promise<{ pageCount: number, rows: ReturnType<typeof buildRows>, pages: Array }>}  rows have page chrome removed; pages are the raw items (for the dev layout report)
  */
 export async function readPdfRows(file) {
   const data = new Uint8Array(await file.arrayBuffer());
@@ -23,7 +23,7 @@ export async function readPdfRows(file) {
       const content = await page.getTextContent();
       pages.push(toPlainItems(content.items));
     }
-    return { pageCount: doc.numPages, rows: buildRows(pages) };
+    return { pageCount: doc.numPages, rows: buildRows(pages), pages };
   } finally {
     await task.destroy(); // free the memory and the background worker pdf.js used
   }

@@ -7,9 +7,9 @@
 // PDF positions are measured from the bottom-left corner: a bigger y is higher up.
 
 /** Text smaller than this is page chrome (Common App's footer is 9 pt). */
-const MIN_CONTENT_HEIGHT = 10;
+export const MIN_CONTENT_HEIGHT = 10;
 /** Text at least this big is a heading; whatever font it uses is the bold font. */
-const HEADING_HEIGHT = 16;
+export const HEADING_HEIGHT = 16;
 
 /**
  * Keeps only what we need from pdf.js text items.

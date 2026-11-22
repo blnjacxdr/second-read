@@ -9,6 +9,7 @@ import { countWords } from '../src/core/sections.js';
 import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
 import { orderWithMentionAnswers } from '../src/core/ai-checks.js';
 import { runAiChecks, findPublicNames } from '../src/core/run-ai.js';
+import { layoutReport, isImageOnlyPdf, IMAGE_ONLY_MESSAGE } from '../src/core/layout-report.js';
 import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privacy.js';
 // src/ai.js (Firebase, loaded from Google's servers) is imported only when the AI
 // button is clicked, so reading the PDF and the code checks work even where
@@ -196,7 +197,16 @@ $('file').addEventListener('change', async (event) => {
   $('status').className = 'muted';
   const started = performance.now();
   try {
-    const { pageCount, rows } = await readPdfRows(file);
+    const { pageCount, rows, pages } = await readPdfRows(file);
+    $('layout').textContent = JSON.stringify(layoutReport(pages), null, 2);
+    if (isImageOnlyPdf(pages)) {
+      $('status').textContent = `Read ${pageCount} pages, but ${IMAGE_ONLY_MESSAGE}`;
+      $('status').className = 'bad';
+      current = null;
+      $('flags').replaceChildren(); $('out').replaceChildren(); $('names').replaceChildren();
+      await updateAiButton();
+      return;
+    }
     const result = readCommonApp(rows);
     const ms = Math.round(performance.now() - started);
 
@@ -207,6 +217,7 @@ $('file').addEventListener('change', async (event) => {
       ? `Read ${pageCount} pages in ${ms} ms. Found ${found}, but could not find: ${result.missing.join(', ')}. Is this a Common App preview PDF?`
       : `Read ${pageCount} pages in ${ms} ms. Found ${found}.`;
     $('status').className = result.missing.length ? 'bad' : 'ok';
+    $('layoutBox').open = result.missing.length > 0; // open the report when the reader couldn't find something
 
     const app = checkInputFromPdf(result);
     current = { result, app, codeFlags: runCodeChecks(app), aiFlags: [], aiNote: null, mentionAnswers: null };
