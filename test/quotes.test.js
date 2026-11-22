@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { verifyQuote, keepVerifiedFlags, normalizeForMatch } from '../src/core/quotes.js';
+import { verifyQuote, keepVerifiedFlags, normalizeForMatch, locateQuote, normalizeWithMap } from '../src/core/quotes.js';
 
 const sections = {
   essay: 'Every day after school, I stayed in the robotics lab until seven.\nI buried twelve of them in my neighbor’s garden — all summer.',
@@ -96,4 +96,34 @@ test('capital letters do not matter, words still do', () => {
   assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'every day after school, I stayed in the robotics lab until seven' }), true);
   assert.equal(verifyQuote(sections, { sectionId: 'activity', quote: 'HOURS PER WEEK: 6' }), true);
   assert.equal(verifyQuote(sections, { sectionId: 'essay', quote: 'every night after school, I stayed in the robotics lab' }), false);
+});
+
+test('locateQuote returns the student\'s own text, not the quote as typed', () => {
+  // Model typed straight apostrophes, lowercase and a period; the essay has curly ones and a line break.
+  const found = locateQuote(sections, { sectionId: 'essay', quote: "twelve of them in my neighbor's garden." });
+  assert.equal(found.text, 'twelve of them in my neighbor’s garden');
+  assert.equal(sections.essay.slice(found.ranges[0].start, found.ranges[0].end), found.text);
+  const wrapped = locateQuote(sections, { sectionId: 'essay', quote: 'until seven. I buried' });
+  assert.equal(wrapped.text, 'until seven.\nI buried');
+});
+
+test('locateQuote shows ellipsis quotes as the original pieces', () => {
+  const found = locateQuote(sections, { sectionId: 'essay', quote: 'every day after school ... until seven' });
+  assert.equal(found.text, 'Every day after school … until seven');
+  assert.equal(found.ranges.length, 2);
+});
+
+test('locateQuote agrees with verifyQuote, and fails the same way', () => {
+  for (const quote of ['robotics lab', 'I stayed at the robotics lab', 'Every day … … until seven', '…']) {
+    assert.equal(locateQuote(sections, { sectionId: 'essay', quote }), null, quote);
+    assert.equal(verifyQuote(sections, { sectionId: 'essay', quote }), false, quote);
+  }
+});
+
+test('normalizeWithMap maps every character back, including "..." and collapsed spaces', () => {
+  const { norm, starts, ends } = normalizeWithMap('  Wait...  OK—go ');
+  assert.equal(norm, 'wait… ok-go');
+  assert.deepEqual([starts[4], ends[4]], [6, 9]); // the ellipsis came from "..."
+  assert.deepEqual([starts[5], ends[5]], [9, 11]); // the space came from two spaces
+  assert.equal(norm, normalizeForMatch('  Wait...  OK—go ').toLowerCase());
 });

@@ -49,3 +49,20 @@ export function describeOnDeviceStatus(availability) {
       return { canRun: false, message: 'This browser has no on-device model (it needs desktop Chrome with on-device AI turned on). Second Read will run its code checks only and will not send your text anywhere.' };
   }
 }
+
+/**
+ * Chrome's own report on Gemini Nano ('available', 'downloadable', 'downloading',
+ * 'unavailable'), or undefined where the browser has no on-device model.
+ * Needs no Firebase, so it works even when Google's servers can't be reached.
+ */
+export async function onDeviceAvailability() {
+  if (typeof globalThis.LanguageModel === 'undefined') return undefined;
+  try {
+    return await globalThis.LanguageModel.availability({
+      expectedInputs: [{ type: 'text', languages: ['en'] }],
+      expectedOutputs: [{ type: 'text', languages: ['en'] }],
+    });
+  } catch {
+    return 'unavailable';
+  }
+}

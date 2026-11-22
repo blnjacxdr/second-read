@@ -20,7 +20,10 @@ const PERSONAL_ESSAY_WORD_LIMIT = 650;
 // Words too common to link an essay sentence to an activity.
 const STOPWORDS = new Set(('the and for with from that this into our your their about after before during ' +
   'school high club team program member members lead leader president founder co-founder captain volunteer ' +
-  'student students officer coach assistant group community national state regional chapter').split(' '));
+  'student students officer coach assistant group community national state regional chapter ' +
+  // Everyday words that appear in names ("FIRST Robotics") but link unrelated paragraphs.
+  'first second third last next best year years time times every work days week weeks people things ' +
+  'more most many much like just really great good world life home help part new old').split(' '));
 
 // ---------- text helpers ----------
 
@@ -98,6 +101,7 @@ export function checkOtherCollegeNames(app, colleges = COLLEGES) {
         id: `other-college:${sectionId}:${mention.college.name}`,
         check: 'code',
         kind: 'other-college-name',
+        mentionName: mention.name, // the name as written, for the on-device question
         title: `Mentions ${mention.name} in your ${app.college ?? 'college'} essay`,
         detail: 'Make sure this is intended. A name left over from another college\'s essay is a common copy-paste slip.',
         citations: [{ sectionId, quote: quoteAround(text, sentence, mention.start, mention.end) }],
@@ -268,6 +272,7 @@ export function checkInputFromPdf(result) {
     college: result.college,
     sections: result.sections,
     activityIds: result.activities.map((a) => a.id),
+    honorIds: result.honors.map((h) => h.id),
     essayIds,
     collegeEssayIds,
     // No activity limits for PDFs: Common App's form already enforces them, so an over-limit

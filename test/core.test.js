@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { assertOnDevice, describeOnDeviceStatus, PrivacyError } from '../src/core/privacy.js';
+import { assertOnDevice, describeOnDeviceStatus, PrivacyError, onDeviceAvailability } from '../src/core/privacy.js';
 import { readGroundedAnswer } from '../src/core/grounding.js';
 import { createSentLog } from '../src/core/sent-log.js';
 import { contradictionPrompt, publicNamesPrompt, CONTRADICTION_SCHEMA, CONTRADICTION_KINDS } from '../src/core/prompts.js';
@@ -89,4 +89,8 @@ test('the no-search prompt does not claim to search and allows UNSURE', () => {
   assert.doesNotMatch(prompt, /Google Search/);
   assert.match(prompt, /UNSURE/);
   assert.match(publicNamesPrompt(['x y z']), /Use Google Search/);
+});
+
+test('onDeviceAvailability is undefined where the browser has no on-device model (here, Node)', async () => {
+  assert.equal(await onDeviceAvailability(), undefined);
 });

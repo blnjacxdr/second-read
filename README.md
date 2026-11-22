@@ -21,10 +21,11 @@ Nov 21: reads real Common App preview PDFs for any college, and runs the code-on
 | Path | What it is |
 | --- | --- |
 | `src/core/` | Pure logic, no DOM, no Firebase. Tested. |
-| `src/core/quotes.js` | `verifyQuote`: every quote must appear word for word in its section (adapted from Hashmark). |
+| `src/core/quotes.js` | `verifyQuote` / `locateQuote`: every quote must appear word for word in its section; flags show the student's own text. |
 | `src/core/pdf-lines.js` | Turns pdf.js text pieces into rows of cells with position and boldness; drops page chrome. |
 | `src/core/common-app.js` | Reads any college's Common App preview PDF by its template formatting: activities, honors, essays, college questions. |
 | `src/core/checks.js` | Code-only checks: another college's name, mismatched start years, repeated passages, limits. |
+| `src/core/ai-checks.js` | What Gemini Nano compares, the false-alarm guard per kind, and ordering other-college mentions. |
 | `src/core/colleges.js` | College names and safe short names for the other-college check. |
 | `src/core/sections.js` | Turns an application into `{ sectionId: text }`, plus Common App limits. |
 | `src/core/privacy.js` | `assertOnDevice` and the on-device status messages. |

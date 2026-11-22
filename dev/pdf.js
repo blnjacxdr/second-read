@@ -1,11 +1,21 @@
-// Nov 21: read a Common App preview PDF and show what was found. Dev only.
-// Works with any college's PDF: the reader goes by the template's formatting.
+// Read a Common App preview PDF, run the code checks, and (on a computer with
+// Gemini Nano) the on-device AI checks. Dev only: it turns on the App Check
+// debug token, which must never be deployed.
+self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+
 import { readPdfRows } from '../src/pdf.js';
 import { readCommonApp } from '../src/core/common-app.js';
 import { countWords } from '../src/core/sections.js';
 import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
+import { planComparisons, aiFlagsFromAnswer, dedupeFlags, orderWithMentionAnswers } from '../src/core/ai-checks.js';
+import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privacy.js';
+// src/ai.js (Firebase, loaded from Google's servers) is imported only when the AI
+// button is clicked, so reading the PDF and the code checks work even where
+// Google's servers are blocked or the computer is offline.
 
 const $ = (id) => document.getElementById(id);
+let current = null; // { result, app, codeFlags, aiFlags, aiNote }
+let ai = null; // { models, ...functions } from src/ai.js, loaded on first use
 
 function el(tag, text, className) {
   const node = document.createElement(tag);
@@ -30,20 +40,23 @@ function card(title, ...children) {
 function sectionLabel(result, sectionId) {
   const activity = result.activities.find((a) => a.id === sectionId);
   if (activity) return `Activity ${sectionId.split('-')[1]}: ${activity.category}`;
+  const honor = result.honors.find((h) => h.id === sectionId);
+  if (honor) return `Honor ${sectionId.split('-')[1]}`;
   const essay = result.collegeEssays.find((e) => e.id === sectionId);
   if (essay) return `${result.college} essay (${essay.group})`;
   return { 'personal-essay': 'Personal essay', 'additional-information': 'Additional information' }[sectionId] ?? sectionId;
 }
 
 function flagCard(result, flag) {
-  const box = el('div', undefined, 'card flag');
+  const box = el('div', undefined, `card flag${flag.check === 'on-device' ? ' ai' : ''}`);
   const quotes = el('div', undefined, 'quotes');
   for (const citation of flag.citations) {
     const q = el('figure', undefined, 'quote');
     q.append(el('figcaption', sectionLabel(result, citation.sectionId)), el('blockquote', citation.quote));
     quotes.append(q);
   }
-  box.append(el('h3', flag.title), el('p', flag.detail, 'muted'), quotes);
+  const source = flag.check === 'on-device' ? 'Found by Gemini Nano on this computer' : 'Found by a code check (no AI)';
+  box.append(el('h3', flag.title), el('p', flag.detail, 'muted'), quotes, el('p', source, 'source'));
   return box;
 }
 
@@ -51,6 +64,97 @@ function essayCard(title, essay) {
   const paragraphs = essay.text.split('\n\n').map((p) => el('p', p, 'prose'));
   return card(`${title} (${countWords(essay.text)} words)`, el('p', essay.prompt ?? '(no prompt)', 'muted'), ...paragraphs);
 }
+
+/** Draws every flag: likely problems first, "looks intended" mentions folded at the end. */
+function renderFlags() {
+  const { result, codeFlags, aiFlags, aiNote, mentionAnswers } = current;
+  const all = orderWithMentionAnswers([...codeFlags, ...aiFlags], mentionAnswers ?? new Map());
+  const main = all.filter((f) => f.mention !== 'background');
+  const background = all.filter((f) => f.mention === 'background');
+  const box = $('flags');
+  box.replaceChildren(el('h2', `Things to check (${main.length})`));
+  if (aiNote) box.append(el('p', aiNote, 'muted'));
+  if (main.length === 0) box.append(el('p', 'Nothing to check.', 'ok'));
+  for (const flag of main) box.append(flagCard(result, flag));
+  if (background.length) {
+    const fold = el('details');
+    fold.append(el('summary', `${background.length} mention(s) that look intended`));
+    for (const flag of background) fold.append(flagCard(result, flag));
+    box.append(fold);
+  }
+}
+
+async function refreshAiStatus() {
+  const availability = await onDeviceAvailability();
+  const status = describeOnDeviceStatus(availability);
+  $('aiStatus').textContent = status.message;
+  $('aiStatus').className = status.canRun ? 'ok' : 'muted';
+  // The button can also start the one-time download, so it's enabled for 'downloadable' too.
+  const usable = ['available', 'downloadable', 'downloading'].includes(availability);
+  $('runAi').disabled = !current || !usable;
+  return status;
+}
+
+$('runAi').addEventListener('click', async () => {
+  if (!current) return;
+  const button = $('runAi');
+  button.disabled = true;
+  try {
+    if (!ai) {
+      $('aiStatus').textContent = 'Loading the AI connection…';
+      const module = await import('../src/ai.js').catch(() => {
+        throw new Error('Couldn\'t reach Google to load the AI connection. The code checks above still apply.');
+      });
+      ai = { ...module, models: module.createSecondReadAI() };
+    }
+    const { models, prepareOnDeviceModel, findContradictionsOnDevice, askMentionOnDevice } = ai;
+    if ((await onDeviceAvailability()) !== 'available') {
+      await prepareOnDeviceModel(models.privateModel, (f) => { $('aiStatus').textContent = `Downloading Gemini Nano: ${Math.round(f * 100)}%`; });
+      if ((await onDeviceAvailability()) !== 'available') { await refreshAiStatus(); return; }
+    }
+
+    const plan = planComparisons(current.app);
+    const started = performance.now();
+    const kept = [];
+    const dropped = [];
+    let failed = 0;
+    for (const [i, pair] of plan.entries()) {
+      $('aiStatus').textContent = `Comparing ${i + 1} of ${plan.length} on this computer…`;
+      try {
+        const answer = await findContradictionsOnDevice(models.privateModel, pair.itemText, pair.passage);
+        const out = aiFlagsFromAnswer(pair, answer, current.app.sections);
+        kept.push(...out.kept);
+        dropped.push(...out.dropped);
+      } catch (err) {
+        failed += 1;
+        console.warn('comparison failed:', err.name, err.message); // the error only, never the text
+      }
+    }
+
+    const mentionAnswers = new Map();
+    for (const flag of current.codeFlags.filter((f) => f.kind === 'other-college-name')) {
+      $('aiStatus').textContent = `Reading the ${flag.mentionName} mention on this computer…`;
+      try {
+        mentionAnswers.set(flag.id, await askMentionOnDevice(models.mentionModel, flag.mentionName, flag.citations[0].quote));
+      } catch (err) {
+        console.warn('mention question failed:', err.name, err.message);
+      }
+    }
+
+    const seconds = ((performance.now() - started) / 1000).toFixed(1);
+    current.aiFlags = dedupeFlags(kept);
+    current.mentionAnswers = mentionAnswers;
+    current.aiNote = `Gemini Nano made ${plan.length} comparisons on this computer in ${seconds} s. ` +
+      `${current.aiFlags.length} flag(s) kept; ${dropped.length} answer(s) dropped because a quote wasn't in your application ` +
+      `or didn't state the fact${failed ? `; ${failed} comparison(s) failed` : ''}.`;
+    renderFlags();
+  } catch (err) {
+    $('aiStatus').textContent = `AI check stopped: ${err.message}`;
+    $('aiStatus').className = 'bad';
+  } finally {
+    await refreshAiStatus().catch(() => {});
+  }
+});
 
 $('file').addEventListener('change', async (event) => {
   const file = event.target.files[0];
@@ -71,13 +175,13 @@ $('file').addEventListener('change', async (event) => {
       : `Read ${pageCount} pages in ${ms} ms. Found ${found}.`;
     $('status').className = result.missing.length ? 'bad' : 'ok';
 
+    const app = checkInputFromPdf(result);
+    current = { result, app, codeFlags: runCodeChecks(app), aiFlags: [], aiNote: null, mentionAnswers: null };
+    renderFlags();
+    await refreshAiStatus();
+
     const out = $('out');
     out.replaceChildren();
-
-    const flags = runCodeChecks(checkInputFromPdf(result));
-    out.append(el('h2', `Things to check (${flags.length})`));
-    if (flags.length === 0) out.append(el('p', 'The code checks found nothing to check.', 'ok'));
-    for (const flag of flags) out.append(flagCard(result, flag));
 
     out.append(el('h2', `Activities (${result.activities.length})`));
     for (const a of result.activities) {
@@ -109,3 +213,5 @@ $('file').addEventListener('change', async (event) => {
     $('status').className = 'bad';
   }
 });
+
+refreshAiStatus();

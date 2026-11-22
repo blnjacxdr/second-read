@@ -2,8 +2,8 @@
 // Firebase SDK from Google's CDN), so it has no Node tests; the logic it uses
 // lives in src/core/ and is tested there.
 //
-// Two models, chosen by what the text is, never by what is convenient:
-//   privateModel: ONLY_ON_DEVICE. Application text. Never falls back to cloud.
+// Models chosen by what the text is, never by what is convenient:
+//   privateModel, mentionModel: ONLY_ON_DEVICE. Application text. Never fall back to cloud.
 //   publicModel:  ONLY_IN_CLOUD with Google Search. Public names only.
 // Never use PREFER_ON_DEVICE or PREFER_IN_CLOUD here: both can silently send
 // the prompt to the cloud (for example while the on-device model is still
@@ -16,6 +16,7 @@ import { getAI, getGenerativeModel, GoogleAIBackend, InferenceMode } from 'https
 import { firebaseConfig, recaptchaSiteKey } from './firebase-config.js';
 import { assertOnDevice } from './core/privacy.js';
 import { CONTRADICTION_SCHEMA, contradictionPrompt, publicNamesPrompt } from './core/prompts.js';
+import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
 export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
@@ -35,17 +36,21 @@ export function createSecondReadAI() {
   });
   const ai = getAI(app, { backend: new GoogleAIBackend() });
 
+  // Chrome asks every on-device request to name its languages, so it can
+  // tune quality and safety checks for them. Second Read is English-only for now.
+  const english = {
+    expectedInputs: [{ type: 'text', languages: ['en'] }],
+    expectedOutputs: [{ type: 'text', languages: ['en'] }],
+  };
+
+  // Each on-device model has one fixed answer shape (a JSON Schema), so each question gets its own model.
   const privateModel = getGenerativeModel(ai, {
     mode: InferenceMode.ONLY_ON_DEVICE,
-    onDeviceParams: {
-      // Chrome asks every on-device request to name its languages, so it can
-      // tune quality and safety checks for them. Second Read is English-only for now.
-      createOptions: {
-        expectedInputs: [{ type: 'text', languages: ['en'] }],
-        expectedOutputs: [{ type: 'text', languages: ['en'] }],
-      },
-      promptOptions: { responseConstraint: CONTRADICTION_SCHEMA },
-    },
+    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: CONTRADICTION_SCHEMA } },
+  });
+  const mentionModel = getGenerativeModel(ai, {
+    mode: InferenceMode.ONLY_ON_DEVICE,
+    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: MENTION_SCHEMA } },
   });
 
   const publicModel = getGenerativeModel(ai, {
@@ -61,15 +66,11 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL },
   });
 
-  return { privateModel, publicModel, publicModelWithoutSearch };
+  return { privateModel, mentionModel, publicModel, publicModelWithoutSearch };
 }
 
-/** Chrome's own report on the on-device model, or undefined if the API is missing. */
-export async function onDeviceAvailability() {
-  if (typeof LanguageModel === 'undefined') return undefined;
-  // eslint-disable-next-line no-undef
-  return LanguageModel.availability();
-}
+// Kept here too so older pages can import it from src/ai.js.
+export { onDeviceAvailability } from './core/privacy.js';
 
 /**
  * Starts (or joins) the one-time model download. Must be called from a click.
@@ -80,13 +81,24 @@ export function prepareOnDeviceModel(privateModel, onProgress) {
 }
 
 /**
- * Asks the on-device model for contradictions between one activity and one essay.
- * Returns the parsed JSON. Throws PrivacyError if the answer did not come from the device.
+ * Asks the on-device model for contradictions between one activity (or honor)
+ * and one essay passage. Returns the parsed JSON. Throws PrivacyError if the
+ * answer did not come from the device.
  */
-export async function findContradictionsOnDevice(privateModel, activityText, essayText) {
-  const result = await privateModel.generateContent(contradictionPrompt(activityText, essayText));
+export async function findContradictionsOnDevice(privateModel, itemText, essayText) {
+  const result = await privateModel.generateContent(contradictionPrompt(itemText, essayText));
   assertOnDevice(result.response);
   return JSON.parse(result.response.text());
+}
+
+/**
+ * Asks the on-device model whether one sentence is about attending the college
+ * it names. Returns true or false. Throws PrivacyError if not answered on the device.
+ */
+export async function askMentionOnDevice(mentionModel, collegeName, sentence) {
+  const result = await mentionModel.generateContent(mentionPrompt(collegeName, sentence));
+  assertOnDevice(result.response);
+  return JSON.parse(result.response.text()).aboutAttending === true;
 }
 
 /**
