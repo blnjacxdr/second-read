@@ -30,7 +30,11 @@ const GENERIC = new Set(`a an and the of for in at on to with &
 
 // Names that may point to the student's own school. Offered, but unticked by
 // default: a school name plus rare activities can identify a person.
-const OWN_SCHOOL = /\b(high school|middle school|secondary school|hs|academy|prep|preparatory|day school|charter school)\b/i;
+// "Academy" and "prep" are left out on purpose: sports academies and summer programs use them all the time.
+const OWN_SCHOOL = /\b(high school|middle school|secondary school|hs|day school|charter school)\b/i;
+// A capitalized first and last name followed by 's ("Jordan Lee's Camps") is probably a person. Code's own
+// check, because Nano doesn't flag every person every time.
+const PERSON_POSSESSIVE = /\b[A-Z][a-z]+ [A-Z][a-z]+['’]s\b/;
 
 const words = (text) => text.toLowerCase().match(/[a-z0-9&]+/g) ?? [];
 
@@ -86,7 +90,7 @@ export function coreName(name) {
   const lead = out.match(/^(.+?)\s+(with|of|at|for)\s+(.+)$/i);
   if (lead && words(lead[1]).every((w) => GENERIC.has(w))) out = lead[3];
   // Only a few tail words are filler; "Ohio State" and "Telluride Summer Program" keep their last word.
-  const trimmed = out.replace(/\s+(?:(?:state|national|regional|varsity|jv)\s+)?(?:team|teams|squad)$|\s+(?:build|restoration)$/i, '');
+  const trimmed = out.replace(/\s+(?:(?:state|national|regional|varsity|jv)\s+)?(?:team|teams|squad)$|\s+(?:build|restoration|delegate|ambassador|representative|participant|member)$/i, '');
   return trimmed.includes(' ') || trimmed.length >= 3 ? trimmed : out;
 }
 
@@ -160,7 +164,7 @@ export function mergePublicNames(fromCode, fromNano, sections) {
     if (prev) { if (source === 'nano' && prev.source === 'code') prev.kind = kind; return; }
     byKey.set(key, { name, kind, source, sectionIds, defaultOn: !OWN_SCHOOL.test(name) });
   };
-  for (const c of fromCode) add(c.name, 'organization', 'code');
+  for (const c of fromCode) add(coreName(cleanName(c.name)), 'organization', 'code');
   for (const n of fromNano) for (const part of splitNames(cleanName(n?.name))) add(part, n?.kind, 'nano');
 
   // An abbreviation written inside a longer name ("RSI" in "Research Science Institute (RSI)") is the same thing.
@@ -169,6 +173,16 @@ export function mergePublicNames(fromCode, fromNano, sections) {
   const kept = names.filter((n) => !names.some((m) => m !== n && isAbbreviationOf(n.name, m.name)));
   for (const n of names) if (!kept.includes(n)) dropped.push({ name: n.name, reason: 'abbreviation of a longer name' });
 
+  // A name that is just part of another name in the same section adds nothing
+  // ("Portland Academy" beside "FC Portland Academy", "EAA chapter" beside "EAA Chapter 105").
+  const lowerOf = (n) => normalizeForMatch(n.name).toLowerCase();
+  const isPartOf = (a, b) => a !== b && lowerOf(b).length > lowerOf(a).length
+    && new RegExp(`(^|\\W)${lowerOf(a).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\W|$)`).test(lowerOf(b))
+    && a.sectionIds.some((id) => b.sectionIds.includes(id));
+  for (let i = kept.length - 1; i >= 0; i--) {
+    if (kept.some((b) => isPartOf(kept[i], b))) dropped.push({ name: kept.splice(i, 1)[0].name, reason: 'part of a longer name' });
+  }
+
   // Start unticked (still shown, the student decides):
   // - a name with a person's name inside ("Jordan Lee's Soccer Camps"): people are never sent;
   // - a name found only in essays: rarely worth fact-checking, and personal project names can identify a student.
@@ -176,7 +190,7 @@ export function mergePublicNames(fromCode, fromNano, sections) {
   const essayOnly = (ids) => ids.every((id) => !/^(activity|honor)-/.test(id));
   for (const n of kept) {
     const lower = normalizeForMatch(n.name).toLowerCase();
-    if (people.some((p) => p.length >= 3 && lower.includes(p))) { n.defaultOn = false; n.why = 'has a person\'s name in it'; }
+    if (PERSON_POSSESSIVE.test(n.name) || people.some((p) => p.length >= 3 && lower.includes(p))) { n.defaultOn = false; n.why = 'has a person\'s name in it'; }
     else if (essayOnly(n.sectionIds)) { n.defaultOn = false; n.why = 'only in your essays'; }
     else if (!n.defaultOn) n.why = 'looks like your own school';
   }

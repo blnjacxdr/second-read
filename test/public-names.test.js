@@ -143,3 +143,22 @@ test('names with a person inside, or only in essays, are shown but start unticke
   assert.match(by.Gizmotron.why, /essays/);
   assert.equal(names[0].name, 'Brookfield Science Center'); // ticked names come first
 });
+
+test('sports academies are not mistaken for the student\'s school; partial duplicates and person names are handled by code alone', () => {
+  const s = {
+    'activity-1': 'Athletics\nNorth Rivertown Academy, Defender\nTrained with Rivertown Academy coaches.',
+    'activity-2': 'Other\nCasey Morgan\'s Youth Golf Camps, Counselor',
+    'activity-3': 'Other\nBRA Chapter 12 (Brookfield Radio Association), Member\nRepairs at the BRA chapter.',
+    'honor-1': 'Science Bowl Delegate\nState\n11',
+  };
+  const fromCode = [{ name: 'North Rivertown Academy' }, { name: "Casey Morgan's Youth Golf Camps" }, { name: 'BRA Chapter 12' }, { name: 'Brookfield Radio Association' }, { name: 'Science Bowl Delegate' }];
+  const nano = [{ name: 'Rivertown Academy', kind: 'organization' }, { name: 'BRA chapter', kind: 'organization' }];
+  const { names, dropped } = mergePublicNames(fromCode, nano, s);
+  const by = Object.fromEntries(names.map((n) => [n.name, n]));
+  assert.equal(by['North Rivertown Academy'].defaultOn, true);
+  assert.ok(!by['Rivertown Academy']); // part of the longer name, same activity
+  assert.equal(by["Casey Morgan's Youth Golf Camps"].defaultOn, false); // no person flag from Nano needed
+  assert.ok(!by['BRA chapter'] && by['BRA Chapter 12']);
+  assert.ok(dropped.some((d) => d.name === 'BRA chapter' && /part of a longer name/.test(d.reason)));
+  assert.ok(by['Science Bowl'], Object.keys(by).join(' | '));
+});
