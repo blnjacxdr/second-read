@@ -4,12 +4,14 @@
 // with fake answers.
 import { planComparisons, aiFlagsFromAnswer, dedupeFlags } from './ai-checks.js';
 import { flagsFromFacts, itemFacts } from './extract-checks.js';
+import { flagsFromClaims, claimsFor } from './claim-checks.js';
 
 /**
  * The two designs, measured against each other on the held-out set.
  * Each says what to ask Nano about one pair, and how code turns the answer into flags.
  *   open:    "find contradictions" (Nov 20 design; baseline 3.7 caught, 7.3 false alarms)
- *   extract: narrow questions, code compares (Nov 22)
+ *   extract: narrow questions, code compares (Nov 22; 3.0 caught, 3.7 false alarms)
+ *   claim:   code states each fact, Nano says agree / disagree / not stated (Nov 22)
  */
 export const DESIGNS = {
   open: {
@@ -20,6 +22,10 @@ export const DESIGNS = {
     question: (pair) => ({ kind: 'facts', itemName: itemFacts(pair.itemId, pair.itemText).name, passage: pair.passage }),
     toFlags: flagsFromFacts,
   },
+  claim: {
+    question: (pair) => ({ kind: 'claims', claims: claimsFor(pair.itemId, pair.itemText), passage: pair.passage }),
+    toFlags: flagsFromClaims,
+  },
 };
 
 /**
@@ -28,7 +34,7 @@ export const DESIGNS = {
  * @param {object} args.app        checkInputFromPdf(result)
  * @param {object[]} args.codeFlags runCodeChecks(app)
  * @param {(question: object) => Promise<object>} args.ask  sends one DESIGNS[design].question(...) to Nano on this computer
- * @param {'open'|'extract'} [args.design]
+ * @param {'open'|'extract'|'claim'} [args.design]
  * @param {(collegeName: string, sentence: string) => Promise<object>} args.askMention on-device mention question
  * @param {(message: string) => void} [args.onProgress]
  * @returns {Promise<{ flags, dropped, log, mentionAnswers, comparisons, failed }>}

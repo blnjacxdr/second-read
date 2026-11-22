@@ -15,7 +15,7 @@ import { getAI, getGenerativeModel, GoogleAIBackend, InferenceMode } from 'https
 
 import { firebaseConfig, recaptchaSiteKey } from './firebase-config.js';
 import { assertOnDevice } from './core/privacy.js';
-import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, publicNamesPrompt } from './core/prompts.js';
+import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, CLAIM_SCHEMA, claimPrompt, publicNamesPrompt } from './core/prompts.js';
 import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
@@ -52,6 +52,10 @@ export function createSecondReadAI() {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: FACTS_SCHEMA } },
   });
+  const claimModel = getGenerativeModel(ai, {
+    mode: InferenceMode.ONLY_ON_DEVICE,
+    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: CLAIM_SCHEMA } },
+  });
   const mentionModel = getGenerativeModel(ai, {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: MENTION_SCHEMA } },
@@ -70,7 +74,7 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL },
   });
 
-  return { privateModel, factsModel, mentionModel, publicModel, publicModelWithoutSearch };
+  return { privateModel, factsModel, claimModel, mentionModel, publicModel, publicModelWithoutSearch };
 }
 
 // Kept here too so older pages can import it from src/ai.js.
@@ -129,9 +133,21 @@ export async function checkPublicNamesInCloud(publicModel, publicNames, sentLog,
 }
 
 
+/**
+ * Claim design: asks the on-device model whether one paragraph agrees with,
+ * disagrees with or doesn't state each claim from the activity list.
+ */
+export async function checkClaimsOnDevice(claimModel, claims, passage) {
+  const result = await claimModel.generateContent(claimPrompt(claims, passage));
+  assertOnDevice(result.response);
+  return JSON.parse(result.response.text());
+}
+
 /** The `ask` function runAiChecks needs: sends each question to the right on-device model. */
 export function onDeviceAsker(models) {
-  return (question) => (question.kind === 'facts'
-    ? extractFactsOnDevice(models.factsModel, question.itemName, question.passage)
-    : findContradictionsOnDevice(models.privateModel, question.itemText, question.passage));
+  return (question) => {
+    if (question.kind === 'facts') return extractFactsOnDevice(models.factsModel, question.itemName, question.passage);
+    if (question.kind === 'claims') return checkClaimsOnDevice(models.claimModel, question.claims, question.passage);
+    return findContradictionsOnDevice(models.privateModel, question.itemText, question.passage);
+  };
 }

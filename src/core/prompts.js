@@ -115,6 +115,67 @@ export function factsPrompt(itemName, passage) {
 }
 
 /**
+ * The claim design (see claim-checks.js): for each claim from the activity
+ * list, does one essay paragraph agree, disagree or not say?
+ */
+const VERDICT = { type: 'string', enum: ['agree', 'disagree', 'not stated'] };
+export const CLAIM_SCHEMA = {
+  type: 'object',
+  properties: {
+    hoursVerdict: VERDICT, hoursQuote: { type: 'string' },
+    roleVerdict: VERDICT, roleQuote: { type: 'string' },
+    placeVerdict: VERDICT, placeQuote: { type: 'string' },
+  },
+  required: ['hoursVerdict', 'hoursQuote', 'roleVerdict', 'roleQuote', 'placeVerdict', 'placeQuote'],
+};
+
+// Made up for this prompt; never from the held-out test set.
+const CLAIM_EXAMPLES = [
+  'EXAMPLES:',
+  'HOURS CLAIM: The student spends about 4 hours per week on Lakeview Swim Club.',
+  'ROLE CLAIM: The student\'s title in Lakeview Swim Club is Captain.',
+  'PLACE CLAIM: (none)',
+  'PARAGRAPH: Every day after school I swam three hours at Lakeview, and as team captain I ran the warmups.',
+  'ANSWER: {"hoursVerdict": "disagree", "hoursQuote": "Every day after school I swam three hours", "roleVerdict": "agree", "roleQuote": "as team captain I ran the warmups", "placeVerdict": "not stated", "placeQuote": ""}',
+  '',
+  'HOURS CLAIM: The student spends about 5 hours per week on Riverside Chess Club.',
+  'ROLE CLAIM: The student\'s title in Riverside Chess Club is President.',
+  'PLACE CLAIM: (none)',
+  'PARAGRAPH: I joined Riverside Chess Club as a freshman, and I became president my junior year.',
+  'ANSWER: {"hoursVerdict": "not stated", "hoursQuote": "", "roleVerdict": "agree", "roleQuote": "I became president my junior year", "placeVerdict": "not stated", "placeQuote": ""}',
+  '',
+  'HOURS CLAIM: (none)',
+  'ROLE CLAIM: (none)',
+  'PLACE CLAIM: The student received this honor: Harbor Science Fair, 2nd Place.',
+  'PARAGRAPH: At the Harbor Science Fair my water filter won first place, beating forty other projects.',
+  'ANSWER: {"hoursVerdict": "not stated", "hoursQuote": "", "roleVerdict": "not stated", "roleQuote": "", "placeVerdict": "disagree", "placeQuote": "my water filter won first place"}',
+].join('\n');
+
+/**
+ * @param {{ hours: string, role: string, place: string }} claims  from claimsFor; '' = no claim
+ * @param {string} passage  one essay paragraph
+ */
+export function claimPrompt(claims, passage) {
+  return [
+    'You check a student\'s college essay against their activity list. For each CLAIM from the activity list,',
+    'decide whether the PARAGRAPH agrees, disagrees, or does not say.',
+    '"disagree" only if the paragraph states a different fact that cannot also be true. A change over time (for example "became captain later") is not a disagreement.',
+    'If the paragraph does not mention that fact, or the claim is (none), answer "not stated".',
+    'For agree or disagree, copy, character for character, the words from the paragraph (at least 3) that decide it. Otherwise an empty string.',
+    'Do not rewrite, suggest or explain anything.',
+    '',
+    CLAIM_EXAMPLES,
+    '',
+    'Now the real one.',
+    `HOURS CLAIM: ${claims.hours || '(none)'}`,
+    `ROLE CLAIM: ${claims.role || '(none)'}`,
+    `PLACE CLAIM: ${claims.place || '(none)'}`,
+    'PARAGRAPH:',
+    passage,
+  ].join('\n');
+}
+
+/**
  * Prompt for the cloud model. It may contain only public names
  * (organizations, programs, colleges), never application text.
  * With search, the model is told to use Google Search; without it, the model
