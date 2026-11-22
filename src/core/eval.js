@@ -80,11 +80,19 @@ export function scoreApplication(flags, entry, sections) {
   }
 
   // A flag on a tricky case is counted once, under trickyTriggered, not again as a false alarm.
-  const falseAlarms = flags.filter((f) => !usedFlags.has(f.id) && !trickyFlags.has(f.id)).length;
+  const wrong = flags.filter((f) => !usedFlags.has(f.id) && !trickyFlags.has(f.id));
+  const falseAlarms = wrong.length;
+  // Kinds only (e.g. "ai hours"), so a person can see which check misfires without seeing any text.
+  const falseAlarmKinds = {};
+  for (const f of wrong) {
+    const label = `${f.check === 'on-device' ? 'ai' : 'code'} ${f.kind}`;
+    falseAlarmKinds[label] = (falseAlarmKinds[label] ?? 0) + 1;
+  }
   return {
     planted: entry.mistakes.length,
     caught: caughtIds.size,
     falseAlarms,
+    falseAlarmKinds,
     trickyTriggered,
     trickyFlags: trickyFlags.size,
     byKind,
@@ -94,7 +102,7 @@ export function scoreApplication(flags, entry, sections) {
 
 /** Adds up per-application scores. */
 export function totalScores(scores) {
-  const total = { planted: 0, caught: 0, falseAlarms: 0, trickyTriggered: 0, keyQuotesMissing: 0, byKind: {} };
+  const total = { planted: 0, caught: 0, falseAlarms: 0, trickyTriggered: 0, keyQuotesMissing: 0, byKind: {}, falseAlarmKinds: {} };
   for (const s of scores) {
     for (const key of ['planted', 'caught', 'falseAlarms', 'trickyTriggered', 'keyQuotesMissing']) total[key] += s[key];
     for (const [kind, k] of Object.entries(s.byKind)) {
@@ -102,6 +110,7 @@ export function totalScores(scores) {
       total.byKind[kind].planted += k.planted;
       total.byKind[kind].caught += k.caught;
     }
+    for (const [label, n] of Object.entries(s.falseAlarmKinds ?? {})) total.falseAlarmKinds[label] = (total.falseAlarmKinds[label] ?? 0) + n;
   }
   return total;
 }

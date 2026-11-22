@@ -131,7 +131,7 @@ $('runAi').addEventListener('click', async () => {
       app: current.app,
       codeFlags: current.codeFlags,
       ask: ai.onDeviceAsker(models),
-      design: 'open', // the measured baseline; switches when the held-out score says so
+      design: 'extract', // held-out, Nov 22: 3.0 caught / 3.7 false alarms vs 3.7 / 7.3 for 'open'
       askMention: (name, sentence) => askMentionOnDevice(models.mentionModel, name, sentence),
       onProgress: (message) => { $('aiStatus').textContent = message; },
     });

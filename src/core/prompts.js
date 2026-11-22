@@ -67,6 +67,30 @@ export const FACTS_SCHEMA = {
   required: ['aboutThisActivity', 'hoursQuote', 'hoursPerWeek', 'roleQuote', 'role', 'placeQuote'],
 };
 
+// Worked examples (few-shot prompting). Made up for this prompt; never taken
+// from the held-out test set, or that test would stop meaning anything.
+// They cover: an estimate from "every morning", a paragraph about something
+// else, a title and placing with no hours, and years/seasons that are not
+// time per week.
+const FACTS_EXAMPLES = [
+  'EXAMPLES:',
+  'ACTIVITY: Lakeview Swim Club',
+  'PARAGRAPH: Every morning before school I swam for two hours at Lakeview, and on Saturdays I helped the younger kids with flip turns.',
+  'ANSWER: {"aboutThisActivity": true, "hoursQuote": "Every morning before school I swam for two hours", "hoursPerWeek": 10, "roleQuote": "", "role": "", "placeQuote": ""}',
+  '',
+  'ACTIVITY: Westbrook Robotics',
+  'PARAGRAPH: My grandmother taught me to plant tomatoes in rows of six, and I still count the rows when I visit her.',
+  'ANSWER: {"aboutThisActivity": false, "hoursQuote": "", "hoursPerWeek": 0, "roleQuote": "", "role": "", "placeQuote": ""}',
+  '',
+  'ACTIVITY: Riverside Chess Club',
+  'PARAGRAPH: As club president, I organized our first tournament, where our team took third place.',
+  'ANSWER: {"aboutThisActivity": true, "hoursQuote": "", "hoursPerWeek": 0, "roleQuote": "As club president", "role": "president", "placeQuote": "our team took third place"}',
+  '',
+  'ACTIVITY: Harbor Youth Orchestra',
+  'PARAGRAPH: I joined the Harbor Youth Orchestra in 2022 and played viola for three seasons.',
+  'ANSWER: {"aboutThisActivity": true, "hoursQuote": "", "hoursPerWeek": 0, "roleQuote": "", "role": "", "placeQuote": ""}',
+].join('\n');
+
 /**
  * @param {string} itemName  the organization or the honor's title, never the student's listed hours or title
  * @param {string} passage   one essay paragraph
@@ -82,6 +106,9 @@ export function factsPrompt(itemName, passage) {
     'placeQuote: copy the phrase (at least 3 words) that states a placing or prize the student won, for example "we took second place". Empty string if none.',
     'Copy quotes only from the paragraph. Do not rewrite, suggest or explain anything.',
     '',
+    FACTS_EXAMPLES,
+    '',
+    `Now the real one. ACTIVITY: ${itemName}`,
     'PARAGRAPH:',
     passage,
   ].join('\n');

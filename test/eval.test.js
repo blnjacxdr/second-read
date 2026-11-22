@@ -54,5 +54,5 @@ test('a key quote missing from the PDF is counted, so a broken key is noticed', 
 test('totals add up across applications', () => {
   const a = { planted: 2, caught: 1, falseAlarms: 1, trickyTriggered: 0, keyQuotesMissing: 0, byKind: { role: { planted: 1, caught: 1 } } };
   const b = { planted: 1, caught: 0, falseAlarms: 2, trickyTriggered: 1, keyQuotesMissing: 0, byKind: { role: { planted: 1, caught: 0 } } };
-  assert.deepEqual(totalScores([a, b]), { planted: 3, caught: 1, falseAlarms: 3, trickyTriggered: 1, keyQuotesMissing: 0, byKind: { role: { planted: 2, caught: 1 } } });
+  assert.deepEqual(totalScores([a, b]), { planted: 3, caught: 1, falseAlarms: 3, trickyTriggered: 1, keyQuotesMissing: 0, byKind: { role: { planted: 2, caught: 1 } }, falseAlarmKinds: {} });
 });

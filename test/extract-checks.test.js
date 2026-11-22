@@ -70,3 +70,10 @@ test('a paragraph Nano says is about something else gives no flags', () => {
   const { pair, sections } = pairWith('I swam twenty hours every week that season.');
   assert.equal(flagsFromFacts(pair, answer({ aboutThisActivity: false, hoursQuote: 'twenty hours every week', hoursPerWeek: 20 }), sections).kept.length, 0);
 });
+
+test('the facts prompt carries made-up examples, then the real paragraph last', () => {
+  const prompt = factsPrompt('Lakeview Swim Club', 'THE REAL PARAGRAPH');
+  assert.ok(prompt.includes('EXAMPLES:'));
+  assert.ok(prompt.trimEnd().endsWith('THE REAL PARAGRAPH'));
+  assert.ok(prompt.indexOf('EXAMPLES:') < prompt.indexOf('Now the real one'));
+});
