@@ -93,3 +93,16 @@ test('on the fictional Michigan PDF, code alone finds the program names, and a f
     assert.equal(withNano.names.length, codeOnly.names.length);
   } finally { console.warn = warn; }
 });
+
+test('abbreviations merge by rule for any program: written inside, or first letters', async () => {
+  const { isAbbreviationOf, initialsOf } = await import('../src/core/public-names.js');
+  assert.equal(initialsOf('Massachusetts Institute of Technology'), 'MIT');
+  assert.equal(isAbbreviationOf('RSI', 'Research Science Institute'), true);
+  assert.equal(isAbbreviationOf('FBLA', 'Future Business Leaders of America'), true);
+  assert.equal(isAbbreviationOf('NHS', 'National Honor Society (NHS)'), true);
+  assert.equal(isAbbreviationOf('MIT', 'Michigan Robotics League'), false);
+  assert.equal(isAbbreviationOf('Key Club', 'Key Club International'), false); // not an abbreviation: both stay
+  const s = { a: 'Research Science Institute in summer.', b: 'At RSI I learned to fail fast.' };
+  const { names } = mergePublicNames([], [{ name: 'Research Science Institute', kind: 'program' }, { name: 'RSI', kind: 'program' }], s);
+  assert.deepEqual(names.map((n) => n.name), ['Research Science Institute']);
+});

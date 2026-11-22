@@ -57,9 +57,23 @@ function withParentheses(name) {
   return [name.replace(/\s*\([^)]*\)\s*/g, ' ').trim(), ...inside];
 }
 
-/** True if `short` is an abbreviation written inside `long`, like "RSI" in "Research Science Institute (RSI)". */
-function isAbbreviationOf(short, long) {
-  return /^[A-Z0-9&]{2,8}$/.test(short) && long.length > short.length && new RegExp(`\\b${short.replace(/&/g, '\\&')}\\b`).test(long);
+const SMALL_WORDS = new Set(['of', 'the', 'and', 'for', 'at', 'in', 'on', '&', 'a', 'an']);
+
+/** First letters of a name's words, skipping small words: "Massachusetts Institute of Technology" -> "MIT". */
+export function initialsOf(name) {
+  return name.replace(/\([^)]*\)/g, ' ').split(/[\s-]+/).filter((w) => w && !SMALL_WORDS.has(w.toLowerCase()))
+    .map((w) => w[0]).join('').toUpperCase();
+}
+
+/**
+ * True if `short` is an abbreviation of `long`: written inside it ("RSI" in
+ * "Research Science Institute (RSI)") or made of its first letters ("RSI" for
+ * "Research Science Institute"). A rule, not a list, so it works for any program.
+ * A wrong merge only hides a duplicate checkbox; it never sends anything.
+ */
+export function isAbbreviationOf(short, long) {
+  if (!/^[A-Z0-9&]{2,8}$/.test(short) || long.length <= short.length) return false;
+  return new RegExp(`\\b${short.replace(/&/g, '\\&')}\\b`).test(long) || initialsOf(long) === short;
 }
 
 /**
