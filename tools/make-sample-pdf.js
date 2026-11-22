@@ -4,6 +4,8 @@
 // thing, so the reader is tested on realistic input.
 //   sample/application-<college id>.pdf
 // Run: npm install, then npm run sample:pdf
+// Other applications in the same JSON format (the held-out test set):
+//   node tools/make-sample-pdf.js eval/heldout/app-1.json eval/heldout/app-1.pdf
 //
 // Layout facts (measured from real preview PDFs, Nov 21, 2026; US Letter, points):
 //   main section 24 pt bold, subsection 16.5 pt bold, minor heading 13.5 pt bold
@@ -15,7 +17,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
-const app = JSON.parse(readFileSync(new URL('../sample/application.json', import.meta.url), 'utf8'));
+const [inputPath, outputPath] = process.argv.slice(2);
+const app = JSON.parse(readFileSync(inputPath ?? new URL('../sample/application.json', import.meta.url), 'utf8'));
 
 const PAGE = { width: 612, height: 792, bottom: 50, contentTop: 740 };
 const X = { left: 36, answer: 179, activityRight: 176, honorGrades: 286, right: 560 };
@@ -172,9 +175,16 @@ async function buildFor(supplement) {
   return pdf;
 }
 
-for (const supplement of app.supplements) {
-  const pdf = await buildFor(supplement);
-  const file = `application-${supplement.id.replace('supplement-', '')}.pdf`;
-  writeFileSync(new URL(`../sample/${file}`, import.meta.url), await pdf.save());
-  console.log(`wrote sample/${file} (${pdf.getPageCount()} pages)`);
+if (outputPath) {
+  // One application, one college: a single PDF at the given path.
+  const pdf = await buildFor(app.supplements[0]);
+  writeFileSync(outputPath, await pdf.save());
+  console.log(`wrote ${outputPath} (${pdf.getPageCount()} pages)`);
+} else {
+  for (const supplement of app.supplements) {
+    const pdf = await buildFor(supplement);
+    const file = `application-${supplement.id.replace('supplement-', '')}.pdf`;
+    writeFileSync(new URL(`../sample/${file}`, import.meta.url), await pdf.save());
+    console.log(`wrote sample/${file} (${pdf.getPageCount()} pages)`);
+  }
 }

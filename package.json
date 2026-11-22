@@ -8,10 +8,12 @@
   "scripts": {
     "test": "node --test",
     "dev": "node tools/serve.js",
-    "sample:pdf": "node tools/make-sample-pdf.js"
+    "sample:pdf": "node tools/make-sample-pdf.js",
+    "eval": "node eval/score.mjs"
   },
   "devDependencies": {
-    "pdf-lib": "^1.17.1"
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "6.5.438"
   },
   "engines": {
     "node": ">=20"

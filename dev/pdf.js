@@ -7,7 +7,8 @@ import { readPdfRows } from '../src/pdf.js';
 import { readCommonApp } from '../src/core/common-app.js';
 import { countWords } from '../src/core/sections.js';
 import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
-import { planComparisons, aiFlagsFromAnswer, dedupeFlags, orderWithMentionAnswers } from '../src/core/ai-checks.js';
+import { orderWithMentionAnswers } from '../src/core/ai-checks.js';
+import { runAiChecks } from '../src/core/run-ai.js';
 import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privacy.js';
 // src/ai.js (Firebase, loaded from Google's servers) is imported only when the AI
 // button is clicked, so reading the PDF and the code checks work even where
@@ -125,44 +126,20 @@ $('runAi').addEventListener('click', async () => {
       }
     }
 
-    const plan = planComparisons(current.app);
     const started = performance.now();
-    const kept = [];
-    const dropped = [];
-    const log = []; // dev only: every answer and what happened to it, shown on this screen only
-    let failed = 0;
-    for (const [i, pair] of plan.entries()) {
-      $('aiStatus').textContent = `Comparing ${i + 1} of ${plan.length} on this computer…`;
-      try {
-        const answer = await findContradictionsOnDevice(models.privateModel, pair.itemText, pair.passage);
-        const out = aiFlagsFromAnswer(pair, answer, current.app.sections);
-        kept.push(...out.kept);
-        dropped.push(...out.dropped);
-        const pairName = `${pair.itemId} vs ${pair.essayId} (shared: ${pair.shared.join(', ')})`;
-        if ((answer?.contradictions ?? []).length === 0) log.push({ pair: pairName, outcome: 'no contradiction reported' });
-        for (const d of out.dropped) log.push({ pair: pairName, outcome: `dropped: ${d.reason}`, answer: d.contradiction });
-        for (const f of out.kept) log.push({ pair: pairName, outcome: 'passed the quote check and guard', flagId: f.id, kind: f.kind, quotes: f.citations.map((c) => c.quote) });
-      } catch (err) {
-        failed += 1;
-        console.warn('comparison failed:', err.name, err.message); // the error only, never the text
-      }
-    }
-
-    const mentionAnswers = new Map();
-    for (const flag of current.codeFlags.filter((f) => f.kind === 'other-college-name')) {
-      $('aiStatus').textContent = `Reading the ${flag.mentionName} mention on this computer…`;
-      try {
-        mentionAnswers.set(flag.id, await askMentionOnDevice(models.mentionModel, flag.mentionName, flag.citations[0].quote));
-      } catch (err) {
-        console.warn('mention question failed:', err.name, err.message);
-      }
-    }
-
+    const run = await runAiChecks({
+      app: current.app,
+      codeFlags: current.codeFlags,
+      compare: (itemText, passage) => findContradictionsOnDevice(models.privateModel, itemText, passage),
+      askMention: (name, sentence) => askMentionOnDevice(models.mentionModel, name, sentence),
+      onProgress: (message) => { $('aiStatus').textContent = message; },
+    });
+    const { dropped, failed } = run;
     const seconds = ((performance.now() - started) / 1000).toFixed(1);
-    current.aiFlags = dedupeFlags(kept);
-    current.aiLog = log;
-    current.mentionAnswers = mentionAnswers;
-    current.aiNote = `Gemini Nano made ${plan.length} comparisons on this computer in ${seconds} s. ` +
+    current.aiFlags = run.flags;
+    current.aiLog = run.log;
+    current.mentionAnswers = run.mentionAnswers;
+    current.aiNote = `Gemini Nano made ${run.comparisons} comparisons on this computer in ${seconds} s. ` +
       `${current.aiFlags.length} flag(s) kept; ${dropped.length} answer(s) dropped because a quote wasn't in your application ` +
       `or didn't state the fact${failed ? `; ${failed} comparison(s) failed` : ''}.`;
     renderFlags();
