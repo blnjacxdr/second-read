@@ -42,6 +42,11 @@ The file is read in this browser tab only; nothing is uploaded. Open DevTools &g
 </div>
 <p class="muted">Open DevTools &gt; Network and filter by <code>googleapis</code> before running it: the AI check should send nothing.</p>
 
+<div class="aibar">
+  <button id="findNames" disabled>Find public names on this computer</button>
+  <span id="namesStatus" class="muted">Names the optional cloud fact-check could send. Nothing is sent from this page.</span>
+</div>
+<div id="names"></div>
 <div id="flags"></div>
 <div id="out"></div>
 

@@ -15,7 +15,7 @@ import { getAI, getGenerativeModel, GoogleAIBackend, InferenceMode } from 'https
 
 import { firebaseConfig, recaptchaSiteKey } from './firebase-config.js';
 import { assertOnDevice } from './core/privacy.js';
-import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, CLAIM_SCHEMA, claimPrompt, publicNamesPrompt } from './core/prompts.js';
+import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, CLAIM_SCHEMA, claimPrompt, NAMES_SCHEMA, namesPrompt, publicNamesPrompt } from './core/prompts.js';
 import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
@@ -56,6 +56,10 @@ export function createSecondReadAI() {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: CLAIM_SCHEMA } },
   });
+  const namesModel = getGenerativeModel(ai, {
+    mode: InferenceMode.ONLY_ON_DEVICE,
+    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: NAMES_SCHEMA } },
+  });
   const mentionModel = getGenerativeModel(ai, {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: MENTION_SCHEMA } },
@@ -74,7 +78,7 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL },
   });
 
-  return { privateModel, factsModel, claimModel, mentionModel, publicModel, publicModelWithoutSearch };
+  return { privateModel, factsModel, claimModel, namesModel, mentionModel, publicModel, publicModelWithoutSearch };
 }
 
 // Kept here too so older pages can import it from src/ai.js.
@@ -139,6 +143,17 @@ export async function checkPublicNamesInCloud(publicModel, publicNames, sentLog,
  */
 export async function checkClaimsOnDevice(claimModel, claims, passage) {
   const result = await claimModel.generateContent(claimPrompt(claims, passage));
+  assertOnDevice(result.response);
+  return JSON.parse(result.response.text());
+}
+
+/**
+ * Public-name finder: asks the on-device model for the public names in one
+ * text. Private text never leaves the computer here; only names the student
+ * later ticks go to the cloud, through checkPublicNamesInCloud.
+ */
+export async function findNamesOnDevice(namesModel, text) {
+  const result = await namesModel.generateContent(namesPrompt(text));
   assertOnDevice(result.response);
   return JSON.parse(result.response.text());
 }

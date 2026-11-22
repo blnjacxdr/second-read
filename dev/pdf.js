@@ -8,7 +8,7 @@ import { readCommonApp } from '../src/core/common-app.js';
 import { countWords } from '../src/core/sections.js';
 import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
 import { orderWithMentionAnswers } from '../src/core/ai-checks.js';
-import { runAiChecks } from '../src/core/run-ai.js';
+import { runAiChecks, findPublicNames } from '../src/core/run-ai.js';
 import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privacy.js';
 // src/ai.js (Firebase, loaded from Google's servers) is imported only when the AI
 // button is clicked, so reading the PDF and the code checks work even where
@@ -94,6 +94,7 @@ function renderFlags() {
 /** Enables the button where Gemini Nano is ready or can be downloaded (the button starts the download). */
 async function updateAiButton() {
   const availability = await onDeviceAvailability();
+  $('findNames').disabled = !current;
   $('runAi').disabled = !current || !['available', 'downloadable', 'downloading'].includes(availability);
   return availability;
 }
@@ -152,6 +153,39 @@ $('runAi').addEventListener('click', async () => {
     console.error('AI check stopped:', err); // full error in DevTools > Console for debugging
   } finally {
     await updateAiButton().catch(() => {});
+  }
+});
+
+// Dev only: shows which public names would be offered for the cloud fact-check.
+// Uses Gemini Nano when it's ready; otherwise the code part alone. Sends nothing.
+$('findNames').addEventListener('click', async () => {
+  if (!current) return;
+  $('findNames').disabled = true;
+  try {
+    let askNames;
+    if ((await onDeviceAvailability()) === 'available') {
+      if (!ai) {
+        const module = await import('../src/ai.js');
+        ai = { ...module, models: module.createSecondReadAI() };
+      }
+      askNames = (text) => ai.findNamesOnDevice(ai.models.namesModel, text);
+    }
+    const out = await findPublicNames({ result: current.result, askNames, onProgress: (m) => { $('namesStatus').textContent = m; } });
+    const list = el('ul');
+    for (const n of out.names) {
+      list.append(el('li', `${n.defaultOn ? '[x]' : '[ ]'} ${n.name} (${n.kind}, found by ${n.source}, in ${n.sectionIds.join(', ')})`));
+    }
+    const droppedList = el('ul');
+    for (const d of out.dropped) droppedList.append(el('li', `${d.name}: ${d.reason}`, 'muted'));
+    $('names').replaceChildren(card(`${out.names.length} public name(s) offered`, list), card(`${out.dropped.length} left out`, droppedList));
+    $('namesStatus').textContent = askNames
+      ? `Done, with Gemini Nano on this computer${out.failed ? ` (${out.failed} search(es) failed)` : ''}.`
+      : 'Done, code only (Gemini Nano is not ready on this computer).';
+  } catch (err) {
+    $('namesStatus').textContent = `Stopped: ${err.message}`;
+    console.error(err);
+  } finally {
+    $('findNames').disabled = false;
   }
 });
 

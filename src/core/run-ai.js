@@ -5,6 +5,7 @@
 import { planComparisons, aiFlagsFromAnswer, dedupeFlags } from './ai-checks.js';
 import { flagsFromFacts, itemFacts } from './extract-checks.js';
 import { flagsFromClaims, claimsFor } from './claim-checks.js';
+import { namesFromStructure, mergePublicNames, nameSearchTexts } from './public-names.js';
 
 /**
  * The two designs, measured against each other on the held-out set.
@@ -75,4 +76,30 @@ export async function runAiChecks({ app, codeFlags, ask, askMention, design = 'o
   }
 
   return { flags: dedupeFlags(kept), dropped, log, mentionAnswers, comparisons: plan.length, failed };
+}
+
+/**
+ * Finds the public names the student may choose to fact-check in the cloud.
+ * Code reads the PDF's structure; Nano (if given) reads the sentences; code
+ * keeps only names that are really in the application and never people.
+ * @param {object} args
+ * @param {object} args.result  readCommonApp(rows)
+ * @param {(text: string) => Promise<{ names: Array<{ name, kind }> }>} [args.askNames]  on-device; omit for code only
+ */
+export async function findPublicNames({ result, askNames, onProgress = () => {} }) {
+  const fromNano = [];
+  let failed = 0;
+  if (askNames) {
+    const texts = nameSearchTexts(result);
+    for (const [i, t] of texts.entries()) {
+      onProgress(`Looking for program and college names, ${i + 1} of ${texts.length}, on this computer…`);
+      try {
+        fromNano.push(...((await askNames(t.text))?.names ?? []));
+      } catch (err) {
+        failed += 1;
+        console.warn('name search failed:', err.name, err.message);
+      }
+    }
+  }
+  return { ...mergePublicNames(namesFromStructure(result), fromNano, result.sections), failed };
 }

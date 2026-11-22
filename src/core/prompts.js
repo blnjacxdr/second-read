@@ -176,6 +176,50 @@ export function claimPrompt(claims, passage) {
 }
 
 /**
+ * Public-name finder (see public-names.js): Nano lists the names of programs,
+ * colleges, organizations, competitions and awards in one text, each copied
+ * exactly. People are labeled "person" so code can drop them.
+ */
+export const NAMES_SCHEMA = {
+  type: 'object',
+  properties: {
+    names: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          kind: { type: 'string', enum: ['program', 'college', 'organization', 'competition', 'award', 'person', 'other'] },
+        },
+        required: ['name', 'kind'],
+      },
+    },
+  },
+  required: ['names'],
+};
+
+// Made up for this prompt; never from the held-out test set.
+const NAMES_EXAMPLES = [
+  'EXAMPLE TEXT: Spent six weeks at the Telluride Summer Program and volunteered with Habitat for Humanity. My mentor, Dr. Ana Ruiz, studied at Tufts University. We placed third at the Science Olympiad state tournament.',
+  'EXAMPLE ANSWER: {"names": [{"name": "Telluride Summer Program", "kind": "program"}, {"name": "Habitat for Humanity", "kind": "organization"}, {"name": "Ana Ruiz", "kind": "person"}, {"name": "Tufts University", "kind": "college"}, {"name": "Science Olympiad", "kind": "competition"}]}',
+].join('\n');
+
+/** @param {string} text  activity lines, honor titles, or one essay */
+export function namesPrompt(text) {
+  return [
+    'List the names of specific programs, colleges, organizations, competitions and awards that appear in the TEXT.',
+    'Copy each name exactly as it is written in the TEXT. Do not add names that are not in the TEXT.',
+    'Label a person\'s name as "person". Skip general words like "soccer team" or "math club" that do not name a specific one.',
+    'Do not rewrite, suggest or explain anything. If there are no names, return an empty list.',
+    '',
+    NAMES_EXAMPLES,
+    '',
+    'TEXT:',
+    text,
+  ].join('\n');
+}
+
+/**
  * Prompt for the cloud model. It may contain only public names
  * (organizations, programs, colleges), never application text.
  * With search, the model is told to use Google Search; without it, the model
