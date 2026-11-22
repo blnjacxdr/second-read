@@ -2,6 +2,8 @@
 //   1. planComparisons: which activity or honor to compare with which essay paragraph.
 //   2. aiFlagsFromAnswer: turns Gemini Nano's JSON into flags, dropping any whose
 //      quotes don't verify or that fail the guard for their kind.
+//      (A yes/no "second opinion" pass was tried on Nov 21 and removed: on the
+//      dev AI log it rejected every flag, both real mistakes included.)
 //   3. Other-college mentions: a yes/no question per sentence, used only to order
 //      the code check's flags, never to hide one.
 // src/ai.js sends the prompts; these decide what to send and what to keep.
@@ -129,47 +131,6 @@ export function aiFlagsFromAnswer(comparison, answer, sections) {
 export function dedupeFlags(flags) {
   const seen = new Set();
   return flags.filter((f) => !seen.has(f.id) && seen.add(f.id));
-}
-
-// ---------- 2b. a second opinion on every AI flag ----------
-
-/** JSON Schema for the second-opinion question. */
-export const SECOND_OPINION_SCHEMA = {
-  type: 'object',
-  properties: { contradicts: { type: 'boolean' } },
-  required: ['contradicts'],
-};
-
-const KIND_WORDS = { hours: 'how much time was spent', role: 'a role or title', dates: 'a date or year', award: 'an award or placing' };
-
-/**
- * A narrower yes/no question about one flag: do these two statements really
- * contradict each other? Asking a model to judge one specific claim catches
- * many of its own false alarms (Nov 21: "40 hr/wk, 6 wk/yr" vs "every hour for
- * six weeks" was flagged, though both say six weeks).
- */
-export function secondOpinionPrompt(flag) {
-  const [item, essay] = flag.citations;
-  return [
-    'Two statements come from the same student\'s college application.',
-    `Do they contradict each other about ${KIND_WORDS[flag.kind] ?? 'a fact'}, so that both cannot be true at the same time?`,
-    'Answer contradicts: false if they agree, describe different things or different times, or one only adds detail.',
-    '',
-    `STATEMENT A: ${item.quote}`,
-    `STATEMENT B: ${essay.quote}`,
-  ].join('\n');
-}
-
-/**
- * Keeps AI flags the second opinion confirmed. A flag whose second opinion
- * failed (no answer) is kept: the student can judge it, and hiding a real
- * problem is worse than showing a doubtful one.
- * @param {object[]} flags
- * @param {Map<string, boolean>} verdicts  flag id -> contradicts
- */
-export function applySecondOpinion(flags, verdicts) {
-  const kept = flags.filter((f) => verdicts.get(f.id) !== false);
-  return { kept, removed: flags.length - kept.length };
 }
 
 // ---------- 3. other-college mentions ----------

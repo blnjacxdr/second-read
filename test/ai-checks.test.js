@@ -8,7 +8,7 @@ import { readCommonApp } from '../src/core/common-app.js';
 import { checkInputFromPdf, runCodeChecks } from '../src/core/checks.js';
 import {
   planComparisons, aiFlagsFromAnswer, passesKindGuard, dedupeFlags, mentionPrompt, orderWithMentionAnswers, MAX_COMPARISONS,
-  isStrongLink, secondOpinionPrompt, applySecondOpinion,
+  isStrongLink,
 } from '../src/core/ai-checks.js';
 import { verifyQuote } from '../src/core/quotes.js';
 
@@ -119,16 +119,16 @@ test('links need two shared words or a name, not one common word (the Nov 21 mus
   assert.equal(isStrongLink(['duolingo'], 'Duolingo was my start.'), false); // capitalized only because it starts the sentence
 });
 
-test('second opinion: the prompt holds only the two quotes and the kind', () => {
-  const flag = { kind: 'hours', citations: [{ quote: '40 hr/wk, 6 wk/yr' }, { quote: 'logged readings every hour for six weeks' }] };
-  const prompt = secondOpinionPrompt(flag);
-  assert.match(prompt, /about how much time was spent/);
-  assert.match(prompt, /STATEMENT A: 40 hr\/wk, 6 wk\/yr\nSTATEMENT B: logged readings every hour for six weeks$/);
-});
 
-test('second opinion removes only flags it rejected; unanswered flags stay', () => {
-  const flags = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
-  const { kept, removed } = applySecondOpinion(flags, new Map([['a', true], ['b', false]]));
-  assert.deepEqual(kept.map((f) => f.id), ['a', 'c']);
-  assert.equal(removed, 1);
+test('real Gemini Nano answers from the Nov 21 AI log: real catches kept, junk dropped', () => {
+  const sections = app.sections;
+  const keep = (itemId, essayId, c) => aiFlagsFromAnswer({ itemId, essayId }, { contradictions: [c] }, sections);
+  // Real mistakes: kept.
+  assert.equal(keep('activity-2', 'personal-essay', { kind: 'hours', activityQuote: '6 hr/wk, 30 wk/yr', essayQuote: 'Every day after school, I stayed in the robotics lab until seven, and that week I stayed until the custodian turned off the hallway lights' }).kept.length, 1);
+  assert.equal(keep('honor-1', 'personal-essay', { kind: 'award', activityQuote: '2nd Place, Environmental Science', essayQuote: 'first place at the state science fair' }).kept.length, 1);
+  // Junk: dropped by the quote check or the guard.
+  assert.equal(keep('activity-4', 'personal-essay', { kind: 'hours', activityQuote: '12 hr/wk, 12 hr/wk', essayQuote: 'I work at Cascade Crumb Bakery, where I unlock the door at five' }).kept.length, 0);
+  assert.equal(keep('activity-3', 'college-essay-1', { kind: 'hours', activityQuote: '3 hr/wk, 32 wk/yr', essayQuote: 'Math works the same way.' }).kept.length, 0);
+  // Known false alarm still kept (both say six weeks); the fix planned is fact extraction, measured on the held-out set.
+  assert.equal(keep('activity-5', 'personal-essay', { kind: 'hours', activityQuote: '40 hr/wk, 6 wk/yr', essayQuote: 'logged readings every hour for six weeks' }).kept.length, 1);
 });

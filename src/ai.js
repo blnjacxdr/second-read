@@ -3,7 +3,7 @@
 // lives in src/core/ and is tested there.
 //
 // Models chosen by what the text is, never by what is convenient:
-//   privateModel, mentionModel, secondOpinionModel: ONLY_ON_DEVICE. Application text. Never fall back to cloud.
+//   privateModel, mentionModel: ONLY_ON_DEVICE. Application text. Never fall back to cloud.
 //   publicModel:  ONLY_IN_CLOUD with Google Search. Public names only.
 // Never use PREFER_ON_DEVICE or PREFER_IN_CLOUD here: both can silently send
 // the prompt to the cloud (for example while the on-device model is still
@@ -16,7 +16,7 @@ import { getAI, getGenerativeModel, GoogleAIBackend, InferenceMode } from 'https
 import { firebaseConfig, recaptchaSiteKey } from './firebase-config.js';
 import { assertOnDevice } from './core/privacy.js';
 import { CONTRADICTION_SCHEMA, contradictionPrompt, publicNamesPrompt } from './core/prompts.js';
-import { MENTION_SCHEMA, mentionPrompt, SECOND_OPINION_SCHEMA, secondOpinionPrompt } from './core/ai-checks.js';
+import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
 export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
@@ -52,10 +52,6 @@ export function createSecondReadAI() {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: MENTION_SCHEMA } },
   });
-  const secondOpinionModel = getGenerativeModel(ai, {
-    mode: InferenceMode.ONLY_ON_DEVICE,
-    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: SECOND_OPINION_SCHEMA } },
-  });
 
   const publicModel = getGenerativeModel(ai, {
     mode: InferenceMode.ONLY_IN_CLOUD,
@@ -70,7 +66,7 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL },
   });
 
-  return { privateModel, mentionModel, secondOpinionModel, publicModel, publicModelWithoutSearch };
+  return { privateModel, mentionModel, publicModel, publicModelWithoutSearch };
 }
 
 // Kept here too so older pages can import it from src/ai.js.
@@ -117,12 +113,3 @@ export async function checkPublicNamesInCloud(publicModel, publicNames, sentLog,
   return readGroundedAnswer(result.response);
 }
 
-/**
- * Asks the on-device model whether one AI flag's two quotes really contradict.
- * Returns true or false. Throws PrivacyError if not answered on the device.
- */
-export async function askSecondOpinionOnDevice(secondOpinionModel, flag) {
-  const result = await secondOpinionModel.generateContent(secondOpinionPrompt(flag));
-  assertOnDevice(result.response);
-  return JSON.parse(result.response.text()).contradicts === true;
-}
