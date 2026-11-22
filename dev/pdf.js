@@ -67,7 +67,7 @@ function essayCard(title, essay) {
 
 /** Draws every flag: likely problems first, "looks intended" mentions folded at the end. */
 function renderFlags() {
-  const { result, codeFlags, aiFlags, aiNote, mentionAnswers } = current;
+  const { result, codeFlags, aiFlags, aiNote, mentionAnswers, aiLog } = current;
   const all = orderWithMentionAnswers([...codeFlags, ...aiFlags], mentionAnswers ?? new Map());
   const main = all.filter((f) => f.mention !== 'background');
   const background = all.filter((f) => f.mention === 'background');
@@ -80,6 +80,12 @@ function renderFlags() {
     const fold = el('details');
     fold.append(el('summary', `${background.length} mention(s) that look intended`));
     for (const flag of background) fold.append(flagCard(result, flag));
+    box.append(fold);
+  }
+  if (aiLog) {
+    // Dev only: why each Gemini Nano answer was kept or not. Shown on this screen, never sent anywhere.
+    const fold = el('details');
+    fold.append(el('summary', `AI log (dev only): ${aiLog.length} entries`), el('pre', JSON.stringify(aiLog, null, 2)));
     box.append(fold);
   }
 }
@@ -123,6 +129,7 @@ $('runAi').addEventListener('click', async () => {
     const started = performance.now();
     const kept = [];
     const dropped = [];
+    const log = []; // dev only: every answer and what happened to it, shown on this screen only
     let failed = 0;
     for (const [i, pair] of plan.entries()) {
       $('aiStatus').textContent = `Comparing ${i + 1} of ${plan.length} on this computer…`;
@@ -131,6 +138,10 @@ $('runAi').addEventListener('click', async () => {
         const out = aiFlagsFromAnswer(pair, answer, current.app.sections);
         kept.push(...out.kept);
         dropped.push(...out.dropped);
+        const pairName = `${pair.itemId} vs ${pair.essayId} (shared: ${pair.shared.join(', ')})`;
+        if ((answer?.contradictions ?? []).length === 0) log.push({ pair: pairName, outcome: 'no contradiction reported' });
+        for (const d of out.dropped) log.push({ pair: pairName, outcome: `dropped: ${d.reason}`, answer: d.contradiction });
+        for (const f of out.kept) log.push({ pair: pairName, outcome: 'passed the quote check and guard', flagId: f.id, kind: f.kind, quotes: f.citations.map((c) => c.quote) });
       } catch (err) {
         failed += 1;
         console.warn('comparison failed:', err.name, err.message); // the error only, never the text
@@ -149,6 +160,11 @@ $('runAi').addEventListener('click', async () => {
       }
     }
     const confirmed = applySecondOpinion(candidates, verdicts);
+    for (const entry of log) {
+      if (!entry.flagId) continue;
+      const verdict = verdicts.get(entry.flagId);
+      entry.secondOpinion = verdict === undefined ? 'no answer (kept)' : verdict ? 'confirmed (kept)' : 'said no contradiction (removed)';
+    }
 
     const mentionAnswers = new Map();
     for (const flag of current.codeFlags.filter((f) => f.kind === 'other-college-name')) {
@@ -162,6 +178,7 @@ $('runAi').addEventListener('click', async () => {
 
     const seconds = ((performance.now() - started) / 1000).toFixed(1);
     current.aiFlags = confirmed.kept;
+    current.aiLog = log;
     current.mentionAnswers = mentionAnswers;
     current.aiNote = `Gemini Nano made ${plan.length} comparisons on this computer in ${seconds} s. ` +
       `${current.aiFlags.length} flag(s) kept; ${dropped.length} answer(s) dropped because a quote wasn't in your application ` +
