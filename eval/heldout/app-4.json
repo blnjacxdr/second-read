@@ -1,0 +1,150 @@
+{
+  "notice": "HELD-OUT TEST. Fictional applicant made up for evaluating Second Read. Not a real person or application.",
+  "personalInfo": {
+    "name": "Imogen Fairweather-Cho",
+    "school": "North Ridge High School (fictional), Madison, Wisconsin",
+    "graduationYear": 2027,
+    "email": "imogen.fcho@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Debate or speech",
+      "position": "Co-Captain",
+      "organization": "North Ridge Speech and Debate Team",
+      "description": "Lincoln-Douglas debater; coach 8 novices; compete at about 10 tournaments a year",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Student government or politics",
+      "position": "Delegate",
+      "organization": "North Ridge Model United Nations",
+      "description": "Represented 6 countries at 5 conferences; wrote position papers on refugee law; ended after 11th grade to focus on debate",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 20,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community service or volunteer work",
+      "position": "Volunteer",
+      "organization": "Maple County Food Pantry",
+      "description": "Sort donations and stock shelves on Wednesday evenings; organized a winter coat drive that collected 210 coats",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Research",
+      "position": "Independent Study Researcher",
+      "organization": "Wisconsin Historical Society Library",
+      "description": "Read 1930s Madison newspapers on microfilm for an independent study on labor strikes; wrote a 25-page paper",
+      "grades": [
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 32,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Journalism or publication",
+      "position": "Opinion Columnist",
+      "organization": "The North Ridge Ledger",
+      "description": "Write two 600-word opinion columns a month on school and local issues",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Employment or work (paid)",
+      "position": "Barista",
+      "organization": "Willow Street Coffee",
+      "description": "Open the cafe Sunday mornings at 6 a.m.; make drinks, run the register, and count out the till",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 45,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Wisconsin State Debate Tournament, Lincoln-Douglas Quarterfinalist",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "NSDA Academic All American",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on a time you changed your mind, or refused to.",
+    "wordLimit": 650,
+    "text": "I argue for a living. Not yet for money. But most weekends.\n\nLincoln-Douglas debate is one person against one person, forty-five minutes, a resolution about values. Justice. Liberty. Whether a just society ought to prioritize the individual. I started as a ninth grader who read her case too fast and lost every round at my first tournament. Zero and five. I kept the ballot.\n\nFour years later I am co-captain of the North Ridge Speech and Debate Team. I coach eight novices. We go to about ten tournaments a year. I tell them what my first judge wrote: slow down, the argument will wait for you.\n\nLast year I reached the semifinals at the Wisconsin state tournament. I lost on a 2-1 decision about whether civil disobedience is justified in a democracy. I still think I was right. I also think my opponent was better that day. Both can be true. Debate taught me that.\n\nIt also taught me to look up sources. That led me to the Wisconsin Historical Society, where I spent junior year reading 1930s Madison newspapers on microfilm for an independent study on labor strikes. Twenty-five pages. One footnote took three weeks. The strikers I read about did not have a debate format. They had a picket line and a mimeograph. I wanted to know how they made their case anyway.\n\nArguments end. People still need to eat. On Wednesday evenings I volunteer at the Maple Valley Food Bank, sorting donations and stocking shelves. Over winter break last year I went in every day, because that is when donations spike and volunteers disappear. I also ran a coat drive. We collected 210 coats. I counted them twice.\n\nI write opinion columns for The North Ridge Ledger. Twice a month. Six hundred words. My editor cuts a third. She is usually right.\n\nI don't want to be a lawyer, necessarily. I want to understand how people decide what is fair, and how they persuade each other once they have. Debate gave me the form. History gave me the stakes. Wednesday nights remind me who the arguments are for."
+  },
+  "supplements": [
+    {
+      "id": "supplement-main",
+      "college": "Georgetown University",
+      "group": "Writing Questions",
+      "prompt": "Briefly discuss the significance to you of an activity you have pursued.",
+      "wordLimit": 250,
+      "text": "Model UN taught me what debate could not: how to lose an argument and still win a resolution.\n\nIn Lincoln-Douglas, I stand alone. In Model UN, I represented six countries at five conferences, and I almost never got what I wanted. As Jordan, I spent a whole committee session on refugee law trying to get one clause about host-country funding into a draft resolution. I traded away two other clauses to get it. The resolution passed. My clause survived, slightly smaller.\n\nThis fall I chaired the Human Rights Council at our school's Model UN conference, and I watched sophomores make the same trades I used to make. I mostly stayed quiet. That was the hard part.\n\nGeorgetown's focus on international affairs is why I am applying. I want to study how real negotiators make those trades, with real stakes, and I want to learn it in a city where the negotiations actually happen.",
+      "answers": [
+        {
+          "group": "General",
+          "label": "Preferred start term",
+          "value": "Fall 2027"
+        },
+        {
+          "group": "Academics",
+          "label": "School applying to",
+          "value": "Walsh School of Foreign Service"
+        }
+      ]
+    }
+  ],
+  "publicNames": []
+}

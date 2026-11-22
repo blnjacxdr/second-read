@@ -1,0 +1,160 @@
+{
+  "notice": "HELD-OUT TEST. Fictional applicant made up for evaluating Second Read. Not a real person or application.",
+  "personalInfo": {
+    "name": "Maya Okonkwo-Hale",
+    "school": "Westbrook Preparatory Academy (fictional), Columbus, Ohio",
+    "graduationYear": 2027,
+    "email": "maya.okonkwohale@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Research",
+      "position": "Summer Research Intern",
+      "organization": "Ohio State University Department of Chemistry",
+      "description": "Studied copper catalysts for CO2 reduction under a grad student mentor; ran 60+ electrochemistry trials; presented a poster to the lab",
+      "grades": [
+        10
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 35,
+      "weeksPerYear": 6,
+      "plans": "Might continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Science or math",
+      "position": "President",
+      "organization": "Westbrook Chemistry Olympiad Club",
+      "description": "Lead weekly problem sessions for 14 members; organized our first in-house olympiad exam; 5 members qualified for USNCO local exam",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Computer or technology",
+      "position": "Developer",
+      "organization": "Independent project",
+      "description": "Wrote a Python program that logs pH readings from a low-cost sensor for club titrations; now used by 3 teachers in chemistry labs",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 20,
+      "plans": "Might continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community service or volunteer work",
+      "position": "Volunteer Tutor",
+      "organization": "Columbus Metropolitan Library Homework Help Center",
+      "description": "Tutor middle schoolers in math and science every Tuesday afternoon; about 120 hours total since 10th grade",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Music: instrumental",
+      "position": "Second Violin",
+      "organization": "Westbrook Chamber Orchestra",
+      "description": "Play second violin in a 24-member string orchestra; two concerts a year plus a spring tour to local senior centers",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 30,
+      "plans": "Might continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Employment or work (paid)",
+      "position": "Cashier",
+      "organization": "Hartley Hardware",
+      "description": "Run the register and help customers find parts on Sunday afternoons; trained two new cashiers",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 45,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Central Ohio Regional Science Fair, 2nd Place in Chemistry",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "USNCO Local Section Exam Qualifier",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "AP Scholar with Distinction",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a habit of mind that has shaped how you approach problems.",
+    "wordLimit": 650,
+    "text": "The first time I watched a copper electrode turn the color of a bruise, I assumed I had ruined the experiment. My mentor, a fourth-year graduate student named Felix, leaned over the potentiostat and said, \"No, that's the interesting part.\" It was the summer after tenth grade, and I was a research intern in a chemistry lab at Ohio State, studying how copper catalysts convert carbon dioxide into other molecules. For eight weeks I arrived at 8:30 each morning, prepared electrolyte solutions, and ran trial after trial. By August I had logged more than sixty runs, most of which failed in ways that taught me something.\n\nFailure had not always felt instructive. In ninth grade I joined the Chemistry Olympiad Club at Westbrook mostly because a friend dared me to, and I scored a 9 out of 60 on my first practice exam. I kept coming back to the Thursday problem sessions anyway. By tenth grade I was writing problems myself, and as president I now lead those sessions for our fourteen members. Last spring we wrote and proctored the school's first in-house olympiad exam, and five of our members qualified for the local section of the national exam. Watching a sophomore realize, mid-problem, why entropy matters was nearly as satisfying as my own results.\n\nMy lab summer also produced the project I entered at the Central Ohio Regional Science Fair, where it took first place in chemistry. I was proud of the poster, but the judges' questions mattered more. One asked why my faradaic efficiency dropped after the fortieth trial, and I realized I did not know. I went back to my notebook that night and found that I had changed suppliers for my potassium bicarbonate. It was a small, unglamorous answer, and I loved it.\n\nThe same habit of asking why follows me to the Columbus Metropolitan Library, where I tutor middle schoolers every Tuesday afternoon. Most of them do not want to hear about catalysts. They want to know why their fraction answers are wrong. Since tenth grade I have spent about 120 hours at that homework table, and I have learned that a good explanation starts with the student's mistake, not with my answer. A boy named Marcus once insisted that one-half plus one-third was two-fifths. Instead of correcting him, I asked him to draw it. He erased his answer before I said a word.\n\nI also wrote a small Python program that logs pH readings from an inexpensive sensor, originally for our club's titration practice. Three teachers now use it in their lab sections. It is not elegant code, but it works, and when it breaks, I know how to find out why.\n\nWhat connects the lab, the club, and the library table is that I have come to trust slow, careful questions. Copper turns purple for a reason. Fractions fail for a reason. I want to spend college finding the reasons, and helping other people find theirs."
+  },
+  "supplements": [
+    {
+      "id": "supplement-main",
+      "college": "Rice University",
+      "group": "Writing Questions",
+      "prompt": "Why are you drawn to the area of study you indicated, and why at Rice?",
+      "wordLimit": 250,
+      "text": "I want to study chemistry because I have spent two years watching small, stubborn variables decide whether an experiment works. In my summer lab internship, a change in bicarbonate supplier quietly cut my catalyst's efficiency, and finding that cause taught me more than any result I was hoping for. I want a program where undergraduates are trusted with that kind of slow, careful work early.\n\nMy interest in electrochemistry began, oddly, at my kitchen table, with an MIT OpenCourseWare lecture on redox reactions that I watched three times in ninth grade. Since then I have looked for places where students do real research, not just observe it. Rice's residential colleges and small classes mean I would know my professors, and its emphasis on undergraduate research means I could join a lab in my first year rather than my third.\n\nI am also excited about Rice's work on carbon capture and clean energy, which connects directly to the CO2 reduction I studied. I would like to keep tutoring, too; explaining chemistry to a twelve-year-old is the best test of whether I understand it myself. I can see myself at Duke, in a lab during the day and at a homework table in the evening, still asking why.",
+      "answers": [
+        {
+          "group": "General",
+          "label": "Preferred start term",
+          "value": "Fall 2027"
+        },
+        {
+          "group": "Academics",
+          "label": "Intended major",
+          "value": "Chemistry"
+        }
+      ]
+    }
+  ],
+  "publicNames": []
+}

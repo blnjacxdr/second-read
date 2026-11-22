@@ -1,0 +1,139 @@
+{
+  "notice": "HELD-OUT TEST. Fictional applicant made up for evaluating Second Read. Not a real person or application.",
+  "personalInfo": {
+    "name": "Marisol Vance",
+    "school": "Lakeshore Regional High School (fictional), Duluth, Minnesota",
+    "graduationYear": 2027,
+    "email": "marisol.vance@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Theater or drama",
+      "position": "Stage Manager",
+      "organization": "Lakeshore Regional Theatre Company",
+      "description": "Stage-manage 3 productions a year; call cues from the booth; run a 12-person crew; keep the prompt book and rehearsal reports",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Family responsibilities",
+      "position": "Caregiver",
+      "organization": "Family",
+      "description": "Stay with my grandmother Tuesday and Thursday evenings after her stroke; cook dinner, sort medications, drive her to therapy",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 52,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Employment or work (paid)",
+      "position": "Baker's Assistant",
+      "organization": "Northshore Bread Company",
+      "description": "Saturday shifts from 5 to 11 a.m.; shape loaves and run the register; trusted to open the shop alone since this summer",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 50,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Theater or drama",
+      "position": "Lighting Design Apprentice",
+      "organization": "Duluth Playhouse Summer Youth Program",
+      "description": "Assisted the lighting designer on two summer youth musicals; hung and focused 60 fixtures; helped program cues",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 30,
+      "weeksPerYear": 5,
+      "plans": "Might continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community service or volunteer work",
+      "position": "Volunteer Reader",
+      "organization": "Duluth Public Library",
+      "description": "Read aloud at Saturday afternoon story time for children ages 3 to 6, twice a month",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 1,
+      "weeksPerYear": 20,
+      "plans": "Might continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Minnesota Thespian Festival, Superior Rating in Stage Management",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Lakeshore Regional Theatre Company Backstage Award",
+      "grades": [
+        10
+      ],
+      "level": "School"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a role you play that others might overlook.",
+    "wordLimit": 650,
+    "text": "The calling script for our spring production of Our Town had 214 cues in it. I know because I numbered every one in pencil, and then numbered them again when the director cut a scene a week before opening. As stage manager for Lakeshore Regional Theatre Company, I sit in the booth with a headset and a prompt book and say \"Go\" more times in a night than most people say it in a year.\n\nI started stage managing in tenth grade, when the senior who had the job graduated and nobody else wanted it. I thought it would be clerical. It turned out to be the opposite: a stage manager's job is to know where everyone is and what they need before they ask. We do three shows a year, and I run a crew of twelve, most of whom are louder than I am. I learned to be calm on headset because panic travels down a wire faster than anything.\n\nThe same skill turned out to matter at home. Last year my grandmother had a stroke, and since then I have spent Tuesday and Thursday evenings at her apartment. I cook dinner, sort her pills into the plastic days-of-the-week box, and drive her to physical therapy. She used to be a seamstress, and she still critiques my costume crew's hems from photos on my phone. Caring for her has its own calling script: medications at six, dinner at six-thirty, the evening news at seven, which she argues with.\n\nOn Saturdays I am at Northshore Bread Company by five in the morning. The ovens are already hot when I arrive, and I shape loaves until the doors open at seven. This summer the owner gave me a key and started letting me open alone. I don't think I have ever felt so trusted by a piece of metal.\n\nOne summer I also apprenticed in lighting design with the Duluth Playhouse summer youth program, where I hung and focused sixty fixtures for two musicals. Climbing a ladder with a wrench clipped to my belt taught me that every soft pool of light on stage is the result of someone sweating on a catwalk. It made me a better stage manager, because now I know what I am asking for when I call a cue.\n\nAt the Minnesota Thespian Festival last year, I presented my prompt book from Our Town and received a Superior rating in stage management. The judge asked why I had numbered my cues twice. I told her the truth: because plans change, and the people depending on you should never be the ones who pay for it.\n\nI want to study theater, and maybe arts management, because I like making space for other people to be brilliant. The booth is dark and nobody claps for it. That is fine. I know the show could not happen without someone saying \"Go.\""
+  },
+  "supplements": [
+    {
+      "id": "supplement-main",
+      "college": "Northwestern University",
+      "group": "Writing Questions",
+      "prompt": "What would you contribute to the Northwestern community?",
+      "wordLimit": 300,
+      "text": "I would bring a prompt book. Not literally, though I will probably pack one. I mean the habit behind it: writing down what everyone needs before they need it.\n\nSince tenth grade I have been the stage manager at Lakeshore Regional, running a twelve-person crew through three productions a year. I am the one who knows that the actor playing Emily needs water stage left after Act Two, and that the fly rail sticks when the building is cold. At home, I keep a different kind of prompt book for my grandmother, whom I care for two evenings a week: medications, appointments, the name of her physical therapist's dog.\n\nAt Northwestern, I want to study theater and learn from student-run groups where undergraduates design, direct, and manage their own shows. I would love to stage-manage for a student company in my first year and learn from people who are better at this than I am.\n\nI would also bring a key-holder's sense of responsibility. Every Saturday at five in the morning I unlock a bakery because someone trusts me to. I would like to earn that kind of trust again.",
+      "answers": [
+        {
+          "group": "General",
+          "label": "Preferred start term",
+          "value": "Fall 2027"
+        },
+        {
+          "group": "Academics",
+          "label": "Intended school",
+          "value": "School of Communication"
+        },
+        {
+          "group": "Academics",
+          "label": "Intended major",
+          "value": "Theatre"
+        }
+      ]
+    }
+  ],
+  "publicNames": []
+}

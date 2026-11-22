@@ -16,8 +16,11 @@ export function toPdfSectionId(sectionId) {
 }
 
 /** For an activity, the answer key may quote the hours line; our activity text uses the same "N hr/wk, M wk/yr". */
+// Answer-key quotes may be short (a two-word title like "Vice President"): we wrote them, so the
+// 3-word rule that protects students from vague AI quotes doesn't apply to them.
+const KEY = { minWords: 1 };
 function rangesFor(sections, sectionId, quote) {
-  const found = locateQuote(sections, { sectionId, quote });
+  const found = locateQuote(sections, { sectionId, quote }, KEY);
   return found ? found.ranges : [];
 }
 
@@ -58,7 +61,7 @@ export function scoreApplication(flags, entry, sections) {
     byKind[mistake.kind] ??= { planted: 0, caught: 0 };
     byKind[mistake.kind].planted += 1;
     for (const place of mistake.places) {
-      if (!locateQuote(sections, { sectionId: toPdfSectionId(place.sectionId), quote: place.quote })) keyQuotesMissing += 1;
+      if (!locateQuote(sections, { sectionId: toPdfSectionId(place.sectionId), quote: place.quote }, KEY)) keyQuotesMissing += 1;
     }
     const matching = flags.filter((f) => flagMatches(f, mistake.places, sections));
     if (matching.length > 0) {
@@ -76,7 +79,8 @@ export function scoreApplication(flags, entry, sections) {
     for (const f of matching) trickyFlags.add(f.id);
   }
 
-  const falseAlarms = flags.filter((f) => !usedFlags.has(f.id)).length;
+  // A flag on a tricky case is counted once, under trickyTriggered, not again as a false alarm.
+  const falseAlarms = flags.filter((f) => !usedFlags.has(f.id) && !trickyFlags.has(f.id)).length;
   return {
     planted: entry.mistakes.length,
     caught: caughtIds.size,

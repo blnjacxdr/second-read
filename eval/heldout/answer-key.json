@@ -1,0 +1,262 @@
+{
+  "about": "Held-out answer key. Never tune Second Read on these files; only score against them.",
+  "applications": [
+    {
+      "file": "app-1.json",
+      "mistakes": [
+        {
+          "id": "a1-m1",
+          "kind": "hours",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "35 hr/wk, 6 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "For eight weeks I arrived at 8:30 each morning"
+            }
+          ],
+          "explanation": "The activity lists 6 weeks of research but the essay says the internship lasted eight weeks."
+        },
+        {
+          "id": "a1-m2",
+          "kind": "award",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "Regional Science Fair, 2nd Place in Chemistry"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "where it took first place in chemistry"
+            }
+          ],
+          "explanation": "The honors list says 2nd place at the regional fair but the essay says the project took first place."
+        },
+        {
+          "id": "a1-m3",
+          "kind": "other-college-name",
+          "places": [
+            {
+              "sectionId": "supplement-main",
+              "quote": "I can see myself at Duke"
+            }
+          ],
+          "explanation": "The Rice supplement names a different college, a likely copy-paste slip."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "supplement-main",
+              "quote": "an MIT OpenCourseWare lecture on redox reactions"
+            }
+          ],
+          "why": "Another college is named legitimately as the source of a free online lecture, not as the target school."
+        }
+      ]
+    },
+    {
+      "file": "app-2.json",
+      "mistakes": [
+        {
+          "id": "a2-m1",
+          "kind": "instrument",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "Maine All-State Orchestra, Cello"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "When I made All-State on viola last year"
+            }
+          ],
+          "explanation": "The honor is for All-State on cello but the essay says the applicant made All-State on viola."
+        },
+        {
+          "id": "a2-m2",
+          "kind": "role",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "Assistant Editor"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "As editor-in-chief, I read every submission twice"
+            }
+          ],
+          "explanation": "The activity lists the applicant as assistant editor of the magazine but the essay calls them editor-in-chief."
+        },
+        {
+          "id": "a2-m3",
+          "kind": "repeated-passage",
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "Nobody asked what instrument I played. I learned to read a room there in a different way: who needs a second ladle, who is too proud to ask for seconds."
+            },
+            {
+              "sectionId": "supplement-main",
+              "quote": "Nobody asked what instrument I played. I learned to read a room there in a different way: who needs a second ladle, who is too proud to ask for seconds."
+            }
+          ],
+          "explanation": "The same two sentences appear word for word in the personal essay and the supplement."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "Shift Lead (started as volunteer)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "as a Saturday volunteer in tenth grade"
+            }
+          ],
+          "why": "The volunteer-then-shift-lead history is a promotion over time that both the activity and the essay explain."
+        }
+      ]
+    },
+    {
+      "file": "app-3.json",
+      "mistakes": [
+        {
+          "id": "a3-m1",
+          "kind": "number",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Captain of a 22-player squad in 12th"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "There's eighteen of us on the roster this year"
+            }
+          ],
+          "explanation": "The activity says the squad has 22 players this year but the essay says the roster is eighteen."
+        },
+        {
+          "id": "a3-m2",
+          "kind": "dates",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "Hired summer 2024"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "since the summer of 2023"
+            }
+          ],
+          "explanation": "The activity says the applicant was hired in summer 2024 but the essay says they have worked there since summer 2023."
+        },
+        {
+          "id": "a3-m3",
+          "kind": "hours",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "12 hr/wk, 40 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "three nights a week, usually five-hour shifts"
+            }
+          ],
+          "explanation": "Three five-hour shifts a week is about 15 hours, but the activity lists 12 hours per week."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Varsity Captain (Center Back)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Freshman year I was on JV and honestly I mostly sat on the bench"
+            }
+          ],
+          "why": "JV and bench time refer to freshman year; varsity captain is the current role, and the essay explains the progression."
+        }
+      ]
+    },
+    {
+      "file": "app-4.json",
+      "mistakes": [
+        {
+          "id": "a4-m1",
+          "kind": "award",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "Lincoln-Douglas Quarterfinalist"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Last year I reached the semifinals at the Wisconsin state tournament"
+            }
+          ],
+          "explanation": "The honor says quarterfinalist at state but the essay says the applicant reached the semifinals."
+        },
+        {
+          "id": "a4-m2",
+          "kind": "organization-name",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "Maple County Food Pantry"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "the Maple Valley Food Bank"
+            }
+          ],
+          "explanation": "The same Wednesday volunteer work is credited to two different organization names."
+        },
+        {
+          "id": "a4-m3",
+          "kind": "activity-status",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "ended after 11th grade to focus on debate"
+            },
+            {
+              "sectionId": "supplement-main",
+              "quote": "This fall I chaired the Human Rights Council at our school's Model UN conference"
+            }
+          ],
+          "explanation": "The activity says Model UN ended after 11th grade, but the supplement describes chairing a Model UN committee this fall of senior year."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "3 hr/wk, 40 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Over winter break last year I went in every day"
+            }
+          ],
+          "why": "Daily volunteering is described only for winter break, a different period from the usual weekly schedule."
+        }
+      ]
+    },
+    {
+      "file": "app-5.json",
+      "mistakes": [],
+      "trickyConsistent": []
+    }
+  ]
+}

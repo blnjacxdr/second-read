@@ -1,0 +1,143 @@
+{
+  "notice": "HELD-OUT TEST. Fictional applicant made up for evaluating Second Read. Not a real person or application.",
+  "personalInfo": {
+    "name": "Dante Ruiz-Pellegrino",
+    "school": "Cedar Hollow High School (fictional), Fresno, California",
+    "graduationYear": 2027,
+    "email": "dante.ruizp@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Athletics (JV or varsity)",
+      "sport": "Soccer",
+      "position": "Varsity Captain (Center Back)",
+      "organization": "Cedar Hollow High School Boys Soccer",
+      "description": "Captain of a 22-player squad in 12th; started all 19 games as a junior; lead 6 a.m. preseason fitness sessions in August",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 16,
+      "plans": "Might continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Employment or work (paid)",
+      "position": "Line Cook",
+      "organization": "Abuela Rosa's Taqueria",
+      "description": "Hired summer 2024; work grill and prep on weeknights; train new hires on food safety; help close on Fridays",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 40,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Family responsibilities",
+      "position": "Older Brother",
+      "organization": "Family",
+      "description": "Pick up my two younger sisters from school most days and help with homework while my parents work late",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 52,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community service or volunteer work",
+      "position": "Volunteer Assistant Coach",
+      "organization": "Fresno Youth Soccer League",
+      "description": "Help coach a 14-player under-10 team on Saturday mornings; set up drills and run warmups",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 14,
+      "plans": "Might continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Student government or politics",
+      "position": "Class Representative",
+      "organization": "Cedar Hollow Associated Student Body",
+      "description": "Represent the senior class at biweekly meetings; helped plan homecoming and a canned food drive",
+      "grades": [
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Central Valley League All-League First Team, Soccer",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Cedar Hollow Scholar-Athlete Award",
+      "grades": [
+        11
+      ],
+      "level": "School"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Tell us about something you do that other people might not see.",
+    "wordLimit": 650,
+    "text": "Okay, so here's the thing nobody tells you about being a center back: you spend most of the game yelling. \"Step!\" \"Drop!\" \"Man on!\" I've been yelling at Cedar Hollow for four years now, and somewhere along the way people started listening.\n\nFreshman year I was on JV and honestly I mostly sat on the bench. I was skinny and slow and I didn't know where to stand. But I showed up to every practice, and by sophomore year I made varsity. Junior year I started all nineteen games, and this year the coach named me captain. Being captain isn't about being the best player. There's eighteen of us on the roster this year, and my job is to make sure every one of them, even the kid who never gets in, feels like part of it. I run the preseason fitness sessions at 6 a.m. in August, and yeah, people complain, but they show up.\n\nThe other big thing in my life is the grill at Abuela Rosa's Taqueria. I've been working there since the summer of 2023, three nights a week, usually five-hour shifts after practice. If you think soccer is loud, try a Friday dinner rush. Rosa, who actually is somebody's abuela, taught me to read a ticket in one glance and to never, ever let the carnitas burn. Now I'm the one training new hires on food safety, which is kind of funny because I used to be the guy who forgot to change gloves.\n\nThe money from the taqueria helps my family. My parents both work late, so most days I pick up my two little sisters from school and sit with them while they do homework. Sometimes I'm doing my calc homework at the same table, and my youngest sister, Lucia, will lean over and ask what the squiggly S means. I told her it means adding up a lot of tiny things. She thought about it and said, \"Like tips?\" Basically, yeah.\n\nOn Saturday mornings I help coach an under-10 team in the Fresno Youth Soccer League. Fourteen kids, most of whom think the best strategy is everyone chasing the ball at once. I get it. That was me once. I set up cones, run drills, and try to teach them what I learned on the bench freshman year: you can help your team even when you're not the one with the ball.\n\nI know my application isn't full of research labs or national awards. But I know how to show up, how to keep a team together, and how to work a grill on a Friday night without losing my head. I think that counts for something."
+  },
+  "supplements": [
+    {
+      "id": "supplement-main",
+      "college": "University of Michigan",
+      "group": "Writing Questions",
+      "prompt": "Describe one of the communities you belong to and your place within it.",
+      "wordLimit": 300,
+      "text": "My community is the kitchen at Abuela Rosa's Taqueria on a Friday night. There are five of us behind the counter: Rosa, her nephew Hector, two dishwashers, and me on the grill. Nobody has a title, but everybody has a lane, and if you leave your lane during a rush, somebody's order gets burned.\n\nWhen I started, I was the slowest one there. Rosa didn't yell. She just stood next to me and called out tickets until my hands learned the order. Now when we hire someone new, I'm the one standing next to them. I teach them the food safety stuff first, because that's the part that actually matters, and then I show them how to read a ticket in one glance.\n\nWhat I bring to that kitchen is the same thing I bring to my soccer team: I notice who's struggling and I get next to them. At Michigan, I want to find a community like that, whether it's an intramural team, a dining hall job, or a study group in the engineering building at midnight. I'm not afraid of a rush.",
+      "answers": [
+        {
+          "group": "General",
+          "label": "Preferred start term",
+          "value": "Fall 2027"
+        },
+        {
+          "group": "Academics",
+          "label": "Intended school",
+          "value": "College of Engineering"
+        },
+        {
+          "group": "Academics",
+          "label": "Intended major",
+          "value": "Mechanical Engineering"
+        }
+      ]
+    }
+  ],
+  "publicNames": []
+}

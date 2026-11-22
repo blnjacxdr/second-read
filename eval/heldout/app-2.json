@@ -1,0 +1,137 @@
+{
+  "notice": "HELD-OUT TEST. Fictional applicant made up for evaluating Second Read. Not a real person or application.",
+  "personalInfo": {
+    "name": "Lucien Marchetti-Ward",
+    "school": "Harborview Arts High School (fictional), Portland, Maine",
+    "graduationYear": 2027,
+    "email": "lucien.mward@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Music: instrumental",
+      "position": "Principal Cellist",
+      "organization": "Harborview Youth Symphony",
+      "description": "Lead the 9-member cello section; 3 concerts a year; run weekly sectionals and coach younger cellists on bowing",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Journalism or publication",
+      "position": "Assistant Editor",
+      "organization": "Tidewater, Harborview's literary and arts magazine",
+      "description": "Select and edit poems and art for two issues a year; lay out pages in InDesign; helped run a reading for 40 guests",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 30,
+      "plans": "Might continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community service or volunteer work",
+      "position": "Shift Lead (started as volunteer)",
+      "organization": "Casco Bay Community Kitchen",
+      "description": "Began as a Saturday volunteer in 10th grade; promoted to shift lead in 12th; run a 6-person prep crew serving about 150 meals",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Art",
+      "position": "Printmaker",
+      "organization": "Independent",
+      "description": "Carve and print linocuts of harbor scenes; sold 30 prints at the Harborview winter market and gave proceeds to the kitchen",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Music: instrumental",
+      "position": "Cellist and Co-Founder",
+      "organization": "Fogline String Quartet",
+      "description": "Formed a student quartet with three friends; play the library's Sunday series and occasional weddings about twice a month",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 40,
+      "plans": "Might continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Maine All-State Orchestra, Cello",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Scholastic Art & Writing Awards Silver Key, Printmaking",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Write about something you have learned to notice that other people often miss.",
+    "wordLimit": 650,
+    "text": "There is a note at the bottom of the cello, the open C, that I feel in my ribs before I hear it. I have spent four years chasing that feeling through rehearsal rooms that smell of rosin and radiator dust, and the chase has taught me nearly everything I know about listening.\n\nI started in the back of the Harborview Youth Symphony as a ninth grader who could barely keep count. Now I sit first chair and lead a section of nine cellists, and every Wednesday I run sectionals in a classroom with a broken clock that always reads 4:17. I teach the younger players to bow from the arm, not the wrist, the way someone once taught me. When I made All-State on viola last year, I thought the honor would feel like arrival. Instead it felt like a door opening onto a longer hallway.\n\nMusic is not the only place I have learned to listen. When I first walked into the Casco Bay Community Kitchen as a Saturday volunteer in tenth grade, I was handed a ten-pound bag of onions and told to start chopping. Nobody asked what instrument I played. I learned to read a room there in a different way: who needs a second ladle, who is too proud to ask for seconds. This year, as shift lead, I run a crew of six, and we serve about a hundred and fifty meals before noon. The kitchen has its own rhythm, a percussion of pans and the steady bass of the dish machine, and I have come to love it as much as any symphony.\n\nAt school, I help make Tidewater, our literary and arts magazine. As editor-in-chief, I read every submission twice, once for what it says and once for what it is trying to say. Last spring we held a reading in the library for forty guests, and a shy freshman read a poem about her grandmother's hands that made the room go completely still. I recognized that silence. It is the same silence that falls before the open C.\n\nIn the evenings I carve linoleum blocks of the harbor: fishing boats, gulls, the crooked pier near my house. Last December I sold thirty prints at the Harborview winter market and gave the money to the kitchen. Printmaking is music made visible, I think: you cut away everything that is not the line.\n\nI don't know yet whether I will become a performer, a teacher, or something stranger. I do know that I want to keep listening for the note beneath the note, in concert halls and soup kitchens and the margins of a poem. Wherever I go, I will bring the cello, and the onions, and the patience to wait for the room to go quiet."
+  },
+  "supplements": [
+    {
+      "id": "supplement-main",
+      "college": "Oberlin College",
+      "group": "Writing Questions",
+      "prompt": "Tell us about a community you have been part of and what you would bring to ours.",
+      "wordLimit": 300,
+      "text": "Some of my most important rehearsals have happened without instruments. On Saturday mornings at the Casco Bay Community Kitchen, I work beside retirees, college students, and people who once ate at our tables and now serve at them. Nobody asked what instrument I played. I learned to read a room there in a different way: who needs a second ladle, who is too proud to ask for seconds.\n\nThat kind of listening is what I would bring to Oberlin. In the Fogline String Quartet, which I formed with three friends in eleventh grade, we play the library's Sunday series and the occasional wedding, and we have learned to breathe together before an entrance. No conductor tells us when. We just watch each other's shoulders.\n\nI am drawn to Oberlin because it seems to treat music and community as the same kind of work. I would love to join a chamber group, volunteer in town, and keep carving prints in whatever corner of a studio someone will lend me.",
+      "answers": [
+        {
+          "group": "General",
+          "label": "Preferred start term",
+          "value": "Fall 2027"
+        },
+        {
+          "group": "Academics",
+          "label": "Intended area of study",
+          "value": "Music and English"
+        }
+      ]
+    }
+  ],
+  "publicNames": []
+}

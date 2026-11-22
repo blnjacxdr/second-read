@@ -127,3 +127,10 @@ test('normalizeWithMap maps every character back, including "..." and collapsed 
   assert.deepEqual([starts[5], ends[5]], [9, 11]); // the space came from two spaces
   assert.equal(norm, normalizeForMatch('  Wait...  OK—go ').toLowerCase());
 });
+
+test('flags still need 3+ words; only the scorer may lower that for its own answer key', async () => {
+  const { locateQuote } = await import('../src/core/quotes.js');
+  const sections = { a: 'I was Vice President of the club.' };
+  assert.equal(locateQuote(sections, { sectionId: 'a', quote: 'Vice President' }), null);
+  assert.ok(locateQuote(sections, { sectionId: 'a', quote: 'Vice President' }, { minWords: 1 }));
+});

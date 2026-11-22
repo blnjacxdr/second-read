@@ -100,9 +100,11 @@ export function normalizeWithMap(text) {
  *
  * @param {Record<string, string>} sections
  * @param {{ sectionId: string, quote: string }} citation
+ * @param {{ minWords?: number }} [options]  only the scorer lowers minWords, for
+ *   answer-key quotes we wrote ourselves; flags always use MIN_WORDS
  * @returns {{ ranges: Array<{ start: number, end: number }>, text: string } | null}
  */
-export function locateQuote(sections, citation) {
+export function locateQuote(sections, citation, { minWords = MIN_WORDS } = {}) {
   if (!citation || typeof citation.quote !== 'string') return null;
   const raw = sections[citation.sectionId];
   if (typeof raw !== 'string') return null;
@@ -115,7 +117,7 @@ export function locateQuote(sections, citation) {
   if (quote.length === 0) return null;
 
   const isWholeField = quote === source || quote === trimEdgePunctuation(source);
-  if (!isWholeField && wordCount(quote.replaceAll('\u2026', ' ')) < MIN_WORDS) return null;
+  if (!isWholeField && wordCount(quote.replaceAll('\u2026', ' ')) < minWords) return null;
 
   const found = (ranges) => ({ ranges, text: ranges.map((r) => raw.slice(r.start, r.end)).join(ELLIPSIS) });
   const range = (at, length) => ({ start: starts[at], end: ends[at + length - 1] });

@@ -35,13 +35,13 @@ test('a flag matches when it points at the same sections and overlaps a quote', 
 test('scoring counts catches, false alarms and tricky cases', () => {
   const flags = [
     flag('f1', ['activity-1', 'North Ridge Debate, President'], ['personal-essay', 'As vice president of the debate team']),
-    flag('f2', ['activity-1', '5 hr/wk, 30 wk/yr'], ['personal-essay', 'As vice president of the debate team, I ran practice.']), // tricky
+    flag('f2', ['activity-1', '5 hr/wk, 30 wk/yr'], ['personal-essay', 'As vice president of the debate team, I ran practice.']), // tricky: counted once, not as a false alarm
     flag('f3', ['personal-essay', 'Later I joined the band.']),
   ];
   const score = scoreApplication(flags, entry, sections);
   assert.deepEqual(
     { planted: score.planted, caught: score.caught, falseAlarms: score.falseAlarms, trickyTriggered: score.trickyTriggered, keyQuotesMissing: score.keyQuotesMissing },
-    { planted: 2, caught: 1, falseAlarms: 2, trickyTriggered: 1, keyQuotesMissing: 0 },
+    { planted: 2, caught: 1, falseAlarms: 1, trickyTriggered: 1, keyQuotesMissing: 0 },
   );
   assert.deepEqual(score.byKind, { role: { planted: 1, caught: 1 }, 'other-college-name': { planted: 1, caught: 0 } });
 });
