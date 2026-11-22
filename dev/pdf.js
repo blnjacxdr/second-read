@@ -84,15 +84,18 @@ function renderFlags() {
   }
 }
 
-async function refreshAiStatus() {
+/** Enables the button where Gemini Nano is ready or can be downloaded (the button starts the download). */
+async function updateAiButton() {
   const availability = await onDeviceAvailability();
-  const status = describeOnDeviceStatus(availability);
+  $('runAi').disabled = !current || !['available', 'downloadable', 'downloading'].includes(availability);
+  return availability;
+}
+
+/** Shows Chrome's Gemini Nano status. Not called after a run, so a run's result or error stays visible. */
+async function refreshAiStatus() {
+  const status = describeOnDeviceStatus(await updateAiButton());
   $('aiStatus').textContent = status.message;
   $('aiStatus').className = status.canRun ? 'ok' : 'muted';
-  // The button can also start the one-time download, so it's enabled for 'downloadable' too.
-  const usable = ['available', 'downloadable', 'downloading'].includes(availability);
-  $('runAi').disabled = !current || !usable;
-  return status;
 }
 
 $('runAi').addEventListener('click', async () => {
@@ -110,7 +113,10 @@ $('runAi').addEventListener('click', async () => {
     const { models, prepareOnDeviceModel, findContradictionsOnDevice, askMentionOnDevice } = ai;
     if ((await onDeviceAvailability()) !== 'available') {
       await prepareOnDeviceModel(models.privateModel, (f) => { $('aiStatus').textContent = `Downloading Gemini Nano: ${Math.round(f * 100)}%`; });
-      if ((await onDeviceAvailability()) !== 'available') { await refreshAiStatus(); return; }
+      if ((await onDeviceAvailability()) !== 'available') {
+        $('aiStatus').textContent = 'Gemini Nano is not ready yet. Try again when the download finishes.';
+        return;
+      }
     }
 
     const plan = planComparisons(current.app);
@@ -148,11 +154,14 @@ $('runAi').addEventListener('click', async () => {
       `${current.aiFlags.length} flag(s) kept; ${dropped.length} answer(s) dropped because a quote wasn't in your application ` +
       `or didn't state the fact${failed ? `; ${failed} comparison(s) failed` : ''}.`;
     renderFlags();
+    $('aiStatus').textContent = `Done: ${current.aiFlags.length} AI flag(s). Details above the flags.`;
+    $('aiStatus').className = 'ok';
   } catch (err) {
     $('aiStatus').textContent = `AI check stopped: ${err.message}`;
     $('aiStatus').className = 'bad';
+    console.error('AI check stopped:', err); // full error in DevTools > Console for debugging
   } finally {
-    await refreshAiStatus().catch(() => {});
+    await updateAiButton().catch(() => {});
   }
 });
 
