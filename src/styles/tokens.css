@@ -1,0 +1,58 @@
+/* Second Read design tokens. The one place colors, type and spacing live.
+   Matches the approved canvas (Nov 22). Rationale and rules: docs/DESIGN.md.
+   Every text color below passes WCAG AA (4.5:1) on the surface it's used on. */
+:root {
+  /* Paper and ink */
+  --paper: #FCFCFA;          /* page background: notebook paper */
+  --paper-rule: #E4EBF6;     /* faint blue ruled lines */
+  --margin-line: #F2B8B5;    /* red margin line (hidden on phones) */
+  --sheet: #FFFFFF;          /* cards and the drop sheet */
+  --ink: #16181D;            /* main text, 17.3:1 on paper */
+  --ink-2: #3D424C;          /* body text, 9.8:1 */
+  --muted: #5B616C;          /* captions, 6.1:1 */
+  --border-strong: #8A919E;  /* button and pencil-card borders, 3.2:1 (UI minimum 3:1) */
+
+  /* Pen and pencil: the core idea. Pen = checked by code (sure). Pencil = Gemini Nano (double-check). */
+  --pen: #2340D9;            /* ballpoint blue: actions, links, pen marks, 7.5:1 */
+  --pen-dark: #16289A;       /* hover */
+  --pencil: #6A6F7A;         /* graphite: pencil lines */
+  --highlight-pen: #FFE45C;  /* highlighter behind code-check quotes */
+  --highlight-pencil: #E6E7EA; /* graphite smudge behind Nano quotes */
+
+  /* Logo colors */
+  --pencil-yellow: #FFC21A;  /* hexagon (also the poster background) */
+  --pencil-wood: #EBCB9E;    /* wood ring (iris) */
+  --sticky: #FFF6B8;         /* sticky note */
+  --stamp: #C8372D;          /* "clean copy" stamp only */
+  --ok: #1F7A45;             /* Gemini Nano ready dot */
+
+  /* Type: one family. Gabarito was made for a learning platform, with symbols for high-schoolers. */
+  --font: Gabarito, system-ui, sans-serif;
+  --font-hand: 'Nanum Pen Script', cursive;            /* margin notes only, never for content */
+  --font-receipt: ui-monospace, Menlo, Consolas, monospace; /* the privacy receipt only */
+  --text-body: 18px;
+  --text-small: 15px;
+  --text-h2: 24px;
+  --text-h1: clamp(40px, 5.4vw, 68px);
+  --text-hero: clamp(50px, 7.4vw, 96px);
+  --weight-body: 400;
+  --weight-label: 600;
+  --weight-strong: 800;
+  --weight-display: 900;
+  --tracking-display: -0.045em;
+
+  /* Space and shape */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --page-max: 1160px;
+  --page-left: 104px;        /* room for the margin line; 20px on phones */
+  --radius-sheet: 6px;       /* paper has nearly square corners */
+  --radius-pill: 999px;      /* buttons */
+  --radius-sticker: 34px;
+  --touch: 44px;             /* minimum height of anything you can click */
+  --shadow-sheet: 0 1px 0 #D7DCE4, 0 14px 26px -22px rgba(22, 24, 29, .4);
+}
+
+@media (max-width: 720px) {
+  :root { --page-left: 20px; }
+}
