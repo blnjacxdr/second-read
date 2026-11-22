@@ -50,6 +50,44 @@ export function contradictionPrompt(activityText, essayText) {
 }
 
 /**
+ * The extraction design (see extract-checks.js): Nano reports what ONE essay
+ * paragraph says about ONE activity, with exact quotes. Empty string or 0 when
+ * the paragraph doesn't say. Code does the comparing.
+ */
+export const FACTS_SCHEMA = {
+  type: 'object',
+  properties: {
+    aboutThisActivity: { type: 'boolean' },
+    hoursQuote: { type: 'string' },
+    hoursPerWeek: { type: 'number' },
+    roleQuote: { type: 'string' },
+    role: { type: 'string' },
+    placeQuote: { type: 'string' },
+  },
+  required: ['aboutThisActivity', 'hoursQuote', 'hoursPerWeek', 'roleQuote', 'role', 'placeQuote'],
+};
+
+/**
+ * @param {string} itemName  the organization or the honor's title, never the student's listed hours or title
+ * @param {string} passage   one essay paragraph
+ */
+export function factsPrompt(itemName, passage) {
+  return [
+    `Read this paragraph from a student's college essay. Answer only about this activity: ${itemName}`,
+    'aboutThisActivity: true if the paragraph talks about this activity, otherwise false.',
+    'hoursQuote: copy, character for character, the phrase (at least 3 words) that says how much time the student spends on it, for example "practiced three hours every night". Empty string if the paragraph does not say.',
+    'hoursPerWeek: that time as hours per week, your best estimate. 0 if the paragraph does not say.',
+    'roleQuote: copy the phrase (at least 3 words) that names the student\'s title or role in it, for example "as team captain". Empty string if none.',
+    'role: just that title, for example "captain". Empty string if none.',
+    'placeQuote: copy the phrase (at least 3 words) that states a placing or prize the student won, for example "we took second place". Empty string if none.',
+    'Copy quotes only from the paragraph. Do not rewrite, suggest or explain anything.',
+    '',
+    'PARAGRAPH:',
+    passage,
+  ].join('\n');
+}
+
+/**
  * Prompt for the cloud model. It may contain only public names
  * (organizations, programs, colleges), never application text.
  * With search, the model is told to use Google Search; without it, the model

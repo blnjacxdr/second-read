@@ -17,7 +17,7 @@ test('asks once per planned pair, and a model that finds nothing gives no flags'
   let calls = 0;
   const run = await runAiChecks({
     app, codeFlags,
-    compare: async () => { calls += 1; return { contradictions: [] }; },
+    ask: async () => { calls += 1; return { contradictions: [] }; },
     askMention: async () => ({ likelySlip: false }),
   });
   assert.equal(calls, planComparisons(app).length);
@@ -32,7 +32,7 @@ test('a failing comparison is counted, not fatal, and the others still run', asy
     let calls = 0;
     const run = await runAiChecks({
       app, codeFlags,
-      compare: async () => { calls += 1; if (calls === 1) throw new Error('model busy'); return { contradictions: [] }; },
+      ask: async () => { calls += 1; if (calls === 1) throw new Error('model busy'); return { contradictions: [] }; },
       askMention: async () => { throw new Error('model busy'); },
     });
     assert.equal(run.failed, 1);
@@ -46,7 +46,7 @@ test('a failing comparison is counted, not fatal, and the others still run', asy
 test('an invented quote is dropped, never shown', async () => {
   const run = await runAiChecks({
     app, codeFlags,
-    compare: async () => ({ contradictions: [{ kind: 'hours', activityQuote: 'twelve hours every single week', essayQuote: 'I never went to practice at all', explanation: 'x' }] }),
+    ask: async () => ({ contradictions: [{ kind: 'hours', activityQuote: 'twelve hours every single week', essayQuote: 'I never went to practice at all', explanation: 'x' }] }),
     askMention: async () => ({ likelySlip: false }),
   });
   assert.deepEqual(run.flags, []);

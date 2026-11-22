@@ -21,7 +21,8 @@ const kinds = (t) => Object.entries(t.byKind).map(([k, v]) => `${k} ${v.caught}/
 
 $('run').addEventListener('click', async () => {
   $('run').disabled = true;
-  const report = [];
+  const design = $('design').value;
+  const report = [`Design: ${design}`];
   try {
     if ((await onDeviceAvailability()) !== 'available') throw new Error('Gemini Nano is not ready in this Chrome.');
     const key = await (await fetch('../eval/heldout/answer-key.json')).json();
@@ -54,7 +55,8 @@ $('run').addEventListener('click', async () => {
         const run = await runAiChecks({
           app: a.app,
           codeFlags: a.codeFlags,
-          compare: (itemText, passage) => module.findContradictionsOnDevice(models.privateModel, itemText, passage),
+          ask: module.onDeviceAsker(models),
+          design,
           askMention: async () => null, // mention ordering never hides a flag, so it doesn't change the score
           onProgress: (m) => say(`Run ${r} of ${RUNS}, application ${i + 1} of ${apps.length}: ${m}`),
         });

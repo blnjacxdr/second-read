@@ -15,7 +15,7 @@ import { getAI, getGenerativeModel, GoogleAIBackend, InferenceMode } from 'https
 
 import { firebaseConfig, recaptchaSiteKey } from './firebase-config.js';
 import { assertOnDevice } from './core/privacy.js';
-import { CONTRADICTION_SCHEMA, contradictionPrompt, publicNamesPrompt } from './core/prompts.js';
+import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, publicNamesPrompt } from './core/prompts.js';
 import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
@@ -48,6 +48,10 @@ export function createSecondReadAI() {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: CONTRADICTION_SCHEMA } },
   });
+  const factsModel = getGenerativeModel(ai, {
+    mode: InferenceMode.ONLY_ON_DEVICE,
+    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: FACTS_SCHEMA } },
+  });
   const mentionModel = getGenerativeModel(ai, {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: MENTION_SCHEMA } },
@@ -66,7 +70,7 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL },
   });
 
-  return { privateModel, mentionModel, publicModel, publicModelWithoutSearch };
+  return { privateModel, factsModel, mentionModel, publicModel, publicModelWithoutSearch };
 }
 
 // Kept here too so older pages can import it from src/ai.js.
@@ -87,6 +91,17 @@ export function prepareOnDeviceModel(privateModel, onProgress) {
  */
 export async function findContradictionsOnDevice(privateModel, itemText, essayText) {
   const result = await privateModel.generateContent(contradictionPrompt(itemText, essayText));
+  assertOnDevice(result.response);
+  return JSON.parse(result.response.text());
+}
+
+/**
+ * Extraction design: asks the on-device model what one essay paragraph says
+ * about one activity or honor (hours, title, placing, with quotes). Returns the
+ * parsed JSON. Throws PrivacyError if the answer did not come from the device.
+ */
+export async function extractFactsOnDevice(factsModel, itemName, passage) {
+  const result = await factsModel.generateContent(factsPrompt(itemName, passage));
   assertOnDevice(result.response);
   return JSON.parse(result.response.text());
 }
@@ -113,3 +128,10 @@ export async function checkPublicNamesInCloud(publicModel, publicNames, sentLog,
   return readGroundedAnswer(result.response);
 }
 
+
+/** The `ask` function runAiChecks needs: sends each question to the right on-device model. */
+export function onDeviceAsker(models) {
+  return (question) => (question.kind === 'facts'
+    ? extractFactsOnDevice(models.factsModel, question.itemName, question.passage)
+    : findContradictionsOnDevice(models.privateModel, question.itemText, question.passage));
+}

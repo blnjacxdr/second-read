@@ -130,7 +130,8 @@ $('runAi').addEventListener('click', async () => {
     const run = await runAiChecks({
       app: current.app,
       codeFlags: current.codeFlags,
-      compare: (itemText, passage) => findContradictionsOnDevice(models.privateModel, itemText, passage),
+      ask: ai.onDeviceAsker(models),
+      design: 'open', // the measured baseline; switches when the held-out score says so
       askMention: (name, sentence) => askMentionOnDevice(models.mentionModel, name, sentence),
       onProgress: (message) => { $('aiStatus').textContent = message; },
     });
