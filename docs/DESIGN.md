@@ -34,7 +34,23 @@ Geist, Inter, Space Grotesk and Bricolage were removed: they read as AI defaults
 Plain, a bit wry, never writes for the student. "6 spots where your application argues with itself."
 "Fixed it" / "That's on purpose". "thanks for not uploading".
 
-## Stage 2 (motion) and stage 3 (easter eggs), parked
-- Signature: two pencils roll toward you until their ends become the eyes, then blink.
-- Start page only: eyes follow the cursor, and turn toward the drop sheet when a file is dragged in.
-- Easter eggs: to decide.
+## Motion (stage 2, designed Nov 22 on the canvas)
+- **Signature:** on the start page two pencils drop in tilted, straighten, and turn until their flat ends face you and become the eyes (~1.4 s), then blink. Later blinks every ~5.5 s.
+- **Start page only:** pupils follow the cursor (max 9 units, throttled with requestAnimationFrame). Dragging a file over the sheet, or keyboard focus on it, makes both eyes look at the sheet with wide pupils.
+- **Results:** the highlighter sweeps under each quote once; "Fixed it" strikes the card in pen; clearing everything thunks the red "clean copy" stamp and the header eyes close happily. Results never move on their own otherwise.
+- **Reduced motion:** every animation off, eyes still, cursor following off.
+
+## Error states (board "4 · When something goes sideways")
+No Gemini Nano (sleepy eyes), still downloading (eyes look up), picture PDF (squint, with the 3 steps to get Common App's own PDF), not a Common App PDF (confused), partly read (one eyebrow up, what was skipped), nothing found (happy eyes, "not a promise it's perfect").
+Errors give direction, never apologize, and never fall back to the cloud.
+
+## Easter eggs (stage 3)
+On the canvas:
+- Click the logo three times fast: the eyes do a double take and the name reads "wait, what?".
+- Leave the mouse alone for 20 s on the start page: the eyes doze off ("z z z"); any movement wakes them.
+- Hover the footer credit: "this was his procrastination".
+- Hover "sent to the internet: 0" on the receipt: "seriously, zero".
+- Mark every spot "That's on purpose": "all six on purpose? bold strategy. respect."
+Real app only (build these):
+- **DevTools console greeting**, for judges who check our privacy claim: a short styled console.log saying the Network tab should stay empty while your application is read, signed by the builder.
+- **Konami code** (up up down down left right left right b a) on the start page: the pencils sharpen and a few shavings fall. One keydown listener, removed on leaving the page, off with reduced motion.
