@@ -26,7 +26,9 @@ const GENERIC = new Set(`a an and the of for in at on to with &
   art music newspaper yearbook journalism model un government leadership internship job work part time
   first place second third honor honors award awards prize scholar scholarship winner finalist semifinalist
   roll member members inducted delegate partnership independent projects build restoration local
-  captain president founder officer volunteer intern assistant coach player manager lead`.split(/\s+/));
+  captain president founder officer volunteer intern assistant coach player manager lead
+  summer winter spring fall state regional national district county city fair competition contest
+  tournament camp conference all`.split(/\s+/));
 
 // Names that may point to the student's own school. Offered, but unticked by
 // default: a school name plus rare activities can identify a person.
@@ -38,9 +40,12 @@ const PERSON_POSSESSIVE = /\b[A-Z][a-z]+ [A-Z][a-z]+['’]s\b/;
 
 const words = (text) => text.toLowerCase().match(/[a-z0-9&]+/g) ?? [];
 
-/** True if a name has at least one word that isn't generic, and at least one capital letter or digit. */
+/** True if a name has at least one word that isn't generic, and at least one capital letter or digit.
+ *  Capitals alone don't make a name ("State Science Fair" is still generic), but an all-caps acronym of
+ *  3+ letters does ("FIRST Robotics Competition", "DECA"). Two-letter ones like "JV" or "UN" don't. */
 export function isSpecificName(name) {
   if (!/[A-Z0-9]/.test(name)) return false;
+  if ((name.match(/\b[A-Z][A-Z0-9&]{2,}\b/g) ?? []).length > 0) return true;
   return words(name).some((w) => !GENERIC.has(w) && !/^\d+$/.test(w));
 }
 

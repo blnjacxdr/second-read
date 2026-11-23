@@ -32,6 +32,15 @@ test('code reads organizations from headings and honors, never the position', ()
   assert.ok(!names.some((n) => /Captain|Programmer|Founder|2nd Place/.test(n)));
 });
 
+test('ordinary words stay generic even when capitalized, but an acronym is a name', () => {
+  for (const n of ['State Science Fair', 'Summer Research Student', 'All-Conference Second', 'JV Soccer', 'Model UN']) {
+    assert.equal(isSpecificName(n), false, n);
+  }
+  for (const n of ['FIRST Robotics Competition', 'DECA', 'National History Day', 'Science Olympiad', 'Penn Engineering Summer Academy']) {
+    assert.equal(isSpecificName(n), true, n);
+  }
+});
+
 test('generic names are not worth checking', () => {
   assert.equal(isSpecificName('Tutoring Club'), false);
   assert.equal(isSpecificName('Varsity Soccer'), false);
