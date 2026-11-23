@@ -69,7 +69,7 @@ export function cloudQuestions(names, { college = null, sections = {} } = {}) {
 
 const isKnownCollege = (name) => COLLEGES.some((c) => namesFor(c).some((n) => lower(n) === lower(name)));
 
-// "Juniper Ridge High School Varsity Soccer" -> "juniper ridge": the words before the school-type words.
+// "Maple Grove High School Chess Team" -> "maple grove": the words before the school-type words.
 const SCHOOL_WORDS = /\s+(high school|middle school|secondary school|hs|day school|charter school|academy|prep)\b.*$/i;
 function ownSchoolPrefixes(names) {
   return names
