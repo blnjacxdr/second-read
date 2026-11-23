@@ -34,11 +34,13 @@ Geist, Inter, Space Grotesk and Bricolage were removed: they read as AI defaults
 Plain, a bit wry, never writes for the student. "6 spots where your application argues with itself."
 "Fixed it" / "That's on purpose". "thanks for not uploading".
 
-## Motion (stage 2, designed Nov 22 on the canvas)
-- **Signature:** on the start page two pencils drop in tilted, straighten, and turn until their flat ends face you and become the eyes (~1.4 s), then blink. Later blinks every ~5.5 s.
-- **Start page only:** pupils follow the cursor (max 9 units, throttled with requestAnimationFrame). Dragging a file over the sheet, or keyboard focus on it, makes both eyes look at the sheet with wide pupils.
+## Motion (stage 2, reworked Nov 23 on the canvas)
+- **Tokens:** `--spring` and `--spring-bouncy` are damped springs sampled into CSS `linear()` (they overshoot and settle; plain cubic-bezier can't). `--ease-out` is cubic-bezier(.23,1,.32,1). Animate only transform/translate/rotate/scale and opacity. Generators live in the canvas notes; regenerate rather than hand-edit the stops.
+- **Signature, the wake-up (~3 s, start page only, never blocks the page):** two pencils drop in on a bouncy spring, each circles the spot where its eye will be (like a reviewer circling a typo; the pencil tip and the drawn line come from the same sampled points, so they stay in sync), moves its tip to the center, then swings in 3D to point at you. The sharpened end becomes the eye: hexagon, wood, graphite pupil. The eyes pop in on a spring, the pupils open wide, a slow blink, a look left, a look right, then they find your cursor. Later blinks every ~5.5 s.
+- **Eyes on a spring:** pupils follow the cursor with a small physics loop (stiffness 260, damping 22, slightly underdamped) written straight to the SVG, not re-rendered. The eye card leans a little the same way. The loop stops when everything is at rest. Dragging a file over the sheet, or keyboard focus on it, makes both eyes look at the sheet with wide pupils. Asleep, they look down.
+- **Signature feature, the reading pencil:** while Second Read checks the application, a pencil tip writes along each line as it highlights it, then hops to the next line (0.3 s per line, in step with the list of what it found).
 - **Results:** the highlighter sweeps under each quote once; "Fixed it" strikes the card in pen; clearing everything thunks the red "clean copy" stamp and the header eyes close happily. Results never move on their own otherwise.
-- **Reduced motion:** every animation off, eyes still, cursor following off.
+- **Reduced motion:** no pencils, no scribble, no reading pencil; the eyes are simply there and stay still (they still look at a dragged file); highlights show at once.
 
 ## Error states (board "4 · When something goes sideways")
 No Gemini Nano (sleepy eyes), still downloading (eyes look up), picture PDF (squint, with the 3 steps to get Common App's own PDF), not a Common App PDF (confused), partly read (one eyebrow up, what was skipped), nothing found (happy eyes, "not a promise it's perfect").
