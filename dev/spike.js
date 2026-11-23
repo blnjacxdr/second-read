@@ -9,7 +9,7 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
 
 import {
   createSecondReadAI, onDeviceAvailability, prepareOnDeviceModel,
-  findContradictionsOnDevice, checkPublicNamesInCloud,
+  findContradictionsOnDevice, checkNamesInCloud,
 } from '../src/ai.js';
 import { describeOnDeviceStatus } from '../src/core/privacy.js';
 import { keepVerifiedFlags } from '../src/core/quotes.js';
@@ -80,7 +80,8 @@ async function runCloudCheck(withSearch) {
   out.replaceChildren(el('p', 'Asking the cloud model…', 'muted'));
   try {
     const model = withSearch ? publicModel : publicModelWithoutSearch;
-    const answer = await checkPublicNamesInCloud(model, sample.publicNames, sentLog, { withSearch });
+    const questions = sample.publicNames.map((name, i) => ({ id: i + 1, kind: 'lookup', name }));
+    const answer = await checkNamesInCloud(model, questions, sentLog, { withSearch });
     out.replaceChildren(
       el('p', `Answered by: ${answer.inferenceSource}. Grounded: ${answer.grounded ? 'yes' : 'no (no Google Search, so no sources)'}`),
       el('pre', answer.text),

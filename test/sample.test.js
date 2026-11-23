@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { applicationSections, countWords, LIMITS } from '../src/core/sections.js';
 import { verifyQuote } from '../src/core/quotes.js';
-import { publicNamesPrompt } from '../src/core/prompts.js';
+import { cloudQuestions, cloudNamesPrompt } from '../src/core/cloud-names.js';
 
 const readJson = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url), 'utf8'));
 const sample = readJson('../sample/application.json');
@@ -65,7 +65,8 @@ test('the controls that must not flag are really in the sample', () => {
 });
 
 test('the cloud prompt for the sample carries no essay text', () => {
-  const prompt = publicNamesPrompt(sample.publicNames);
+  const names = sample.publicNames.map((name) => ({ name, kind: 'program', sectionIds: ['college-essay-1'], defaultOn: true }));
+  const prompt = cloudNamesPrompt(cloudQuestions(names, { college: 'University of Michigan' }));
   for (const paragraph of sample.personalEssay.text.split('\n\n')) {
     assert.equal(prompt.includes(paragraph.slice(0, 40)), false);
   }

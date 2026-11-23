@@ -11,6 +11,8 @@ import { orderWithMentionAnswers } from '../src/core/ai-checks.js';
 import { runAiChecks, findPublicNames } from '../src/core/run-ai.js';
 import { layoutReport, isImageOnlyPdf, IMAGE_ONLY_MESSAGE } from '../src/core/layout-report.js';
 import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privacy.js';
+import { cloudQuestions, placeConflicts, answerStatus } from '../src/core/cloud-names.js';
+import { createSentLog } from '../src/core/sent-log.js';
 // src/ai.js (Firebase, loaded from Google's servers) is imported only when the AI
 // button is clicked, so reading the PDF and the code checks work even where
 // Google's servers are blocked or the computer is offline.
@@ -18,6 +20,8 @@ import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privac
 const $ = (id) => document.getElementById(id);
 let current = null; // { result, app, codeFlags, aiFlags, aiNote }
 let ai = null; // { models, ...functions } from src/ai.js, loaded on first use
+let questions = []; // cloud fact-check questions for the current PDF
+const sentLog = createSentLog(); // every string sent to the cloud, recorded before sending
 
 function el(tag, text, className) {
   const node = document.createElement(tag);
@@ -179,6 +183,7 @@ $('findNames').addEventListener('click', async () => {
     const droppedList = el('ul');
     for (const d of out.dropped) droppedList.append(el('li', `${d.name}: ${d.reason}`, 'muted'));
     $('names').replaceChildren(card(`${out.names.length} public name(s) offered, ${out.names.filter((n) => n.defaultOn).length} ticked`, list), card(`${out.dropped.length} left out`, droppedList));
+    renderQuestions(cloudQuestions(out.names, { college: current.result.college }));
     $('namesStatus').textContent = askNames
       ? `Done, with Gemini Nano on this computer${out.failed ? ` (${out.failed} search(es) failed)` : ''}.`
       : 'Done, code only (Gemini Nano is not ready on this computer).';
@@ -189,6 +194,86 @@ $('findNames').addEventListener('click', async () => {
     $('findNames').disabled = false;
   }
 });
+
+// ---- Cloud fact-check (dev). Only the ticked questions are sent; each prompt is in the sent log first. ----
+
+async function loadAi() {
+  if (!ai) {
+    const module = await import('../src/ai.js');
+    ai = { ...module, models: module.createSecondReadAI() };
+  }
+  return ai;
+}
+
+function renderQuestions(list) {
+  questions = list;
+  const box = $('questions');
+  box.replaceChildren();
+  for (const q of questions) {
+    const label = el('label');
+    const tick = el('input');
+    tick.type = 'checkbox'; tick.checked = q.defaultOn; tick.dataset.id = String(q.id);
+    const text = q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}?` : `Look up ${q.name}`;
+    label.append(tick, ` ${text}${q.why ? ` (unticked: ${q.why})` : ''}`);
+    box.append(el('div'), label);
+  }
+  $('cloudBox').hidden = questions.length === 0;
+  $('cloudAnswers').replaceChildren(); $('sources').replaceChildren();
+  $('cloudStatus').textContent = `${questions.length} question(s), ${questions.filter((q) => q.defaultOn).length} ticked.`;
+}
+
+function renderSentLog() {
+  const entries = sentLog.entries();
+  $('sentLog').replaceChildren(...(entries.length ? entries.map((e) => card(`${e.purpose} (${e.at})`, el('pre', e.text))) : [el('span', 'Nothing yet.')]));
+}
+
+async function runCloud(withSearch) {
+  const ticked = new Set([...$('questions').querySelectorAll('input:checked')].map((t) => Number(t.dataset.id)));
+  // Renumber 1..n so the prompt only shows what's sent; map back by name and kind.
+  const send = questions.filter((q) => ticked.has(q.id)).map((q, i) => ({ ...q, id: i + 1 }));
+  if (send.length === 0) { $('cloudStatus').textContent = 'Nothing ticked, nothing sent.'; return; }
+  $('cloudSearch').disabled = $('cloudNoSearch').disabled = true;
+  $('cloudStatus').textContent = `Sending ${send.length} question(s)…`;
+  try {
+    const { models, checkNamesInCloud } = await loadAi();
+    const model = withSearch ? models.publicModel : models.publicModelWithoutSearch;
+    const answer = await checkNamesInCloud(model, send, sentLog, { withSearch });
+    renderSentLog();
+    const rows = el('ul');
+    for (const q of send) {
+      const a = answer.answers.find((x) => x.id === q.id);
+      const conflicts = a ? placeConflicts(q, a, current.result.sections) : [];
+      const status = answerStatus(q, a, conflicts);
+      const ask = q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}?` : q.name;
+      const said = a ? [a.verdict, a.official, a.place, a.fact].filter(Boolean).join(' | ') : 'no answer';
+      const extra = conflicts.length ? ` You wrote ${conflicts.map((c) => c.written).join(', ')} next to it.` : '';
+      rows.append(el('li', `[${status}] ${ask}: ${said}.${extra}`, status === 'look' ? 'bad' : status === 'fine' ? 'ok' : 'muted'));
+    }
+    const leftover = answer.leftover.length ? [el('p', 'Lines we could not place:', 'muted'), el('pre', answer.leftover.join('\n'))] : [];
+    $('cloudAnswers').replaceChildren(card(`Answers (${answer.inferenceSource}, ${answer.grounded ? 'grounded with Google Search' : 'not grounded, no sources'})`, rows, ...leftover));
+    // Required by Google for grounded answers: show the search suggestions exactly as sent (in a shadow root
+    // so their styles stay contained) and the sources.
+    const host = $('suggestions');
+    const shadow = host.shadowRoot || host.attachShadow({ mode: 'open' });
+    shadow.innerHTML = answer.searchSuggestionsHtml || '';
+    const sources = el('ul');
+    for (const source of answer.sources) {
+      const li = el('li'); const link = el('a', source.title);
+      link.href = source.uri; link.target = '_blank'; link.rel = 'noopener noreferrer';
+      li.append(link); sources.append(li);
+    }
+    $('sources').replaceChildren(answer.sources.length ? card('Sources', sources) : el('span'));
+    $('cloudStatus').textContent = `Done. ${answer.missing.length ? `${answer.missing.length} question(s) got no answer line.` : ''}`;
+  } catch (err) {
+    renderSentLog();
+    $('cloudStatus').textContent = `Stopped: ${err.message}`;
+    console.error('cloud check stopped:', err);
+  } finally {
+    $('cloudSearch').disabled = $('cloudNoSearch').disabled = false;
+  }
+}
+$('cloudSearch').addEventListener('click', () => runCloud(true));
+$('cloudNoSearch').addEventListener('click', () => runCloud(false));
 
 $('file').addEventListener('change', async (event) => {
   const file = event.target.files[0];
@@ -203,7 +288,7 @@ $('file').addEventListener('change', async (event) => {
       $('status').textContent = `Read ${pageCount} pages, but ${IMAGE_ONLY_MESSAGE}`;
       $('status').className = 'bad';
       current = null;
-      $('flags').replaceChildren(); $('out').replaceChildren(); $('names').replaceChildren();
+      $('flags').replaceChildren(); $('out').replaceChildren(); $('names').replaceChildren(); renderQuestions([]);
       await updateAiButton();
       return;
     }
@@ -221,6 +306,7 @@ $('file').addEventListener('change', async (event) => {
 
     const app = checkInputFromPdf(result);
     current = { result, app, codeFlags: runCodeChecks(app), aiFlags: [], aiNote: null, mentionAnswers: null };
+    $('names').replaceChildren(); renderQuestions([]); // names and questions belong to the previous PDF
     renderFlags();
     await refreshAiStatus();
 

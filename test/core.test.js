@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { assertOnDevice, describeOnDeviceStatus, PrivacyError, onDeviceAvailability } from '../src/core/privacy.js';
 import { readGroundedAnswer } from '../src/core/grounding.js';
 import { createSentLog } from '../src/core/sent-log.js';
-import { contradictionPrompt, publicNamesPrompt, CONTRADICTION_SCHEMA, CONTRADICTION_KINDS } from '../src/core/prompts.js';
+import { contradictionPrompt, CONTRADICTION_SCHEMA, CONTRADICTION_KINDS } from '../src/core/prompts.js';
 
 test('assertOnDevice accepts on-device answers only', () => {
   assert.doesNotThrow(() => assertOnDevice({ inferenceSource: 'on_device' }));
@@ -76,19 +76,6 @@ test('contradiction prompt contains both texts and forbids rewriting', () => {
   // Quotes under 3 words are dropped by verifyQuote, so the prompt must ask for longer ones.
   assert.match(prompt, /at least 3 words/);
   assert.deepEqual(CONTRADICTION_SCHEMA.properties.contradictions.items.properties.kind.enum, CONTRADICTION_KINDS);
-});
-
-test('public names prompt contains the names and nothing else of the user\'s', () => {
-  const prompt = publicNamesPrompt(['Oregon Museum of Science and Industry']);
-  assert.match(prompt, /- Oregon Museum of Science and Industry$/);
-  assert.throws(() => publicNamesPrompt([]));
-});
-
-test('the no-search prompt does not claim to search and allows UNSURE', () => {
-  const prompt = publicNamesPrompt(['FIRST Robotics Competition'], { withSearch: false });
-  assert.doesNotMatch(prompt, /Google Search/);
-  assert.match(prompt, /UNSURE/);
-  assert.match(publicNamesPrompt(['x y z']), /Use Google Search/);
 });
 
 test('onDeviceAvailability is undefined where the browser has no on-device model (here, Node)', async () => {

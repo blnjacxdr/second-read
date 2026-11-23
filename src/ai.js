@@ -15,7 +15,8 @@ import { getAI, getGenerativeModel, GoogleAIBackend, InferenceMode } from 'https
 
 import { firebaseConfig, recaptchaSiteKey } from './firebase-config.js';
 import { assertOnDevice } from './core/privacy.js';
-import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, CLAIM_SCHEMA, claimPrompt, NAMES_SCHEMA, namesPrompt, publicNamesPrompt } from './core/prompts.js';
+import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, CLAIM_SCHEMA, claimPrompt, NAMES_SCHEMA, namesPrompt } from './core/prompts.js';
+import { cloudNamesPrompt, parseCloudAnswer } from './core/cloud-names.js';
 import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
@@ -125,17 +126,17 @@ export async function askMentionOnDevice(mentionModel, collegeName, sentence) {
 }
 
 /**
- * Checks public names in the cloud. Pass the model and withSearch together:
- * publicModel with withSearch true, or publicModelWithoutSearch with false.
- * The full prompt is recorded in sentLog before it is sent.
+ * The cloud name check: sends the questions the student ticked (public names only) and reads the answer.
+ * Pass the model and withSearch together: publicModel with true, or publicModelWithoutSearch with false.
+ * The full prompt is recorded in sentLog BEFORE it is sent, so the "What we sent" panel is complete.
  */
-export async function checkPublicNamesInCloud(publicModel, publicNames, sentLog, { withSearch = true } = {}) {
-  const prompt = publicNamesPrompt(publicNames, { withSearch });
-  sentLog.record(withSearch ? 'Check public names with Google Search' : 'Check public names (no search)', prompt);
+export async function checkNamesInCloud(publicModel, questions, sentLog, { withSearch = true } = {}) {
+  const prompt = cloudNamesPrompt(questions, { withSearch });
+  sentLog.record(withSearch ? 'Fact-check names with Google Search' : 'Fact-check names (no search)', prompt);
   const result = await publicModel.generateContent(prompt);
-  return readGroundedAnswer(result.response);
+  const answer = readGroundedAnswer(result.response);
+  return { ...answer, ...parseCloudAnswer(answer.text, questions) };
 }
-
 
 /**
  * Claim design: asks the on-device model whether one paragraph agrees with,
@@ -150,7 +151,7 @@ export async function checkClaimsOnDevice(claimModel, claims, passage) {
 /**
  * Public-name finder: asks the on-device model for the public names in one
  * text. Private text never leaves the computer here; only names the student
- * later ticks go to the cloud, through checkPublicNamesInCloud.
+ * later ticks go to the cloud, through checkNamesInCloud.
  */
 export async function findNamesOnDevice(namesModel, text) {
   const result = await namesModel.generateContent(namesPrompt(text));
