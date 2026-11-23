@@ -33,24 +33,70 @@ export function isSendableName(name) {
 
 /**
  * Builds the questions the student can tick. Lookups follow each name's own default (people, essay-only
- * names and the student's own school start unticked). Part-of questions start ticked.
+ * names and the student's own school start unticked), plus:
+ *   - known colleges get no lookup: we know they exist, and the code check already handles other colleges' names;
+ *   - clubs named after the student's own school ("Lakeside Robotics" beside "Lakeside High School") start unticked,
+ *     because Google rarely knows a school club and "not found" would only worry the student;
+ *   - an abbreviation is sent the way the application spells it out ("Research Science Institute (RSI)", not "RSI"),
+ *     so Google knows which RSI.
+ * Part-of questions are asked only for names that appear in this college's essays and nowhere else: a program in
+ * the activity list is something the student did, not something they claim the college has.
  * @param {Array<{name: string, kind: string, sectionIds: string[], defaultOn: boolean, why?: string}>} names
- * @param {{ college?: string|null }} options  the college this PDF is for
+ * @param {{ college?: string|null, sections?: Record<string, string> }} options
  */
-export function cloudQuestions(names, { college = null } = {}) {
+export function cloudQuestions(names, { college = null, sections = {} } = {}) {
   const collegeAliases = college ? collegeNamesFor(college) : [];
+  const schoolPrefixes = ownSchoolPrefixes(names);
   const questions = [];
   for (const n of names) {
-    if (!isSendableName(n.name)) continue;
-    questions.push({ kind: 'lookup', name: n.name, sectionIds: n.sectionIds, defaultOn: Boolean(n.defaultOn), why: n.why ?? null });
-    const inOwnEssays = college && n.sectionIds.some((id) => id.startsWith('college-essay-'));
-    const isACollege = n.kind === 'college' || collegeAliases.some((a) => lower(a) === lower(n.name));
-    if (inOwnEssays && !isACollege) {
-      questions.push({ kind: 'partOf', name: n.name, college, sectionIds: n.sectionIds, defaultOn: true, why: null });
+    const sendAs = expandAbbreviation(n.name, n.sectionIds, sections);
+    if (!isSendableName(sendAs)) continue;
+    const isACollege = n.kind === 'college' || isKnownCollege(n.name) || collegeAliases.some((a) => lower(a) === lower(n.name));
+    if (isACollege) continue;
+    const schoolClub = n.defaultOn && schoolPrefixes.some((p) => lower(n.name).startsWith(`${p} `));
+    questions.push({
+      kind: 'lookup', name: sendAs, sectionIds: n.sectionIds,
+      defaultOn: Boolean(n.defaultOn) && !schoolClub,
+      why: schoolClub ? 'sounds like a club at your school' : n.why ?? null,
+    });
+    const onlyInTheseEssays = n.sectionIds.length > 0 && n.sectionIds.every((id) => id.startsWith('college-essay-'));
+    if (college && onlyInTheseEssays) {
+      questions.push({ kind: 'partOf', name: sendAs, college, sectionIds: n.sectionIds, defaultOn: true, why: null });
     }
   }
   return questions.slice(0, MAX_QUESTIONS).map((q, i) => ({ id: i + 1, ...q }));
 }
+
+const isKnownCollege = (name) => COLLEGES.some((c) => namesFor(c).some((n) => lower(n) === lower(name)));
+
+// "Juniper Ridge High School Varsity Soccer" -> "juniper ridge": the words before the school-type words.
+const SCHOOL_WORDS = /\s+(high school|middle school|secondary school|hs|day school|charter school|academy|prep)\b.*$/i;
+function ownSchoolPrefixes(names) {
+  return names
+    .filter((n) => SCHOOL_WORDS.test(n.name))
+    .map((n) => lower(n.name.replace(SCHOOL_WORDS, '')))
+    .filter((p) => p.split(' ').length >= 1 && p.length >= 4);
+}
+
+/** "RSI" -> "Research Science Institute (RSI)" when the application writes it that way; otherwise the name as is.
+ *  Looks one line at a time (a field label on the line above is not part of the name) and drops a leading
+ *  word like "At" or "Joined" that only starts the sentence. */
+export function expandAbbreviation(name, sectionIds, sections) {
+  if (!/^[A-Z][A-Z0-9&]{1,7}$/.test(name)) return name;
+  const pattern = new RegExp(`((?:[A-Z][\\w&'’.-]*\\s+(?:(?:of|for|and|the|in|on|at|&)\\s+)*){1,8})\\(${escape(name)}\\)`);
+  for (const id of sectionIds) {
+    const text = typeof sections[id] === 'string' ? sections[id] : '';
+    for (const line of text.split(/\r?\n/)) {
+      const m = normalizeForMatch(line).match(pattern);
+      if (!m) continue;
+      const words = m[1].trim().split(' ');
+      while (words.length > 1 && LEADING_WORDS.has(words[0].toLowerCase())) words.shift();
+      return `${words.join(' ')} (${name})`;
+    }
+  }
+  return name;
+}
+const LEADING_WORDS = new Set(['at', 'in', 'on', 'for', 'the', 'my', 'our', 'this', 'during', 'attended', 'joined', 'through', 'with']);
 
 /** Every way the PDF's college might be written, from the college list, or just the name itself. */
 function collegeNamesFor(college) {
@@ -154,8 +200,10 @@ function nearbyText(question, sections) {
 }
 
 /** What the student sees for one answer: 'fine', 'look' (worth a look before submitting) or 'unsure'. */
+// "Not found" is not a problem by itself: Google rarely knows a local club or a small business.
+// Worth a look means Google contradicts the application: "not part of this college", or held somewhere else.
 export function answerStatus(question, answer, conflicts = []) {
-  if (!answer || answer.verdict === 'unsure') return 'unsure';
-  if (answer.verdict === 'not_found' || answer.verdict === 'no' || conflicts.length > 0) return 'look';
+  if (!answer || answer.verdict === 'unsure' || answer.verdict === 'not_found') return 'unsure';
+  if (answer.verdict === 'no' || conflicts.length > 0) return 'look';
   return 'fine';
 }

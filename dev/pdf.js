@@ -183,7 +183,7 @@ $('findNames').addEventListener('click', async () => {
     const droppedList = el('ul');
     for (const d of out.dropped) droppedList.append(el('li', `${d.name}: ${d.reason}`, 'muted'));
     $('names').replaceChildren(card(`${out.names.length} public name(s) offered, ${out.names.filter((n) => n.defaultOn).length} ticked`, list), card(`${out.dropped.length} left out`, droppedList));
-    renderQuestions(cloudQuestions(out.names, { college: current.result.college }));
+    renderQuestions(cloudQuestions(out.names, { college: current.result.college, sections: current.result.sections }));
     $('namesStatus').textContent = askNames
       ? `Done, with Gemini Nano on this computer${out.failed ? ` (${out.failed} search(es) failed)` : ''}.`
       : 'Done, code only (Gemini Nano is not ready on this computer).';

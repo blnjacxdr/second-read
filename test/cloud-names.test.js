@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  isSendableName, cloudQuestions, cloudNamesPrompt, parseCloudAnswer, placeConflicts, answerStatus,
+  isSendableName, cloudQuestions, cloudNamesPrompt, parseCloudAnswer, placeConflicts, answerStatus, expandAbbreviation,
   MAX_QUESTIONS,
 } from '../src/core/cloud-names.js';
 
@@ -35,11 +35,42 @@ test('every name gets a lookup that keeps its own default; names in this college
   assert.equal(qs[3].college, 'University of Michigan');
 });
 
-test('no part-of question for colleges themselves, or without a known college', () => {
+test('colleges get no questions at all: we know they exist, and the code check handles other colleges', () => {
   const inEssay = ['college-essay-2'];
-  assert.equal(cloudQuestions([name('UMich', inEssay)], { college: 'University of Michigan' }).length, 1); // an alias from the college list
-  assert.equal(cloudQuestions([name('Tufts University', inEssay, { kind: 'college' })], { college: 'University of Michigan' }).length, 1);
-  assert.equal(cloudQuestions([name('Blue Delta Rocketry Lab', inEssay)]).length, 1);
+  assert.equal(cloudQuestions([name('UMich', inEssay)], { college: 'University of Michigan' }).length, 0); // an alias from the college list
+  assert.equal(cloudQuestions([name('Tufts University', inEssay, { kind: 'college' })], { college: 'University of Michigan' }).length, 0);
+  assert.equal(cloudQuestions([name('Stanford University', ['activity-5'], { kind: 'organization' })]).length, 0); // known college, any kind
+});
+
+test('part-of is asked only for names in this college\'s essays and nowhere else', () => {
+  const opts = { college: 'University of Michigan' };
+  assert.deepEqual(cloudQuestions([name('Blue Delta Rocketry Lab', ['college-essay-1', 'activity-3'])], opts).map((q) => q.kind), ['lookup']);
+  assert.deepEqual(cloudQuestions([name('Blue Delta Rocketry Lab', ['college-essay-1', 'college-essay-2'])], opts).map((q) => q.kind), ['lookup', 'partOf']);
+  assert.deepEqual(cloudQuestions([name('Blue Delta Rocketry Lab', ['college-essay-1'])]).map((q) => q.kind), ['lookup']); // no college known
+});
+
+test('clubs named after the student\'s own school start unticked, with the reason', () => {
+  const qs = cloudQuestions([
+    name('Maple Grove High School Chess Team', ['activity-1'], { defaultOn: false, why: 'your own school' }),
+    name('Maple Grove Robotics', ['activity-2']),
+    name('Maple Leaf Youth Symphony', ['activity-3']),
+  ]);
+  assert.deepEqual(qs.map((q) => [q.name, q.defaultOn, q.why]), [
+    ['Maple Grove High School Chess Team', false, 'your own school'],
+    ['Maple Grove Robotics', false, 'sounds like a club at your school'],
+    ['Maple Leaf Youth Symphony', true, null],
+  ]);
+});
+
+test('an abbreviation is sent the way the application spells it out', () => {
+  const sections = { 'activity-5': 'Research Science Institute (RSI) at Stanford University, summer research' };
+  assert.equal(cloudQuestions([name('RSI', ['activity-5'])], { sections })[0].name, 'Research Science Institute (RSI)');
+  assert.equal(expandAbbreviation('NASA', ['activity-5'], sections), 'NASA'); // not spelled out: sent as written
+  // A field label on the line above, and a sentence-starting word, are not part of the name.
+  const labelled = { 'activity-5': 'Research\nResearch Science Institute (RSI), six weeks', 'essay': 'At Harbor Youth Orchestra (HYO) I learned to listen.' };
+  assert.equal(expandAbbreviation('RSI', ['activity-5'], labelled), 'Research Science Institute (RSI)');
+  assert.equal(expandAbbreviation('HYO', ['essay'], labelled), 'Harbor Youth Orchestra (HYO)');
+  assert.equal(expandAbbreviation('Harbor Youth Orchestra', ['activity-5'], sections), 'Harbor Youth Orchestra'); // not an abbreviation
 });
 
 test('names too long to be names are never offered, and the list is capped', () => {
@@ -120,7 +151,7 @@ test('no conflict when the answer agrees, when the college is far away, or when 
 
 test('what the student sees for each answer', () => {
   assert.equal(answerStatus(RSI, atMit), 'fine');
-  assert.equal(answerStatus(RSI, { verdict: 'not_found' }), 'look');
+  assert.equal(answerStatus(RSI, { verdict: 'not_found' }), 'unsure'); // Google rarely knows a local club
   assert.equal(answerStatus(RSI, { verdict: 'no' }), 'look');
   assert.equal(answerStatus(RSI, { verdict: 'unsure' }), 'unsure');
   assert.equal(answerStatus(RSI, undefined), 'unsure');
