@@ -41,3 +41,16 @@ test('the PDF reader loads pdf.js from the repo, never from another website', ()
   assert.match(text, /from '\.\.\/vendor\/pdfjs\/pdf\.min\.mjs'/);
   assert.doesNotMatch(text, /https?:\/\//);
 });
+
+// Deploy guard: the dev pages (they carry the App Check debug setup), the held-out test set, the tests,
+// tools and docs must never be served by Firebase Hosting.
+test('Firebase Hosting never serves dev/, eval/, test/, tools/, docs/ or private/', async () => {
+  const { readFileSync } = await import('node:fs');
+  const hosting = JSON.parse(readFileSync(new URL('../firebase.json', import.meta.url), 'utf8')).hosting;
+  for (const dir of ['dev/**', 'eval/**', 'test/**', 'tools/**', 'docs/**', 'private/**', '**/node_modules/**', '**/.*']) {
+    assert.ok(hosting.ignore.includes(dir), `firebase.json hosting.ignore is missing ${dir}`);
+  }
+  const csp = hosting.headers[0].headers.find((h) => h.key === 'Content-Security-Policy').value;
+  assert.match(csp, /frame-ancestors 'none'/);
+  assert.match(csp, /object-src 'none'/);
+});
