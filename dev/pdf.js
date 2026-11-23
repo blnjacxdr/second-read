@@ -238,6 +238,8 @@ async function runCloud(withSearch) {
     const { models, checkNamesInCloud } = await loadAi();
     const model = withSearch ? models.publicModel : models.publicModelWithoutSearch;
     const answer = await checkNamesInCloud(model, send, sentLog, { withSearch });
+    // Dev only: did Gemini actually search? (It may answer from memory even when the search tool is offered.)
+    console.info('cloud check:', { withSearch, grounded: answer.grounded, sources: answer.sources.length, suggestions: Boolean(answer.searchSuggestionsHtml) });
     renderSentLog();
     const rows = el('ul');
     for (const q of send) {
@@ -245,7 +247,7 @@ async function runCloud(withSearch) {
       const conflicts = a ? placeConflicts(q, a, current.result.sections) : [];
       const status = answerStatus(q, a, conflicts);
       const ask = q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}?` : q.name;
-      const said = a ? [a.verdict, a.official, a.place, a.fact].filter(Boolean).join(' | ') : 'no answer';
+      const said = a ? [a.verdict, a.official, a.place, a.fact].filter(Boolean).join(' | ').replace(/[.]+$/, '') : 'no answer';
       const extra = conflicts.length ? ` You wrote ${conflicts.map((c) => c.written).join(', ')} next to it.` : '';
       rows.append(el('li', `[${status}] ${ask}: ${said}.${extra}`, status === 'look' ? 'bad' : status === 'fine' ? 'ok' : 'muted'));
     }

@@ -33,7 +33,7 @@ test('code reads organizations from headings and honors, never the position', ()
 });
 
 test('ordinary words stay generic even when capitalized, but an acronym is a name', () => {
-  for (const n of ['State Science Fair', 'Summer Research Student', 'All-Conference Second', 'JV Soccer', 'Model UN']) {
+  for (const n of ['State Science Fair', 'Summer Research Student', 'All-Conference Second', 'JV Soccer', 'Model UN', 'All-Conference Second Team, Boys Soccer', 'Girls Varsity Tennis']) {
     assert.equal(isSpecificName(n), false, n);
   }
   for (const n of ['FIRST Robotics Competition', 'DECA', 'National History Day', 'Science Olympiad', 'Penn Engineering Summer Academy']) {

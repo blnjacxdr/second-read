@@ -28,7 +28,7 @@ const GENERIC = new Set(`a an and the of for in at on to with &
   roll member members inducted delegate partnership independent projects build restoration local
   captain president founder officer volunteer intern assistant coach player manager lead
   summer winter spring fall state regional national district county city fair competition contest
-  tournament camp conference all`.split(/\s+/));
+  tournament camp conference all boys girls mens womens men women coed`.split(/\s+/));
 
 // Names that may point to the student's own school. Offered, but unticked by
 // default: a school name plus rare activities can identify a person.
