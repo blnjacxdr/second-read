@@ -63,6 +63,10 @@ test('the receipt lists what happened, ending with what was sent', () => {
   const rows = receiptFor({ pageCount: 4, codeChecks: 6, nanoQuestions: 12, tossed: 2, sentCount: 0 });
   assert.deepEqual(rows.at(-1), ['sent to the internet', 0]);
   assert.equal(rows.length, 5);
+  const without = receiptFor({ pageCount: 4, codeChecks: 6, nano: 'skipped', sentCount: 0 });
+  assert.deepEqual(without.map((r) => r[0]), ['pages read', 'code checks', 'gemini nano', 'sent to the internet']);
+  assert.equal(without[2][1], 'not here');
+  assert.equal(receiptFor({ pageCount: 4, codeChecks: 6, nano: 'skipped-by-you' })[2][1], 'skipped');
 });
 
 test('the sticky note speaks to students about Gemini Nano, and never promises a cloud fallback', async () => {

@@ -2,7 +2,7 @@
 // Made-up text only (never the held-out set).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { itemFacts, placeOf, titleOf, flagsFromFacts } from '../src/core/extract-checks.js';
+import { itemFacts, placeOf, titleOf, flagsFromFacts, statesTime } from '../src/core/extract-checks.js';
 import { factsPrompt } from '../src/core/prompts.js';
 
 const activity = 'Athletics: JV/Varsity\nLakeview Swim Club, Captain\nLed warmups and coached new swimmers.\n10, 11, 12 (School)\n6 hr/wk, 40 wk/yr';
@@ -76,4 +76,19 @@ test('the facts prompt carries made-up examples, then the real paragraph last', 
   assert.ok(prompt.includes('EXAMPLES:'));
   assert.ok(prompt.trimEnd().endsWith('THE REAL PARAGRAPH'));
   assert.ok(prompt.indexOf('EXAMPLES:') < prompt.indexOf('Now the real one'));
+});
+
+test('an hours flag needs an essay quote that talks about time', () => {
+  const { pair, sections } = pairWith('I work at Maple Street Grocery and love the regulars.');
+  const out = flagsFromFacts(pair, answer({ hoursQuote: 'work at Maple Street Grocery', hoursPerWeek: 20 }), sections);
+  assert.equal(out.kept.length, 0);
+});
+
+test('statesTime accepts amounts and frequencies, rejects names alone', () => {
+  for (const yes of ['twenty hours every week', 'every day after school', 'most weekends', '3 nights a week', 'from 6:00 to 9:00', 'two shifts each Saturday']) {
+    assert.equal(statesTime(yes), true, yes);
+  }
+  for (const no of ['work at Maple Street Grocery', 'I love the regulars', 'joined the robotics team', 'the day I quit']) {
+    assert.equal(statesTime(no), false, no);
+  }
 });

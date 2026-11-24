@@ -86,12 +86,15 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
 }
 
 /** The receipt's numbers. "Sent to the internet" counts only what the sent log recorded. */
-export function receiptFor({ pageCount, codeChecks, nanoQuestions = 0, tossed = 0, sentCount = 0 }) {
+export function receiptFor({ pageCount, codeChecks, nano = 'ran', nanoQuestions = 0, tossed = 0, sentCount = 0 }) {
+  // Rows that would only ever say 0 because Gemini Nano never ran say why instead.
+  const nanoRows = nano === 'ran'
+    ? [['nano questions', nanoQuestions], ['nano answers tossed', tossed]]
+    : [['gemini nano', { 'skipped-by-you': 'skipped', failed: 'stopped' }[nano] ?? 'not here']];
   return [
     ['pages read', pageCount],
     ['code checks', codeChecks],
-    ['nano questions', nanoQuestions],
-    ['ai answers tossed', tossed],
+    ...nanoRows,
     ['sent to the internet', sentCount],
   ];
 }

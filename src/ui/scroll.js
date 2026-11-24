@@ -42,7 +42,7 @@ export function startScrolling() {
   function foldState() {
     const fold = document.querySelector('.sr-fold');
     if (!fold || fold.offsetParent === null || getComputedStyle(fold.querySelector('.sr-fstage')).position !== 'sticky') return null;
-    const range = fold.offsetHeight - window.innerHeight;
+    const range = fold.getBoundingClientRect().height - window.innerHeight; // includes CSS zoom, like scrollY
     return range > 0 ? { range, p: -fold.getBoundingClientRect().top / range } : null;
   }
 

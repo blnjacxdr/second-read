@@ -18,6 +18,16 @@ const HOURS_LINE = /^(\d+(?:\.\d+)?) hr\/wk, (\d+(?:\.\d+)?) wk\/yr$/m;
 // ("every day after school" ≈ 10), so small gaps are noise.
 export const HOURS_RATIO = 3;
 
+// A quote can only back an hours estimate if it talks about time: an amount or
+// a frequency next to a unit of time. Nano sometimes quotes a sentence that
+// only names the activity ("work at the bakery") and guesses the hours, which
+// gave a flag whose essay side said nothing about time. That flag is dropped.
+const TIME_UNIT = /\b(hours?|hrs?|days?|daily|weeks?|weekly|weekends?|nights?|nightly|mornings?|afternoons?|evenings?|shifts?|summers?|months?|[ap]\.?m\.?)\b|\d{1,2}:\d{2}/i;
+const TIME_AMOUNT = /\d|\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty|thirty|forty|fifty|a few|several|half|every|each|most|all|daily|weekly|nightly|twice|once)\b/i;
+export function statesTime(quote) {
+  return TIME_UNIT.test(quote) && TIME_AMOUNT.test(quote);
+}
+
 /**
  * The facts code can read straight from an activity or honor.
  * Activity text (sections.js): category, "Org, Position", description, grades, "N hr/wk, M wk/yr", plans.
@@ -87,6 +97,7 @@ function hoursFlag(pair, facts, answer, sections) {
   if (!facts.hoursPerWeek || !(essay > 0) || !answer.hoursQuote) return { reason: 'no hours stated', quiet: true };
   const found = locateQuote(sections, { sectionId: pair.essayId, quote: answer.hoursQuote });
   if (!found) return { reason: 'hours quote not found in the application' };
+  if (!statesTime(found.text)) return { reason: 'hours quote states no amount of time', quiet: true };
   const ratio = Math.max(essay, facts.hoursPerWeek) / Math.min(essay, facts.hoursPerWeek);
   if (ratio < HOURS_RATIO) return { reason: `hours close enough (${facts.hoursPerWeek} vs about ${essay})` };
   return {

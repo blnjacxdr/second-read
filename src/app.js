@@ -23,7 +23,7 @@ const $ = (id) => document.getElementById(id);
 const CODE_CHECK_COUNT = 5;      // the checks in runCodeChecks: other colleges' names, start years, titles, repeats, limits
 const MAX_CLOUD_CHECKS = 3;      // name checks per visit; a student needs one, so this only stops abuse and surprise costs
 const MAX_PDF_BYTES = 40 * 1024 * 1024;
-const SAMPLE = { url: 'sample/application-michigan.pdf', label: "Riley's made-up application (Michigan)" };
+const SAMPLE = { url: 'sample/application-michigan.pdf', label: "Riley's made-up application" };
 const reduced = () => Boolean(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
 const sentLog = createSentLog();
@@ -31,6 +31,33 @@ let ai = null;        // src/ai.js plus its models, loaded on first use
 let run = null;       // the PDF being checked now
 let last = null;      // the previous check in this tab, for re-checking (never stored anywhere else)
 let cloudChecks = 0;
+
+// A small stroked icon, built as DOM (never as an HTML string). Paths are in a 24 by 24 box.
+function icon(paths, { size = 16, color = 'currentColor', width = 2.6 } = {}) {
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  for (const [k, v] of Object.entries({ width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: color, 'stroke-width': width, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' })) svg.setAttribute(k, String(v));
+  for (const d of paths) { const path = document.createElementNS(NS, 'path'); path.setAttribute('d', d); svg.append(path); }
+  return svg;
+}
+const ICONS = {
+  check: ['M5 12.5 L10 17.5 L19 7'],
+  pencil: ['M4 20 L5 15 L16 4 L20 8 L9 19 Z', 'M14 6 L18 10'],
+  flag: ['M5 21 V4', 'M5 4 H17 L14.5 8 L17 12 H5'],
+  question: ['M9 9 C9 6.5 10.5 5 12.2 5 C14 5 15.5 6.3 15.5 8.2 C15.5 10.6 12.5 11 12.5 13.6', 'M12.5 18.5 V18.6'],
+};
+
+// Grows or shrinks a box smoothly while its content changes, instead of letting it jump.
+// offsetHeight is in the page's own pixels, the same units as the height we animate.
+function growWhile(box, change) {
+  const from = box.offsetHeight;
+  change();
+  const to = box.offsetHeight;
+  if (reduced() || Math.abs(to - from) < 2 || !box.animate) return;
+  box.style.overflow = 'clip';
+  box.animate([{ height: `${from}px` }, { height: `${to}px` }], { duration: 520, easing: 'cubic-bezier(.23,1,.32,1)' })
+    .finished.catch(() => {}).then(() => { box.style.overflow = ''; });
+}
 
 function el(tag, text, className) {
   const node = document.createElement(tag);
@@ -241,20 +268,27 @@ async function askNano(current) {
 
 // ---------- Fix list ----------
 
-const SOURCE = { pen: 'pen: checked by code', pencil: 'pencil: Gemini Nano, double-check' };
+// What each card is, said on the card itself. Sure: code found both quotes word for word. Maybe: Gemini Nano's
+// reading of the meaning, which can be wrong.
+const SOURCE = {
+  pen: { text: 'Sure. Code found both quotes, word for word.', icon: ICONS.check },
+  pencil: { text: 'Maybe. Gemini Nano\'s reading, so give it a look.', icon: ICONS.pencil },
+};
 const NOTES = { fixed: 'nice.', kept: 'your call.' };
 
 function cardFor(card) {
   const article = el('article', undefined, `sr-card ${card.tone}`);
   article.dataset.id = card.id;
   const top = el('div', undefined, 'sr-card-top');
-  top.append(el('h3', card.title), el('span', SOURCE[card.tone], 'sr-card-src'));
+  const tag = el('span', undefined, 'sr-card-src');
+  tag.append(icon(SOURCE[card.tone].icon, { size: 15, color: card.tone === 'pen' ? '#2340D9' : '#5B616C' }), SOURCE[card.tone].text);
+  top.append(tag, el('h3', card.title));
   const quotes = el('div', undefined, 'sr-quotes');
   card.quotes.forEach((q, i) => {
     if (i > 0) {
       const vs = el('div', undefined, 'sr-vs');
       vs.setAttribute('aria-hidden', 'true');
-      vs.innerHTML = '<svg width="40" height="20" viewBox="0 0 40 20" fill="none" stroke="#8A919E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7 H 34 M 28 2 L 34 7 L 28 12 M36 15 H 6 M 12 10 L 6 15 L 12 20"></path></svg>';
+      vs.append(icon(['M3 8 H19 M15 4 L19 8 L15 12', 'M21 16 H5 M9 12 L5 16 L9 20'], { size: 28, color: '#8A919E', width: 2.2 }));
       quotes.append(vs);
     }
     const fig = el('figure');
@@ -293,6 +327,7 @@ function paintDecision(id) {
   article.querySelector('.fix').setAttribute('aria-pressed', String(now === 'fixed'));
   article.querySelector('.keep').setAttribute('aria-pressed', String(now === 'kept'));
   article.querySelector('.note').textContent = now ? NOTES[now] : '';
+  paintTicks();
 }
 
 function decide(id, choice) {
@@ -300,6 +335,7 @@ function decide(id, choice) {
   if (decisions.get(id) === choice) decisions.delete(id); else decisions.set(id, choice);
   paintDecision(id);
   updateHeadline();
+  updateCount();
   // In the one-at-a-time stack, a decision moves on to the next card after a beat, so you see it land.
   if (decisions.has(id) && $('res-stack').classList.contains('one')) {
     clearTimeout(run.advance);
@@ -321,23 +357,65 @@ function buildStack() {
   const again = el('button', 'Check the new PDF', 'sr-cta');
   again.type = 'button';
   again.addEventListener('click', goToStart);
-  end.append(again);
+  const names = el('button', 'Fact-check the names next', 'sr-textbtn');
+  names.type = 'button';
+  names.addEventListener('click', () => {
+    $('names-panel').scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'start' });
+    $('names-start').focus({ preventScroll: true });
+  });
+  const buttons = el('div', undefined, 'sr-actions');
+  buttons.append(again, names);
+  end.append(buttons);
   items.push(end);
   stack.replaceChildren(...items);
   run.slots = items.filter((n) => !n.classList.contains('sr-divider'));
   run.at = 0;
+  // Each card gets a view-transition name, so Show all can move the very same cards (see setStackMode).
+  items.forEach((node, i) => { node.dataset.vt = `card-${i}`; });
+  // One tick per card: where you are, and which ones you've decided. Click one to jump to it.
+  const ticks = [...sure, ...maybes].map((card, i) => {
+    const b = el('button');
+    b.type = 'button';
+    b.dataset.i = String(i);
+    if (card.tone === 'pencil') b.classList.add('maybe');
+    b.addEventListener('click', () => {
+      if ($('res-stack').classList.contains('one')) showCard(i, Math.sign(i - run.at));
+      else run.slots[i].scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'center' });
+    });
+    return b;
+  });
+  $('stack-ticks').replaceChildren(...ticks);
   for (const id of run.decisions.keys()) paintDecision(id);
   $('stackbar').hidden = run.slots.length <= 1;
   setStackMode(run.slots.length > 2 ? 'one' : 'all');
 }
 
-function setStackMode(mode) {
+function setStackMode(mode, animate = false) {
   const stack = $('res-stack');
-  stack.classList.toggle('one', mode === 'one');
-  stack.classList.toggle('all', mode === 'all');
-  $('stack-mode').setAttribute('aria-pressed', String(mode === 'all'));
-  $('stack-prev').hidden = $('stack-next').hidden = mode === 'all';
-  if (mode === 'one') showCard(run.at ?? 0, 0); else updateCount();
+  const apply = () => {
+    stack.classList.toggle('one', mode === 'one');
+    stack.classList.toggle('all', mode === 'all');
+    $('stack-mode').setAttribute('aria-pressed', String(mode === 'all'));
+    $('stack-mode').textContent = mode === 'all' ? 'One at a time' : 'Show all';
+    $('stack-prev').hidden = $('stack-next').hidden = mode === 'all';
+    if (mode === 'one') showCard(run.at ?? 0, 0); else { run.slots.forEach((n) => { n.inert = false; }); updateCount(); }
+  };
+  if (!animate || !document.startViewTransition || reduced()) { apply(); return; }
+  // Show all deals the cards out of the pile; One at a time gathers them back. Only the cards are named for
+  // the transition, and html.vt-stack turns off the whole-page fade, so nothing else on the page moves.
+  const named = [...stack.children];
+  named.forEach((n) => { n.style.viewTransitionName = n.dataset.vt; });
+  document.documentElement.classList.add('vt-stack');
+  const done = () => {
+    named.forEach((n) => { n.style.viewTransitionName = ''; });
+    document.documentElement.classList.remove('vt-stack');
+  };
+  const t = document.startViewTransition(() => {
+    apply();
+    // Inside the transition the entrance keyframes would play twice, so the arriving card skips them.
+    run.slots[run.at].style.animation = 'none';
+  });
+  t.finished.catch(() => {}).then(() => { run.slots[run.at].style.animation = ''; done(); });
 }
 
 function showCard(index, direction) {
@@ -360,13 +438,28 @@ function showCard(index, direction) {
 function updateCount() {
   const { sure, maybes } = run.cards;
   const total = sure.length + maybes.length;
-  const mode = $('res-stack').classList.contains('one') ? 'one' : 'all';
-  if (mode === 'all' || total === 0) { $('stack-count').textContent = `${total} ${total === 1 ? 'card' : 'cards'}`; return; }
-  if (run.at >= total) { $('stack-count').textContent = 'All done'; return; }
-  const inSure = run.at < sure.length;
-  $('stack-count').textContent = inSure
-    ? `Sure ones: ${run.at + 1} of ${sure.length}`
-    : `Maybes from Gemini Nano: ${run.at - sure.length + 1} of ${maybes.length}`;
+  const decided = [...sure, ...maybes].filter((c) => run.decisions.has(c.id)).length;
+  const one = $('res-stack').classList.contains('one');
+  let text;
+  if (total === 0) text = 'Nothing to look at';
+  else if (!one) text = decided === total ? `All ${total} decided` : `${decided} of ${total} decided`;
+  else if (run.at >= total) text = decided === total ? `All ${total} decided` : `${total - decided} still open`;
+  else text = `Card ${run.at + 1} of ${total}`;
+  $('stack-count').textContent = text;
+  paintTicks();
+}
+
+function paintTicks() {
+  if (!run?.cards) return;
+  const cards = [...run.cards.sure, ...run.cards.maybes];
+  const one = $('res-stack').classList.contains('one');
+  $('stack-ticks').querySelectorAll('button').forEach((b, i) => {
+    const choice = run.decisions.get(cards[i].id);
+    b.classList.toggle('fixed', choice === 'fixed');
+    b.classList.toggle('kept', choice === 'kept');
+    b.setAttribute('aria-current', String(one && i === run.at));
+    b.setAttribute('aria-label', `Card ${i + 1}: ${cards[i].title}${choice ? (choice === 'fixed' ? ', fixed' : ', on purpose') : ''}`);
+  });
 }
 
 function updateHeadline() {
@@ -383,8 +476,9 @@ function updateHeadline() {
 
 function updateReceipt() {
   const rows = receiptFor({
-    pageCount: run.pageCount, codeChecks: CODE_CHECK_COUNT, nanoQuestions: run.comparisons, tossed: run.tossed, sentCount: sentLog.entries().length,
+    pageCount: run.pageCount, codeChecks: CODE_CHECK_COUNT, nano: run.nano, nanoQuestions: run.comparisons, tossed: run.tossed, sentCount: sentLog.entries().length,
   });
+  $('receipt-tossed-note').hidden = !(run.tossed > 0);
   const dl = $('receipt-rows');
   dl.replaceChildren();
   for (const [label, value] of rows.slice(0, -1)) dl.append(el('dt', label), el('dd', String(value)));
@@ -414,10 +508,9 @@ function applyRecheck() {
 async function showResults() {
   run.cards = presentFlags({ result: run.result, codeFlags: run.codeFlags, aiFlags: run.aiFlags, mentionAnswers: run.mentionAnswers });
   const { background } = run.cards;
-  $('res-file').textContent = `${run.result.college ?? 'College'} PDF${run.label ? `: ${run.label}` : ''}`;
+  $('res-file').textContent = `${run.label}, ${run.result.college ? `the ${run.result.college} version` : 'Common App PDF'}`;
   applyRecheck();
   buildStack();
-  $('res-maybes').hidden = true; // maybes live in the stack now
   $('res-background').hidden = background.length === 0;
   $('res-background-sum').textContent = `${background.length} other college ${background.length === 1 ? 'mention that reads' : 'mentions that read'} like a story, not a slip`;
   $('res-background-list').replaceChildren(...background.map(cardFor));
@@ -431,74 +524,103 @@ async function showResults() {
 
 // ---------- Optional name check (the only thing that can go to the internet) ----------
 
+// The status line under the heading. While something runs, two small eyes read along beside it.
+function namesStatus(text, { busy = false } = {}) {
+  const line = $('names-status');
+  line.hidden = !text;
+  line.classList.toggle('busy', busy);
+  $('names-status-text').textContent = text;
+  // Replay the small pop each time the message changes, so a new step is noticed.
+  line.style.animation = 'none'; void line.offsetWidth; line.style.animation = '';
+}
+
 function resetNamesPanel() {
   run.questions = [];
   $('names-start').hidden = false;
   $('names-start').disabled = false;
   $('names-pick').hidden = true;
-  $('names-status').textContent = '';
+  $('names-send').hidden = false;
+  namesStatus('');
   for (const id of ['names-list', 'names-answers', 'names-sources']) $(id).replaceChildren();
   const chips = $('names-chips');
   if (chips.shadowRoot) chips.shadowRoot.innerHTML = '';
+  chips.hidden = true;
+}
+
+function updateNamesCount() {
+  const n = $('names-list').querySelectorAll('input:checked').length;
+  $('names-count').textContent = n ? `${n} ${n === 1 ? 'name' : 'names'} ticked` : 'Nothing ticked yet';
+  $('names-send').disabled = n === 0;
 }
 
 async function pickNames() {
   $('names-start').disabled = true;
-  $('names-status').textContent = 'Finding public names on this laptop…';
+  namesStatus('Finding public names in your application, on this laptop…', { busy: true });
   try {
     let askNames;
     if ((await onDeviceAvailability().catch(() => 'unavailable')) === 'available') {
       const { models, findNamesOnDevice } = await loadAi();
       askNames = (text) => findNamesOnDevice(models.namesModel, text);
     }
-    const out = await findPublicNames({ result: run.result, askNames });
+    const [out] = await Promise.all([findPublicNames({ result: run.result, askNames }), wait(reduced() ? 0 : 700)]);
     run.questions = cloudQuestions(out.names, { college: run.result.college, sections: run.result.sections });
     if (run.questions.length === 0) {
-      $('names-status').textContent = 'No public names worth checking in this PDF. Nothing was sent.';
+      namesStatus('No public names worth checking in this PDF. Nothing was sent.');
       $('names-start').hidden = true;
       return;
     }
-    const list = $('names-list');
-    list.replaceChildren();
-    for (const q of run.questions) {
+    const rows = run.questions.map((q, i) => {
       const label = el('label');
+      label.style.setProperty('--i', String(i));
       const tick = el('input');
       tick.type = 'checkbox';
       tick.checked = q.defaultOn;
       tick.dataset.id = String(q.id);
+      tick.addEventListener('change', updateNamesCount);
       const text = el('span', q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}?` : q.name);
-      if (q.why) text.append(el('span', ` (unticked: ${q.why})`, 'why'));
+      if (q.why) text.append(el('span', `Unticked: ${q.why}`, 'why'));
       label.append(tick, text);
-      list.append(label);
-    }
-    $('names-start').hidden = true;
-    $('names-pick').hidden = false;
-    $('names-status').textContent = 'Untick anything you\'d rather keep private. Only the ticked names are sent.';
+      return label;
+    });
+    growWhile($('names-panel'), () => {
+      $('names-list').replaceChildren(...rows);
+      $('names-start').hidden = true;
+      $('names-pick').hidden = false;
+      updateNamesCount();
+      const off = run.questions.filter((q) => !q.defaultOn).length;
+      namesStatus(`Found ${run.questions.length} public ${run.questions.length === 1 ? 'name' : 'names'}.${off ? ' Ones that sound like your own school start unticked.' : ''}`);
+    });
   } catch (err) {
     console.error('Name finder stopped:', err);
-    $('names-status').textContent = 'Couldn\'t list the names. Nothing was sent.';
+    namesStatus('Couldn\'t list the names. Nothing was sent.');
     $('names-start').disabled = false;
   }
 }
 
 async function sendNames() {
   if (cloudChecks >= MAX_CLOUD_CHECKS) {
-    $('names-status').textContent = `That's ${MAX_CLOUD_CHECKS} name checks this visit, the limit. Reload the page to check again.`;
+    namesStatus(`That's ${MAX_CLOUD_CHECKS} name checks this visit, the limit. Reload the page to check again.`);
     return;
   }
-  const ticked = new Set([...$('names-list').querySelectorAll('input:checked')].map((t) => Number(t.dataset.id)));
+  const boxes = [...$('names-list').querySelectorAll('input')];
+  const ticked = new Set(boxes.filter((t) => t.checked).map((t) => Number(t.dataset.id)));
   const send = run.questions.filter((q) => ticked.has(q.id)).map((q, i) => ({ ...q, id: i + 1 }));
-  if (send.length === 0) { $('names-status').textContent = 'Nothing ticked, so nothing was sent.'; return; }
+  if (send.length === 0) { namesStatus('Nothing ticked, so nothing was sent.'); return; }
   $('names-send').disabled = true;
-  $('names-status').textContent = `Sending ${send.length} ${send.length === 1 ? 'name' : 'names'} to Google…`;
+  boxes.forEach((b) => { b.disabled = true; b.closest('label').classList.add(b.checked ? 'asking' : 'leaving'); });
+  namesStatus(`Asking Google Search about ${send.length} ${send.length === 1 ? 'name' : 'names'}…`, { busy: true });
   try {
     const { models, checkNamesInCloud } = await loadAi();
     cloudChecks += 1;
     const answer = await checkNamesInCloud(models.publicModel, send, sentLog, { withSearch: true });
-    drawAnswers(send, answer);
+    growWhile($('names-panel'), () => {
+      $('names-pick').hidden = true;
+      drawAnswers(send, answer);
+    });
   } catch (err) {
     console.error('Name check stopped:', err);
-    $('names-status').textContent = 'The name check didn\'t go through. Your results above are unchanged.';
+    namesStatus('The name check didn\'t go through. Your cards above are unchanged.');
+    boxes.forEach((b) => { b.disabled = false; b.closest('label').classList.remove('asking', 'leaving'); });
   } finally {
     $('names-send').disabled = false;
     drawSentLog();
@@ -506,47 +628,58 @@ async function sendNames() {
   }
 }
 
+const VERDICT = {
+  look: { text: 'Worth a look', icon: ICONS.flag },
+  fine: { text: 'Looks right', icon: ICONS.check },
+  unsure: { text: 'Couldn\'t confirm', icon: ICONS.question },
+};
+
 function drawAnswers(send, answer) {
   const list = el('ul', undefined, 'sr-answers');
   let looks = 0;
-  for (const q of send) {
+  send.forEach((q, i) => {
     const a = answer.answers.find((x) => x.id === q.id);
     const conflicts = a ? placeConflicts(q, a, run.result.sections) : [];
     const status = answerStatus(q, a, conflicts);
     if (status === 'look') looks += 1;
     const li = el('li', undefined, status);
-    const tag = { look: 'Worth a look', fine: 'Looks right', unsure: 'Couldn\'t confirm' }[status];
-    li.append(el('span', `${tag}: `, 'tag'), el('span', q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}? ` : `${q.name}. `));
+    li.style.setProperty('--i', String(i));
+    const verdict = el('span', undefined, 'verdict');
+    verdict.append(icon(VERDICT[status].icon, { size: 17 }), VERDICT[status].text);
+    const body = el('span');
+    body.append(el('span', q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}? ` : `${q.name}. `, 'name'));
     if (a) {
       const said = [a.official && a.official !== q.name ? a.official : null, a.place, a.fact].filter(Boolean).join('. ').replace(/[.]+$/, '');
-      if (said) li.append(el('span', `${said}.`));
+      if (said) body.append(el('span', `${said}.`, 'said'));
     }
-    if (conflicts.length) li.append(el('strong', ` You wrote ${conflicts.map((c) => c.written).join(' and ')} next to it.`));
+    if (conflicts.length) body.append(el('span', `You wrote ${conflicts.map((c) => c.written).join(' and ')} next to it.`, 'clash'));
+    li.append(verdict, body);
     list.append(li);
-  }
+  });
   $('names-answers').replaceChildren(list);
   // Google requires its search suggestions to be shown exactly as sent, and the sources. The chips live in a
   // shadow root so their own styles can't touch the page.
   const chips = $('names-chips');
   (chips.shadowRoot || chips.attachShadow({ mode: 'open' })).innerHTML = answer.searchSuggestionsHtml || '';
+  chips.hidden = !answer.searchSuggestionsHtml;
   if (answer.sources.length) {
     const sources = el('ul', undefined, 'sr-sources');
     for (const s of answer.sources) {
-      const li = el('li');
       const href = safeLinkUrl(s.uri);
       if (!href) continue; // only https links become clickable
+      const li = el('li');
       const link = el('a', s.title);
       link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer';
       li.append(link);
       sources.append(li);
     }
-    $('names-sources').replaceChildren(el('p', 'Sources', 'sr-small'), sources);
+    $('names-sources').replaceChildren(el('p', 'Sources Google Search used', 'sr-small'), sources);
   } else {
     $('names-sources').replaceChildren(el('p', 'Gemini answered from memory this time, so there are no sources. Try again to search.', 'sr-small'));
   }
-  $('names-status').textContent = looks
+  namesStatus(looks
     ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look.`
-    : 'Nothing looks off.';
+    : `Checked ${send.length}. Nothing looks off.`);
 }
 
 function drawSentLog() {
@@ -595,10 +728,12 @@ $('sample').addEventListener('click', async () => {
 $('read-back').addEventListener('click', goToStart);
 $('again').addEventListener('click', goToStart);
 $('names-start').addEventListener('click', pickNames);
+// "Try a sample" in the top links runs the sample, not just scrolls to it.
+$('nav-sample').addEventListener('click', (e) => { e.preventDefault(); $('sample').click(); });
 $('names-send').addEventListener('click', sendNames);
 $('stack-prev').addEventListener('click', () => showCard(run.at - 1, -1));
 $('stack-next').addEventListener('click', () => showCard(run.at + 1, 1));
-$('stack-mode').addEventListener('click', () => setStackMode($('res-stack').classList.contains('one') ? 'all' : 'one'));
+$('stack-mode').addEventListener('click', () => setStackMode($('res-stack').classList.contains('one') ? 'all' : 'one', true));
 // Left and right arrow keys flip cards in the stack (not while typing or using a control).
 window.addEventListener('keydown', (e) => {
   if (!run?.slots || !$('res-stack').classList.contains('one') || $('view-results').hidden) return;

@@ -78,3 +78,11 @@ Five phases, one page. A phase strip in the header ("Your PDF", "Second read", "
    1 still there, 0 new." "On purpose" choices carry over; "Fixed it" doesn't (the check decides). Nothing is stored
    beyond the tab.
 Reduced motion: no transitions, no scanning eyes, no card animations; everything else works the same.
+
+## Nov 24: fitting the device, and a student's pass
+- Big screens: `html { zoom: var(--z) }` steps from 1.1 (1360 wide) to 1.3 (1840 wide) and 1.55 (2400 wide). Phones and tablets stay at 1. Anything sized in `vh` divides by `--z`, because zoom scales viewport units too. Scripts measure with `getBoundingClientRect`, which includes zoom.
+- The pen and pencil legend is gone. Each card says what it is: "Sure. Code found both quotes, word for word." or "Maybe. Gemini Nano's reading, so give it a look."
+- The stack count is "Card 2 of 4" with one tick per card (filled when decided, click to jump). Show all deals the cards out with a view transition, and "One at a time" gathers them back. Only the cards move (html.vt-stack turns off the page fade).
+- Fact-check the names moved from the sidebar into the main column. It now has a status line with small reading eyes, a box that grows instead of jumping, staggered rows with drawn tick boxes, a highlighter sweep over names while Google answers, and answers marked Worth a look, Looks right or Couldn't confirm.
+- Binder holes repeat down the whole page. The header is three columns, so the phase tabs don't jump between phases. The reading card is centered, and the footer sits at the bottom.
+- Receipt rows that could only say 0 (Nano not here) now say why. The reCAPTCHA footer links point at Google's real policy pages.
