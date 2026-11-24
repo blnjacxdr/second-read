@@ -38,7 +38,10 @@ export function createSecondReadAI() {
     provider: new ReCaptchaEnterpriseProvider(recaptchaSiteKey),
     isTokenAutoRefreshEnabled: true,
   });
-  const ai = getAI(app, { backend: new GoogleAIBackend() });
+  // Replay protection: every cloud request gets a fresh single-use App Check token (5-minute life), so a token
+  // copied out of the browser can't be reused from someone else's script. Enforced in the Firebase console
+  // (App Check > APIs > Firebase AI Logic > Replay protection). On-device calls never use a token.
+  const ai = getAI(app, { backend: new GoogleAIBackend(), useLimitedUseAppCheckTokens: true });
 
   // Chrome asks every on-device request to name its languages, so it can
   // tune quality and safety checks for them. Second Read is English-only for now.

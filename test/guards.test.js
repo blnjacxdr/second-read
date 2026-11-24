@@ -88,3 +88,10 @@ test('src/ never writes HTML except the reviewed places', async () => {
     });
   }
 });
+
+// Replay protection: the AI service must ask for single-use App Check tokens.
+test('src/ai.js uses single-use App Check tokens (replay protection)', async () => {
+  const { readFileSync } = await import('node:fs');
+  const ai = readFileSync(new URL('../src/ai.js', import.meta.url), 'utf8');
+  assert.match(ai, /getAI\(app, \{[^}]*useLimitedUseAppCheckTokens: true/);
+});
