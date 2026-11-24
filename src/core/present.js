@@ -64,6 +64,7 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
   const nanoNote = {
     skipped: ' Gemini Nano isn\'t on this computer, so only the code checks ran.',
     'skipped-by-you': ' You skipped Gemini Nano, so only the code checks ran.',
+    cloud: ' Gemini read the essays in Google\'s cloud, as you chose.',
     failed: ' Gemini Nano stopped partway, so some AI checks didn\'t run.',
   }[nano] ?? '';
   if (total === 0) {
@@ -72,14 +73,14 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
   const left = ids.filter((id) => !decisions.has(id)).length;
   const kept = ids.filter((id) => decisions.get(id) === 'kept').length;
   if (left === 0 && kept === total) {
-    return { headline: `All ${total} on purpose.`, subhead: 'Your call, every time. Nothing left to look at.', state: 'all-kept' };
+    return { headline: `All ${total} on purpose.`, subhead: 'The student\'s call, every time. Nothing left to look at.', state: 'all-kept' };
   }
   if (left === 0) {
     return { headline: 'Every spot handled.', subhead: 'Download the PDF again from Common App to check the new version.', state: 'done' };
   }
   const parts = [];
   if (counts.sure) parts.push(`${plural(counts.sure, 'sure one', 'sure ones')} from the code checks`);
-  if (counts.maybes) parts.push(`${plural(counts.maybes, 'maybe', 'maybes')} from Gemini Nano`);
+  if (counts.maybes) parts.push(`${plural(counts.maybes, 'maybe', 'maybes')} from Gemini${nano === 'cloud' ? '' : ' Nano'}`);
   return {
     headline: `${plural(left, 'spot', 'spots')} to look at.`,
     subhead: `${parts.join(', and ')}.${nanoNote}`,
@@ -92,6 +93,8 @@ export function receiptFor({ pageCount, codeChecks, nano = 'ran', nanoQuestions 
   // Rows that would only ever say 0 because Gemini Nano never ran say why instead.
   const nanoRows = nano === 'ran'
     ? [['nano questions', nanoQuestions], ['nano answers tossed', tossed]]
+    : nano === 'cloud'
+      ? [['cloud questions (your yes)', nanoQuestions], ['cloud answers tossed', tossed]]
     : [['gemini nano', { 'skipped-by-you': 'skipped', failed: 'stopped' }[nano] ?? 'not here']];
   return [
     ['pages read', pageCount],
@@ -103,14 +106,15 @@ export function receiptFor({ pageCount, codeChecks, nano = 'ran', nanoQuestions 
 
 /** The sticky note on the start page, from Chrome's Gemini Nano availability. Words for students, not developers. */
 export function nanoNote(availability) {
+  const without = 'Without it, Second Read asks before using Gemini in Google\'s cloud instead. Say no and the code checks still run.';
   switch (availability) {
     case 'available':
-      return { ready: true, title: 'Gemini Nano is ready', body: 'It\'s the AI built into Chrome, and it runs right here on this laptop. It reads what your essays mean, so it catches mismatches code alone can\'t.' };
+      return { ready: true, title: 'Gemini Nano is ready', body: 'It\'s the AI built into Chrome, and it runs right here on this laptop. It reads what the essays mean, so it catches mismatches code alone can\'t.' };
     case 'downloading':
-      return { ready: false, title: 'Gemini Nano is downloading', body: 'Chrome is getting it now. It reads hours, titles and awards in your essays, so it catches more. Until it\'s done, the code checks run on their own.' };
+      return { ready: false, title: 'Gemini Nano is downloading', body: `Chrome is getting it now. It reads hours, titles and awards on this laptop, so it catches more. ${without}` };
     case 'downloadable':
-      return { ready: false, canDownload: true, title: 'Gemini Nano catches more', body: 'It reads hours, titles and awards in your essays, and it runs on this laptop, not a server. Chrome downloads it once. The code checks run either way.' };
+      return { ready: false, canDownload: true, title: 'Gemini Nano catches more', body: `It reads hours, titles and awards in the essays, right on this laptop. Chrome downloads it once. ${without}` };
     default:
-      return { ready: false, title: 'No Gemini Nano in this browser', body: 'In Chrome on a laptop, Gemini Nano also reads hours, titles and awards in your essays, so it catches more. Here, the code checks still run, and nothing is sent anywhere instead.' };
+      return { ready: false, title: 'No Gemini Nano in this browser', body: `In Chrome on a laptop, Gemini Nano reads the essays right on the device. ${without}` };
   }
 }

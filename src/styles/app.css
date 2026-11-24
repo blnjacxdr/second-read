@@ -770,3 +770,8 @@ body.phase-reading .sr-screen{display:contents}
 /* Phones: the header keeps one line; "How it stays private" is one scroll away anyway. */
 .sr-nav{white-space:nowrap}
 @media (max-width:600px){.sr-nav a[href="#how"]{display:none}.sr-head{gap:10px}}
+
+/* No Gemini Nano: the question about reading in the cloud, inside the reading card. */
+.sr-consent{display:flex;flex-direction:column;gap:10px;padding:18px 20px;border-radius:8px;background:var(--pen-tint);border:1px solid var(--line-2)}
+.sr-consent strong{font-size:18px;font-weight:700;color:var(--ink)}
+.sr-consent p{margin:0;font-size:15px;color:var(--ink-2);max-width:62ch}

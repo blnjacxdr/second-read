@@ -167,7 +167,7 @@ export function orderWithMentionAnswers(flags, answers) {
   const marked = flags.map((flag) => {
     if (flag.kind !== 'other-college-name' || !answers.has(flag.id)) return flag;
     return answers.get(flag.id)
-      ? { ...flag, mention: 'likely-slip', detail: 'This sentence sounds like you\'re applying there. It may be left over from another college\'s essay.' }
+      ? { ...flag, mention: 'likely-slip', detail: 'This sentence sounds like the student is applying there. It may be left over from another college\'s essay.' }
       : { ...flag, mention: 'background', detail: 'This reads as background, not about attending. Likely intended; worth a glance.' };
   });
   const rank = (f) => (f.mention === 'likely-slip' ? 0 : f.mention === 'background' ? 2 : 1);

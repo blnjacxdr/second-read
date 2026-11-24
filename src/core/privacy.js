@@ -44,9 +44,9 @@ export function describeOnDeviceStatus(availability) {
     case 'downloading':
       return { canRun: false, message: 'The on-device model is downloading. You can keep using the code checks meanwhile.' };
     case 'unavailable':
-      return { canRun: false, message: 'This computer can\'t run the on-device model. Second Read will run its code checks only and will not send your text anywhere.' };
+      return { canRun: false, message: 'This computer can\'t run the on-device model. Second Read will run its code checks only and will not send any text anywhere.' };
     default:
-      return { canRun: false, message: 'This browser has no on-device model (it needs desktop Chrome with on-device AI turned on). Second Read will run its code checks only and will not send your text anywhere.' };
+      return { canRun: false, message: 'This browser has no on-device model (it needs desktop Chrome with on-device AI turned on). Second Read will run its code checks only and will not send any text anywhere.' };
   }
 }
 

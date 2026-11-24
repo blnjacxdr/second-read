@@ -41,7 +41,7 @@ test('only "On purpose" carries over; the check itself decides what is fixed', (
 });
 
 test('the summary line, and the all-fixed moment', () => {
-  assert.equal(recheckSummary(compareChecks([year, title], [{ ...title, id: 'n' }])).line, 'Since your last check: 1 fixed, 1 still there, 0 new.');
+  assert.equal(recheckSummary(compareChecks([year, title], [{ ...title, id: 'n' }])).line, 'Since the last check: 1 fixed, 1 still there, 0 new.');
   assert.equal(recheckSummary(compareChecks([year, title], [])).allFixed, true);
   assert.equal(recheckSummary(compareChecks([], [])).allFixed, false);
 });

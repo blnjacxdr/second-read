@@ -3,11 +3,12 @@
 // lives in src/core/ and is tested there.
 //
 // Models chosen by what the text is, never by what is convenient:
-//   privateModel, mentionModel: ONLY_ON_DEVICE. Application text. Never fall back to cloud.
+//   privateModel, factsModel, mentionModel...: ONLY_ON_DEVICE. Application text stays on the laptop.
 //   publicModel:  ONLY_IN_CLOUD with Google Search. Public names only.
-// Never use PREFER_ON_DEVICE or PREFER_IN_CLOUD here: both can silently send
-// the prompt to the cloud (for example while the on-device model is still
-// downloading). test/guards.test.js fails if either appears in src/.
+//   createConsentedHybridModels: PREFER_ON_DEVICE, the hybrid fallback. Built only after the counselor says yes to
+//     reading this PDF in the cloud (src/core/consent.js). Nowhere else: PREFER_* modes can send a prompt to the
+//     cloud on their own, so test/guards.test.js allows PREFER_ON_DEVICE only in that one function, and
+//     PREFER_IN_CLOUD nowhere.
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js';
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app-check.js';
@@ -20,11 +21,19 @@ import { cloudNamesPrompt, parseCloudAnswer } from './core/cloud-names.js';
 import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { CONTEXT_SCHEMA, contextPrompt } from './core/name-context.js';
 import { readGroundedAnswer } from './core/grounding.js';
+import { withJsonShape, parseModelJson, CLOUD_PURPOSE } from './core/consent.js';
 
 export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
 // The search-grounded check uses full Flash: Flash-Lite often skips the search or returns no grounding data,
 // and judges and students should see sources every time. Still a fraction of a cent per check.
 export const GROUNDED_MODEL = 'gemini-3.5-flash';
+
+// Chrome asks every on-device request to name its languages, so it can
+// tune quality and safety checks for them. Second Read is English-only for now.
+const english = {
+  expectedInputs: [{ type: 'text', languages: ['en'] }],
+  expectedOutputs: [{ type: 'text', languages: ['en'] }],
+};
 
 /**
  * Sets up Firebase, App Check and both models. Call once.
@@ -44,12 +53,6 @@ export function createSecondReadAI() {
   // (App Check > APIs > Firebase AI Logic > Replay protection). On-device calls never use a token.
   const ai = getAI(app, { backend: new GoogleAIBackend(), useLimitedUseAppCheckTokens: true });
 
-  // Chrome asks every on-device request to name its languages, so it can
-  // tune quality and safety checks for them. Second Read is English-only for now.
-  const english = {
-    expectedInputs: [{ type: 'text', languages: ['en'] }],
-    expectedOutputs: [{ type: 'text', languages: ['en'] }],
-  };
 
   // Each on-device model has one fixed answer shape (a JSON Schema), so each question gets its own model.
   const privateModel = getGenerativeModel(ai, {
@@ -91,7 +94,7 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL },
   });
 
-  return { privateModel, factsModel, claimModel, namesModel, mentionModel, contextModel, publicModel, publicModelWithoutSearch };
+  return { ai, privateModel, factsModel, claimModel, namesModel, mentionModel, contextModel, publicModel, publicModelWithoutSearch };
 }
 
 // Kept here too so older pages can import it from src/ai.js.
@@ -188,4 +191,42 @@ export function onDeviceAsker(models) {
     if (question.kind === 'claims') return checkClaimsOnDevice(models.claimModel, question.claims, question.passage);
     return findContradictionsOnDevice(models.privateModel, question.itemText, question.passage);
   };
+}
+
+/**
+ * The hybrid fallback, built only after the counselor says yes (src/core/consent.js). PREFER_ON_DEVICE: Gemini Nano
+ * when Chrome has it, otherwise Gemini in the cloud. The same narrow questions as on the device; the cloud model is
+ * asked for JSON and the shape is spelled out in the prompt.
+ */
+export function createConsentedHybridModels(models) {
+  const make = (schema) => getGenerativeModel(models.ai, {
+    mode: InferenceMode.PREFER_ON_DEVICE,
+    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: schema } },
+    inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
+  });
+  return { facts: make(FACTS_SCHEMA), mention: make(MENTION_SCHEMA), context: make(CONTEXT_SCHEMA) };
+}
+
+// Each prompt goes in the sent log before it is sent, so "What was sent" is complete.
+async function askHybrid(model, prompt, schema, sentLog) {
+  const full = withJsonShape(prompt, schema);
+  sentLog.record(CLOUD_PURPOSE, full);
+  const result = await model.generateContent(full);
+  return parseModelJson(result.response.text());
+}
+
+/** The `ask` function runAiChecks needs, through the consented hybrid models. Extraction design only. */
+export function consentedAsker(hybrid, sentLog) {
+  return (question) => {
+    if (question.kind !== 'facts') throw new Error('the cloud fallback runs the extraction questions only');
+    return askHybrid(hybrid.facts, factsPrompt(question.itemName, question.passage), FACTS_SCHEMA, sentLog);
+  };
+}
+
+export async function askMentionConsented(hybrid, sentLog, collegeName, sentence) {
+  return (await askHybrid(hybrid.mention, mentionPrompt(collegeName, sentence), MENTION_SCHEMA, sentLog)).aboutAttending === true;
+}
+
+export function checkNameContextConsented(hybrid, sentLog, name, google, sentence) {
+  return askHybrid(hybrid.context, contextPrompt(name, google, sentence), CONTEXT_SCHEMA, sentLog);
 }

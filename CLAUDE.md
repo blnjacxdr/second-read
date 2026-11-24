@@ -1,18 +1,21 @@
 # Second Read: rules for anyone (human or AI) working on this repo
 
-Second Read is a private consistency checker for a Common App application, built for
+Second Read is a private consistency checker for a Common App application, for counselors, educators
+and parents, built for
 #BuildHybridAI 2026 (deadline Nov 30, 2026, 2:00 PM Pacific). It flags problems with
 exact quotes from both places. It NEVER writes, rewrites or suggests application text.
 
 For history, decisions, setup and the day-by-day plan, read `docs/HANDOFF.md` first.
 
-## Privacy rules (non-negotiable)
-1. Application text goes only to deterministic code and the on-device model
-   (`InferenceMode.ONLY_ON_DEVICE`). Never `PREFER_ON_DEVICE` or `PREFER_IN_CLOUD`: both
-   can silently send the prompt to the cloud. `test/guards.test.js` enforces this.
+## Privacy rules
+1. Application text goes to deterministic code and the on-device model (`InferenceMode.ONLY_ON_DEVICE`) by
+   default. The one exception is the consented fallback (the builder's decision, Nov 24): with no Gemini Nano, the user
+   is asked in plain words, and only after a yes does `createConsentedHybridModels` build `PREFER_ON_DEVICE`
+   models. Every prompt goes in the sent log first. `PREFER_IN_CLOUD` is never used. `test/guards.test.js` enforces this.
 2. Only public names (organizations, programs, colleges) go to the cloud model
    (`ONLY_IN_CLOUD` + Google Search). Every string sent is recorded in the sent log first.
-3. No on-device model: run the code checks only and say so. Never fall back to the cloud.
+3. No on-device model: ask first (src/core/consent.js). "No" means code checks only. Never fall back to the
+   cloud without that explicit yes.
 4. Firebase AI monitoring stays OFF.
 5. Grounded answers must show `searchEntryPoint.renderedContent` and the sources
    (`groundingChunks`). Google requires both.

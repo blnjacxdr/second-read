@@ -102,7 +102,7 @@ export function checkOtherCollegeNames(app, colleges = COLLEGES) {
         check: 'code',
         kind: 'other-college-name',
         mentionName: mention.name, // the name as written, for the on-device question
-        title: `Mentions ${mention.name} in your ${app.college ?? 'college'} essay`,
+        title: `Mentions ${mention.name} in the ${app.college ?? 'college'} essay`,
         detail: 'Make sure this is intended. A name left over from another college\'s essay is a common copy-paste slip.',
         citations: [{ sectionId, quote: quoteAround(text, sentence, mention.start, mention.end) }],
       });
@@ -254,7 +254,7 @@ export function checkGradeYears(app) {
           check: 'code',
           kind: 'dates',
           title,
-          detail: 'These seem to describe the same activity. Check that the grades you listed match what the essay says.',
+          detail: 'These seem to describe the same activity. Check that the grades listed match what the essay says.',
           citations: [
             { sectionId: activityId, quote: listed.line },
             { sectionId: essayId, quote: quoteAround(essay, sentence, at, at + match[0].length) },

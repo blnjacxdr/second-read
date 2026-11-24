@@ -69,15 +69,19 @@ test('the receipt lists what happened, ending with what was sent', () => {
   assert.deepEqual(without.map((r) => r[0]), ['pages read', 'code checks', 'gemini nano', 'sent to the internet']);
   assert.equal(without[2][1], 'not here');
   assert.equal(receiptFor({ pageCount: 4, codeChecks: 6, nano: 'skipped-by-you' })[2][1], 'skipped');
+  // Read in the cloud with the counselor's yes: the receipt says so.
+  assert.equal(receiptFor({ pageCount: 4, codeChecks: 6, nano: 'cloud', nanoQuestions: 9 })[2][0], 'cloud questions (your yes)');
+  assert.match(headlineFor({ sure: 1, maybes: 1 }, new Map(), ['a', 'b'], { nano: 'cloud' }).subhead, /in Google's cloud, as you chose/);
 });
 
-test('the sticky note speaks to students about Gemini Nano, and never promises a cloud fallback', async () => {
+test('the sticky note explains Gemini Nano, and says the cloud is only used after asking', async () => {
   const { nanoNote } = await import('../src/core/present.js');
   assert.equal(nanoNote('available').ready, true);
   for (const a of ['downloadable', 'downloading', 'unavailable', undefined]) {
     const n = nanoNote(a);
     assert.equal(n.ready, false);
     assert.match(n.body, /code checks/);
+    assert.match(n.body, /asks before using Gemini in Google's cloud/);
     assert.doesNotMatch(n.body, /Click|Prepare/);
   }
 });

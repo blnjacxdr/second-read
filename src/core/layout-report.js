@@ -78,6 +78,6 @@ export function isImageOnlyPdf(pages) {
 }
 
 /** What to tell the student, in plain words. */
-export const IMAGE_ONLY_MESSAGE = 'This PDF is a picture of your application, so there is no text to read. '
+export const IMAGE_ONLY_MESSAGE = 'This PDF is a picture of the application, so there is no text to read. '
   + 'It usually happens when a PDF is printed again ("Microsoft Print to PDF"), scanned, or photographed. '
   + 'In Common App, open Print preview for this college and download that PDF instead.';

@@ -35,7 +35,7 @@ test('other college name: flagged in a college essay, never the college itself',
     collegeEssayIds: ['college-essay-1'],
   }));
   assert.equal(flags.length, 1);
-  assert.equal(flags[0].title, 'Mentions Stanford in your University of Michigan essay');
+  assert.equal(flags[0].title, 'Mentions Stanford in the University of Michigan essay');
   assert.equal(flags[0].citations[0].quote, 'Unlike Stanford, the University of Michigan has a lab I love.');
 });
 

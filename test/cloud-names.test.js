@@ -58,7 +58,7 @@ test('clubs named after the student\'s own school start unticked, with the reaso
   ]);
   assert.deepEqual(qs.map((q) => [q.name, q.defaultOn, q.why]), [
     ['Maple Grove High School Chess Team', false, 'your own school'],
-    ['Maple Grove Robotics', false, 'sounds like a club at your school'],
+    ['Maple Grove Robotics', false, "sounds like a club at the student's school"],
     ['Maple Leaf Youth Symphony', true, null],
   ]);
 });

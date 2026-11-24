@@ -33,8 +33,8 @@ export function nearDeadline(date) {
 export function marginNote(date) {
   const late = date.getHours() < 5; // midnight to 4:59 am
   const deadline = nearDeadline(date);
-  if (deadline && deadline.days === 0) return `it's ${deadline.name}. breathe. one more read, then submit.`;
-  if (late) return `it's ${clock(date)}. your essay will still be here after some sleep.`;
+  if (deadline && deadline.days === 0) return `it's ${deadline.name}. breathe. one more read, then they submit.`;
+  if (late) return `it's ${clock(date)}. the essays will still be here after some sleep.`;
   if (deadline) return `${deadline.days} ${deadline.days === 1 ? 'day' : 'days'} until ${deadline.name}. you've got this.`;
   return null;
 }

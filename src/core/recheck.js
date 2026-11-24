@@ -52,7 +52,7 @@ export function recheckSummary(comparison) {
   const { fixed, still, fresh } = comparison;
   const parts = [`${fixed.length} fixed`, `${still.length} still there`, `${fresh.length} new`];
   return {
-    line: `Since your last check: ${parts.join(', ')}.`,
+    line: `Since the last check: ${parts.join(', ')}.`,
     allFixed: still.length === 0 && fresh.length === 0 && fixed.length > 0,
   };
 }

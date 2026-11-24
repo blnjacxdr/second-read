@@ -196,8 +196,8 @@ export function mergePublicNames(fromCode, fromNano, sections) {
   for (const n of kept) {
     const lower = normalizeForMatch(n.name).toLowerCase();
     if (PERSON_POSSESSIVE.test(n.name) || people.some((p) => p.length >= 3 && lower.includes(p))) { n.defaultOn = false; n.why = 'has a person\'s name in it'; }
-    else if (essayOnly(n.sectionIds)) { n.defaultOn = false; n.why = 'only in your essays'; }
-    else if (!n.defaultOn) n.why = 'looks like your own school';
+    else if (essayOnly(n.sectionIds)) { n.defaultOn = false; n.why = 'only in the essays'; }
+    else if (!n.defaultOn) n.why = 'looks like the student\'s own school';
   }
   // Ticked first, then in the order they appear in the application.
   const order = (n) => Object.keys(sections).indexOf(n.sectionIds[0]);

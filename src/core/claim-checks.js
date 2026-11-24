@@ -73,7 +73,7 @@ export function flagsFromClaims(pair, answer, sections) {
       check: 'on-device',
       kind: kind === 'place' ? 'award' : kind,
       title: TITLES[kind],
-      detail: 'Gemini Nano, on this computer, read the essay as disagreeing with your activity list here. Check which is right.',
+      detail: 'Gemini Nano, on this computer, read the essay as disagreeing with the activity list here. Check which is right.',
       citations: [
         { sectionId: pair.itemId, quote: itemFound.text },
         { sectionId: pair.essayId, quote: found.text },

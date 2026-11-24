@@ -16,11 +16,25 @@ function filesUnder(dir) {
 }
 const srcFiles = filesUnder(join(root, 'src')).filter((f) => /\.(js|html)$/.test(f));
 
-test('no "prefer" inference mode anywhere in src/ (both can silently use the cloud)', () => {
+// "Prefer" modes can send a prompt to the cloud on their own. PREFER_IN_CLOUD is never used. PREFER_ON_DEVICE is the
+// consented fallback: allowed in exactly one function in src/ai.js, which app.js calls only after the counselor's yes.
+test('"prefer" inference modes only in the consented fallback', () => {
   for (const file of srcFiles) {
     const text = readFileSync(file, 'utf8');
-    assert.doesNotMatch(text, /InferenceMode\.PREFER_|['"]prefer_(on_device|in_cloud)['"]/, file);
+    assert.doesNotMatch(text, /InferenceMode\.PREFER_IN_CLOUD|['"]prefer_in_cloud['"]/, file);
+    if (file.endsWith(join('src', 'ai.js'))) continue;
+    assert.doesNotMatch(text, /InferenceMode\.PREFER_|['"]prefer_on_device['"]/, file);
   }
+  const ai = readFileSync(join(root, 'src', 'ai.js'), 'utf8');
+  const uses = [...ai.matchAll(/InferenceMode\.PREFER_ON_DEVICE/g)].map((m) => m.index);
+  const fn = ai.indexOf('export function createConsentedHybridModels(');
+  const fnEnd = ai.indexOf('\n}\n', fn);
+  assert.equal(uses.length, 1, 'PREFER_ON_DEVICE appears exactly once');
+  assert.ok(fn > 0 && uses[0] > fn && uses[0] < fnEnd, 'and only inside createConsentedHybridModels');
+  const app = readFileSync(join(root, 'src', 'app.js'), 'utf8');
+  const calls = app.split('\n').filter((line) => line.includes('createConsentedHybridModels('));
+  assert.ok(calls.length >= 1, 'app.js builds the hybrid models somewhere');
+  for (const line of calls) assert.match(line, /cloudConsent === true/, `built without checking consent: ${line.trim()}`);
 });
 
 test('the App Check debug token is only ever set in dev/', () => {

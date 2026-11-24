@@ -21,6 +21,7 @@ import { startScrolling } from './ui/scroll.js';
 import { addFace, setFace } from './ui/face.js';
 import { marginNote } from './core/margin-note.js';
 import { contextSentences, googleSays, contextFinding } from './core/name-context.js';
+import { CONSENT_COPY } from './core/consent.js';
 
 const $ = (id) => document.getElementById(id);
 const CODE_CHECK_COUNT = 7;      // the checks in runCodeChecks: other colleges' names, start years, titles, grade years, counts, repeats, limits
@@ -37,6 +38,7 @@ let run = null;       // the PDF being checked now
 let last = null;      // the previous check in this tab, for re-checking (never stored anywhere else)
 let cloudChecks = 0;
 let busy = false;     // true while a PDF is being read; the phase tabs wait
+let cloudConsent = null; // no Gemini Nano: null = not asked yet, true = yes for this visit, false = code checks only
 
 // The eyes that can make faces: the logo (every phase), the two on the reading card, and the start page pair.
 const faces = {
@@ -142,7 +144,7 @@ async function setPhase(name) {
       if (i === at) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
     });
     updateTabs(name);
-    document.title = { start: 'Second Read: your Common App, read twice', reading: 'Reading your PDF | Second Read', results: `${$('res-headline').textContent || 'Your fix list'} | Second Read` }[name];
+    document.title = { start: 'Second Read: every Common App, read twice', reading: 'Reading the PDF | Second Read', results: `${$('res-headline').textContent || 'Fix list'} | Second Read` }[name];
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
   if (document.startViewTransition && !reduced()) await document.startViewTransition(apply).finished.catch(() => {});
@@ -219,10 +221,12 @@ function stage(name, state, how = '') {
 }
 
 function resetReading(label) {
+  document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini Nano, on this laptop';
+  $('read-consent').hidden = true;
   face('reading', null);
   $('read-done').hidden = true;
   $('read-title').textContent = 'Reading on this laptop';
-  $('read-file').textContent = label ?? 'Your Common App PDF';
+  $('read-file').textContent = label ?? 'A student\'s Common App PDF';
   $('read-skip').hidden = true;
   $('read-error').hidden = true;
   document.querySelector('.sr-readcard').classList.remove('finished');
@@ -287,7 +291,7 @@ async function check(file, label) {
     }
     await wait(280);
     const essays = (result.personalEssay ? 1 : 0) + result.collegeEssays.length;
-    if (result.college) $('read-file').textContent = label ? `${label}, ${result.college} version` : `Your ${result.college} PDF`;
+    if (result.college) $('read-file').textContent = label ? `${label}, ${result.college} version` : `The ${result.college} PDF`;
     stage('parts', 'done', `${result.activities.length} activities, ${result.honors.length} honors, ${essays} ${essays === 1 ? 'essay' : 'essays'}`);
 
     stage('code', 'active');
@@ -315,11 +319,32 @@ async function check(file, label) {
 }
 
 // Gemini Nano runs only when it's already on this computer. A student can skip it and see the sure ones now.
+// No Gemini Nano: ask once per visit whether to read in Google's cloud instead. Resolves true or false.
+function askConsent() {
+  if (cloudConsent !== null) return Promise.resolve(cloudConsent);
+  const box = $('read-consent');
+  $('consent-q').textContent = CONSENT_COPY.question;
+  $('consent-what').textContent = CONSENT_COPY.what;
+  $('consent-yes').textContent = CONSENT_COPY.yes;
+  $('consent-no').textContent = CONSENT_COPY.no;
+  box.hidden = false;
+  stage('nano', 'active', 'waiting for you');
+  return new Promise((resolve) => {
+    const answer = (yes) => { cloudConsent = yes; box.hidden = true; resolve(yes); };
+    $('consent-yes').onclick = () => answer(true);
+    $('consent-no').onclick = () => answer(false);
+    $('consent-yes').focus({ preventScroll: true });
+  });
+}
+
 async function askNano(current) {
-  if ((await onDeviceAvailability().catch(() => 'unavailable')) !== 'available') {
+  const onDevice = (await onDeviceAvailability().catch(() => 'unavailable')) === 'available';
+  if (!onDevice && !(await askConsent())) {
     stage('nano', 'skipped', 'not on this laptop');
     return;
   }
+  if (!onDevice) document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini in Google\'s cloud (you said yes)';
+  if (!onDevice) $('read-title').textContent = 'Reading, with Gemini in the cloud';
   stage('nano', 'active', 'starting');
   let skipped = false;
   const skip = new Promise((resolve) => {
@@ -328,13 +353,15 @@ async function askNano(current) {
   });
   const track = document.querySelector('.sr-bar-track');
   try {
-    const { models, onDeviceAsker, askMentionOnDevice } = await loadAi();
+    const { models, onDeviceAsker, askMentionOnDevice, createConsentedHybridModels, consentedAsker, askMentionConsented } = await loadAi();
+    // On the device by default; through the hybrid models only when there is no Nano and the counselor said yes.
+    const hybrid = !onDevice && cloudConsent === true ? createConsentedHybridModels(models) : null;
     const work = runAiChecks({
       app: current.app,
       codeFlags: current.codeFlags,
-      ask: onDeviceAsker(models),
+      ask: hybrid ? consentedAsker(hybrid, sentLog) : onDeviceAsker(models),
       design: 'extract',
-      askMention: (name, sentence) => askMentionOnDevice(models.mentionModel, name, sentence),
+      askMention: (name, sentence) => (hybrid ? askMentionConsented(hybrid, sentLog, name, sentence) : askMentionOnDevice(models.mentionModel, name, sentence)),
       onProgress: (_message, progress) => {
         if (skipped || !progress) return;
         track.hidden = false;
@@ -353,7 +380,7 @@ async function askNano(current) {
     current.mentionAnswers = out.mentionAnswers ?? new Map();
     current.comparisons = out.comparisons;
     current.tossed = out.dropped.length;
-    current.nano = out.failed ? 'failed' : 'ran';
+    current.nano = out.failed ? 'failed' : hybrid ? 'cloud' : 'ran';
     stage('nano', 'done', `${out.comparisons} questions`);
   } catch (err) {
     console.error('Gemini Nano stopped:', err);
@@ -372,7 +399,7 @@ const SOURCE = {
   pen: { text: 'Sure. Code found both quotes, word for word.', icon: ICONS.check },
   pencil: { text: 'Maybe. Gemini Nano\'s reading, so give it a look.', icon: ICONS.pencil },
 };
-const NOTES = { fixed: 'nice.', kept: 'your call.' };
+const NOTES = { fixed: 'nice.', kept: 'their call.' };
 
 function cardFor(card) {
   const article = el('article', undefined, `sr-card ${card.tone}`);
@@ -588,21 +615,21 @@ function paintTicks() {
 function updateHeadline() {
   const { cards, decisions } = run;
   const ids = [...cards.sure, ...cards.maybes].map((c) => c.id);
-  const nano = ['ran', 'failed', 'skipped-by-you'].includes(run.nano) ? run.nano : 'skipped';
-  // What Gemini Nano would add, said once under the headline when it didn't run.
-  $('res-nano-tip').hidden = nano === 'ran';
+  const nano = ['ran', 'cloud', 'failed', 'skipped-by-you'].includes(run.nano) ? run.nano : 'skipped';
+  // What Gemini would add, said once under the headline when it didn't run.
+  $('res-nano-tip').hidden = nano === 'ran' || nano === 'cloud';
   $('res-nano-tip').textContent = nano === 'skipped-by-you'
-    ? 'Gemini Nano also reads hours, titles and awards in your essays. Check this PDF again and let it finish to include those.'
+    ? 'Gemini Nano also reads hours, titles and awards in the essays. Check this PDF again and let it finish to include those.'
     : nano === 'failed'
-      ? 'Check this PDF again to give Gemini Nano another try. It reads hours, titles and awards in your essays.'
-      : 'With Gemini Nano (in Chrome on a laptop), Second Read also reads hours, titles and awards in your essays and checks names in your own sentences, so it catches more.';
+      ? 'Check this PDF again to give Gemini Nano another try. It reads hours, titles and awards in the essays.'
+      : 'With Gemini Nano (in Chrome on a laptop), or with Gemini in the cloud if you say yes, Second Read also reads hours, titles and awards in the essays and checks names in the student\'s own sentences, so it catches more.';
   const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length }, decisions, ids, { nano });
   swapText($('res-headline'), h.headline);
   if (!$('view-results').hidden) document.title = `${h.headline} | Second Read`;
   swapText($('res-subhead'), h.subhead);
   // When everything is handled, the eyes from the logo show up beside the headline, pleased.
   const celebrate = h.state === 'done' || h.state === 'clean';
-  if (celebrate && $('res-done').hidden) $('res-done-note').textContent = h.state === 'clean' ? 'spotless.' : 'nice work. go submit.';
+  if (celebrate && $('res-done').hidden) $('res-done-note').textContent = h.state === 'clean' ? 'spotless.' : 'nice work. back to the student.';
   $('res-done').hidden = !celebrate;
   $('res-allkept').hidden = h.state !== 'all-kept';
   // Everything handled (or nothing to handle): the logo looks pleased, and stays that way.
@@ -631,11 +658,11 @@ function applyRecheck() {
   const comparison = compareChecks([...last.cards.sure, ...last.cards.maybes], [...run.cards.sure, ...run.cards.maybes]);
   for (const [id, choice] of carriedDecisions(comparison, last.decisions)) run.decisions.set(id, choice);
   const summary = recheckSummary(comparison);
-  $('res-recheck-line').textContent = summary.allFixed ? 'Everything from your last check is fixed.' : summary.line;
+  $('res-recheck-line').textContent = summary.allFixed ? 'Everything from the last check is fixed.' : summary.line;
   const sameCollege = last.result.college === run.result.college;
   $('res-recheck-note').textContent = sameCollege
-    ? `Compared with the ${last.result.college ?? 'last'} PDF you checked a moment ago. Your "on purpose" choices carried over.`
-    : `Compared with your ${last.result.college ?? 'last'} PDF. Shared sections match up across colleges; each college's own questions are new here.`;
+    ? `Compared with the ${last.result.college ?? 'last'} PDF you checked a moment ago. "On purpose" choices carried over.`
+    : `Compared with the ${last.result.college ?? 'last'} PDF. Shared sections match up across colleges; each college's own questions are new here.`;
   // Said plainly, because a student will wonder: the last check lives only in this tab's memory.
   $('res-recheck-note').textContent += ' The last check is kept only in this tab and is gone when you close it.';
   banner.hidden = false;
@@ -647,7 +674,7 @@ async function showResults() {
   const college = run.result.college;
   $('res-file').textContent = run.label
     ? `${run.label}, ${college ? `${college} version` : 'Common App PDF'}`
-    : `Your ${college ?? 'Common App'} PDF`;
+    : `The ${college ?? 'Common App'} PDF`;
   applyRecheck();
   buildStack();
   $('res-background').hidden = background.length === 0;
@@ -701,7 +728,7 @@ function updateNamesCount() {
 
 async function pickNames() {
   $('names-start').disabled = true;
-  namesStatus('Finding public names in your application, on this laptop…', { busy: true });
+  namesStatus('Finding public names in the application, on this laptop…', { busy: true });
   try {
     let askNames;
     if ((await onDeviceAvailability().catch(() => 'unavailable')) === 'available') {
@@ -724,7 +751,7 @@ async function pickNames() {
       tick.dataset.id = String(q.id);
       tick.addEventListener('change', updateNamesCount);
       const text = el('span', q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}?` : q.name);
-      if (q.kind === 'level') text.append(el('span', 'Is it real, and at what level? Your level isn\'t sent.', 'why'));
+      if (q.kind === 'level') text.append(el('span', 'Is it real, and at what level? The listed level isn\'t sent.', 'why'));
       if (q.why) text.append(el('span', `Unticked: ${q.why}`, 'why'));
       label.append(tick, text);
       return label;
@@ -735,7 +762,7 @@ async function pickNames() {
       $('names-pick').hidden = false;
       updateNamesCount();
       const off = run.questions.filter((q) => !q.defaultOn).length;
-      namesStatus(`Found ${run.questions.length} public ${run.questions.length === 1 ? 'name' : 'names'}.${off ? ' Ones that sound like your own school start unticked.' : ''}`);
+      namesStatus(`Found ${run.questions.length} public ${run.questions.length === 1 ? 'name' : 'names'}.${off ? ' Ones that sound like the student\'s own school start unticked.' : ''}`);
     });
   } catch (err) {
     console.error('Name finder stopped:', err);
@@ -766,7 +793,7 @@ async function sendNames() {
     });
   } catch (err) {
     console.error('Name check stopped:', err);
-    namesStatus('The name check didn\'t go through. Your cards above are unchanged.');
+    namesStatus('The name check didn\'t go through. The cards above are unchanged.');
     boxes.forEach((b) => { b.disabled = false; b.closest('label').classList.remove('asking', 'leaving'); });
   } finally {
     $('names-send').disabled = false;
@@ -812,9 +839,9 @@ function drawAnswers(send, answer) {
       const said = [a.official && a.official !== q.name ? a.official : null, a.place, a.fact].filter(Boolean).join('. ').replace(/[.]+$/, '');
       if (said) body.append(el('span', `${said}.`, 'said'));
     }
-    if (conflicts.length) body.append(el('span', `You wrote ${conflicts.map((c) => c.written).join(' and ')} next to it.`, 'clash'));
+    if (conflicts.length) body.append(el('span', `The application says ${conflicts.map((c) => c.written).join(' and ')} next to it.`, 'clash'));
     const level = levelMismatch(q, a);
-    if (level) body.append(el('span', `You listed it as ${level.listed}. Google describes it as ${level.google}.`, 'clash'));
+    if (level) body.append(el('span', `It's listed as ${level.listed}. Google describes it as ${level.google}.`, 'clash'));
     // The sources Google used for this answer, inside this answer's box.
     const links = sourceLinks(byId.get(q.id) ?? []);
     if (links) { links.prepend(el('span', 'Sources', 'lead')); body.append(links); }
@@ -855,19 +882,23 @@ function verdictTag(status) {
 // Hybrid step: Google's answers came in from the cloud; now Gemini Nano, on this laptop, reads each name in the
 // student's own sentences and points at any detail that disagrees. Only runs when Gemini Nano is here.
 async function checkNamesInContext(send, answer, looksSoFar) {
-  if ((await onDeviceAvailability().catch(() => 'unavailable')) !== 'available') return;
+  const onDevice = (await onDeviceAvailability().catch(() => 'unavailable')) === 'available';
+  if (!onDevice && cloudConsent !== true) return;
   const jobs = send.map((q) => ({ q, google: googleSays(answer.answers.find((a) => a.id === q.id)) }))
     .filter((j) => j.google).map((j) => ({ ...j, sentences: contextSentences(j.q, run.result.sections) }))
     .filter((j) => j.sentences.length);
   if (jobs.length === 0) return;
   const before = $('names-status-text').textContent;
-  namesStatus('Gemini Nano is reading each name in your own sentences, on this laptop…', { busy: true });
+  const who = onDevice ? 'Gemini Nano' : 'Gemini (in the cloud, as you chose)';
+  namesStatus(onDevice ? 'Gemini Nano is reading each name in the student\'s own sentences, on this laptop…' : `${who} is reading each name in the student\'s own sentences…`, { busy: true });
   let found = 0;
   try {
-    const { models, checkNameContextOnDevice } = await loadAi();
+    const { models, checkNameContextOnDevice, createConsentedHybridModels, checkNameContextConsented } = await loadAi();
+    const hybrid = !onDevice && cloudConsent === true ? createConsentedHybridModels(models) : null;
+    const ask = (name, google, text) => (hybrid ? checkNameContextConsented(hybrid, sentLog, name, google, text) : checkNameContextOnDevice(models.contextModel, name, google, text));
     for (const { q, google, sentences } of jobs) {
       for (const sentence of sentences) {
-        const reply = await checkNameContextOnDevice(models.contextModel, q.name, google, sentence.text).catch(() => null);
+        const reply = await ask(q.name, google, sentence.text).catch(() => null);
         const finding = contextFinding(reply, sentence, run.result.sections, q.name);
         if (!finding) continue;
         const li = $('names-answers').querySelector(`li[data-qid="${q.id}"]`);
@@ -876,7 +907,7 @@ async function checkNamesInContext(send, answer, looksSoFar) {
           li.classList.remove('fine', 'unsure');
           li.classList.add('look', 'sr-flash');
           li.querySelector('.verdict').replaceWith(verdictTag('look'));
-          li.querySelector('.body').append(el('span', `In your own words: "${finding.quote}". Gemini Nano, on this laptop, read that as not matching Google's answer.`, 'clash'));
+          li.querySelector('.body').append(el('span', `In the student\'s words: "${finding.quote}". ${onDevice ? 'Gemini Nano, on this laptop,' : 'Gemini'} read that as not matching Google's answer.`, 'clash'));
         }
         break;
       }
@@ -885,7 +916,9 @@ async function checkNamesInContext(send, answer, looksSoFar) {
     console.error('Name context check stopped:', err);
   }
   const looks = looksSoFar + found;
-  namesStatus(found ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look. Gemini Nano also read each name in your own sentences.` : `${before} Gemini Nano read each name in your own sentences too.`);
+  namesStatus(found ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look. ${who} also read each name in the student\'s own sentences.` : `${before} ${who} read each name in the student\'s own sentences too.`);
+  drawSentLog();
+  updateReceipt();
   if (found) face('logo', 'worried', 1800);
 }
 

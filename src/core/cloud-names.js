@@ -61,7 +61,7 @@ export function cloudQuestions(names, { college = null, sections = {} } = {}) {
       kind: level ? 'level' : 'lookup', name: sendAs, sectionIds: n.sectionIds,
       ...(level ? { level } : {}),
       defaultOn: Boolean(n.defaultOn) && !schoolClub,
-      why: schoolClub ? 'sounds like a club at your school' : n.why ?? null,
+      why: schoolClub ? 'sounds like a club at the student\'s school' : n.why ?? null,
     });
     const onlyInTheseEssays = n.sectionIds.length > 0 && n.sectionIds.every((id) => id.startsWith('college-essay-'));
     // Part-of questions only for proper names ("Michigan Hackers"), not hobbies ("RC aircraft").
