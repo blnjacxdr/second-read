@@ -1,0 +1,86 @@
+/* Three candidate looks, for the builder to pick from (Nov 24). Preview with ?look=dechunk, ?look=quiet or ?look=further.
+   Each builds on the one before: further = quiet + layout, quiet = dechunk + fewer props.
+   Once one is picked, its rules move into app.css and this file goes away. */
+
+/* ================= 1. De-chunk: lighter type, calmer controls, calmer color ================= */
+.look-dechunk{--pen:#2B3FC4;--pen-fill:#2B3FC4;--pen-dark:#1E2E96}
+@media (prefers-color-scheme: dark){.look-dechunk{--pen:#A9B8FF;--pen-fill:#4A5FE0}}
+/* One heavy moment per screen (the main headline); everything else steps down. */
+.look-dechunk #logo span{font-weight:800!important}
+.look-dechunk #res-headline{font-weight:800!important}
+.look-dechunk #drop-label > span:first-of-type{font-weight:700!important;font-size:32px!important;letter-spacing:-.025em!important}
+.look-dechunk .sr-card h3,.look-dechunk .sr-endcard h3,.look-dechunk .sr-names h2,.look-dechunk .sr-readhead h2,
+.look-dechunk .sr-fcopy h2,.look-dechunk .sr-closing h2,.look-dechunk .sr-stack.all .sr-divider{font-weight:700}
+.look-dechunk .sr-card h3{font-size:22px;letter-spacing:-.015em}
+.look-dechunk .sr-phead,.look-dechunk .sr-panel div[style*="font-weight: 900"]{font-weight:700!important}
+.look-dechunk .sr-phases{font-weight:600}
+.look-dechunk .sr-cta,.look-dechunk .sr-again,.look-dechunk .sr-textbtn,.look-dechunk .sr-actions button,.look-dechunk .sr-sentbox summary,
+.look-dechunk .sr-totop,.look-dechunk .sr-guide summary,.look-dechunk .sr-answers .verdict,.look-dechunk .sr-pick{font-weight:600!important}
+.look-dechunk .sr-answers .name,.look-dechunk .sr-note div[style*="font-weight: 800"]{font-weight:600!important}
+/* No thick black outlines: secondary actions are soft fills, icon buttons are ghosts. */
+.look-dechunk .sr-again,.look-dechunk .sr-textbtn,.look-dechunk .sr-actions .keep{border:0;background:var(--fill);color:var(--ink)}
+.look-dechunk .sr-actions .fix{border:0;background:var(--pen-tint);color:var(--pen)}
+.look-dechunk .sr-actions .fix[aria-pressed="true"]{background:var(--pen-fill);color:var(--on-fill);box-shadow:none}
+.look-dechunk .sr-actions .keep[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.look-dechunk .sr-textbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.look-dechunk .sr-iconbtn{border:0;background:transparent;color:var(--ink)}
+.look-dechunk .sr-iconbtn:disabled{color:var(--line-strong)}
+.look-dechunk .sr-totop{border:1px solid var(--line)}
+.look-dechunk .sr-sentbox summary{border:0;background:var(--pen-tint)}
+@media (hover:hover) and (pointer:fine){
+  .look-dechunk .sr-again:hover,.look-dechunk #sample:hover,.look-dechunk .sr-textbtn:hover,.look-dechunk .sr-actions .keep:hover{background:var(--line-2);color:var(--ink)}
+  .look-dechunk .sr-iconbtn:not(:disabled):hover{background:var(--fill);color:var(--ink)}
+  .look-dechunk .sr-cta:not(:disabled):hover{box-shadow:none}
+}
+/* Fewer heavy shadows: a hairline and a short soft shadow. */
+.look-dechunk .sr-card,.look-dechunk .sr-endcard,.look-dechunk .sr-names,.look-dechunk .sr-readcard,.look-dechunk #drop-label{box-shadow:0 0 0 1px var(--line-2),0 8px 20px -16px rgba(22,24,29,.25)!important}
+.look-dechunk .sr-card-src{font-weight:600}
+
+/* ================= 2. Quiet notebook: fewer props, fewer jokes ================= */
+/* Keep: the eyes, the highlighter, ruled paper, the margin line, the fold. Cut the rest of the stationery. */
+.look-quiet .sr-holes,.look-quiet .sr-clip,.look-quiet .sr-tape,.look-quiet #res-stamp,.look-quiet #res-allkept{display:none!important}
+/* The sticky note becomes a calm status line. */
+.look-quiet .sr-note{background:transparent!important;box-shadow:none!important;transform:none!important;padding:4px 0 0 18px!important;border-left:2px solid var(--line)}
+.look-quiet .sr-note:hover{transform:none!important}
+.look-quiet #nano-body,.look-quiet #nano-extra{color:var(--ink-2)!important}
+/* The receipt becomes a plain list of facts. */
+.look-quiet .sr-receipt{-webkit-mask:none;mask:none;transform:none!important;background:transparent!important;padding:4px 0 0!important;font-family:inherit!important;font-size:15px!important;line-height:1.9!important;animation:none!important}
+.look-quiet .sr-receipt > div:first-child{text-align:left!important;font-size:13px!important;color:var(--muted)}
+.look-quiet .sr-receipt > div:nth-child(2),.look-quiet .sr-receipt > div:last-child{display:none}
+.look-quiet .sr-receipt > div:first-child::after{content:" on this laptop"}
+.look-quiet .sr-dash{border-top:1px solid var(--line-2)}
+.look-quiet .sr-side > div:first-child{filter:none!important}
+/* No cute asides. */
+.look-quiet .sr-actions .note{display:none}
+.look-quiet .sr-names .sr-pen-label{display:none}
+/* The Gemini Nano tip is information, not a highlight. */
+.look-quiet .sr-nanotip{background:var(--fill);color:var(--ink-2);box-shadow:none}
+
+/* ================= 3. Go further: an editorial layout ================= */
+/* Start: one strong column of type; the eyes sit beside the headline, smaller. */
+@media (min-width:1001px){
+  .look-further #hero{display:grid!important;grid-template-columns:1fr auto;align-items:end;column-gap:48px}
+  .look-further #hero > div:first-child{max-width:none}
+  .look-further #hero h1{font-size:clamp(64px,8.6vw,132px)!important;letter-spacing:-.055em!important}
+  .look-further .sr-drift{flex:none!important;transform:scale(.78);transform-origin:right bottom}
+  .look-further .sr-drift > p{display:none}
+  .look-further #drop{display:grid!important;grid-template-columns:minmax(0,1fr) 300px;gap:40px;align-items:start}
+}
+/* Results: headline, then the facts as one line, then a list of findings divided by hairlines, not boxes. */
+.look-further #view-results{display:grid!important;grid-template-columns:minmax(0,860px);justify-content:start;gap:24px!important}
+.look-further #view-results > section{display:contents!important}
+.look-further #view-results > section > *{order:2}
+.look-further #view-results > section > :first-child{order:0}
+.look-further #view-results > aside{order:1;flex:none!important}
+.look-further .sr-receipt-rows{display:flex!important;flex-wrap:wrap;gap:4px 28px}
+.look-further .sr-receipt-rows dt{color:var(--muted)}
+.look-further .sr-receipt-rows dd{font-weight:600;color:var(--ink);text-align:left}
+.look-further .sr-receipt{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 28px}
+.look-further .sr-receipt > div:first-child{display:none}
+.look-further .sr-receipt .sr-dash{display:none}
+.look-further .sr-receipt > dl:last-of-type{font-size:inherit!important}
+.look-further .sr-side{gap:0!important;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);padding:10px 0}
+.look-further .sr-card,.look-further .sr-endcard{background:transparent!important;box-shadow:none!important;border-radius:0;border-top:1px solid var(--line);padding:28px 0 8px}
+.look-further .sr-stack.one::before,.look-further .sr-stack.one::after{display:none}
+.look-further .sr-card-src{background:transparent;padding:0}
+.look-further .sr-names{background:transparent!important;box-shadow:none!important;border-radius:0;border-top:2px solid var(--ink);padding:28px 0 0}
