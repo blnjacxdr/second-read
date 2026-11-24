@@ -39,7 +39,7 @@ test('hours far apart are flagged with both quotes; close estimates are not', ()
   const far = flagsFromFacts(pair, answer({ hoursQuote: 'twenty hours every week', hoursPerWeek: 20 }), sections);
   assert.equal(far.kept.length, 1);
   assert.deepEqual(far.kept[0].citations.map((c) => c.quote), ['6 hr/wk, 40 wk/yr', 'twenty hours every week']);
-  const close = flagsFromFacts(pair, answer({ hoursQuote: 'twenty hours every week', hoursPerWeek: 8 }), sections);
+  const close = flagsFromFacts(pair, answer({ hoursQuote: 'twenty hours every week', hoursPerWeek: 11 }), sections);
   assert.equal(close.kept.length, 0);
 });
 

@@ -6,7 +6,7 @@ import {
   isSendableName, cloudQuestions, cloudNamesPrompt, parseCloudAnswer, placeConflicts, answerStatus, expandAbbreviation,
   MAX_QUESTIONS,
 } from '../src/core/cloud-names.js';
-import { sourcesByAnswer } from '../src/core/cloud-names.js';
+import { sourcesByAnswer, looksProper, honorLevel, levelMismatch, cloudNamesPrompt as promptFor, parseCloudAnswer as parseFor, answerStatus as statusFor, cloudQuestions as questionsFor } from '../src/core/cloud-names.js';
 
 const name = (n, sectionIds, extra = {}) => ({ name: n, kind: 'program', sectionIds, defaultOn: true, ...extra });
 
@@ -170,4 +170,29 @@ test('sources sit with the answer they back up; the rest are kept, not dropped',
   assert.deepEqual(byId.get(1).map((s) => s.title), ['a.org']);
   assert.deepEqual(byId.get(2).map((s) => s.title), ['b.org', 'a.org']);
   assert.deepEqual(other.map((s) => s.title), ['c.org']);
+});
+
+test('part-of questions are only for proper names', () => {
+  assert.equal(looksProper('Michigan Hackers'), true);
+  assert.equal(looksProper('Society of Women Engineers'), true);
+  assert.equal(looksProper('RC aircraft'), false);
+  const qs = questionsFor([{ name: 'paper airplanes', kind: 'program', sectionIds: ['college-essay-1'], defaultOn: false }], { college: 'Purdue University' });
+  assert.equal(qs.filter((q) => q.kind === 'partOf').length, 0);
+});
+
+test('an honor with a level gets a level question; the level itself is never sent', () => {
+  const sections = { 'honor-1': 'Coastal Poetry Prize\nState/Regional\n11' };
+  assert.deepEqual(honorLevel(['honor-1'], sections), { listed: 'State/Regional', highest: 'state' });
+  const [q] = questionsFor([{ name: 'Coastal Poetry Prize', kind: 'award', sectionIds: ['honor-1'], defaultOn: true }], { sections });
+  assert.equal(q.kind, 'level');
+  const prompt = promptFor([q]);
+  assert.match(prompt, /Level: at what level is the honor Coastal Poetry Prize given\?/);
+  assert.doesNotMatch(prompt, /State\/Regional/);
+  const national = parseFor('1 | NATIONAL | Coastal Poetry Prize | - | A national poetry award.', [q]).answers[0];
+  assert.equal(national.verdict, 'national');
+  assert.deepEqual(levelMismatch(q, national), { listed: 'State/Regional', google: 'national' });
+  assert.equal(statusFor(q, national), 'look');
+  const regional = parseFor('1 | REGIONAL | Coastal Poetry Prize | - | -', [q]).answers[0];
+  assert.equal(levelMismatch(q, regional), null);
+  assert.equal(statusFor(q, regional), 'fine');
 });

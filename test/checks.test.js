@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import {
   wordsOf, sentencesOf, findCollegeMentions, checkOtherCollegeNames, checkStartYears,
   sharedPassages, checkRepeatedPassages, checkActivityDescriptionDraft, checkLimits, runCodeChecks, checkInputFromPdf,
-  checkQualifiedTitles,
+  checkQualifiedTitles, checkGradeYears, checkCounts, countsIn, activityGrades,
 } from '../src/core/checks.js';
 import { buildRows } from '../src/core/pdf-lines.js';
 import { readCommonApp, isPersonalAnswer } from '../src/core/common-app.js';
@@ -138,4 +138,39 @@ test('qualified titles: "Co-Captain" in an activity vs a bare "captain" in an es
   const flags = checkQualifiedTitles(app({ sections, activityIds: ['activity-1', 'activity-2'], essayIds: ['e1', 'e2', 'e3'] }));
   assert.deepEqual(flags.map((f) => f.title), ['"Co-Captain" in an activity, "captain" in an essay', '"Vice President" in an activity, "president" in an essay']);
   assert.equal(flags[0].citations[1].quote, 'As captain of the rowing club, I set the schedule.');
+});
+
+// Made-up activity text in the PDF's layout: category, "Org, Position", description, grades, hours.
+const birdActivity = 'Environmental\nMarsh Hollow Bird Count, Volunteer Coordinator\nOrganized 25 volunteers for the winter bird count and trained new spotters.\n10, 11, 12 (School)\n4 hr/wk, 20 wk/yr';
+
+test('grade years: an essay start earlier than the grades listed is flagged', () => {
+  assert.deepEqual(activityGrades(birdActivity).grades, [10, 11, 12]);
+  const flags = checkGradeYears(app({
+    sections: { 'activity-1': birdActivity, 'personal-essay': 'I have coordinated the Marsh Hollow bird count since freshman year.' },
+    activityIds: ['activity-1'], essayIds: ['personal-essay'],
+  }));
+  assert.equal(flags.length, 1);
+  assert.deepEqual(flags[0].citations.map((c) => c.quote), ['10, 11, 12 (School)', 'I have coordinated the Marsh Hollow bird count since freshman year.']);
+});
+
+test('grade years: a start that fits, or a sentence about something else, is not flagged', () => {
+  const quiet = (essay) => checkGradeYears(app({
+    sections: { 'activity-1': birdActivity, 'personal-essay': essay }, activityIds: ['activity-1'], essayIds: ['personal-essay'],
+  }));
+  assert.equal(quiet('I joined the Marsh Hollow bird count in sophomore year.').length, 0);
+  assert.equal(quiet('Since freshman year I have loved chemistry.').length, 0);
+});
+
+test('counts: the same thing counted differently is flagged; growth sentences are not', () => {
+  assert.deepEqual(countsIn('Raised $1,200 and trained 25 volunteers, 60+ students and twelve schools').map((c) => [c.noun, c.value]),
+    [['dollars', 1200], ['volunteers', 25], ['students', 60], ['schools', 12]]);
+  const run = (essay) => checkCounts(app({
+    sections: { 'activity-1': birdActivity, 'personal-essay': essay }, activityIds: ['activity-1'], essayIds: ['personal-essay'],
+  }));
+  const flags = run('At the Marsh Hollow bird count I led 40 volunteers through the snow.');
+  assert.equal(flags.length, 1);
+  assert.match(flags[0].title, /^25 volunteers in an activity, 40 in an essay$/);
+  assert.equal(run('At the Marsh Hollow bird count I led twenty-five, I mean 25 volunteers.').length, 0);
+  assert.equal(run('The Marsh Hollow bird count grew from 10 volunteers to 40 volunteers.').length, 0);
+  assert.equal(run('At the Marsh Hollow bird count our 2024 season was cold.').length, 0);
 });

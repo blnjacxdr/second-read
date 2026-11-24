@@ -11,16 +11,17 @@ import { runCodeChecks, checkInputFromPdf } from './core/checks.js';
 import { runAiChecks, findPublicNames } from './core/run-ai.js';
 import { isImageOnlyPdf, IMAGE_ONLY_MESSAGE } from './core/layout-report.js';
 import { onDeviceAvailability } from './core/privacy.js';
-import { cloudQuestions, placeConflicts, answerStatus, sourcesByAnswer } from './core/cloud-names.js';
+import { cloudQuestions, placeConflicts, answerStatus, sourcesByAnswer, levelMismatch } from './core/cloud-names.js';
 import { createSentLog } from './core/sent-log.js';
 import { safeLinkUrl } from './core/grounding.js';
 import { presentFlags, headlineFor, receiptFor, nanoNote } from './core/present.js';
 import { compareChecks, carriedDecisions, recheckSummary } from './core/recheck.js';
 import { startEyes, startLogo } from './ui/eyes.js';
 import { startScrolling } from './ui/scroll.js';
+import { addFace, setFace } from './ui/face.js';
 
 const $ = (id) => document.getElementById(id);
-const CODE_CHECK_COUNT = 5;      // the checks in runCodeChecks: other colleges' names, start years, titles, repeats, limits
+const CODE_CHECK_COUNT = 7;      // the checks in runCodeChecks: other colleges' names, start years, titles, grade years, counts, repeats, limits
 const MAX_CLOUD_CHECKS = 3;      // name checks per visit; a student needs one, so this only stops abuse and surprise costs
 const MAX_PDF_BYTES = 40 * 1024 * 1024;
 // File names can be anything ("Scan 2026-11-02.pdf"), so the page never shows them. A real PDF is "your PDF";
@@ -33,6 +34,15 @@ let ai = null;        // src/ai.js plus its models, loaded on first use
 let run = null;       // the PDF being checked now
 let last = null;      // the previous check in this tab, for re-checking (never stored anywhere else)
 let cloudChecks = 0;
+let busy = false;     // true while a PDF is being read; the phase tabs wait
+
+// The eyes that can make faces: the logo (every phase), the two on the reading card, and the start page pair.
+const faces = {
+  logo: () => $('logo-eyes'),
+  reading: () => [...document.querySelectorAll('.sr-readeyes svg')],
+  hero: () => [$('sr-eye-1'), $('sr-eye-2')],
+};
+const face = (which, mood, ms) => [].concat(faces[which]()).forEach((svg) => setFace(svg, mood, ms));
 
 // A small stroked icon, built as DOM (never as an HTML string). Paths are in a 24 by 24 box.
 function icon(paths, { size = 16, color = 'currentColor', width = 2.6 } = {}) {
@@ -100,6 +110,7 @@ async function setPhase(name) {
       li.classList.toggle('done', i < at);
       if (i === at) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
     });
+    updateTabs(name);
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
   if (document.startViewTransition && !reduced()) await document.startViewTransition(apply).finished.catch(() => {});
@@ -109,7 +120,24 @@ async function setPhase(name) {
 function goToStart() {
   run = null;
   $('pdf').value = '';
+  face('logo', null);
   setPhase('start');
+}
+
+// The phase tabs are buttons once there's somewhere to go: back to the start, back to how the last read went,
+// or back to the last fix list. Nothing is reloaded; the last check is still in this tab's memory.
+function updateTabs(name) {
+  const [start, reading, results] = document.querySelectorAll('#phases button');
+  start.disabled = busy || name === 'start';
+  reading.disabled = busy || !last || name === 'reading';
+  results.disabled = busy || !last || name === 'results';
+  $('read-done').hidden = busy || !last || name !== 'reading';
+}
+
+function openLastResults() {
+  if (!last) return;
+  run = last;
+  setPhase('results');
 }
 
 // ---------- Start page: Gemini Nano status on the sticky note ----------
@@ -136,6 +164,8 @@ function stage(name, state, how = '') {
 }
 
 function resetReading(label) {
+  face('reading', null);
+  $('read-done').hidden = true;
   $('read-title').textContent = 'Reading on this laptop';
   $('read-file').textContent = label ?? 'Your Common App PDF';
   $('read-skip').hidden = true;
@@ -162,9 +192,14 @@ function readingError(title, body) {
   $('read-skip').hidden = true;
   document.querySelector('.sr-readcard').classList.add('finished');
   document.querySelectorAll('#read-stages li[data-state="active"]').forEach((li) => { li.dataset.state = 'waiting'; });
+  face('reading', 'worried');
+  face('logo', 'worried', 2400);
+  busy = false;
+  updateTabs('reading');
 }
 
 async function check(file, label) {
+  busy = true;
   resetReading(label);
   await setPhase('reading');
   const started = performance.now();
@@ -211,7 +246,9 @@ async function check(file, label) {
     stage('list', 'done');
     $('read-title').textContent = 'Done reading';
     document.querySelector('.sr-readcard').classList.add('finished');
-    await wait(500);
+    face('reading', 'happy');
+    await wait(650);
+    busy = false;
     await showResults();
   } catch (err) {
     console.error('Reading stopped:', err);
@@ -338,6 +375,7 @@ function decide(id, choice) {
   if (decisions.get(id) === choice) decisions.delete(id); else decisions.set(id, choice);
   paintDecision(id);
   updateHeadline();
+  if (decisions.get(id) === 'fixed' && !$('logo-eyes').classList.contains('face-happy')) face('logo', 'happy', 900);
   updateCount();
   // In the one-at-a-time stack, a decision moves on to the next card after a beat, so you see it land.
   if (decisions.has(id) && $('res-stack').classList.contains('one')) {
@@ -366,7 +404,7 @@ function buildStack() {
     $('names-panel').scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'start' });
     $('names-start').focus({ preventScroll: true });
   });
-  const buttons = el('div', undefined, 'sr-actions');
+  const buttons = el('div', undefined, 'sr-endactions');
   buttons.append(again, names);
   end.append(buttons);
   items.push(end);
@@ -475,6 +513,9 @@ function updateHeadline() {
   $('res-stamp').hidden = !(h.state === 'done' || h.state === 'clean');
   $('res-allkept').hidden = h.state !== 'all-kept';
   document.getElementById('logo-eyes')?.classList.toggle('sr-happy', h.state === 'done');
+  // Everything handled (or nothing to handle): the logo looks pleased, and stays that way.
+  if (h.state === 'done' || h.state === 'clean') face('logo', 'happy');
+  else if ($('logo-eyes').classList.contains('face-happy')) face('logo', null);
 }
 
 function updateReceipt() {
@@ -505,6 +546,8 @@ function applyRecheck() {
   $('res-recheck-note').textContent = sameCollege
     ? `Compared with the ${last.result.college ?? 'last'} PDF you checked a moment ago. Your "on purpose" choices carried over.`
     : `Compared with your ${last.result.college ?? 'last'} PDF. Shared sections match up across colleges; each college's own questions are new here.`;
+  // Said plainly, because a student will wonder: the last check lives only in this tab's memory.
+  $('res-recheck-note').textContent += ' The last check is kept only in this tab and is gone when you close it.';
   banner.hidden = false;
 }
 
@@ -526,6 +569,7 @@ async function showResults() {
   await setPhase('results');
   $('view-results').focus({ preventScroll: true });
   last = run; // the next check in this tab compares against this one
+  updateTabs('results');
 }
 
 // ---------- Optional name check (the only thing that can go to the internet) ----------
@@ -590,6 +634,7 @@ async function pickNames() {
       tick.dataset.id = String(q.id);
       tick.addEventListener('change', updateNamesCount);
       const text = el('span', q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}?` : q.name);
+      if (q.kind === 'level') text.append(el('span', 'Is it real, and at what level? Your level isn\'t sent.', 'why'));
       if (q.why) text.append(el('span', `Unticked: ${q.why}`, 'why'));
       label.append(tick, text);
       return label;
@@ -678,6 +723,8 @@ function drawAnswers(send, answer) {
       if (said) body.append(el('span', `${said}.`, 'said'));
     }
     if (conflicts.length) body.append(el('span', `You wrote ${conflicts.map((c) => c.written).join(' and ')} next to it.`, 'clash'));
+    const level = levelMismatch(q, a);
+    if (level) body.append(el('span', `You listed it as ${level.listed}. Google describes it as ${level.google}.`, 'clash'));
     // The sources Google used for this answer, inside this answer's box.
     const links = sourceLinks(byId.get(q.id) ?? []);
     if (links) { links.prepend(el('span', 'Sources', 'lead')); body.append(links); }
@@ -705,6 +752,7 @@ function drawAnswers(send, answer) {
   namesStatus(looks
     ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look.`
     : `Checked ${send.length}. Nothing looks off.`);
+  if (looks) face('logo', 'worried', 1800);
 }
 
 function drawSentLog() {
@@ -718,6 +766,16 @@ function drawSentLog() {
 }
 
 // ---------- Wiring ----------
+
+addFace($('logo-eyes'), [[56, 56], [174, 56]]);
+document.querySelectorAll('.sr-readeyes svg').forEach((svg, i) => addFace(svg, [[56, 56, i === 0 ? 'left' : 'right']]));
+addFace($('sr-eye-1'), [[56, 56, 'left']]);
+addFace($('sr-eye-2'), [[56, 56, 'right']]);
+// The start page eyes brighten when you point at the things that start a check.
+for (const id of ['drop-label', 'sample', 'closing-pick']) {
+  $(id).addEventListener('mouseenter', () => face('hero', 'happy'));
+  $(id).addEventListener('mouseleave', () => face('hero', null));
+}
 
 const eyes = startEyes();
 const scrolling = startScrolling();
@@ -751,6 +809,16 @@ $('sample').addEventListener('click', async () => {
 });
 
 $('read-back').addEventListener('click', goToStart);
+$('read-done').addEventListener('click', openLastResults);
+{
+  const [start, reading, results] = document.querySelectorAll('#phases button');
+  start.addEventListener('click', goToStart);
+  reading.addEventListener('click', () => { if (last) { run = last; setPhase('reading'); } });
+  results.addEventListener('click', openLastResults);
+}
+// The closing section: its "Choose your PDF" is a label for the same file input, so Enter and Space need wiring.
+$('closing-pick').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); $('pdf').click(); } });
+$('closing-sample').addEventListener('click', () => $('sample').click());
 $('again').addEventListener('click', goToStart);
 $('names-start').addEventListener('click', pickNames);
 // "Try a sample" in the top links runs the sample, not just scrolls to it.

@@ -91,3 +91,10 @@ Reduced motion: no transitions, no scanning eyes, no card animations; everything
 - The page never shows a PDF's file name (it can be anything). It says "Your University of Michigan PDF", or Riley's name for the sample.
 - Name check sources sit inside the answer they back up (from Google's groundingSupports, `sourcesByAnswer`). Any left over are listed under "Other sources Google used".
 - Google's search suggestions must be shown as sent, so they stay. They're in a sandboxed frame at the bottom with a line saying what they are. In dark mode, Google's own dark version shows, and we may not restyle it.
+
+## Nov 24, evening
+- Faces (src/ui/face.js): happy is a cheek that rises to leave a thin upturned arch; worried is a tilted top lid, higher on the inside. No mouth. The logo is pleased when everything is handled, smiles briefly on "Fixed it", worries on a reading error or a name worth a look. The reading card smiles when done. The start page eyes brighten when you point at anything that starts a check.
+- The reading pencil loops on its 3.05 s cycle until the work is done, then every line stays marked.
+- The phase tabs are buttons: Your PDF, Second read (how the last read went, with Back to your fix list) and Fix list.
+- The fold has Back, Next and "Skip this part". A Back to top button (the eyes looking up) shows once the top is out of sight. The page ends with "Your turn." and the two ways to start.
+- Checks for real applications: a start grade earlier than the grades listed ("since freshman year" with 10, 11, 12), counts that differ ("14 tutors" and "20 tutors"), hours flagged at a 2x gap instead of 3x, and an honor level question in the name check. Held-out totals stayed at 1 false alarm; a "for four years" rule was tried and dropped because it added one.

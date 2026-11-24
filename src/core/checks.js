@@ -119,6 +119,13 @@ export function activityKeywords(activityText) {
   return new Set(wordsOf(heading).map((w) => w.word).filter((w) => w.length >= 4 && !STOPWORDS.has(w) && !/^\d+$/.test(w)));
 }
 
+/** How many of an activity's distinctive words a sentence uses. One shared word ("robotics") can link two
+ *  unrelated paragraphs, so the newer checks ask for two, or the only one the activity has. */
+function aboutActivity(sentenceText, keywords) {
+  const hits = new Set(wordsOf(sentenceText).map((w) => w.word).filter((w) => keywords.has(w)));
+  return hits.size >= Math.min(2, keywords.size);
+}
+
 function startYears(sentence) {
   if (!START_WORDS.test(sentence.text)) return [];
   return [...sentence.text.matchAll(YEAR)].map((m) => m[0]);
@@ -193,6 +200,138 @@ export function checkQualifiedTitles(app) {
             { sectionId: essayId, quote: quoteAround(essay, sentence, at, at + match[0].length) },
           ],
         });
+      }
+    }
+  }
+  return flags;
+}
+
+// ---------- 2c. grade years that don't match ----------
+//
+// Common App lists the grades an activity covered ("10, 11, 12 (School)"). Essays often say when it started
+// ("since freshman year"). When an essay sentence about the same activity starts earlier than the grades
+// listed, that's worth a look. ("For four years" was tried too and dropped on Nov 24: many activities start
+// before high school, so it raised a false alarm on the held-out set and caught nothing.)
+
+const GRADES_LINE = /^((?:\d{1,2}|PG)(?:,\s*(?:\d{1,2}|PG))*)\s*\((School|Break|Year)\)$/m;
+const GRADE_NAMES = { freshman: 9, ninth: 9, '9th': 9, sophomore: 10, tenth: 10, '10th': 10, junior: 11, eleventh: 11, '11th': 11, senior: 12, twelfth: 12, '12th': 12 };
+const GRADE_START = /\b(since|started|start|starting|joined|began|begin|beginning|first|founded|co-founded)\b[^.!?]{0,40}?\b(freshman|sophomore|junior|senior|ninth|tenth|eleventh|twelfth|9th|10th|11th|12th)\b\s*(year|grade)?/i;
+const NUMBER_WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12,
+  thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20, thirty: 30, forty: 40,
+  fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90, hundred: 100, dozen: 12 };
+
+/** The grade numbers an activity's text lists, or null. "PG" counts as 13. */
+export function activityGrades(activityText) {
+  const match = activityText.match(GRADES_LINE);
+  if (!match) return null;
+  const grades = match[1].split(',').map((g) => g.trim()).map((g) => (g === 'PG' ? 13 : Number(g))).filter((g) => g >= 9 && g <= 13);
+  return grades.length ? { line: match[0], grades } : null;
+}
+
+export function checkGradeYears(app) {
+  const flags = [];
+  for (const activityId of app.activityIds) {
+    const activityText = app.sections[activityId];
+    const listed = activityGrades(activityText);
+    if (!listed) continue;
+    const first = Math.min(...listed.grades);
+    const keywords = activityKeywords(activityText);
+    for (const essayId of app.essayIds) {
+      const essay = app.sections[essayId];
+      for (const sentence of sentencesOf(essay)) {
+        if (!aboutActivity(sentence.text, keywords)) continue;
+        const start = sentence.text.match(GRADE_START);
+        let title = null;
+        let match = null;
+        if (start && GRADE_NAMES[start[2].toLowerCase()] < first) {
+          match = start;
+          title = `Grades ${listed.grades.join(', ')} in an activity, "${start[2]}" start in an essay`;
+        }
+        if (!match) continue;
+        const at = sentence.start + match.index;
+        flags.push({
+          id: `grades:${activityId}:${essayId}:${sentence.start}`,
+          check: 'code',
+          kind: 'dates',
+          title,
+          detail: 'These seem to describe the same activity. Check that the grades you listed match what the essay says.',
+          citations: [
+            { sectionId: activityId, quote: listed.line },
+            { sectionId: essayId, quote: quoteAround(essay, sentence, at, at + match[0].length) },
+          ],
+        });
+      }
+    }
+  }
+  return flags;
+}
+
+// ---------- 2d. counts that don't match ----------
+//
+// "Recruited 14 tutors" in an activity and "our 20 tutors" in an essay about it. Code reads a number followed by
+// a countable word (or a dollar amount) in both places; same word, different number, same activity: flag it.
+// Sentences that describe change ("grew from 3 to 14") are skipped, since both numbers can be true.
+
+const COUNT_NOUNS = new Set(('members students tutors volunteers kids children people players participants attendees campers ' +
+  'teams schools countries states cities books meals trees families patients seniors donors sponsors events workshops ' +
+  'sessions classes lessons games concerts performances articles issues episodes videos apps projects robots dollars').split(' '));
+const COUNT = /(\$\s?\d[\d,]*(?:\.\d+)?\s*(?:k|thousand|million)?|\b\d[\d,]*\+?|\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|dozen)\b)(?:\s+(?:new|more|active|regular|local|younger|elementary|middle|high|school|student|club|team|other)){0,2}\s+([a-z]+)/gi;
+const CHANGE = /\b(grew|grown|growing|increase[ds]?|doubled|tripled|from\b[^.]{0,60}\bto|now|then|became|expanded|went from|up from|down from|first|initially|originally|started with|began with|at first|per|each|every|a week|a month|a year)\b/i;
+
+function countValue(raw) {
+  let text = raw.toLowerCase().replace(/[$,+\s]/g, '');
+  let scale = 1;
+  if (/k$|thousand$/.test(text)) { scale = 1000; text = text.replace(/k$|thousand$/, ''); }
+  if (/million$/.test(text)) { scale = 1e6; text = text.replace(/million$/, ''); }
+  const n = /^\d/.test(text) ? Number(text) : NUMBER_WORDS[text];
+  return Number.isFinite(n) ? n * scale : null;
+}
+
+/** Counted things in a text: [{ noun, value, start, end }]. A dollar amount counts as "dollars". */
+export function countsIn(text) {
+  const out = [];
+  for (const m of text.matchAll(COUNT)) {
+    const isMoney = m[1].startsWith('$');
+    const noun = isMoney ? 'dollars' : m[2].toLowerCase();
+    if (!isMoney && !COUNT_NOUNS.has(noun)) continue;
+    const value = countValue(m[1]);
+    if (value === null || (!isMoney && (value < 2 || (value >= 1950 && value <= 2049)))) continue;
+    out.push({ noun, value, start: m.index, end: m.index + m[0].length });
+  }
+  return out;
+}
+
+export function checkCounts(app) {
+  const flags = [];
+  for (const activityId of app.activityIds) {
+    const activityText = app.sections[activityId];
+    const description = activityText.split('\n')[2] ?? '';
+    const listed = sentencesOf(description).flatMap((s) => (CHANGE.test(s.text) ? [] : countsIn(s.text).map((c) => ({ ...c, sentence: s }))));
+    if (listed.length === 0) continue;
+    const keywords = activityKeywords(activityText);
+    for (const essayId of app.essayIds) {
+      const essay = app.sections[essayId];
+      for (const sentence of sentencesOf(essay)) {
+        if (CHANGE.test(sentence.text) || !aboutActivity(sentence.text, keywords)) continue;
+        for (const said of countsIn(sentence.text)) {
+          const other = listed.find((l) => l.noun === said.noun);
+          if (!other || other.value === said.value) continue;
+          // "60+ students" and "70 students" can both be true; only a clear gap counts.
+          if (Math.max(other.value, said.value) / Math.min(other.value, said.value) < 1.25) continue;
+          const at = sentence.start + said.start;
+          flags.push({
+            id: `count:${activityId}:${essayId}:${sentence.start}:${said.noun}`,
+            check: 'code',
+            kind: 'numbers',
+            title: `${other.value.toLocaleString('en-US')} ${said.noun} in an activity, ${said.value.toLocaleString('en-US')} in an essay`,
+            detail: 'These seem to count the same thing. Check which number is right.',
+            citations: [
+              { sectionId: activityId, quote: other.sentence.text },
+              { sectionId: essayId, quote: quoteAround(essay, sentence, at, at + (said.end - said.start)) },
+            ],
+          });
+          break;
+        }
       }
     }
   }
@@ -299,6 +438,8 @@ export function runCodeChecks(app) {
     ...checkOtherCollegeNames(app),
     ...checkStartYears(app),
     ...checkQualifiedTitles(app),
+    ...checkGradeYears(app),
+    ...checkCounts(app),
     ...checkRepeatedPassages(app),
     ...checkLimits(app),
   ];

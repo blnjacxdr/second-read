@@ -15,8 +15,9 @@ import { locateQuote } from './quotes.js';
 const HOURS_LINE = /^(\d+(?:\.\d+)?) hr\/wk, (\d+(?:\.\d+)?) wk\/yr$/m;
 
 // How far apart two hours-per-week figures must be to flag. Nano estimates
-// ("every day after school" ≈ 10), so small gaps are noise.
-export const HOURS_RATIO = 3;
+// ("every day after school" ≈ 10), so small gaps are noise. Lowered from 3 to 2 on Nov 24: a student would
+// rather see one extra card than miss "5 hr/wk" next to an essay that says "ten hours a week".
+export const HOURS_RATIO = 2;
 
 // A quote can only back an hours estimate if it talks about time: an amount or
 // a frequency next to a unit of time. Nano sometimes quotes a sentence that

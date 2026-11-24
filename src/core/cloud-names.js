@@ -54,18 +54,42 @@ export function cloudQuestions(names, { college = null, sections = {} } = {}) {
     const isACollege = n.kind === 'college' || isKnownCollege(n.name) || collegeAliases.some((a) => lower(a) === lower(n.name));
     if (isACollege) continue;
     const schoolClub = n.defaultOn && schoolPrefixes.some((p) => lower(n.name).startsWith(`${p} `));
+    // An honor with a level ("National") gets a level question instead of a plain look-up: it checks the honor
+    // is real AND what level it is. Only the name is sent; the level the student picked stays on this laptop.
+    const level = honorLevel(n.sectionIds, sections);
     questions.push({
-      kind: 'lookup', name: sendAs, sectionIds: n.sectionIds,
+      kind: level ? 'level' : 'lookup', name: sendAs, sectionIds: n.sectionIds,
+      ...(level ? { level } : {}),
       defaultOn: Boolean(n.defaultOn) && !schoolClub,
       why: schoolClub ? 'sounds like a club at your school' : n.why ?? null,
     });
     const onlyInTheseEssays = n.sectionIds.length > 0 && n.sectionIds.every((id) => id.startsWith('college-essay-'));
-    if (college && onlyInTheseEssays) {
+    // Part-of questions only for proper names ("Michigan Hackers"), not hobbies ("RC aircraft").
+    if (college && onlyInTheseEssays && looksProper(n.name)) {
       questions.push({ kind: 'partOf', name: sendAs, college, sectionIds: n.sectionIds, defaultOn: true, why: null });
     }
   }
   return questions.slice(0, MAX_QUESTIONS).map((q, i) => ({ id: i + 1, ...q }));
 }
+
+const SMALL = new Set(['of', 'the', 'and', 'for', 'at', 'in', 'on', 'a', 'an', 'to', 'with', '&']);
+/** Every word but small ones starts with a capital or digit: "Michigan Hackers" yes, "RC aircraft" no. */
+export function looksProper(name) {
+  const ws = String(name).split(/\s+/).filter((w) => w && !SMALL.has(w.toLowerCase()));
+  return ws.length > 0 && ws.every((w) => /^[\p{Lu}\d("'“]/u.test(w));
+}
+
+// Common App's levels of recognition, as the student picked them.
+const LEVELS = { school: 'school', 'state/regional': 'state', state: 'state', regional: 'state', national: 'national', international: 'international' };
+/** The level of recognition listed for an honor (its second line), or null. */
+export function honorLevel(sectionIds, sections) {
+  const honorId = (sectionIds ?? []).find((id) => id.startsWith('honor-'));
+  const line = honorId && String(sections[honorId] ?? '').split('\n')[1];
+  if (!line) return null;
+  const levels = line.split(/,\s*/).map((l) => LEVELS[l.trim().toLowerCase()]).filter(Boolean);
+  return levels.length ? { listed: line.trim(), highest: levels.at(-1) } : null;
+}
+const LEVEL_ORDER = ['school', 'state', 'national', 'international'];
 
 const isKnownCollege = (name) => COLLEGES.some((c) => namesFor(c).some((n) => lower(n) === lower(name)));
 
@@ -120,15 +144,23 @@ export function cloudNamesPrompt(questions, { withSearch = true } = {}) {
     'number | answer | official name | where it is held or based | one short sentence of fact',
     'For "Look up" questions the answer is EXISTS, NOT FOUND or UNSURE.',
     'For "Part of" questions the answer is YES, NO or UNSURE.',
+    'For "Level" questions the answer is the level the honor is given at: SCHOOL, STATE, REGIONAL, NATIONAL, INTERNATIONAL, NOT FOUND or UNSURE.',
     'Write - for any part you do not know.',
     '',
-    ...questions.map((q) => (q.kind === 'partOf' ? `${q.id}. Part of: is ${q.name} part of ${q.college}?` : `${q.id}. Look up: ${q.name}`)),
+    ...questions.map((q) => (q.kind === 'partOf' ? `${q.id}. Part of: is ${q.name} part of ${q.college}?`
+      : q.kind === 'level' ? `${q.id}. Level: at what level is the honor ${q.name} given?`
+        : `${q.id}. Look up: ${q.name}`)),
   ].join('\n');
 }
 
 function verdictFor(word, kind) {
   const w = (word || '').toUpperCase();
   if (kind === 'partOf') return w.startsWith('YES') ? 'yes' : w.startsWith('NO') ? 'no' : 'unsure';
+  if (kind === 'level') {
+    if (w.startsWith('NOT')) return 'not_found';
+    const level = ['SCHOOL', 'STATE', 'REGIONAL', 'NATIONAL', 'INTERNATIONAL'].find((l) => w.startsWith(l));
+    return level ? LEVELS[level.toLowerCase()] : 'unsure';
+  }
   return w.startsWith('EXIST') ? 'exists' : w.startsWith('NOT') ? 'not_found' : 'unsure';
 }
 const orNull = (text) => (text && text.trim() && text.trim() !== '-' ? text.trim() : null);
@@ -204,8 +236,18 @@ function nearbyText(question, sections) {
 // Worth a look means Google contradicts the application: "not part of this college", or held somewhere else.
 export function answerStatus(question, answer, conflicts = []) {
   if (!answer || answer.verdict === 'unsure' || answer.verdict === 'not_found') return 'unsure';
-  if (answer.verdict === 'no' || conflicts.length > 0) return 'look';
+  if (answer.verdict === 'no' || conflicts.length > 0 || levelMismatch(question, answer)) return 'look';
   return 'fine';
+}
+
+/**
+ * For a level question: the student's level and Google's, when they differ, else null. Compared on this laptop.
+ * A honor can be listed at several levels ("State/Regional, National"); the highest one counts.
+ */
+export function levelMismatch(question, answer) {
+  if (question?.kind !== 'level' || !question.level || !answer || !LEVEL_ORDER.includes(answer.verdict)) return null;
+  if (answer.verdict === question.level.highest) return null;
+  return { listed: question.level.listed, google: answer.verdict === 'state' ? 'state or regional' : answer.verdict };
 }
 
 /**

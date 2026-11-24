@@ -94,5 +94,44 @@ export function startScrolling() {
     glide(f ? y + 0.14 * f.range : y - 24);
   }));
 
+  // Buttons in the fold: Back and Next play one step, Skip glides past it to the promises.
+  function stepBy(dir) {
+    const f = foldState();
+    if (!f) return;
+    const { p, range } = f;
+    const to = dir > 0 ? STEPS.find((q) => q > Math.max(p, 0) + 0.01) : [...STEPS].reverse().find((q) => q < p - 0.01);
+    if (to === undefined) { if (dir > 0) skipFold(); return; }
+    glide(window.scrollY + (to - Math.max(0, Math.min(1, p))) * range + (p < 0 ? -p * range : 0));
+  }
+  function skipFold() {
+    const how = document.getElementById('how');
+    if (how) glide(how.getBoundingClientRect().top + window.scrollY - 40);
+  }
+  document.getElementById('fold-back')?.addEventListener('click', () => stepBy(-1));
+  document.getElementById('fold-next')?.addEventListener('click', () => stepBy(1));
+  document.getElementById('fold-skip')?.addEventListener('click', skipFold);
+
+  // The fold's own progress line, and the Back to top button once the hero is out of sight.
+  const fill = document.getElementById('fold-fill');
+  const top = document.getElementById('to-top');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      ticking = false;
+      const f = foldState();
+      if (fill && f) fill.style.transform = `scaleX(${Math.max(0, Math.min(1, f.p)).toFixed(3)})`;
+      if (f) {
+        document.getElementById('fold-back').disabled = f.p <= 0.01;
+        document.getElementById('fold-next').textContent = f.p >= 0.99 ? 'Keep going' : 'Next';
+      }
+      // Shown once the top is out of sight, and tucked away again at the very bottom, where it would cover the footer.
+      const nearBottom = window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 140;
+      if (top) top.classList.toggle('show', document.body.classList.contains('phase-start') && window.scrollY > window.innerHeight * 1.1 && !nearBottom);
+    });
+  }, { passive: true });
+  top?.addEventListener('click', () => glide(0));
+
   return { toTop: () => glide(0) };
 }

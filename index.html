@@ -24,9 +24,9 @@
       <span style="font-weight: 900; font-size: 24px; letter-spacing: -0.04em; white-space: nowrap"><span id="logo-text">second read</span></span>
     </button>
     <ol class="sr-phases" id="phases" aria-label="Where you are">
-      <li data-phase="start" aria-current="step"><span>Your PDF</span></li>
-      <li data-phase="reading"><span>Second read</span></li>
-      <li data-phase="results"><span>Fix list</span></li>
+      <li data-phase="start" aria-current="step"><button type="button" disabled>Your PDF</button></li>
+      <li data-phase="reading"><button type="button" disabled>Second read</button></li>
+      <li data-phase="results"><button type="button" disabled>Fix list</button></li>
     </ol>
     <div class="sr-headend">
       <button type="button" id="again" class="sr-again" hidden>Check a new PDF</button>
@@ -111,6 +111,7 @@
               </ol>
             </div>
             <button type="button" id="read-skip" class="sr-again" hidden>Skip Gemini Nano and show the sure ones</button>
+            <button type="button" id="read-done" class="sr-cta" hidden>Back to your fix list</button>
             <div id="read-error" class="sr-error" role="alert" hidden><strong id="read-error-title"></strong><span id="read-error-body"></span><button type="button" id="read-back" class="sr-again" style="align-self: flex-start">Try another PDF</button></div>
           </div>
         </div>
@@ -148,6 +149,12 @@
         <div class="sr-fcopy">
           <h2>Two lines, eleven pages apart, that don't agree.</h2>
           <p>Second Read folds your application until they sit side by side. Your words from both places. You decide which one is true.</p>
+          <div class="sr-fctl" role="group" aria-label="Walk through the fold">
+            <button type="button" id="fold-back" class="sr-iconbtn" aria-label="Back one step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+            <span class="sr-ftrack" aria-hidden="true"><span id="fold-fill"></span></span>
+            <button type="button" id="fold-next" class="sr-textbtn">Next</button>
+            <button type="button" id="fold-skip" class="sr-linkbtn">Skip this part</button>
+          </div>
         </div>
       </div>
     </section>
@@ -157,7 +164,18 @@
       <p style="flex: 1 1 260px; margin: 0; color: #3D424C; font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3 H42 V35 L38 32 L34 35 L30 32 L26 35 L22 32 L18 35 L14 32 Z M19 11 H37 M19 17 H37 M19 23 H30" pathLength="1"></path></svg><strong style="display: block; color: #16181D; font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Receipts for every flag.</strong>You see your own words from both places. If the quote isn't really in your application, the flag doesn't show.</p>
       <p style="flex: 1 1 260px; margin: 0; color: #3D424C; font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6 H48 C50 6 51 7 51 9 V25 C51 27 50 28 48 28 H22 L13 36 V28 H8 C6 28 5 27 5 25 V9 C5 7 6 6 8 6 M15 17 C 18 13, 21 21, 24 17 S 30 13, 33 17 S 39 21, 42 16" pathLength="1"></path></svg><strong style="display: block; color: #16181D; font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Your voice stays yours.</strong>No suggested wording, no rewrites. Admissions wants to hear you, so we stay out of it.</p>
     </section>
+
+    <section id="closing" class="sr-closing" aria-labelledby="closing-h">
+      <h2 id="closing-h">Your turn.</h2>
+      <p>Drop in your Common App PDF. It takes about a minute, and it never leaves this laptop.</p>
+      <div class="sr-closing-actions">
+        <label for="pdf" class="sr-cta" tabindex="0" id="closing-pick">Choose your PDF</label>
+        <button type="button" id="closing-sample" class="sr-again">Try Riley's made-up application</button>
+      </div>
+    </section>
   </main>
+
+  <button type="button" id="to-top" class="sr-totop" aria-label="Back to top"><svg aria-hidden="true" width="40" height="20" viewBox="0 0 230 112"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle cx="56" cy="42" r="14" fill="#16181D"></circle><path d="M174 6 L222 33 L222 79 L174 106 L126 79 L126 33 Z" fill="#FFC21A"></path><circle cx="174" cy="56" r="31" fill="#EBCB9E"></circle><circle cx="174" cy="42" r="14" fill="#16181D"></circle></svg><span>Back to top</span></button>
 
   <main class="sr-wrap" id="view-results" hidden tabindex="-1" style="padding-top: 18px; padding-bottom: 80px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
     <section style="flex: 999 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
