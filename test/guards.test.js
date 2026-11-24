@@ -70,7 +70,8 @@ test('only https source links are allowed', async () => {
 test('src/ never writes HTML except the reviewed places', async () => {
   const { readFileSync, readdirSync, statSync } = await import('node:fs');
   const { join } = await import('node:path');
-  const root = new URL('../src', import.meta.url).pathname;
+  const { fileURLToPath } = await import('node:url');
+  const root = fileURLToPath(new URL('../src', import.meta.url)); // .pathname breaks on Windows ("/D:/...")
   const files = [];
   const walk = (dir) => readdirSync(dir).forEach((f) => { const p = join(dir, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.js') && files.push(p); });
   walk(root);
