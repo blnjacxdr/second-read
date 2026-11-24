@@ -205,6 +205,12 @@ async function loadAi() {
   return ai;
 }
 
+// Google's search chips live in a shadow root; empty it whenever old answers are cleared.
+function clearSuggestions() {
+  const host = $('suggestions');
+  if (host.shadowRoot) host.shadowRoot.innerHTML = '';
+}
+
 function renderQuestions(list) {
   questions = list;
   const box = $('questions');
@@ -218,7 +224,7 @@ function renderQuestions(list) {
     box.append(el('div'), label);
   }
   $('cloudBox').hidden = questions.length === 0;
-  $('cloudAnswers').replaceChildren(); $('sources').replaceChildren();
+  $('cloudAnswers').replaceChildren(); $('sources').replaceChildren(); clearSuggestions();
   $('cloudStatus').textContent = `${questions.length} question(s), ${questions.filter((q) => q.defaultOn).length} ticked.`;
 }
 
@@ -234,6 +240,7 @@ async function runCloud(withSearch) {
   if (send.length === 0) { $('cloudStatus').textContent = 'Nothing ticked, nothing sent.'; return; }
   $('cloudSearch').disabled = $('cloudNoSearch').disabled = true;
   $('cloudStatus').textContent = `Sending ${send.length} question(s)…`;
+  $('cloudAnswers').replaceChildren(); $('sources').replaceChildren(); clearSuggestions();
   try {
     const { models, checkNamesInCloud } = await loadAi();
     const model = withSearch ? models.publicModel : models.publicModelWithoutSearch;
