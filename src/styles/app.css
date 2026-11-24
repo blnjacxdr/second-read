@@ -674,3 +674,38 @@ body.phase-results.scrolled .sr-head{padding-top:12px;padding-bottom:12px}
   .sr-tape{background:rgba(255,255,255,.16)}
   img,video{filter:brightness(.92)}
 }
+
+/* ==== Calm controls (Nov 24). the builder picked: keep the personality (toy colors, handwriting, cute lines, the stamp,
+   receipt, sticky note and binder holes) and drop what made it feel like game UI: 800 to 900 weights everywhere,
+   thick black outlines on every button, and heavy shadows. One heavy moment per screen, the main headline. ==== */
+/* One heavy moment per screen (the main headline); everything else steps down. */
+#logo span{font-weight:800!important}
+#res-headline{font-weight:800!important}
+#drop-label > span:first-of-type{font-weight:700!important;font-size:32px!important;letter-spacing:-.025em!important}
+.sr-card h3,.sr-endcard h3,.sr-names h2,.sr-readhead h2,
+.sr-fcopy h2,.sr-closing h2,.sr-stack.all .sr-divider{font-weight:700}
+.sr-card h3{font-size:22px;letter-spacing:-.015em}
+.sr-phead,.sr-panel div[style*="font-weight: 900"]{font-weight:700!important}
+.sr-phases{font-weight:600}
+.sr-cta,.sr-again,.sr-textbtn,.sr-actions button,.sr-sentbox summary,
+.sr-totop,.sr-guide summary,.sr-answers .verdict,.sr-pick{font-weight:600!important}
+.sr-answers .name,.sr-note div[style*="font-weight: 800"]{font-weight:600!important}
+/* No thick black outlines: secondary actions are soft fills, icon buttons are ghosts. */
+.sr-again,.sr-textbtn,.sr-actions .keep{border:0;background:var(--fill);color:var(--ink)}
+.sr-actions .fix{border:0;background:var(--pen-tint);color:var(--pen)}
+.sr-actions .fix[aria-pressed="true"]{background:var(--pen-fill);color:var(--on-fill);box-shadow:none}
+.sr-actions .keep[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.sr-textbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.sr-iconbtn{border:0;background:transparent;color:var(--ink)}
+.sr-iconbtn:disabled{color:var(--line-strong)}
+.sr-totop{border:1px solid var(--line)}
+.sr-sentbox summary{border:0;background:var(--pen-tint)}
+@media (hover:hover) and (pointer:fine){
+  .sr-again:hover,#sample:hover,.sr-textbtn:hover,.sr-actions .keep:hover{background:var(--line-2);color:var(--ink)}
+  .sr-iconbtn:not(:disabled):hover{background:var(--fill);color:var(--ink)}
+  .sr-cta:not(:disabled):hover{box-shadow:none}
+}
+/* Fewer heavy shadows: a hairline and a short soft shadow. */
+.sr-card,.sr-endcard,.sr-names,.sr-readcard,#drop-label{box-shadow:0 0 0 1px var(--line-2),0 8px 20px -16px rgba(22,24,29,.25)!important}
+.sr-card-src{font-weight:600}
+

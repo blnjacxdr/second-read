@@ -896,13 +896,6 @@ function drawSentLog() {
 
 // ---------- Wiring ----------
 
-// Preview of the three candidate looks (src/styles/looks.css): ?look=dechunk, quiet or further. Temporary.
-{
-  const look = new URLSearchParams(location.search).get('look');
-  const layers = { dechunk: ['dechunk'], quiet: ['dechunk', 'quiet'], further: ['dechunk', 'quiet', 'further'] }[look];
-  if (layers) document.documentElement.classList.add(...layers.map((l) => `look-${l}`));
-}
-
 addFace($('logo-eyes'), [[56, 56], [174, 56]]);
 document.querySelectorAll('.sr-readeyes svg').forEach((svg, i) => addFace(svg, [[56, 56, i === 0 ? 'left' : 'right']]));
 addFace($('sr-eye-1'), [[56, 56, 'left']]);

@@ -124,3 +124,11 @@ Follows the browser's light or dark setting (prefers-color-scheme), so Google's 
 All colors now come from tokens in tokens.css. Dark is night paper: a deep blue-grey sheet with chalky rules, a
 lifted ballpoint blue, and a translucent highlighter, so text stays light on it. The pencil-yellow eyes don't change.
 Card flips no longer blur whole cards (that caused the first-flip stutter), and keyboard flips slide quickly instead of cutting.
+
+## Nov 24: the look the builder chose (calm controls, same personality)
+Three looks were previewed (de-chunk, quiet notebook, go further). the builder's call: Second Read is for students, so the
+toy colors, the handwriting, the cute lines, the stamp, the receipt, the sticky note and the binder holes stay. What
+goes is what read as game UI: 800 to 900 weights everywhere, thick black outlines on every button, and heavy
+shadows. Now the main headline is the one heavy moment, titles are 700 and buttons 600. Secondary buttons are soft
+fills and icon buttons are ghosts. Sheets get a hairline and a short soft shadow. The "clean copy" stamp sits above
+the headline, not on it.
