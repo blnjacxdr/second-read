@@ -114,7 +114,7 @@ export function cloudNamesPrompt(questions, { withSearch = true } = {}) {
   }
   return [
     withSearch
-      ? 'Use Google Search to answer each numbered question.'
+      ? 'Search Google for every numbered question below before you answer. Do not answer any of them from memory; each answer must come from a search.'
       : 'Answer each numbered question from what you know. If you are not sure, answer UNSURE.',
     'Reply with one line per question, in this exact form and nothing else:',
     'number | answer | official name | where it is held or based | one short sentence of fact',

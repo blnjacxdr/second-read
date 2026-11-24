@@ -82,13 +82,13 @@ test('names too long to be names are never offered, and the list is capped', () 
 test('the prompt holds fixed wording, the names and the college, numbered', () => {
   const qs = cloudQuestions([name('Blue Delta Rocketry Lab', ['college-essay-1'])], { college: 'University of Michigan' });
   const prompt = cloudNamesPrompt(qs);
-  assert.match(prompt, /^Use Google Search/);
+  assert.match(prompt, /^Search Google for every numbered question/);
   assert.match(prompt, /^1\. Look up: Blue Delta Rocketry Lab$/m);
   assert.match(prompt, /^2\. Part of: is Blue Delta Rocketry Lab part of University of Michigan\?$/m);
   assert.match(prompt, /EXISTS, NOT FOUND or UNSURE/);
   assert.match(prompt, /YES, NO or UNSURE/);
   const noSearch = cloudNamesPrompt(qs, { withSearch: false });
-  assert.doesNotMatch(noSearch, /Google Search/);
+  assert.doesNotMatch(noSearch, /Search Google|Google Search/);
   assert.match(noSearch, /not sure, answer UNSURE/);
 });
 
