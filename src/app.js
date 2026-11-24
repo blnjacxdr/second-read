@@ -225,7 +225,7 @@ function resetReading(label) {
   $('read-consent').hidden = true;
   face('reading', null);
   $('read-done').hidden = true;
-  $('read-title').textContent = 'Reading on this laptop';
+  $('read-title').textContent = 'Loomis is reading, on this laptop';
   $('read-file').textContent = label ?? 'A student\'s Common App PDF';
   $('read-skip').hidden = true;
   $('read-error').hidden = true;
@@ -306,7 +306,7 @@ async function check(file, label) {
     stage('list', 'active');
     await wait(240);
     stage('list', 'done');
-    $('read-title').textContent = 'Done reading';
+    $('read-title').textContent = 'Loomis is done reading';
     document.querySelector('.sr-readcard').classList.add('finished');
     face('reading', 'happy');
     await wait(480);
@@ -344,7 +344,7 @@ async function askNano(current) {
     return;
   }
   if (!onDevice) document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini in Google\'s cloud (you said yes)';
-  if (!onDevice) $('read-title').textContent = 'Reading, with Gemini in the cloud';
+  if (!onDevice) $('read-title').textContent = 'Loomis is reading, with Gemini in the cloud';
   stage('nano', 'active', 'starting');
   let skipped = false;
   const skip = new Promise((resolve) => {

@@ -145,3 +145,8 @@ the headline, not on it.
 Checks before deploy: 177 tests pass; held-out code-check totals unchanged; no PREFER_* modes; the debug token only
 in dev; the only HTML written is Google's suggestions in a sandboxed frame; nothing stored in the browser; hosting
 ignores dev, eval, test, tools and docs; every phase walked in light, dark, phone and reduced motion with no page errors.
+
+## Nov 24: Loomis
+The pencil-eyes character is named Loomis (a nod to Andrew Loomis's pencil drawing books). The product stays
+Second Read. The name appears only where the character is doing something: the reading card ("Loomis is reading,
+on this laptop", "Loomis is done reading"). Keep it to a few places so it never feels like a gimmick.
