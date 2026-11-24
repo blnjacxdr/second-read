@@ -25,13 +25,14 @@ test('"prefer" inference modes only in the consented fallback', () => {
     if (file.endsWith(join('src', 'ai.js'))) continue;
     assert.doesNotMatch(text, /InferenceMode\.PREFER_|['"]prefer_on_device['"]/, file);
   }
-  const ai = readFileSync(join(root, 'src', 'ai.js'), 'utf8');
+  // Windows checkouts use \r\n line endings; normalize so the function's end is found on every system.
+  const ai = readFileSync(join(root, 'src', 'ai.js'), 'utf8').replace(/\r\n/g, '\n');
   const uses = [...ai.matchAll(/InferenceMode\.PREFER_ON_DEVICE/g)].map((m) => m.index);
   const fn = ai.indexOf('export function createConsentedHybridModels(');
   const fnEnd = ai.indexOf('\n}\n', fn);
   assert.equal(uses.length, 1, 'PREFER_ON_DEVICE appears exactly once');
   assert.ok(fn > 0 && uses[0] > fn && uses[0] < fnEnd, 'and only inside createConsentedHybridModels');
-  const app = readFileSync(join(root, 'src', 'app.js'), 'utf8');
+  const app = readFileSync(join(root, 'src', 'app.js'), 'utf8').replace(/\r\n/g, '\n');
   const calls = app.split('\n').filter((line) => line.includes('createConsentedHybridModels('));
   assert.ok(calls.length >= 1, 'app.js builds the hybrid models somewhere');
   for (const line of calls) assert.match(line, /cloudConsent === true/, `built without checking consent: ${line.trim()}`);
