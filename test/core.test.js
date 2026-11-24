@@ -42,6 +42,7 @@ test('readGroundedAnswer pulls text, suggestions and de-duplicated sources', () 
     grounded: true,
     searchSuggestionsHtml: '<div>chips</div>',
     sources: [{ title: 'A', uri: 'https://a.example' }, { title: 'https://b.example', uri: 'https://b.example' }],
+    supports: [],
     inferenceSource: 'in_cloud',
   });
 });

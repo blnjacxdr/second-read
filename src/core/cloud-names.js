@@ -207,3 +207,37 @@ export function answerStatus(question, answer, conflicts = []) {
   if (answer.verdict === 'no' || conflicts.length > 0) return 'look';
   return 'fine';
 }
+
+/**
+ * Puts each source with the answer it backs up. Google's groundingSupports say which piece of the reply text a
+ * source supports; each reply line starts with its question number, so that piece tells us the question.
+ * Sources that back up no single answer come back in `other`, so every source is still shown somewhere.
+ * @param {string} text  the reply text
+ * @param {Array<{text: string, uris: string[]}>} supports
+ * @param {Array<{title: string, uri: string}>} sources
+ * @returns {{ byId: Map<number, Array<{title: string, uri: string}>>, other: Array<{title: string, uri: string}> }}
+ */
+export function sourcesByAnswer(text, supports, sources) {
+  const lines = String(text || '').split('\n').map((raw) => {
+    const line = raw.replace(/\*\*/g, '').replace(/^[\s>*-]+/, '').trim();
+    const m = line.match(/^(\d+)\s*[.):]?\s*\|/);
+    return { line, id: m ? Number(m[1]) : null };
+  }).filter((l) => l.id !== null);
+  const byUri = new Map(sources.map((s) => [s.uri, s]));
+  const byId = new Map();
+  const used = new Set();
+  for (const { text: piece, uris } of supports || []) {
+    for (const part of piece.split('\n').map((p) => p.replace(/\*\*/g, '').trim()).filter((p) => p.length >= 4)) {
+      const hit = lines.find((l) => l.line.includes(part));
+      if (!hit) continue;
+      const list = byId.get(hit.id) ?? [];
+      for (const uri of uris) {
+        if (!byUri.has(uri) || list.some((s) => s.uri === uri)) continue;
+        list.push(byUri.get(uri));
+        used.add(uri);
+      }
+      byId.set(hit.id, list);
+    }
+  }
+  return { byId, other: sources.filter((s) => !used.has(s.uri)) };
+}

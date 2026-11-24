@@ -86,3 +86,8 @@ Reduced motion: no transitions, no scanning eyes, no card animations; everything
 - Fact-check the names moved from the sidebar into the main column. It now has a status line with small reading eyes, a box that grows instead of jumping, staggered rows with drawn tick boxes, a highlighter sweep over names while Google answers, and answers marked Worth a look, Looks right or Couldn't confirm.
 - Binder holes repeat down the whole page. The header is three columns, so the phase tabs don't jump between phases. The reading card is centered, and the footer sits at the bottom.
 - Receipt rows that could only say 0 (Nano not here) now say why. The reCAPTCHA footer links point at Google's real policy pages.
+- Every control shares one motion language: a small lift on hover, a press-in, and colors that blend. Disclosures (the PDF guide, "See exactly what was sent", background mentions) grow open with `::details-content` and `interpolate-size`.
+- The footer eyes are gone: they had no job. The reading pencil now rides on top of the lines, eraser up and to the right, like a hand writing.
+- The page never shows a PDF's file name (it can be anything). It says "Your University of Michigan PDF", or Riley's name for the sample.
+- Name check sources sit inside the answer they back up (from Google's groundingSupports, `sourcesByAnswer`). Any left over are listed under "Other sources Google used".
+- Google's search suggestions must be shown as sent, so they stay. They're in a sandboxed frame at the bottom with a line saying what they are. In dark mode, Google's own dark version shows, and we may not restyle it.

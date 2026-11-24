@@ -9,6 +9,7 @@
  *   grounded: boolean,
  *   searchSuggestionsHtml: string | null,
  *   sources: Array<{ title: string, uri: string }>,
+ *   supports: Array<{ text: string, uris: string[] }>,
  *   inferenceSource: string | undefined,
  * }}
  */
@@ -19,11 +20,19 @@ export function readGroundedAnswer(response) {
 
   const sources = [];
   const seen = new Set();
-  for (const chunk of (meta && meta.groundingChunks) || []) {
+  const chunks = (meta && meta.groundingChunks) || [];
+  for (const chunk of chunks) {
     const web = chunk && chunk.web;
     if (!web || !web.uri || seen.has(web.uri)) continue;
     seen.add(web.uri);
     sources.push({ title: web.title || web.uri, uri: web.uri });
+  }
+  // Which part of the answer each source backs up, so the page can put a source next to the answer it supports.
+  const supports = [];
+  for (const support of (meta && meta.groundingSupports) || []) {
+    const text = support && support.segment && support.segment.text;
+    const uris = ((support && support.groundingChunkIndices) || []).map((i) => chunks[i] && chunks[i].web && chunks[i].web.uri).filter(Boolean);
+    if (text && uris.length) supports.push({ text: String(text), uris });
   }
 
   return {
@@ -32,6 +41,7 @@ export function readGroundedAnswer(response) {
     grounded: Boolean(meta),
     searchSuggestionsHtml: (meta && meta.searchEntryPoint && meta.searchEntryPoint.renderedContent) || null,
     sources,
+    supports,
     inferenceSource: response.inferenceSource,
   };
 }

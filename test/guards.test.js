@@ -64,9 +64,9 @@ test('only https source links are allowed', async () => {
   }
 });
 
-// The app draws file and model text with textContent only. Raw HTML is allowed in exactly these places:
-// two fixed SVG icons, and Google's search suggestions (required to be shown as sent; the live site's
-// Content-Security-Policy blocks any script inside them, and they sit in a shadow root).
+// The app draws file and model text with textContent only. Raw HTML is allowed in exactly one place:
+// Google's search suggestions, which Google requires us to show as sent. They go into a sandboxed iframe
+// (no scripts, no same-origin access), so nothing in them can touch the page.
 test('src/ never writes HTML except the reviewed places', async () => {
   const { readFileSync, readdirSync, statSync } = await import('node:fs');
   const { join } = await import('node:path');
@@ -75,14 +75,11 @@ test('src/ never writes HTML except the reviewed places', async () => {
   const walk = (dir) => readdirSync(dir).forEach((f) => { const p = join(dir, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.js') && files.push(p); });
   walk(root);
   const allowed = [
-    /innerHTML = '<svg aria-hidden="true" width="14"/,
-    /innerHTML = '<svg width="40" height="20"/,
-    /shadowRoot\.innerHTML = '';/,
-    /attachShadow\(\{ mode: 'open' \}\)\)\.innerHTML = answer\.searchSuggestionsHtml \|\| '';/,
+    /chips\.srcdoc = suggestionsPage\(answer\.searchSuggestionsHtml\);/,
   ];
   for (const file of files) {
     readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
-      if (/innerHTML|outerHTML|insertAdjacentHTML|document\.write|\beval\(|new Function\(/.test(line) && !line.trim().startsWith('//') && !line.trim().startsWith('*')) {
+      if (/innerHTML|outerHTML|insertAdjacentHTML|srcdoc|document\.write|\beval\(|new Function\(/.test(line) && !line.trim().startsWith('//') && !line.trim().startsWith('*')) {
         assert.ok(allowed.some((re) => re.test(line)), `${file}:${i + 1} writes HTML or runs code: ${line.trim()}`);
       }
     });
@@ -94,4 +91,14 @@ test('src/ai.js uses single-use App Check tokens (replay protection)', async () 
   const { readFileSync } = await import('node:fs');
   const ai = readFileSync(new URL('../src/ai.js', import.meta.url), 'utf8');
   assert.match(ai, /getAI\(app, \{[^}]*useLimitedUseAppCheckTokens: true/);
+});
+
+// The search suggestions frame: sandboxed with no scripts and no same-origin access, set before it's filled.
+test('the Google suggestions frame is sandboxed without scripts or same-origin', async () => {
+  const { readFileSync } = await import('node:fs');
+  const app = readFileSync(new URL('../src/app.js', import.meta.url), 'utf8');
+  const sandbox = app.match(/chips\.setAttribute\('sandbox', '([^']*)'\)/);
+  assert.ok(sandbox, 'the frame gets a sandbox attribute');
+  assert.doesNotMatch(sandbox[1], /allow-scripts|allow-same-origin/);
+  assert.ok(app.indexOf("chips.setAttribute('sandbox'") < app.indexOf('chips.srcdoc ='), 'sandbox is set before content');
 });

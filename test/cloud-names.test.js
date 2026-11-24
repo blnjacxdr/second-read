@@ -6,6 +6,7 @@ import {
   isSendableName, cloudQuestions, cloudNamesPrompt, parseCloudAnswer, placeConflicts, answerStatus, expandAbbreviation,
   MAX_QUESTIONS,
 } from '../src/core/cloud-names.js';
+import { sourcesByAnswer } from '../src/core/cloud-names.js';
 
 const name = (n, sectionIds, extra = {}) => ({ name: n, kind: 'program', sectionIds, defaultOn: true, ...extra });
 
@@ -155,4 +156,18 @@ test('what the student sees for each answer', () => {
   assert.equal(answerStatus(RSI, { verdict: 'no' }), 'look');
   assert.equal(answerStatus(RSI, { verdict: 'unsure' }), 'unsure');
   assert.equal(answerStatus(RSI, undefined), 'unsure');
+});
+
+test('sources sit with the answer they back up; the rest are kept, not dropped', () => {
+  const text = '1 | EXISTS | Maple Youth Orchestra | Dayton, Ohio | A youth orchestra.\n2 | EXISTS | Lakeview Science Camp | Duluth, Minnesota | A summer camp.';
+  const sources = [{ title: 'a.org', uri: 'https://a.org' }, { title: 'b.org', uri: 'https://b.org' }, { title: 'c.org', uri: 'https://c.org' }];
+  const supports = [
+    { text: 'Maple Youth Orchestra | Dayton, Ohio', uris: ['https://a.org'] },
+    { text: 'Lakeview Science Camp | Duluth, Minnesota | A summer camp.', uris: ['https://b.org', 'https://a.org'] },
+    { text: 'words that are nowhere in the reply', uris: ['https://c.org'] },
+  ];
+  const { byId, other } = sourcesByAnswer(text, supports, sources);
+  assert.deepEqual(byId.get(1).map((s) => s.title), ['a.org']);
+  assert.deepEqual(byId.get(2).map((s) => s.title), ['b.org', 'a.org']);
+  assert.deepEqual(other.map((s) => s.title), ['c.org']);
 });

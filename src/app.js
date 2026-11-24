@@ -11,7 +11,7 @@ import { runCodeChecks, checkInputFromPdf } from './core/checks.js';
 import { runAiChecks, findPublicNames } from './core/run-ai.js';
 import { isImageOnlyPdf, IMAGE_ONLY_MESSAGE } from './core/layout-report.js';
 import { onDeviceAvailability } from './core/privacy.js';
-import { cloudQuestions, placeConflicts, answerStatus } from './core/cloud-names.js';
+import { cloudQuestions, placeConflicts, answerStatus, sourcesByAnswer } from './core/cloud-names.js';
 import { createSentLog } from './core/sent-log.js';
 import { safeLinkUrl } from './core/grounding.js';
 import { presentFlags, headlineFor, receiptFor, nanoNote } from './core/present.js';
@@ -23,6 +23,8 @@ const $ = (id) => document.getElementById(id);
 const CODE_CHECK_COUNT = 5;      // the checks in runCodeChecks: other colleges' names, start years, titles, repeats, limits
 const MAX_CLOUD_CHECKS = 3;      // name checks per visit; a student needs one, so this only stops abuse and surprise costs
 const MAX_PDF_BYTES = 40 * 1024 * 1024;
+// File names can be anything ("Scan 2026-11-02.pdf"), so the page never shows them. A real PDF is "your PDF";
+// the sample is Riley's.
 const SAMPLE = { url: 'sample/application-michigan.pdf', label: "Riley's made-up application" };
 const reduced = () => Boolean(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
@@ -135,7 +137,7 @@ function stage(name, state, how = '') {
 
 function resetReading(label) {
   $('read-title').textContent = 'Reading on this laptop';
-  $('read-file').textContent = label;
+  $('read-file').textContent = label ?? 'Your Common App PDF';
   $('read-skip').hidden = true;
   $('read-error').hidden = true;
   document.querySelector('.sr-readcard').classList.remove('finished');
@@ -192,6 +194,7 @@ async function check(file, label) {
     }
     await wait(450);
     const essays = (result.personalEssay ? 1 : 0) + result.collegeEssays.length;
+    if (result.college) $('read-file').textContent = label ? `${label}, ${result.college} version` : `Your ${result.college} PDF`;
     stage('parts', 'done', `${result.activities.length} activities, ${result.honors.length} honors, ${essays} ${essays === 1 ? 'essay' : 'essays'}`);
 
     stage('code', 'active');
@@ -508,7 +511,10 @@ function applyRecheck() {
 async function showResults() {
   run.cards = presentFlags({ result: run.result, codeFlags: run.codeFlags, aiFlags: run.aiFlags, mentionAnswers: run.mentionAnswers });
   const { background } = run.cards;
-  $('res-file').textContent = `${run.label}, ${run.result.college ? `the ${run.result.college} version` : 'Common App PDF'}`;
+  const college = run.result.college;
+  $('res-file').textContent = run.label
+    ? `${run.label}, ${college ? `${college} version` : 'Common App PDF'}`
+    : `Your ${college ?? 'Common App'} PDF`;
   applyRecheck();
   buildStack();
   $('res-background').hidden = background.length === 0;
@@ -542,9 +548,15 @@ function resetNamesPanel() {
   $('names-send').hidden = false;
   namesStatus('');
   for (const id of ['names-list', 'names-answers', 'names-sources']) $(id).replaceChildren();
-  const chips = $('names-chips');
-  if (chips.shadowRoot) chips.shadowRoot.innerHTML = '';
-  chips.hidden = true;
+  $('names-chips').replaceChildren();
+  $('names-google').hidden = true;
+}
+
+// Google's suggestions, exactly as Google sent them, as their own small page inside a sandboxed frame (no
+// scripts, no access to this page). The frame is light like the rest of the page, so Google's built-in light
+// version shows instead of its dark one. Links open in a new tab.
+function suggestionsPage(html) {
+  return `<!DOCTYPE html><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;background:transparent}</style>${html}`;
 }
 
 function updateNamesCount() {
@@ -634,8 +646,21 @@ const VERDICT = {
   unsure: { text: 'Couldn\'t confirm', icon: ICONS.question },
 };
 
+function sourceLinks(list) {
+  const row = el('span', undefined, 'sr-srcrow');
+  for (const source of list) {
+    const href = safeLinkUrl(source.uri);
+    if (!href) continue; // only https links become clickable
+    const link = el('a', source.title);
+    link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer';
+    row.append(link);
+  }
+  return row.childElementCount ? row : null;
+}
+
 function drawAnswers(send, answer) {
   const list = el('ul', undefined, 'sr-answers');
+  const { byId, other } = sourcesByAnswer(answer.text, answer.supports ?? [], answer.sources);
   let looks = 0;
   send.forEach((q, i) => {
     const a = answer.answers.find((x) => x.id === q.id);
@@ -646,36 +671,36 @@ function drawAnswers(send, answer) {
     li.style.setProperty('--i', String(i));
     const verdict = el('span', undefined, 'verdict');
     verdict.append(icon(VERDICT[status].icon, { size: 17 }), VERDICT[status].text);
-    const body = el('span');
+    const body = el('span', undefined, 'body');
     body.append(el('span', q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}? ` : `${q.name}. `, 'name'));
     if (a) {
       const said = [a.official && a.official !== q.name ? a.official : null, a.place, a.fact].filter(Boolean).join('. ').replace(/[.]+$/, '');
       if (said) body.append(el('span', `${said}.`, 'said'));
     }
     if (conflicts.length) body.append(el('span', `You wrote ${conflicts.map((c) => c.written).join(' and ')} next to it.`, 'clash'));
+    // The sources Google used for this answer, inside this answer's box.
+    const links = sourceLinks(byId.get(q.id) ?? []);
+    if (links) { links.prepend(el('span', 'Sources', 'lead')); body.append(links); }
     li.append(verdict, body);
     list.append(li);
   });
   $('names-answers').replaceChildren(list);
-  // Google requires its search suggestions to be shown exactly as sent, and the sources. The chips live in a
-  // shadow root so their own styles can't touch the page.
-  const chips = $('names-chips');
-  (chips.shadowRoot || chips.attachShadow({ mode: 'open' })).innerHTML = answer.searchSuggestionsHtml || '';
-  chips.hidden = !answer.searchSuggestionsHtml;
-  if (answer.sources.length) {
-    const sources = el('ul', undefined, 'sr-sources');
-    for (const s of answer.sources) {
-      const href = safeLinkUrl(s.uri);
-      if (!href) continue; // only https links become clickable
-      const li = el('li');
-      const link = el('a', s.title);
-      link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer';
-      li.append(link);
-      sources.append(li);
-    }
-    $('names-sources').replaceChildren(el('p', 'Sources Google Search used', 'sr-small'), sources);
-  } else {
-    $('names-sources').replaceChildren(el('p', 'Gemini answered from memory this time, so there are no sources. Try again to search.', 'sr-small'));
+  // Google requires the sources and its search suggestions to be shown. Sources that back no single answer go here.
+  const rest = sourceLinks(other);
+  if (rest) { rest.prepend(el('span', 'Other sources Google used', 'lead')); $('names-sources').replaceChildren(rest); }
+  else if (!answer.sources.length) $('names-sources').replaceChildren(el('p', 'Gemini answered from memory this time, so there are no sources. Try again to search.', 'sr-small'));
+  else $('names-sources').replaceChildren();
+  // A new frame each time, added after its box is showing: Chrome can leave a frame blank for good if it was
+  // created while hidden. Sandboxed with no scripts and no same-origin access.
+  $('names-google').hidden = !answer.searchSuggestionsHtml;
+  $('names-chips').replaceChildren();
+  if (answer.searchSuggestionsHtml) {
+    const chips = document.createElement('iframe');
+    chips.setAttribute('sandbox', 'allow-popups allow-popups-to-escape-sandbox');
+    chips.title = 'Google Search suggestions';
+    chips.referrerPolicy = 'no-referrer';
+    $('names-chips').append(chips);
+    chips.srcdoc = suggestionsPage(answer.searchSuggestionsHtml);
   }
   namesStatus(looks
     ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look.`
@@ -700,7 +725,7 @@ startLogo(() => scrolling.toTop());
 showNanoStatus();
 document.body.classList.add('phase-start');
 
-$('pdf').addEventListener('change', (e) => { const file = e.target.files[0]; if (file) check(file, file.name); });
+$('pdf').addEventListener('change', (e) => { const file = e.target.files[0]; if (file) check(file, null); });
 $('pdf').addEventListener('focus', () => eyes.lookDown());
 $('pdf').addEventListener('blur', () => eyes.lookUp());
 
@@ -713,7 +738,7 @@ window.addEventListener('drop', (e) => {
   e.preventDefault();
   eyes.lookUp();
   const file = e.dataTransfer?.files?.[0];
-  if (file && document.body.classList.contains('phase-start')) check(file, file.name);
+  if (file && document.body.classList.contains('phase-start')) check(file, null);
 });
 
 $('sample').addEventListener('click', async () => {

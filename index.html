@@ -75,7 +75,7 @@
             <input id="pdf" class="sr-vh" type="file" accept="application/pdf">
           </label>
           <div class="sr-under-drop">
-            <button type="button" id="sample" style="align-self: flex-start; font: inherit; font-weight: 800; font-size: 16px; min-height: 48px; padding: 0 20px; border-radius: 999px; border: 2px solid #16181D; background: transparent; color: #16181D; cursor: pointer">No PDF handy? Try Riley's made-up application</button>
+            <button type="button" id="sample" class="sr-again" style="align-self: flex-start; min-height: 48px">No PDF handy? Try Riley's made-up application</button>
             <details class="sr-guide">
               <summary>Where do I get the PDF?</summary>
               <ol>
@@ -99,7 +99,7 @@
             </div>
             <div class="sr-readbody">
               <div class="sr-lines" id="read-lines" aria-hidden="true">
-                <div class="sr-reader"><svg width="66" height="16" viewBox="0 0 260 60" style="position: absolute; left: -66px; top: -8px; overflow: visible; transform-origin: 100% 50%; rotate: 24deg; filter: drop-shadow(0 3px 2px rgba(22,24,29,.2))"><path d="M0 0 H 190 V 60 H 0 Z" fill="#FFC21A"></path><path d="M0 20 H 190 M0 40 H 190" stroke="#E0A800" stroke-width="3"></path><path d="M0 0 V 60" stroke="#EBCB9E" stroke-width="6"></path><path d="M190 0 L 246 30 L 190 60 Z" fill="#EBCB9E"></path><path d="M232 22 L 260 30 L 232 38 Z" fill="#2A2C31"></path></svg></div>
+                <div class="sr-reader"><svg width="66" height="16" viewBox="0 0 260 60" style="position: absolute; left: -66px; top: -8px; overflow: visible; transform-origin: 100% 50%; scale: -1 1; rotate: -24deg; filter: drop-shadow(0 3px 2px rgba(22,24,29,.2))"><path d="M0 0 H 190 V 60 H 0 Z" fill="#FFC21A"></path><path d="M0 20 H 190 M0 40 H 190" stroke="#E0A800" stroke-width="3"></path><path d="M0 0 V 60" stroke="#EBCB9E" stroke-width="6"></path><path d="M190 0 L 246 30 L 190 60 Z" fill="#EBCB9E"></path><path d="M232 22 L 260 30 L 232 38 Z" fill="#2A2C31"></path></svg></div>
               </div>
               <ol class="sr-stages" id="read-stages" aria-live="polite">
                 <li data-stage="pdf"><span class="mark" aria-hidden="true"></span><span class="what">Read the PDF</span><span class="how"></span></li>
@@ -199,9 +199,12 @@
             <div class="sr-names-send"><button type="button" id="names-send" class="sr-cta">Fact-check the ticked names</button><span class="sr-small" id="names-count"></span></div>
           </div>
           <div id="names-answers"></div>
-          <div id="names-chips" hidden></div>
           <div id="names-sources"></div>
-          <details id="sent-box" class="sr-sentbox" hidden><summary>Exactly what was sent</summary><div id="sent-log"></div></details>
+          <div id="names-google" class="sr-google" hidden>
+            <p class="sr-small">The Google searches behind these answers. Tap one to see the results yourself.</p>
+            <div id="names-chips"></div>
+          </div>
+          <details id="sent-box" class="sr-sentbox" hidden><summary><span>See exactly what was sent to Google</span></summary><div id="sent-log"></div></details>
         </div>
       </section>
     </section>
@@ -225,7 +228,6 @@
   </main>
 
   <footer class="sr-wrap sr-foot" style="padding-top: 22px; padding-bottom: 40px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: #5B616C">
-    <span class="sr-peek" aria-hidden="true"><svg width="74" height="38" viewBox="0 0 74 38"><path d="M18 2 L34 11 L34 27 L18 36 L2 27 L2 11 Z" fill="#FFC21A"></path><circle cx="18" cy="19" r="10.5" fill="#EBCB9E"></circle><circle cx="19" cy="13" r="5" fill="#16181D"></circle><path d="M56 2 L72 11 L72 27 L56 36 L40 27 L40 11 Z" fill="#FFC21A"></path><circle cx="56" cy="19" r="10.5" fill="#EBCB9E"></circle><circle cx="57" cy="13" r="5" fill="#16181D"></circle></svg></span>
     <span class="sr-maker">Made by a high school senior, during his own application season.<span class="sr-aside" aria-hidden="true">this was his procrastination</span></span>
     <span>Not affiliated with Common App. Protected by reCAPTCHA; Google's <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" rel="noopener noreferrer">Terms</a> apply.</span>
   </footer>
