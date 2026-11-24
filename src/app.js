@@ -180,7 +180,7 @@ async function showNanoStatus() {
   const note = nanoNote(availability);
   $('nano-title').textContent = note.title;
   $('nano-body').textContent = note.body;
-  $('nano-dot').style.background = note.ready ? '#1F7A45' : '#B26B00';
+  $('nano-dot').style.background = note.ready ? 'var(--ok)' : 'var(--warn)';
   $('nano-dot').classList.toggle('sr-ready', note.ready); // only a ready model gets the breathing dot
   $('nano-extra').hidden = !note.ready; // the not-ready message already says this
   $('nano-get').hidden = !note.canDownload;
@@ -379,7 +379,7 @@ function cardFor(card) {
   article.dataset.id = card.id;
   const top = el('div', undefined, 'sr-card-top');
   const tag = el('span', undefined, 'sr-card-src');
-  tag.append(icon(SOURCE[card.tone].icon, { size: 15, color: card.tone === 'pen' ? '#2340D9' : '#5B616C' }), SOURCE[card.tone].text);
+  tag.append(icon(SOURCE[card.tone].icon, { size: 15 }), SOURCE[card.tone].text);
   const heading = el('h3');
   heading.append(el('span', card.title, 'sr-title'));
   top.append(tag, heading);
@@ -388,7 +388,7 @@ function cardFor(card) {
     if (i > 0) {
       const vs = el('div', undefined, 'sr-vs');
       vs.setAttribute('aria-hidden', 'true');
-      vs.append(icon(['M3 8 H19 M15 4 L19 8 L15 12', 'M21 16 H5 M9 12 L5 16 L9 20'], { size: 28, color: '#8A919E', width: 2.2 }));
+      vs.append(icon(['M3 8 H19 M15 4 L19 8 L15 12', 'M21 16 H5 M9 12 L5 16 L9 20'], { size: 28, width: 2.2 }));
       quotes.append(vs);
     }
     const fig = el('figure');
@@ -451,7 +451,7 @@ function decide(id, choice, { fromKeyboard = false } = {}) {
   if (decisions.has(id) && $('res-stack').classList.contains('one')) {
     clearTimeout(run.advance);
     // Keyboard actions move on at once, with no animation; a click gets a short beat to see it land.
-    if (fromKeyboard) showCard(run.at + 1, 0, { instant: true });
+    if (fromKeyboard) showCard(run.at + 1, 1, { instant: true });
     else run.advance = setTimeout(() => showCard(run.at + 1, 1), 380);
   }
 }
@@ -972,9 +972,9 @@ window.addEventListener('keydown', (e) => {
   if (!run?.slots || !$('res-stack').classList.contains('one') || $('view-results').hidden) return;
   if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  // Keyboard is for speed: no slide, the next card is just there.
-  if (e.key === 'ArrowRight') { e.preventDefault(); showCard(run.at + 1, 0, { instant: true }); }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); showCard(run.at - 1, 0, { instant: true }); }
+  // Keyboard is for speed: the same slide, quicker (the builder found no motion at all felt broken).
+  if (e.key === 'ArrowRight') { e.preventDefault(); showCard(run.at + 1, 1, { instant: true }); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); showCard(run.at - 1, -1, { instant: true }); }
   const card = run.slots[run.at];
   if (card?.dataset.id && (e.key === 'f' || e.key === 'F')) { e.preventDefault(); decide(card.dataset.id, 'fixed', { fromKeyboard: true }); }
   if (card?.dataset.id && (e.key === 'p' || e.key === 'P')) { e.preventDefault(); decide(card.dataset.id, 'kept', { fromKeyboard: true }); }

@@ -2,6 +2,7 @@
    Matches the approved canvas (Nov 22). Rationale and rules: docs/DESIGN.md.
    Every text color below passes WCAG AA (4.5:1) on the surface it's used on. */
 :root {
+  color-scheme: light dark;
   /* Paper and ink */
   --paper: #FCFCFA;          /* page background: notebook paper */
   --paper-rule: #E4EBF6;     /* faint blue ruled lines */
@@ -25,6 +26,20 @@
   --sticky: #FFF6B8;         /* sticky note */
   --stamp: #C8372D;          /* "clean copy" stamp only */
   --ok: #1F7A45;             /* Gemini Nano ready dot */
+  --warn: #B26B00;           /* Gemini Nano not ready dot */
+
+  /* Lines, fills and states (Nov 24, for light and dark mode) */
+  --faint: #8A919E;          /* waiting steps, disabled */
+  --line: #D7DCE4;           /* hairlines under sheets */
+  --line-2: #E4E7EC;         /* soft borders, empty bars */
+  --line-strong: #B9BEC7;    /* control borders */
+  --fill: #EEF0F3;           /* quiet button fill */
+  --pen-tint: #EEF1FD;       /* pale blue behind pen things */
+  --pen-fill: #2340D9;       /* filled blue buttons (white text on it) */
+  --on-fill: #FFFFFF;        /* text on filled blue */
+  --sticky-ink: #55543F;     /* text on the sticky note */
+  --danger-tint: #FFF1F0;    /* error and "worth a look" backgrounds */
+  --danger-ink: #B0281F;     /* their text */
 
   /* Type: one family. Gabarito was made for a learning platform, with symbols for high-schoolers. */
   --font: Gabarito, system-ui, sans-serif;
@@ -55,4 +70,40 @@
 
 @media (max-width: 720px) {
   :root { --page-left: 20px; }
+}
+
+/* Dark mode follows the browser setting. Night paper: a deep blue-grey sheet with chalky ruled lines, the same
+   ballpoint blue lifted so it reads on dark, and the highlighter turned translucent so text stays light on it.
+   The pencil-yellow eyes stay the same in both: they're the brand. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #151A23;
+    --paper-rule: #1F2633;
+    --margin-line: #5A3036;
+    --sheet: #1C222D;
+    --ink: #E9ECF1;
+    --ink-2: #BEC5D1;
+    --muted: #949DAD;
+    --faint: #6E7788;
+    --border-strong: #6E7788;
+    --line: #2A3240;
+    --line-2: #2C3442;
+    --line-strong: #47505F;
+    --fill: #262E3B;
+    --pen: #9DB0FF;
+    --pen-dark: #C3CEFF;
+    --pen-fill: #4A63F0;
+    --pen-tint: #232C45;
+    --on-fill: #FFFFFF;
+    --pencil: #A3AAB7;
+    --highlight-pen: rgba(255, 214, 10, .30);
+    --highlight-pencil: rgba(163, 170, 183, .22);
+    --sticky: #3B3519;
+    --sticky-ink: #E9DFA8;
+    --stamp: #FF7A6E;
+    --ok: #4CC38A;
+    --warn: #F0A93A;
+    --danger-tint: #33201F;
+    --danger-ink: #FF8F85;
+  }
 }

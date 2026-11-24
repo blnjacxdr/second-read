@@ -118,3 +118,9 @@ Sources: Emil Kowalski's animation standards (emilkowal.ski, his skills repo), V
 - The fix list header stays on top, frosted, with a hairline once you scroll.
 - Small targets are at least 32px. Counts use tabular figures. Text selection is highlighter yellow. Reduced motion keeps fades and drops movement.
 - The reading steps are about 40% faster (staged waits trimmed), so a rushing student isn't kept waiting for show.
+
+## Nov 24: dark mode
+Follows the browser's light or dark setting (prefers-color-scheme), so Google's search suggestions bar matches.
+All colors now come from tokens in tokens.css. Dark is night paper: a deep blue-grey sheet with chalky rules, a
+lifted ballpoint blue, and a translucent highlighter, so text stays light on it. The pencil-yellow eyes don't change.
+Card flips no longer blur whole cards (that caused the first-flip stutter), and keyboard flips slide quickly instead of cutting.

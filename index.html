@@ -14,12 +14,12 @@
   <script type="module" src="src/app.js"></script>
 </head>
 <body>
-<div class="sr-paper" id="page" style="color: #16181D; font-family: Gabarito, system-ui, sans-serif; font-size: 18px; line-height: 1.5; position: relative; overflow: clip">
+<div class="sr-paper" id="page" style="color: var(--ink); font-family: Gabarito, system-ui, sans-serif; font-size: 18px; line-height: 1.5; position: relative; overflow: clip">
   <div class="sr-margin sr-holes" aria-hidden="true"></div>
-  <div class="sr-margin" aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: 64px; width: 2px; background: #F2B8B5"></div>
+  <div class="sr-margin" aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: 64px; width: 2px; background: var(--margin-line)"></div>
 
   <header class="sr-wrap sr-head">
-    <button type="button" id="logo" aria-label="Second Read, back to top" style="font: inherit; background: none; border: 0; padding: 0; cursor: pointer; display: flex; gap: 10px; align-items: center; min-height: 44px; color: #16181D">
+    <button type="button" id="logo" aria-label="Second Read, back to top" style="font: inherit; background: none; border: 0; padding: 0; cursor: pointer; display: flex; gap: 10px; align-items: center; min-height: 44px; color: var(--ink)">
       <svg id="logo-eyes" aria-hidden="true" width="46" height="22" viewBox="0 0 230 112" style="overflow: visible"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-lp" cx="60" cy="58" r="14" fill="#16181D"></circle><path d="M174 6 L222 33 L222 79 L174 106 L126 79 L126 33 Z" fill="#FFC21A"></path><circle cx="174" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-lp" cx="178" cy="58" r="14" fill="#16181D"></circle></svg>
       <span style="font-weight: 900; font-size: 24px; letter-spacing: -0.04em; white-space: nowrap">second read</span>
     </button>
@@ -41,11 +41,11 @@
     <section id="hero" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
       <div style="flex: 999 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
         <h1 style="margin: 0; font-weight: 900; font-size: clamp(50px, 7.4vw, 96px); line-height: 0.92; letter-spacing: -0.05em; text-wrap: balance"><span class="sr-word" style="--i: 0">Your</span> <span class="sr-word" style="--i: 1">application,</span> <span class="sr-word" style="--i: 2">read</span> <span class="sr-word sr-twice" style="--i: 3">twice.<svg aria-hidden="true" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 15 C 60 6, 120 20, 180 11 S 260 6, 296 13" pathLength="1" fill="none" stroke="#2340D9" stroke-width="7" stroke-linecap="round"></path></svg></span></h1>
-        <p class="sr-lede" style="margin: 0; max-width: 600px; font-size: 21px; color: #3D424C; text-wrap: pretty">Second Read goes through your Common App PDF on your own laptop and finds every spot where it disagrees with itself. It points. You fix. It never writes a word for you.</p>
+        <p class="sr-lede" style="margin: 0; max-width: 600px; font-size: 21px; color: var(--ink-2); text-wrap: pretty">Second Read goes through your Common App PDF on your own laptop and finds every spot where it disagrees with itself. It points. You fix. It never writes a word for you.</p>
       </div>
       <div class="sr-drift" style="flex: 1 1 280px; display: flex; flex-direction: column; align-items: center; gap: 14px">
         <div style="transform: rotate(-6deg); filter: drop-shadow(0 6px 0 rgba(22,24,29,.1)) drop-shadow(0 16px 20px rgba(22,24,29,.18))">
-          <div id="sr-lean"><div style="background: #FFFFFF; border-radius: 36px; padding: 24px 30px">
+          <div id="sr-lean"><div style="background: var(--sheet); border-radius: 36px; padding: 24px 30px">
             <div id="eyes-wrap" style="position: relative"><span class="sr-zz" aria-hidden="true"><b>z</b><b>z</b><b>z</b></span><div id="sr-eyes" role="img" aria-label="Second Read's pencil eyes, watching your cursor" style="display: flex; gap: 10px">
                             <svg class="sr-eye" id="sr-eye-1" aria-hidden="true" width="100" height="100" viewBox="0 0 112 112" style="--d: .15s"><defs><clipPath id="sr-wood-1"><circle cx="56" cy="56" r="31"></circle></clipPath></defs><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><g class="sr-pupil"><circle cx="56" cy="56" r="14" fill="#16181D"></circle><circle cx="61" cy="50" r="3.5" fill="#FFFFFF" opacity=".85"></circle></g><g clip-path="url(#sr-wood-1)"><g class="sr-lidg"><rect x="20" y="16" width="72" height="72" fill="#FFC21A"></rect><path d="M24 88 H 88" stroke="#E0A800" stroke-width="4" stroke-linecap="round"></path></g></g></svg>
               <svg class="sr-eye" id="sr-eye-2" aria-hidden="true" width="100" height="100" viewBox="0 0 112 112" style="--d: .27s"><defs><clipPath id="sr-wood-2"><circle cx="56" cy="56" r="31"></circle></clipPath></defs><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><g class="sr-pupil"><circle cx="56" cy="56" r="14" fill="#16181D"></circle><circle cx="61" cy="50" r="3.5" fill="#FFFFFF" opacity=".85"></circle></g><g clip-path="url(#sr-wood-2)"><g class="sr-lidg"><rect x="20" y="16" width="72" height="72" fill="#FFC21A"></rect><path d="M24 88 H 88" stroke="#E0A800" stroke-width="4" stroke-linecap="round"></path></g></g></svg>
@@ -54,23 +54,23 @@
           </div>
           </div>
         </div>
-        <p id="margin-note" aria-hidden="true" style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 28px; line-height: 1.05; color: #2340D9; transform: rotate(-3deg); text-align: center">the second read happens on your laptop. not a server, not us.</p>
+        <p id="margin-note" aria-hidden="true" style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 28px; line-height: 1.05; color: var(--pen); transform: rotate(-3deg); text-align: center">the second read happens on your laptop. not a server, not us.</p>
       </div>
     </section>
 
     <section id="drop" style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
       <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
         <div id="view-idle" style="display: contents">
-          <label class="sr-drop" id="drop-label" for="pdf" style="position: relative; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: #FFFFFF; border-radius: 6px; padding: 46px 40px 38px; box-shadow: 0 1px 0 #D7DCE4, 0 18px 30px -20px rgba(22,24,29,.25); cursor: pointer">
+          <label class="sr-drop" id="drop-label" for="pdf" style="position: relative; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: var(--sheet); border-radius: 6px; padding: 46px 40px 38px; box-shadow: 0 1px 0 var(--line), 0 18px 30px -20px rgba(22,24,29,.25); cursor: pointer">
             <svg class="sr-clip" aria-hidden="true" width="34" height="74" viewBox="0 0 34 74" fill="none" stroke="#8A919E" stroke-width="2.5" stroke-linecap="round" style="position: absolute; top: -26px; left: 36px"><path d="M10 50V14a7 7 0 0 1 14 0v42a11 11 0 0 1-22 0V20"></path></svg>
             <span style="font-weight: 900; font-size: 36px; line-height: 1.02; letter-spacing: -0.035em">Drop your Common App PDF on this page.</span>
-            <span style="color: #3D424C; max-width: 540px">The PDF from Common App's Print preview. Each college gets its own, with your shared sections plus that college's questions, so check each one.</span>
+            <span style="color: var(--ink-2); max-width: 540px">The PDF from Common App's Print preview. Each college gets its own, with your shared sections plus that college's questions, so check each one.</span>
             <span style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 6px">
-              <span class="sr-pick" style="display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: #2340D9; color: #FFFFFF; font-weight: 800; font-size: 17px; transition: background .2s">
+              <span class="sr-pick" style="display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: var(--pen-fill); color: var(--on-fill); font-weight: 800; font-size: 17px; transition: background .2s">
                 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M5 20h14"></path></svg>
                 Choose your PDF
               </span>
-              <span style="font-size: 15px; color: #5B616C">Stays in this tab. Nothing gets uploaded.</span>
+              <span style="font-size: 15px; color: var(--muted)">Stays in this tab. Nothing gets uploaded.</span>
             </span>
             <input id="pdf" class="sr-vh" type="file" accept="application/pdf">
           </label>
@@ -117,11 +117,11 @@
         </div>
       </div>
 
-      <aside class="sr-note" style="flex: 1 1 260px; min-width: 0; background: #FFF6B8; padding: 22px 22px 26px; box-shadow: 0 10px 18px -14px rgba(22,24,29,.35); transform: rotate(1.4deg); display: flex; flex-direction: column; gap: 8px">
+      <aside class="sr-note" style="flex: 1 1 260px; min-width: 0; background: var(--sticky); padding: 22px 22px 26px; box-shadow: 0 10px 18px -14px rgba(22,24,29,.35); transform: rotate(1.4deg); display: flex; flex-direction: column; gap: 8px">
         <span class="sr-tape" aria-hidden="true"></span>
-        <div style="display: flex; gap: 10px; align-items: center; font-weight: 800"><span class="sr-ready" id="nano-dot" aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #1F7A45"></span><span id="nano-title" aria-live="polite">Checking for Gemini Nano…</span></div>
-        <p id="nano-body" style="margin: 0; font-size: 16px; color: #3A3A2A">It's the AI built into Chrome, and it runs right here on this laptop. Your essays never touch a cloud.</p>
-        <p id="nano-extra" style="margin: 0; font-size: 15px; color: #55543F">On a Chromebook or another browser? The code checks still run, and we'll say which ones got skipped.</p>
+        <div style="display: flex; gap: 10px; align-items: center; font-weight: 800"><span class="sr-ready" id="nano-dot" aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: var(--ok)"></span><span id="nano-title" aria-live="polite">Checking for Gemini Nano…</span></div>
+        <p id="nano-body" style="margin: 0; font-size: 16px; color: var(--sticky-ink)">It's the AI built into Chrome, and it runs right here on this laptop. Your essays never touch a cloud.</p>
+        <p id="nano-extra" style="margin: 0; font-size: 15px; color: var(--sticky-ink)">On a Chromebook or another browser? The code checks still run, and we'll say which ones got skipped.</p>
         <button type="button" id="nano-get" class="sr-cta sr-note-btn" hidden>Download Gemini Nano</button>
       </aside>
     </section>
@@ -137,8 +137,8 @@
             <div><span class="sr-fmark sr-fmark-a">6 hr/wk, 30 wk/yr</span></div>
             <svg class="sr-brace" viewBox="0 0 36 110"><path d="M4 4 C 22 4, 18 50, 32 55 C 18 60, 22 106, 4 106" pathLength="1" fill="none" stroke="#2340D9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
-          <div class="sr-panel sr-m1"><i class="sr-shade"></i><div style="font-weight: 900; font-size: 13px; color: #5B616C">Honors</div><div class="sr-bar" style="width: 90%"></div><div class="sr-bar" style="width: 72%"></div><div class="sr-bar" style="width: 84%"></div><div class="sr-bar" style="width: 60%"></div>
-            <div class="sr-panel sr-m2"><i class="sr-shade"></i><div style="font-weight: 900; font-size: 13px; color: #5B616C">Additional information</div><div class="sr-bar" style="width: 88%"></div><div class="sr-bar" style="width: 94%"></div><div class="sr-bar" style="width: 70%"></div><div class="sr-bar" style="width: 52%"></div>
+          <div class="sr-panel sr-m1"><i class="sr-shade"></i><div style="font-weight: 900; font-size: 13px; color: var(--muted)">Honors</div><div class="sr-bar" style="width: 90%"></div><div class="sr-bar" style="width: 72%"></div><div class="sr-bar" style="width: 84%"></div><div class="sr-bar" style="width: 60%"></div>
+            <div class="sr-panel sr-m2"><i class="sr-shade"></i><div style="font-weight: 900; font-size: 13px; color: var(--muted)">Additional information</div><div class="sr-bar" style="width: 88%"></div><div class="sr-bar" style="width: 94%"></div><div class="sr-bar" style="width: 70%"></div><div class="sr-bar" style="width: 52%"></div>
               <div class="sr-panel sr-pb">
                 <div class="sr-phead">Personal essay<span class="sr-plabel">p. 14</span></div>
                 <div><span class="sr-fmark sr-fmark-b">Every day after school, I stayed in the robotics lab until seven</span>, rebuilding the same gearbox until it finally held.</div><div class="sr-bar" style="width: 92%"></div><div class="sr-bar" style="width: 66%"></div>
@@ -160,10 +160,10 @@
       </div>
     </section>
 
-    <section id="how" aria-label="How it stays private" class="sr-promise" style="display: flex; flex-wrap: wrap; gap: 28px 44px; border-top: 2px solid #16181D; padding-top: 28px">
-      <p style="flex: 1 1 260px; margin: 0; color: #3D424C; font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 28 V8 C10 6 11 5 13 5 H43 C45 5 46 6 46 8 V28 M4 29 H52 C52 33 50 35 47 35 H9 C6 35 4 33 4 29 M21 17 L26 22 L35 12" pathLength="1"></path></svg><strong style="display: block; color: #16181D; font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Nothing leaves this laptop.</strong>Open DevTools and watch the Network tab while it works. We'd honestly love that.</p>
-      <p style="flex: 1 1 260px; margin: 0; color: #3D424C; font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3 H42 V35 L38 32 L34 35 L30 32 L26 35 L22 32 L18 35 L14 32 Z M19 11 H37 M19 17 H37 M19 23 H30" pathLength="1"></path></svg><strong style="display: block; color: #16181D; font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Receipts for every flag.</strong>You see your own words from both places. If the quote isn't really in your application, the flag doesn't show.</p>
-      <p style="flex: 1 1 260px; margin: 0; color: #3D424C; font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6 H48 C50 6 51 7 51 9 V25 C51 27 50 28 48 28 H22 L13 36 V28 H8 C6 28 5 27 5 25 V9 C5 7 6 6 8 6 M15 17 C 18 13, 21 21, 24 17 S 30 13, 33 17 S 39 21, 42 16" pathLength="1"></path></svg><strong style="display: block; color: #16181D; font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Your voice stays yours.</strong>No suggested wording, no rewrites. Admissions wants to hear you, so we stay out of it.</p>
+    <section id="how" aria-label="How it stays private" class="sr-promise" style="display: flex; flex-wrap: wrap; gap: 28px 44px; border-top: 2px solid var(--ink); padding-top: 28px">
+      <p style="flex: 1 1 260px; margin: 0; color: var(--ink-2); font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 28 V8 C10 6 11 5 13 5 H43 C45 5 46 6 46 8 V28 M4 29 H52 C52 33 50 35 47 35 H9 C6 35 4 33 4 29 M21 17 L26 22 L35 12" pathLength="1"></path></svg><strong style="display: block; color: var(--ink); font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Nothing leaves this laptop.</strong>Open DevTools and watch the Network tab while it works. We'd honestly love that.</p>
+      <p style="flex: 1 1 260px; margin: 0; color: var(--ink-2); font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3 H42 V35 L38 32 L34 35 L30 32 L26 35 L22 32 L18 35 L14 32 Z M19 11 H37 M19 17 H37 M19 23 H30" pathLength="1"></path></svg><strong style="display: block; color: var(--ink); font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Receipts for every flag.</strong>You see your own words from both places. If the quote isn't really in your application, the flag doesn't show.</p>
+      <p style="flex: 1 1 260px; margin: 0; color: var(--ink-2); font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6 H48 C50 6 51 7 51 9 V25 C51 27 50 28 48 28 H22 L13 36 V28 H8 C6 28 5 27 5 25 V9 C5 7 6 6 8 6 M15 17 C 18 13, 21 21, 24 17 S 30 13, 33 17 S 39 21, 42 16" pathLength="1"></path></svg><strong style="display: block; color: var(--ink); font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Your voice stays yours.</strong>No suggested wording, no rewrites. Admissions wants to hear you, so we stay out of it.</p>
     </section>
 
     <section id="closing" class="sr-closing" aria-labelledby="closing-h">
@@ -181,12 +181,12 @@
   <main class="sr-wrap" id="view-results" hidden tabindex="-1" style="padding-top: 18px; padding-bottom: 80px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
     <section style="flex: 999 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
       <div style="display: flex; flex-direction: column; gap: 10px; position: relative">
-        <div id="res-file" style="font-size: 15px; color: #5B616C"></div>
+        <div id="res-file" style="font-size: 15px; color: var(--muted)"></div>
         <h1 id="res-headline" aria-live="polite" style="margin: 0; font-weight: 900; font-size: clamp(40px, 5.4vw, 68px); line-height: 0.96; letter-spacing: -0.045em; text-wrap: balance"></h1>
-        <p id="res-subhead" style="margin: 0; color: #3D424C; max-width: 600px"></p>
+        <p id="res-subhead" style="margin: 0; color: var(--ink-2); max-width: 600px"></p>
         <p id="res-nano-tip" class="sr-nanotip" hidden></p>
-        <p id="res-allkept" class="sr-note-in" aria-hidden="true" hidden style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 30px; color: #2340D9; transform: rotate(-2deg)">all on purpose? bold strategy. respect.</p>
-        <div id="res-stamp" class="sr-stamp" aria-hidden="true" hidden style="position: absolute; right: 4px; top: -8px; border: 4px solid #C8372D; color: #C8372D; border-radius: 10px; padding: 6px 16px; font-weight: 900; font-size: 30px; letter-spacing: 0.01em; transform: rotate(-8deg)">clean copy</div>
+        <p id="res-allkept" class="sr-note-in" aria-hidden="true" hidden style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 30px; color: var(--pen); transform: rotate(-2deg)">all on purpose? bold strategy. respect.</p>
+        <div id="res-stamp" class="sr-stamp" aria-hidden="true" hidden style="position: absolute; right: 4px; top: -8px; border: 4px solid var(--stamp); color: var(--stamp); border-radius: 10px; padding: 6px 16px; font-weight: 900; font-size: 30px; letter-spacing: 0.01em; transform: rotate(-8deg)">clean copy</div>
       </div>
       <div id="res-recheck" class="sr-recheck" hidden><strong id="res-recheck-line"></strong><span id="res-recheck-note"></span></div>
       <div class="sr-stackbar" id="stackbar" hidden>
@@ -232,15 +232,15 @@
 
     <aside class="sr-side" style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
       <div style="filter: drop-shadow(0 12px 14px rgba(22,24,29,.14))">
-        <div class="sr-receipt" id="receipt" style="padding: 22px 22px 34px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.7; color: #16181D; transform: rotate(-1deg)">
+        <div class="sr-receipt" id="receipt" style="padding: 22px 22px 34px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.7; color: var(--ink); transform: rotate(-1deg)">
           <div style="text-align: center; font-weight: 700; font-size: 15px">second read</div>
-          <div style="text-align: center; color: #5B616C">printed on this laptop</div>
+          <div style="text-align: center; color: var(--muted)">printed on this laptop</div>
           <div aria-hidden="true" class="sr-dash"></div>
           <dl id="receipt-rows" class="sr-receipt-rows"></dl>
           <div aria-hidden="true" class="sr-dash"></div>
           <dl class="sr-receipt-rows" style="font-size: 15px; font-weight: 700"><dt>sent to the internet</dt><dd id="receipt-sent">0</dd></dl>
           <div aria-hidden="true" class="sr-dash"></div>
-          <div id="receipt-tossed-note" style="text-align: center; color: #5B616C" hidden>"tossed" means Gemini Nano quoted words that aren't in your application, so that flag was thrown out</div>
+          <div id="receipt-tossed-note" style="text-align: center; color: var(--muted)" hidden>"tossed" means Gemini Nano quoted words that aren't in your application, so that flag was thrown out</div>
           <div style="text-align: center; margin-top: 10px">thanks for not uploading</div>
         </div>
       </div>
@@ -248,7 +248,7 @@
     </aside>
   </main>
 
-  <footer class="sr-wrap sr-foot" style="padding-top: 22px; padding-bottom: 40px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: #5B616C">
+  <footer class="sr-wrap sr-foot" style="padding-top: 22px; padding-bottom: 40px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: var(--muted)">
     <span>Made by a high school senior, during his own application season.</span>
     <span>Not affiliated with Common App. Protected by reCAPTCHA; Google's <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" rel="noopener noreferrer">Terms</a> apply.</span>
   </footer>
