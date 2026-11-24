@@ -29,7 +29,7 @@
       <li data-phase="results"><button type="button" disabled>Fix list</button></li>
     </ol>
     <div class="sr-headend">
-      <button type="button" id="again" class="sr-again" hidden>Check a new PDF</button>
+      <button type="button" id="again" class="sr-again" hidden aria-label="Check a new PDF"><span class="sr-wide">Check a new PDF</span><span class="sr-narrow" aria-hidden="true">New PDF</span></button>
       <nav class="sr-nav" aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 24px; font-size: 16px; font-weight: 600">
         <a href="#how" class="js-goto" style="text-decoration: none">How it stays private</a>
         <a href="#drop" id="nav-sample" style="text-decoration: none">Try a sample</a>
@@ -198,6 +198,7 @@
         </span>
       </div>
       <div id="res-stack" class="sr-stack"></div>
+      <p class="sr-keys" id="stack-keys" hidden>Keys: <kbd>←</kbd> <kbd>→</kbd> move, <kbd>F</kbd> fixed it, <kbd>P</kbd> on purpose.</p>
       <details id="res-background" class="sr-fold-group" hidden>
         <summary id="res-background-sum"></summary>
         <p class="sr-fold-note">Gemini Nano read these as background, like someone you know went there. They aren't counted above, but they're here so nothing is hidden from you.</p>
@@ -251,6 +252,7 @@
     <span>Made by a high school senior, during his own application season.</span>
     <span>Not affiliated with Common App. Protected by reCAPTCHA; Google's <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" rel="noopener noreferrer">Terms</a> apply.</span>
   </footer>
+  <div id="toast" class="sr-toast" role="status" aria-live="polite" hidden><span id="toast-text"></span><button type="button" id="toast-undo" class="sr-toast-undo">Undo</button></div>
 </div>
 </body>
 </html>

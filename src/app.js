@@ -69,8 +69,37 @@ function growWhile(box, change) {
   const to = box.offsetHeight;
   if (reduced() || Math.abs(to - from) < 2 || !box.animate) return;
   box.style.overflow = 'clip';
-  box.animate([{ height: `${from}px` }, { height: `${to}px` }], { duration: 520, easing: 'cubic-bezier(.23,1,.32,1)' })
+  box.animate([{ height: `${from}px` }, { height: `${to}px` }], { duration: 400, easing: 'cubic-bezier(.32,.72,0,1)' })
     .finished.catch(() => {}).then(() => { box.style.overflow = ''; });
+}
+
+// Changes a line of text with a quick blur-and-settle, so new words arrive instead of teleporting.
+function swapText(node, text) {
+  if (!node || node.textContent === text) return;
+  node.textContent = text;
+  if (reduced() || !node.animate || !node.isConnected || node.offsetParent === null) return;
+  node.animate([{ opacity: 0.35, filter: 'blur(2px)', transform: 'translateY(3px)' }, { opacity: 1, filter: 'blur(0)', transform: 'none' }],
+    { duration: 220, easing: 'cubic-bezier(.23,1,.32,1)' });
+}
+
+// One toast at a time: what just happened, with Undo. Gone after 4 seconds, or when replaced.
+let toastTimer = 0;
+let toastUndo = null;
+function toast(text, undo) {
+  const box = $('toast');
+  clearTimeout(toastTimer);
+  box.classList.remove('leaving');
+  $('toast-text').textContent = text;
+  toastUndo = undo ?? null;
+  $('toast-undo').hidden = !undo;
+  box.hidden = false;
+  toastTimer = setTimeout(hideToast, 4000);
+}
+function hideToast() {
+  const box = $('toast');
+  if (box.hidden) return;
+  box.classList.add('leaving');
+  toastTimer = setTimeout(() => { box.hidden = true; box.classList.remove('leaving'); }, reduced() ? 0 : 300);
 }
 
 function el(tag, text, className) {
@@ -121,6 +150,7 @@ async function setPhase(name) {
 }
 
 function goToStart() {
+  hideToast();
   run = null;
   $('pdf').value = '';
   face('logo', null);
@@ -185,7 +215,7 @@ const LINE_WIDTHS = [92, 78, 100, 64, 88, 96, 70, 84, 58];
 function stage(name, state, how = '') {
   const li = document.querySelector(`#read-stages li[data-stage="${name}"]`);
   li.dataset.state = state;
-  li.querySelector('.how').textContent = how;
+  swapText(li.querySelector('.how'), how);
 }
 
 function resetReading(label) {
@@ -246,7 +276,7 @@ async function check(file, label) {
       readingError('This PDF is pictures of text, so there\'s nothing to read.', IMAGE_ONLY_MESSAGE);
       return;
     }
-    await wait(350);
+    await wait(220);
     stage('pdf', 'done', `${pageCount} ${pageCount === 1 ? 'page' : 'pages'}, ${seconds(performance.now() - started)}`);
 
     stage('parts', 'active');
@@ -255,7 +285,7 @@ async function check(file, label) {
       readingError('This doesn\'t look like a Common App preview.', 'We couldn\'t find activities, honors or essays. Download the PDF from Common App: My Colleges, pick a college, Review and submit, Print preview.');
       return;
     }
-    await wait(450);
+    await wait(280);
     const essays = (result.personalEssay ? 1 : 0) + result.collegeEssays.length;
     if (result.college) $('read-file').textContent = label ? `${label}, ${result.college} version` : `Your ${result.college} PDF`;
     stage('parts', 'done', `${result.activities.length} activities, ${result.honors.length} honors, ${essays} ${essays === 1 ? 'essay' : 'essays'}`);
@@ -263,19 +293,19 @@ async function check(file, label) {
     stage('code', 'active');
     const app = checkInputFromPdf(result);
     const codeFlags = runCodeChecks(app);
-    await wait(450);
+    await wait(280);
     stage('code', 'done', `${CODE_CHECK_COUNT} checks`);
     run = { label, pageCount, result, app, codeFlags, aiFlags: [], mentionAnswers: new Map(), nano: 'skipped', comparisons: 0, tossed: 0, decisions: new Map() };
 
     await askNano(run);
 
     stage('list', 'active');
-    await wait(400);
+    await wait(240);
     stage('list', 'done');
     $('read-title').textContent = 'Done reading';
     document.querySelector('.sr-readcard').classList.add('finished');
     face('reading', 'happy');
-    await wait(650);
+    await wait(480);
     busy = false;
     await showResults();
   } catch (err) {
@@ -398,9 +428,21 @@ function paintDecision(id) {
   paintTicks();
 }
 
-function decide(id, choice) {
+function decide(id, choice, { fromKeyboard = false } = {}) {
   const { decisions } = run;
+  const before = decisions.get(id);
   if (decisions.get(id) === choice) decisions.delete(id); else decisions.set(id, choice);
+  if (decisions.has(id)) {
+    const at = run.slots.findIndex((n) => n.dataset.id === id);
+    toast(choice === 'fixed' ? 'Marked as fixed.' : 'Marked as on purpose.', () => {
+      if (before) decisions.set(id, before); else decisions.delete(id);
+      clearTimeout(run.advance);
+      paintDecision(id);
+      updateHeadline();
+      updateCount();
+      if ($('res-stack').classList.contains('one') && at >= 0) showCard(at, -1);
+    });
+  }
   paintDecision(id);
   updateHeadline();
   if (decisions.get(id) === 'fixed' && !$('logo-eyes').classList.contains('face-happy')) face('logo', 'happy', 900);
@@ -408,7 +450,9 @@ function decide(id, choice) {
   // In the one-at-a-time stack, a decision moves on to the next card after a beat, so you see it land.
   if (decisions.has(id) && $('res-stack').classList.contains('one')) {
     clearTimeout(run.advance);
-    run.advance = setTimeout(() => showCard(run.at + 1, 1), 520);
+    // Keyboard actions move on at once, with no animation; a click gets a short beat to see it land.
+    if (fromKeyboard) showCard(run.at + 1, 0, { instant: true });
+    else run.advance = setTimeout(() => showCard(run.at + 1, 1), 380);
   }
 }
 
@@ -462,6 +506,7 @@ function buildStack() {
   for (const id of run.decisions.keys()) paintDecision(id);
   $('stackbar').hidden = run.slots.length <= 1;
   setStackMode(run.slots.length > 2 ? 'one' : 'all');
+  if ($('stackbar').hidden) $('stack-keys').hidden = true;
 }
 
 function setStackMode(mode, animate = false) {
@@ -472,6 +517,7 @@ function setStackMode(mode, animate = false) {
     $('stack-mode').setAttribute('aria-pressed', String(mode === 'all'));
     $('stack-mode').textContent = mode === 'all' ? 'One at a time' : 'Show all';
     $('stack-prev').hidden = $('stack-next').hidden = mode === 'all';
+    $('stack-keys').hidden = mode === 'all';
     if (mode === 'one') showCard(run.at ?? 0, 0); else { run.slots.forEach((n) => { n.inert = false; }); updateCount(); }
   };
   if (!animate || !document.startViewTransition || reduced()) { apply(); return; }
@@ -492,12 +538,13 @@ function setStackMode(mode, animate = false) {
   t.finished.catch(() => {}).then(() => { run.slots[run.at].style.animation = ''; done(); });
 }
 
-function showCard(index, direction) {
+function showCard(index, direction, { instant = false } = {}) {
   const slots = run.slots;
   run.at = Math.max(0, Math.min(slots.length - 1, index));
   slots.forEach((node, i) => {
     node.classList.toggle('current', i === run.at);
     node.classList.toggle('back', i === run.at && direction < 0);
+    node.classList.toggle('instant', i === run.at && instant);
     node.inert = i !== run.at && $('res-stack').classList.contains('one');
   });
   // Restart the entrance animation on the card that just arrived.
@@ -519,7 +566,7 @@ function updateCount() {
   else if (!one) text = decided === total ? `All ${total} decided` : `${decided} of ${total} decided`;
   else if (run.at >= total) text = decided === total ? `All ${total} decided` : `${total - decided} still open`;
   else text = `Card ${run.at + 1} of ${total}`;
-  $('stack-count').textContent = text;
+  swapText($('stack-count'), text);
   paintTicks();
 }
 
@@ -548,9 +595,9 @@ function updateHeadline() {
       ? 'Check this PDF again to give Gemini Nano another try. It reads hours, titles and awards in your essays.'
       : 'With Gemini Nano (in Chrome on a laptop), Second Read also reads hours, titles and awards in your essays and checks names in your own sentences, so it catches more.';
   const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length }, decisions, ids, { nano });
-  $('res-headline').textContent = h.headline;
+  swapText($('res-headline'), h.headline);
   if (!$('view-results').hidden) document.title = `${h.headline} | Second Read`;
-  $('res-subhead').textContent = h.subhead;
+  swapText($('res-subhead'), h.subhead);
   $('res-stamp').hidden = !(h.state === 'done' || h.state === 'clean');
   $('res-allkept').hidden = h.state !== 'all-kept';
   // Everything handled (or nothing to handle): the logo looks pleased, and stays that way.
@@ -617,7 +664,7 @@ function namesStatus(text, { busy = false } = {}) {
   const line = $('names-status');
   line.hidden = !text;
   line.classList.toggle('busy', busy);
-  $('names-status-text').textContent = text;
+  swapText($('names-status-text'), text);
   // Replay the small pop each time the message changes, so a new step is noticed.
   line.style.animation = 'none'; void line.offsetWidth; line.style.animation = '';
 }
@@ -916,6 +963,7 @@ $('names-start').addEventListener('click', pickNames);
 // "Try a sample" in the top links runs the sample, not just scrolls to it.
 $('nav-sample').addEventListener('click', (e) => { e.preventDefault(); $('sample').click(); });
 $('names-send').addEventListener('click', sendNames);
+$('toast-undo').addEventListener('click', () => { const undo = toastUndo; hideToast(); undo?.(); });
 $('stack-prev').addEventListener('click', () => showCard(run.at - 1, -1));
 $('stack-next').addEventListener('click', () => showCard(run.at + 1, 1));
 $('stack-mode').addEventListener('click', () => setStackMode($('res-stack').classList.contains('one') ? 'all' : 'one', true));
@@ -923,6 +971,11 @@ $('stack-mode').addEventListener('click', () => setStackMode($('res-stack').clas
 window.addEventListener('keydown', (e) => {
   if (!run?.slots || !$('res-stack').classList.contains('one') || $('view-results').hidden) return;
   if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
-  if (e.key === 'ArrowRight') { e.preventDefault(); showCard(run.at + 1, 1); }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); showCard(run.at - 1, -1); }
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  // Keyboard is for speed: no slide, the next card is just there.
+  if (e.key === 'ArrowRight') { e.preventDefault(); showCard(run.at + 1, 0, { instant: true }); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); showCard(run.at - 1, 0, { instant: true }); }
+  const card = run.slots[run.at];
+  if (card?.dataset.id && (e.key === 'f' || e.key === 'F')) { e.preventDefault(); decide(card.dataset.id, 'fixed', { fromKeyboard: true }); }
+  if (card?.dataset.id && (e.key === 'p' || e.key === 'P')) { e.preventDefault(); decide(card.dataset.id, 'kept', { fromKeyboard: true }); }
 });

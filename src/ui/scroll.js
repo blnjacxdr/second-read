@@ -128,6 +128,7 @@ export function startScrolling() {
       }
       // Shown once the top is out of sight, and tucked away again at the very bottom, where it would cover the footer.
       const nearBottom = window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 140;
+      document.body.classList.toggle('scrolled', window.scrollY > 8);
       if (top) top.classList.toggle('show', document.body.classList.contains('phase-start') && window.scrollY > window.innerHeight * 1.1 && !nearBottom);
     });
   }, { passive: true });

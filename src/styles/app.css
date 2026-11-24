@@ -530,7 +530,7 @@ details[open]::details-content{block-size:auto;opacity:1}
 .sr-face .sr-smile{opacity:0;transition:opacity .25s var(--ease-out)}
 .sr-face.face-happy .sr-smile{opacity:1;transition-delay:.12s}
 /* A wink: one eyelid shuts for a moment (click an eye on the start page). */
-.sr-eye.wink .sr-lidg{animation:none;translate:0 0;transition:translate .12s ease-in}
+.sr-eye.wink .sr-lidg{animation:none;translate:0 0;transition:translate .1s var(--ease-out)}
 /* The sticky note's download button. */
 .sr-note-btn{margin-top:6px;min-height:42px;font-size:15px;padding:0 18px}
 .sr-nanotip{margin:4px 0 0;max-width:600px;font-size:15px;color:#4A4A30;background:#FFF6B8;padding:10px 14px;border-radius:4px;box-shadow:0 6px 12px -10px rgba(22,24,29,.4)}
@@ -562,3 +562,92 @@ body.dragging #drop-label .sr-clip{transform:rotate(-14deg)}
   .sr-hl{background-size:100% 100%!important;animation:none!important}
   html{zoom:1}
 }
+
+/* ==== Motion system (Nov 24). From the research: Emil Kowalski's animation standards, Vercel's Web Interface
+   Guidelines, Rauno Freiberg's interaction essays. The rules we follow:
+   - ease-out for anything entering or answering a click, never ease-in; ease-in-out for things moving on screen
+   - UI motion under 300 ms; button presses 100 to 160 ms; only rare moments (a new phase) run longer
+   - nothing appears or disappears without a transition; small crossfades get 2px of blur to hide the overlap
+   - presses scale down a little; hover lifts only on devices that really hover
+   - staggers of 40 to 60 ms; keyboard actions are instant
+   - numbers that change use tabular figures, so they don't jiggle ==== */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);--ease-drawer:cubic-bezier(.32,.72,0,1)}
+html{-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:#FFE45C;color:#16181D}
+h1,h2,h3{text-wrap:balance}
+p,li,blockquote,figcaption{text-wrap:pretty}
+#stack-count,.sr-stages .how,.sr-receipt,.sr-names-send .sr-small,#res-recheck-line,.sr-count b{font-variant-numeric:tabular-nums}
+
+/* Phase changes: a quick crossfade with a hint of blur and lift. Out is fast, in settles. */
+::view-transition-old(root){animation:.2s var(--ease-out) both sr-vt-out2}
+::view-transition-new(root){animation:.36s var(--ease-out) .04s both sr-vt-in2}
+@keyframes sr-vt-out2{to{opacity:0;filter:blur(2px);translate:0 -8px}}
+@keyframes sr-vt-in2{from{opacity:0;filter:blur(2px);translate:0 12px}}
+::view-transition-group(sheet){animation-duration:.45s;animation-timing-function:var(--ease-drawer)}
+html.vt-stack::view-transition-group(*){animation-duration:.42s;animation-timing-function:var(--ease-drawer)}
+html.vt-stack::view-transition-new(*):only-child{animation:sr-deal .36s var(--ease-out) both}
+html.vt-stack::view-transition-old(*):only-child{animation:sr-gather .2s var(--ease-out) both}
+@keyframes sr-deal{from{opacity:0;translate:0 -20px;scale:.97;filter:blur(2px)}}
+@keyframes sr-gather{to{opacity:0;translate:0 -16px;scale:.97;filter:blur(2px)}}
+
+/* The next card slides in quickly, from just off to the side, never from nothing. */
+.sr-stack.one > .current{animation:sr-card-in2 .28s var(--ease-out) both}
+.sr-stack.one > .current.back{animation-name:sr-card-in2-back}
+@keyframes sr-card-in2{from{opacity:0;translate:20px 0;scale:.985;filter:blur(2px)}}
+@keyframes sr-card-in2-back{from{opacity:0;translate:-20px 0;scale:.985;filter:blur(2px)}}
+.sr-stack.one > .current.instant{animation:none}
+
+/* Every pressable thing answers the press the same way. */
+.sr-cta,.sr-again,.sr-textbtn,.sr-iconbtn,.sr-actions button,.sr-linkbtn,.sr-ticks-row button,.sr-phases button,.sr-srcrow a,.sr-namegrid label,.sr-totop,.sr-sentbox summary,.sr-toast-undo{transition-property:background-color,color,border-color,box-shadow,translate,scale,opacity;transition-duration:.2s,.2s,.2s,.2s,.4s,.14s,.2s;transition-timing-function:var(--ease-out),var(--ease-out),var(--ease-out),var(--ease-out),var(--spring),var(--ease-out),var(--ease-out)}
+.sr-cta:not(:disabled):active,.sr-again:active,.sr-textbtn:active,.sr-iconbtn:not(:disabled):active,.sr-actions button:active,.sr-linkbtn:active,.sr-ticks-row button:active,.sr-phases button:not(:disabled):active,.sr-srcrow a:active,.sr-totop:active,.sr-sentbox summary:active,.sr-toast-undo:active{scale:.96;translate:0 0}
+.sr-namegrid label:active{scale:.985}
+#drop-label:active{scale:.995}
+/* Lifts and tilts on hover only where a mouse really hovers; on touch they'd stick after a tap. */
+@media not ((hover:hover) and (pointer:fine)){
+  .sr-drop:hover{transform:rotate(-.6deg)!important;box-shadow:0 1px 0 #D7DCE4,0 18px 30px -20px rgba(22,24,29,.25)!important}
+  .sr-note:hover{transform:rotate(1.4deg)!important}
+  .sr-cta:hover,.sr-again:hover,.sr-textbtn:hover,.sr-iconbtn:hover,.sr-actions button:hover{translate:0 0!important}
+}
+/* Bigger targets for the small progress ticks (32px, per the guidelines). */
+.sr-ticks-row button{width:32px;height:32px}
+.sr-ticks-row{gap:2px}
+/* Faster spinners feel like faster work. */
+.sr-stages li[data-state="active"] .mark{animation-duration:.6s}
+/* Tighter staggers. */
+.sr-namegrid label{animation-delay:calc(var(--i) * 40ms)}
+.sr-answers li{animation-delay:calc(var(--i) * 60ms)}
+
+/* Things that appear fade and settle in instead of popping (CSS @starting-style, no script). */
+.sr-error,.sr-recheck,.sr-nanotip,.sr-google,.sr-srcrow,#names-pick,.sr-keys{transition:opacity .28s var(--ease-out),translate .28s var(--ease-out),filter .28s var(--ease-out)}
+@starting-style{.sr-error,.sr-recheck,.sr-nanotip,.sr-google,.sr-srcrow,#names-pick,.sr-keys{opacity:0;translate:0 6px;filter:blur(2px)}}
+
+/* Keyboard hint under the cards, for people with a keyboard. */
+.sr-keys{margin:-6px 0 0;font-size:14px;color:#5B616C}
+.sr-keys kbd{font:600 12px/1 ui-monospace,Menlo,Consolas,monospace;display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:5px;background:#FFFFFF;border:1px solid #D7DCE4;box-shadow:0 1px 0 #D7DCE4;color:#16181D}
+@media (pointer:coarse),(max-width:720px){.sr-keys{display:none!important}}
+
+/* Toast: says what just happened, with Undo. Rises from the bottom, leaves the same way. */
+.sr-toast{position:fixed;left:50%;bottom:24px;z-index:30;display:flex;align-items:center;gap:14px;padding:10px 10px 10px 18px;border-radius:999px;background:#16181D;color:#FFFFFF;font-size:15px;font-weight:600;box-shadow:0 16px 32px -16px rgba(22,24,29,.6);translate:-50% 0;opacity:1;transition:opacity .3s var(--ease-out),translate .4s var(--ease-drawer),display .3s allow-discrete}
+@starting-style{.sr-toast{opacity:0;translate:-50% 14px}}
+.sr-toast.leaving{opacity:0;translate:-50% 14px}
+.sr-toast-undo{font:inherit;font-weight:800;color:#FFE45C;background:rgba(255,255,255,.08);border:0;border-radius:999px;min-height:36px;padding:0 14px;cursor:pointer}
+.sr-toast-undo:hover{background:rgba(255,255,255,.16)}
+
+@media (prefers-reduced-motion:reduce){
+  /* Gentler, not nothing: fades stay, movement goes. */
+  .sr-stack.one > .current{animation:sr-fade-only .2s ease both}
+  @keyframes sr-fade-only{from{opacity:0}}
+  .sr-error,.sr-recheck,.sr-nanotip,.sr-google,.sr-srcrow,#names-pick,.sr-keys{transition:opacity .2s ease}
+  @starting-style{.sr-error,.sr-recheck,.sr-nanotip,.sr-google,.sr-srcrow,#names-pick,.sr-keys{translate:none;filter:none}}
+  .sr-toast{transition:opacity .2s ease,display .2s allow-discrete}
+  .sr-cta,.sr-again,.sr-textbtn,.sr-iconbtn,.sr-actions button,.sr-linkbtn,.sr-ticks-row button,.sr-phases button,.sr-srcrow a,.sr-namegrid label,.sr-totop,.sr-sentbox summary{transition-property:background-color,color,border-color,box-shadow,opacity}
+}
+
+/* On the fix list the header stays with you: frosted paper, and a hairline once the page has scrolled. */
+body.phase-results .sr-head{position:sticky;top:0;z-index:25}
+body.phase-results .sr-head::before{content:"";position:absolute;inset:0 -100vw;z-index:-1;background:rgba(252,252,250,.78);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);box-shadow:0 1px 0 rgba(22,24,29,0);transition:box-shadow .2s var(--ease-out)}
+body.phase-results.scrolled .sr-head::before{box-shadow:0 1px 0 rgba(22,24,29,.08)}
+body.phase-results .sr-head{transition:padding .25s var(--ease-out)}
+body.phase-results.scrolled .sr-head{padding-top:12px;padding-bottom:12px}
+.sr-narrow{display:none}
+@media (max-width:480px){.sr-wide{display:none}.sr-narrow{display:inline}#again{min-height:40px;padding:0 16px;font-size:15px}}

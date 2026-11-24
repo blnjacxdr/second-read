@@ -107,3 +107,14 @@ Reduced motion: no transitions, no scanning eyes, no card animations; everything
 - Gemini Nano: the sticky note says what it adds and offers "Download Gemini Nano" when Chrome can get it. Results without it show what it would have added; skipping it yourself is worded as such.
 - Hybrid name check: after Google answers, Gemini Nano reads each name in the student's own sentences, on the laptop, and points at a detail that disagrees (src/core/name-context.js). Its words must be in the application or nothing is shown.
 - Sweep fixes: "1 page", a red mark on the step that stopped, "Try another PDF" opens the file picker, the stack opens on the first card still to decide, page titles follow the phase, the drop sheet opens up while a file is dragged over the page, "Fixed it" strikes the title line by line, header button never wraps, and the fix list prints cleanly (Print or save as PDF on the last card).
+
+## Nov 24: motion system (from research)
+Sources: Emil Kowalski's animation standards (emilkowal.ski, his skills repo), Vercel's Web Interface Guidelines, Rauno Freiberg's "Invisible Details of Interaction Design".
+- Ease-out for anything entering or answering a click, never ease-in. UI motion stays under 300 ms; presses 140 ms; phase changes are the one longer moment.
+- Every press scales down a little. Hover lifts only on devices that really hover.
+- Nothing pops in: banners, tips, errors and lists fade and settle in with CSS @starting-style. Changing text (headline, counts, statuses) swaps with 2px of blur.
+- Keyboard actions are instant: arrows move between cards, F marks fixed, P marks on purpose.
+- Every decision shows a toast with Undo.
+- The fix list header stays on top, frosted, with a hairline once you scroll.
+- Small targets are at least 32px. Counts use tabular figures. Text selection is highlighter yellow. Reduced motion keeps fades and drops movement.
+- The reading steps are about 40% faster (staged waits trimmed), so a rushing student isn't kept waiting for show.
