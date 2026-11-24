@@ -62,3 +62,19 @@ On the canvas:
 Real app only (build these):
 - **DevTools console greeting**, for judges who check our privacy claim: a short styled console.log saying the Network tab should stay empty while your application is read, signed by the builder.
 - **Konami code** (up up down down left right left right b a) on the start page: the pencils sharpen and a few shavings fall. One keydown listener, removed on leaving the page, off with reduced motion.
+
+## The journey (Nov 23, real app)
+Five phases, one page. A phase strip in the header ("Your PDF", "Second read", "Fix list") always says where you are.
+1. **Your PDF:** the start page. "Where do I get the PDF?" opens the real Common App clicks.
+2. **Hand it over:** dropping or choosing a PDF is a view transition: the drop sheet carries over into the reading card,
+   and the rest of the start page steps back.
+3. **The second read:** named stages tick off in pen (read the PDF, find each part, compare in code, ask Gemini Nano,
+   put the list together), each with its real numbers. Gemini Nano gets a real progress bar from the comparison count.
+   Two small eyes read along, left to right. "Skip Gemini Nano" stays available.
+4. **Fix list:** a stack of index cards, one at a time, sure ones first, then the maybes; "Sure ones: 2 of 4". Fixed it
+   or On purpose moves on to the next card after a beat. Arrow keys flip cards. Show all turns it back into a list. A
+   closing card invites the re-check.
+5. **Re-check:** checking a new PDF in the same tab compares it with the last check: "Since your last check: 3 fixed,
+   1 still there, 0 new." "On purpose" choices carry over; "Fixed it" doesn't (the check decides). Nothing is stored
+   beyond the tab.
+Reduced motion: no transitions, no scanning eyes, no card animations; everything else works the same.

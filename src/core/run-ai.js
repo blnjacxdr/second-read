@@ -37,7 +37,8 @@ export const DESIGNS = {
  * @param {(question: object) => Promise<object>} args.ask  sends one DESIGNS[design].question(...) to Nano on this computer
  * @param {'open'|'extract'|'claim'} [args.design]
  * @param {(collegeName: string, sentence: string) => Promise<object>} args.askMention on-device mention question
- * @param {(message: string) => void} [args.onProgress]
+ * @param {(message: string, progress?: { done: number, total: number }) => void} [args.onProgress]
+ *   progress is given for the comparisons, so a page can draw a real progress bar
  * @returns {Promise<{ flags, dropped, log, mentionAnswers, comparisons, failed }>}
  */
 export async function runAiChecks({ app, codeFlags, ask, askMention, design = 'open', onProgress = () => {} }) {
@@ -49,7 +50,7 @@ export async function runAiChecks({ app, codeFlags, ask, askMention, design = 'o
   let failed = 0;
 
   for (const [i, pair] of plan.entries()) {
-    onProgress(`Comparing ${i + 1} of ${plan.length} on this computer…`);
+    onProgress(`Comparing ${i + 1} of ${plan.length} on this computer…`, { done: i, total: plan.length });
     try {
       const answer = await ask(question(pair));
       const out = toFlags(pair, answer, app.sections);

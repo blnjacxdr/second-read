@@ -34,6 +34,7 @@ export function presentFlags({ result, codeFlags = [], aiFlags = [], mentionAnsw
     const places = flag.citations.map((c) => placeOf(result, c.sectionId));
     return {
       id: flag.id,
+      kind: flag.kind,
       tone: flag.check === 'on-device' ? 'pencil' : 'pen',
       title: flag.title,
       detail: flag.detail,

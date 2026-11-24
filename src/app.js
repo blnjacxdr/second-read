@@ -1,5 +1,5 @@
-// Second Read, the app. Draws the screens and runs the checks:
-//   start -> reading (PDF read in this tab, code checks, Gemini Nano on this laptop) -> results -> optional name check.
+// Second Read, the app. One page, five phases:
+//   1 Your PDF (start page) -> 2 hand it over -> 3 the second read (reading stage) -> 4 fix list -> 5 re-check
 // Privacy: the PDF never leaves the tab. Application text goes only to code and to Gemini Nano (ONLY_ON_DEVICE, in
 // src/ai.js). The only thing that can reach the internet is the optional name check: the names the student ticks,
 // recorded in the sent log before sending. All file text is drawn with textContent, never as HTML.
@@ -15,6 +15,7 @@ import { cloudQuestions, placeConflicts, answerStatus } from './core/cloud-names
 import { createSentLog } from './core/sent-log.js';
 import { safeLinkUrl } from './core/grounding.js';
 import { presentFlags, headlineFor, receiptFor, nanoNote } from './core/present.js';
+import { compareChecks, carriedDecisions, recheckSummary } from './core/recheck.js';
 import { startEyes, startLogo } from './ui/eyes.js';
 import { startScrolling } from './ui/scroll.js';
 
@@ -22,12 +23,13 @@ const $ = (id) => document.getElementById(id);
 const CODE_CHECK_COUNT = 5;      // the checks in runCodeChecks: other colleges' names, start years, titles, repeats, limits
 const MAX_CLOUD_CHECKS = 3;      // name checks per visit; a student needs one, so this only stops abuse and surprise costs
 const MAX_PDF_BYTES = 40 * 1024 * 1024;
-const MIN_READING_MS = 1600;     // long enough to see the reading screen, short enough not to slow anyone down
 const SAMPLE = { url: 'sample/application-michigan.pdf', label: "Riley's made-up application (Michigan)" };
+const reduced = () => Boolean(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
 const sentLog = createSentLog();
 let ai = null;        // src/ai.js plus its models, loaded on first use
-let run = null;       // everything about the PDF being checked
+let run = null;       // the PDF being checked now
+let last = null;      // the previous check in this tab, for re-checking (never stored anywhere else)
 let cloudChecks = 0;
 
 function el(tag, text, className) {
@@ -45,6 +47,42 @@ async function loadAi() {
   return ai;
 }
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const seconds = (ms) => `${(ms / 1000).toFixed(1)} s`;
+
+// ---------- Phases ----------
+
+const PHASES = ['start', 'reading', 'results'];
+
+// Moves between phases. Where the browser supports it, the change is a view transition: the drop sheet carries
+// over into the reading card, and the rest of the page steps back and rises in. Otherwise it simply switches.
+async function setPhase(name) {
+  const apply = () => {
+    document.body.classList.remove(...PHASES.map((p) => `phase-${p}`));
+    document.body.classList.add(`phase-${name}`);
+    $('view-start').hidden = name === 'results';
+    $('view-results').hidden = name !== 'results';
+    $('view-idle').hidden = name !== 'start';
+    $('view-reading').hidden = name !== 'reading';
+    document.querySelector('.sr-nav').hidden = name !== 'start';
+    $('again').hidden = name !== 'results';
+    const at = PHASES.indexOf(name);
+    document.querySelectorAll('#phases li').forEach((li, i) => {
+      li.classList.toggle('done', i < at);
+      if (i === at) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
+    });
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+  if (document.startViewTransition && !reduced()) await document.startViewTransition(apply).finished.catch(() => {});
+  else apply();
+}
+
+function goToStart() {
+  run = null;
+  $('pdf').value = '';
+  setPhase('start');
+}
+
 // ---------- Start page: Gemini Nano status on the sticky note ----------
 
 async function showNanoStatus() {
@@ -58,53 +96,33 @@ async function showNanoStatus() {
   return availability;
 }
 
-// ---------- Views ----------
-
-function showView(name) {
-  $('view-start').hidden = name === 'results';
-  $('view-results').hidden = name !== 'results';
-  $('view-idle').hidden = name !== 'start';
-  $('view-reading').hidden = name !== 'reading';
-  document.querySelector('.sr-nav').hidden = name === 'results';
-  $('again').hidden = name !== 'results';
-}
-
-function goToStart() {
-  run = null;
-  $('pdf').value = '';
-  showView('start');
-  window.scrollTo({ top: 0, behavior: 'instant' });
-}
-
-// ---------- Reading ----------
+// ---------- The second read ----------
 
 const LINE_WIDTHS = [92, 78, 100, 64, 88, 96, 70, 84, 58];
 
-function startReadingScreen(label) {
-  showView('reading');
-  $('read-title').textContent = 'Reading on this laptop…';
-  $('read-found').replaceChildren();
-  $('read-note').textContent = label;
+function stage(name, state, how = '') {
+  const li = document.querySelector(`#read-stages li[data-stage="${name}"]`);
+  li.dataset.state = state;
+  li.querySelector('.how').textContent = how;
+}
+
+function resetReading(label) {
+  $('read-title').textContent = 'Reading on this laptop';
+  $('read-file').textContent = label;
   $('read-skip').hidden = true;
   $('read-error').hidden = true;
+  document.querySelector('.sr-readcard').classList.remove('finished');
+  document.querySelectorAll('#read-stages li').forEach((li) => { li.dataset.state = 'waiting'; li.querySelector('.how').textContent = ''; });
+  document.querySelector('.sr-bar-track').hidden = true;
+  $('nano-bar').style.transform = 'scaleX(0)';
   // Fresh lines and a fresh reading pencil, so the animation plays again for every PDF.
   const lines = $('read-lines');
-  const pencil = lines.querySelector('.sr-reader');
-  const fresh = pencil.cloneNode(true);
-  lines.replaceChildren(fresh, ...LINE_WIDTHS.map((w, i) => {
+  const pencil = lines.querySelector('.sr-reader').cloneNode(true);
+  lines.replaceChildren(pencil, ...LINE_WIDTHS.map((w, i) => {
     const line = el('div', undefined, 'sr-line');
     line.style.cssText = `width: ${w}%; --d: ${(i * 0.3).toFixed(1)}s`;
     return line;
   }));
-  $('view-reading').scrollIntoView({ block: 'center', behavior: 'instant' });
-}
-
-function found(text) {
-  const li = el('li', undefined, 'sr-pop');
-  li.style.cssText = 'display: flex; gap: 10px; align-items: baseline';
-  li.innerHTML = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#2340D9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7.5l3 3L12 3"></path></svg>';
-  li.append(el('span', text));
-  $('read-found').append(li);
 }
 
 function readingError(title, body) {
@@ -113,17 +131,17 @@ function readingError(title, body) {
   $('read-error-body').textContent = body;
   $('read-error').hidden = false;
   $('read-skip').hidden = true;
-  $('read-note').textContent = '';
+  document.querySelector('.sr-readcard').classList.add('finished');
+  document.querySelectorAll('#read-stages li[data-state="active"]').forEach((li) => { li.dataset.state = 'waiting'; });
 }
 
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const seconds = (ms) => `${(ms / 1000).toFixed(1)} s`;
-
 async function check(file, label) {
-  startReadingScreen(label);
+  resetReading(label);
+  await setPhase('reading');
   const started = performance.now();
+  stage('pdf', 'active');
   if (file.type && file.type !== 'application/pdf' && !/\.pdf$/i.test(file.name || '')) {
-    readingError('That isn\'t a PDF.', 'Second Read reads the PDF from Common App\'s Print preview. In Common App: My Colleges, pick a college, Review and submit, Print preview, then download.');
+    readingError('That isn\'t a PDF.', 'Second Read reads the PDF from Common App\'s Print preview: My Colleges, pick a college, Review and submit, Print preview, then download.');
     return;
   }
   if (file.size > MAX_PDF_BYTES) {
@@ -133,33 +151,38 @@ async function check(file, label) {
   try {
     const { pageCount, rows, pages } = await readPdfRows(file);
     if (isImageOnlyPdf(pages)) {
-      readingError('This PDF is pictures of text, so there\'s nothing to read.', `${IMAGE_ONLY_MESSAGE}`);
+      readingError('This PDF is pictures of text, so there\'s nothing to read.', IMAGE_ONLY_MESSAGE);
       return;
     }
-    found(`Read ${pageCount} pages in ${seconds(performance.now() - started)}`);
+    await wait(350);
+    stage('pdf', 'done', `${pageCount} pages, ${seconds(performance.now() - started)}`);
+
+    stage('parts', 'active');
     const result = readCommonApp(rows);
     if (result.activities.length === 0 && !result.personalEssay && result.collegeEssays.length === 0) {
       readingError('This doesn\'t look like a Common App preview.', 'We couldn\'t find activities, honors or essays. Download the PDF from Common App: My Colleges, pick a college, Review and submit, Print preview.');
       return;
     }
-    await wait(250);
-    found(`Found ${result.activities.length} activities and ${result.honors.length} honors`);
-    if (result.personalEssay) { await wait(200); found('Found your personal essay'); }
-    if (result.collegeEssays.length) {
-      await wait(200);
-      found(`Found ${result.collegeEssays.length} ${result.college ?? 'college'} ${result.collegeEssays.length === 1 ? 'essay' : 'essays'}`);
-    }
+    await wait(450);
+    const essays = (result.personalEssay ? 1 : 0) + result.collegeEssays.length;
+    stage('parts', 'done', `${result.activities.length} activities, ${result.honors.length} honors, ${essays} ${essays === 1 ? 'essay' : 'essays'}`);
 
+    stage('code', 'active');
     const app = checkInputFromPdf(result);
     const codeFlags = runCodeChecks(app);
-    await wait(200);
-    found(`Ran ${CODE_CHECK_COUNT} checks in code`);
+    await wait(450);
+    stage('code', 'done', `${CODE_CHECK_COUNT} checks`);
     run = { label, pageCount, result, app, codeFlags, aiFlags: [], mentionAnswers: new Map(), nano: 'skipped', comparisons: 0, tossed: 0, decisions: new Map() };
 
     await askNano(run);
-    const left = MIN_READING_MS - (performance.now() - started);
-    if (left > 0) await wait(left);
-    showResults();
+
+    stage('list', 'active');
+    await wait(400);
+    stage('list', 'done');
+    $('read-title').textContent = 'Done reading';
+    document.querySelector('.sr-readcard').classList.add('finished');
+    await wait(500);
+    await showResults();
   } catch (err) {
     console.error('Reading stopped:', err);
     readingError('Something went wrong reading this PDF.', 'Try downloading it again from Common App. If it keeps happening, the PDF may be damaged.');
@@ -168,13 +191,17 @@ async function check(file, label) {
 
 // Gemini Nano runs only when it's already on this computer. A student can skip it and see the sure ones now.
 async function askNano(current) {
-  if ((await onDeviceAvailability().catch(() => 'unavailable')) !== 'available') return;
+  if ((await onDeviceAvailability().catch(() => 'unavailable')) !== 'available') {
+    stage('nano', 'skipped', 'not on this laptop');
+    return;
+  }
+  stage('nano', 'active', 'starting');
   let skipped = false;
   const skip = new Promise((resolve) => {
     $('read-skip').hidden = false;
     $('read-skip').onclick = () => { skipped = true; resolve(null); };
   });
-  $('read-note').textContent = 'Asking Gemini Nano on this laptop. This can take a minute.';
+  const track = document.querySelector('.sr-bar-track');
   try {
     const { models, onDeviceAsker, askMentionOnDevice } = await loadAi();
     const work = runAiChecks({
@@ -183,25 +210,36 @@ async function askNano(current) {
       ask: onDeviceAsker(models),
       design: 'extract',
       askMention: (name, sentence) => askMentionOnDevice(models.mentionModel, name, sentence),
-      onProgress: (message) => { if (!skipped) $('read-note').textContent = message; },
+      onProgress: (_message, progress) => {
+        if (skipped || !progress) return;
+        track.hidden = false;
+        $('nano-bar').style.transform = `scaleX(${(progress.done / progress.total).toFixed(3)})`;
+        stage('nano', 'active', `${progress.done} of ${progress.total}`);
+      },
     });
     const out = await Promise.race([work, skip]);
-    if (!out || skipped) { current.nano = 'skipped-by-you'; return; }
+    if (!out || skipped) {
+      current.nano = 'skipped-by-you';
+      stage('nano', 'skipped', 'skipped');
+      return;
+    }
+    $('nano-bar').style.transform = 'scaleX(1)';
     current.aiFlags = out.flags;
     current.mentionAnswers = out.mentionAnswers ?? new Map();
     current.comparisons = out.comparisons;
     current.tossed = out.dropped.length;
     current.nano = out.failed ? 'failed' : 'ran';
-    found(`Asked Gemini Nano ${out.comparisons} questions, on this laptop`);
+    stage('nano', 'done', `${out.comparisons} questions`);
   } catch (err) {
     console.error('Gemini Nano stopped:', err);
     current.nano = 'failed';
+    stage('nano', 'skipped', 'stopped');
   } finally {
     $('read-skip').hidden = true;
   }
 }
 
-// ---------- Results ----------
+// ---------- Fix list ----------
 
 const SOURCE = { pen: 'pen: checked by code', pencil: 'pencil: Gemini Nano, double-check' };
 const NOTES = { fixed: 'nice.', kept: 'your call.' };
@@ -246,17 +284,89 @@ function cardFor(card) {
   return article;
 }
 
-function decide(id, choice) {
-  const { decisions } = run;
-  if (decisions.get(id) === choice) decisions.delete(id); else decisions.set(id, choice);
+function paintDecision(id) {
   const article = document.querySelector(`.sr-card[data-id="${CSS.escape(id)}"]`);
-  const now = decisions.get(id);
+  if (!article) return;
+  const now = run.decisions.get(id);
   article.classList.toggle('done', Boolean(now));
   article.classList.toggle('fixed', now === 'fixed');
   article.querySelector('.fix').setAttribute('aria-pressed', String(now === 'fixed'));
   article.querySelector('.keep').setAttribute('aria-pressed', String(now === 'kept'));
   article.querySelector('.note').textContent = now ? NOTES[now] : '';
+}
+
+function decide(id, choice) {
+  const { decisions } = run;
+  if (decisions.get(id) === choice) decisions.delete(id); else decisions.set(id, choice);
+  paintDecision(id);
   updateHeadline();
+  // In the one-at-a-time stack, a decision moves on to the next card after a beat, so you see it land.
+  if (decisions.has(id) && $('res-stack').classList.contains('one')) {
+    clearTimeout(run.advance);
+    run.advance = setTimeout(() => showCard(run.at + 1, 1), 520);
+  }
+}
+
+// The stack holds every card (sure ones, then maybes) plus a closing card. One shows at a time, or all of them.
+function buildStack() {
+  const { sure, maybes } = run.cards;
+  const stack = $('res-stack');
+  const items = [...sure.map(cardFor)];
+  if (maybes.length) {
+    items.push(el('h2', `${maybes.length} ${maybes.length === 1 ? 'maybe' : 'maybes'} from Gemini Nano. Skim ${maybes.length === 1 ? 'this' : 'these'}.`, 'sr-divider'));
+    items.push(...maybes.map(cardFor));
+  }
+  const end = el('div', undefined, 'sr-endcard');
+  end.append(el('h3', 'That\'s every card.'), el('p', 'Fixed something in Common App? Download the new PDF and check it here. Second Read will tell you what\'s gone, what\'s still there and what\'s new.'));
+  const again = el('button', 'Check the new PDF', 'sr-cta');
+  again.type = 'button';
+  again.addEventListener('click', goToStart);
+  end.append(again);
+  items.push(end);
+  stack.replaceChildren(...items);
+  run.slots = items.filter((n) => !n.classList.contains('sr-divider'));
+  run.at = 0;
+  for (const id of run.decisions.keys()) paintDecision(id);
+  $('stackbar').hidden = run.slots.length <= 1;
+  setStackMode(run.slots.length > 2 ? 'one' : 'all');
+}
+
+function setStackMode(mode) {
+  const stack = $('res-stack');
+  stack.classList.toggle('one', mode === 'one');
+  stack.classList.toggle('all', mode === 'all');
+  $('stack-mode').setAttribute('aria-pressed', String(mode === 'all'));
+  $('stack-prev').hidden = $('stack-next').hidden = mode === 'all';
+  if (mode === 'one') showCard(run.at ?? 0, 0); else updateCount();
+}
+
+function showCard(index, direction) {
+  const slots = run.slots;
+  run.at = Math.max(0, Math.min(slots.length - 1, index));
+  slots.forEach((node, i) => {
+    node.classList.toggle('current', i === run.at);
+    node.classList.toggle('back', i === run.at && direction < 0);
+    node.inert = i !== run.at && $('res-stack').classList.contains('one');
+  });
+  // Restart the entrance animation on the card that just arrived.
+  const current = slots[run.at];
+  if (direction) { current.style.animation = 'none'; void current.offsetWidth; current.style.animation = ''; }
+  $('res-stack').classList.toggle('last', run.at >= slots.length - 2);
+  $('stack-prev').disabled = run.at === 0;
+  $('stack-next').disabled = run.at === slots.length - 1;
+  updateCount();
+}
+
+function updateCount() {
+  const { sure, maybes } = run.cards;
+  const total = sure.length + maybes.length;
+  const mode = $('res-stack').classList.contains('one') ? 'one' : 'all';
+  if (mode === 'all' || total === 0) { $('stack-count').textContent = `${total} ${total === 1 ? 'card' : 'cards'}`; return; }
+  if (run.at >= total) { $('stack-count').textContent = 'All done'; return; }
+  const inSure = run.at < sure.length;
+  $('stack-count').textContent = inSure
+    ? `Sure ones: ${run.at + 1} of ${sure.length}`
+    : `Maybes from Gemini Nano: ${run.at - sure.length + 1} of ${maybes.length}`;
 }
 
 function updateHeadline() {
@@ -284,24 +394,39 @@ function updateReceipt() {
   cell.classList.toggle('sr-zero', sent === 0);
 }
 
-function showResults() {
+// Re-check: compare with the previous check in this tab. "On purpose" choices carry over; the summary says
+// what's gone, what's still there and what's new.
+function applyRecheck() {
+  const banner = $('res-recheck');
+  banner.hidden = true;
+  if (!last) return;
+  const comparison = compareChecks([...last.cards.sure, ...last.cards.maybes], [...run.cards.sure, ...run.cards.maybes]);
+  for (const [id, choice] of carriedDecisions(comparison, last.decisions)) run.decisions.set(id, choice);
+  const summary = recheckSummary(comparison);
+  $('res-recheck-line').textContent = summary.allFixed ? 'Everything from your last check is fixed.' : summary.line;
+  const sameCollege = last.result.college === run.result.college;
+  $('res-recheck-note').textContent = sameCollege
+    ? `Compared with the ${last.result.college ?? 'last'} PDF you checked a moment ago. Your "on purpose" choices carried over.`
+    : `Compared with your ${last.result.college ?? 'last'} PDF. Shared sections match up across colleges; each college's own questions are new here.`;
+  banner.hidden = false;
+}
+
+async function showResults() {
   run.cards = presentFlags({ result: run.result, codeFlags: run.codeFlags, aiFlags: run.aiFlags, mentionAnswers: run.mentionAnswers });
-  const { sure, maybes, background } = run.cards;
+  const { background } = run.cards;
   $('res-file').textContent = `${run.result.college ?? 'College'} PDF${run.label ? `: ${run.label}` : ''}`;
-  $('res-sure').replaceChildren(...sure.map(cardFor));
-  $('res-maybes').hidden = maybes.length === 0;
-  $('res-maybes').open = sure.length === 0; // nothing sure to look at: open the maybes right away
-  $('res-maybes-sum').textContent = `${maybes.length} ${maybes.length === 1 ? 'maybe' : 'maybes'} from Gemini Nano. Skim ${maybes.length === 1 ? 'this' : 'these'}.`;
-  $('res-maybes-list').replaceChildren(...maybes.map(cardFor));
+  applyRecheck();
+  buildStack();
+  $('res-maybes').hidden = true; // maybes live in the stack now
   $('res-background').hidden = background.length === 0;
   $('res-background-sum').textContent = `${background.length} other college ${background.length === 1 ? 'mention that reads' : 'mentions that read'} like a story, not a slip`;
   $('res-background-list').replaceChildren(...background.map(cardFor));
   resetNamesPanel();
   updateHeadline();
   updateReceipt();
-  showView('results');
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  await setPhase('results');
   $('view-results').focus({ preventScroll: true });
+  last = run; // the next check in this tab compares against this one
 }
 
 // ---------- Optional name check (the only thing that can go to the internet) ----------
@@ -440,12 +565,13 @@ const eyes = startEyes();
 const scrolling = startScrolling();
 startLogo(() => scrolling.toTop());
 showNanoStatus();
+document.body.classList.add('phase-start');
 
 $('pdf').addEventListener('change', (e) => { const file = e.target.files[0]; if (file) check(file, file.name); });
 $('pdf').addEventListener('focus', () => eyes.lookDown());
 $('pdf').addEventListener('blur', () => eyes.lookUp());
 
-// Dropping a PDF anywhere on the page checks it; nothing else happens to dropped files (the browser won't open them).
+// Dropping a PDF anywhere on the start page checks it; the browser never opens dropped files.
 const drop = $('drop-label');
 for (const type of ['dragenter', 'dragover']) drop.addEventListener(type, () => eyes.lookDown());
 drop.addEventListener('dragleave', () => eyes.lookUp());
@@ -454,7 +580,7 @@ window.addEventListener('drop', (e) => {
   e.preventDefault();
   eyes.lookUp();
   const file = e.dataTransfer?.files?.[0];
-  if (file && $('view-results').hidden && $('view-reading').hidden) check(file, file.name);
+  if (file && document.body.classList.contains('phase-start')) check(file, file.name);
 });
 
 $('sample').addEventListener('click', async () => {
@@ -470,3 +596,13 @@ $('read-back').addEventListener('click', goToStart);
 $('again').addEventListener('click', goToStart);
 $('names-start').addEventListener('click', pickNames);
 $('names-send').addEventListener('click', sendNames);
+$('stack-prev').addEventListener('click', () => showCard(run.at - 1, -1));
+$('stack-next').addEventListener('click', () => showCard(run.at + 1, 1));
+$('stack-mode').addEventListener('click', () => setStackMode($('res-stack').classList.contains('one') ? 'all' : 'one'));
+// Left and right arrow keys flip cards in the stack (not while typing or using a control).
+window.addEventListener('keydown', (e) => {
+  if (!run?.slots || !$('res-stack').classList.contains('one') || $('view-results').hidden) return;
+  if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
+  if (e.key === 'ArrowRight') { e.preventDefault(); showCard(run.at + 1, 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); showCard(run.at - 1, -1); }
+});

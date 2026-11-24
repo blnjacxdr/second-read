@@ -241,3 +241,105 @@ a{color:#2340D9}a:hover{color:#16289A}
 .sr-error{background:#FFF1F0;border-left:4px solid #C8372D;padding:16px 20px;border-radius:4px;display:flex;flex-direction:column;gap:8px}
 .sr-error strong{font-size:19px}
 @media (max-width: 720px){.sr-vs{flex-basis:100%;height:28px}}
+
+/* ---- The journey (Nov 23): phases, the reading stage, the fix-list stack, re-check. ---- */
+
+/* Where you are: three tabs, like dividers in a binder. A real sequence, so it's an ordered list. */
+.sr-phases{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:0;font-size:14px;font-weight:800;view-transition-name:phases}
+.sr-phases li{display:flex;align-items:center;color:#8A919E}
+.sr-phases li + li::before{content:"";width:22px;height:2px;margin:0 6px;background:#D7DCE4;border-radius:1px}
+.sr-phases span{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 14px;border-radius:999px;transition:background .3s,color .3s}
+.sr-phases li[aria-current="step"] span{background:#16181D;color:#FFFFFF}
+.sr-phases li.done{color:#16181D}
+.sr-phases li.done span::before{content:"";width:8px;height:4px;border-left:2.5px solid #2340D9;border-bottom:2.5px solid #2340D9;transform:rotate(-45deg) translate(1px,-1px)}
+@media (max-width: 900px){.sr-phases{display:none}}
+
+/* While a PDF is being read or the fix list is open, the rest of the start page steps back. */
+/* !important: these sections carry inline layout styles from the canvas port. */
+body.phase-reading #hero,body.phase-reading .sr-note,body.phase-reading .sr-seehow,body.phase-reading #fold,body.phase-reading #how{display:none!important}
+body.phase-reading #drop{justify-content:center}
+body.phase-reading #view-start{padding-top:56px;min-height:70vh}
+
+/* The sheet is the same object in every phase: the drop sheet becomes the reading card. */
+#drop-label,.sr-readcard{view-transition-name:sheet}
+::view-transition-group(sheet){animation-duration:.6s;animation-timing-function:cubic-bezier(.23,1,.32,1)}
+::view-transition-old(root){animation:.3s cubic-bezier(.4,0,1,1) both sr-vt-out}
+::view-transition-new(root){animation:.5s cubic-bezier(.23,1,.32,1) .08s both sr-vt-in}
+@keyframes sr-vt-out{to{opacity:0;translate:0 -18px}}
+@keyframes sr-vt-in{from{opacity:0;translate:0 22px}}
+
+/* Under the drop sheet: the sample button, and the steps to get a PDF. */
+.sr-under-drop{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start}
+.sr-guide{font-size:16px;color:#3D424C;max-width:460px}
+.sr-guide summary{cursor:pointer;font-weight:800;color:#2340D9;min-height:48px;display:flex;align-items:center;list-style:none}
+.sr-guide summary::-webkit-details-marker{display:none}
+.sr-guide summary::after{content:"";width:7px;height:7px;margin-left:10px;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:rotate(45deg) translateY(-3px);transition:transform .3s cubic-bezier(.23,1,.32,1)}
+.sr-guide[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
+.sr-guide ol{margin:0 0 0 2px;padding:14px 18px 14px 38px;background:#FFFFFF;border-radius:6px;box-shadow:0 1px 0 #D7DCE4;display:flex;flex-direction:column;gap:8px}
+.sr-guide li::marker{font-weight:900;color:#2340D9}
+
+/* Reading: one card, named stages that tick off in pen, and two small eyes reading along. */
+#view-reading{width:100%;max-width:820px}
+.sr-readcard{background:#FFFFFF;border-radius:6px;padding:36px 40px 40px;box-shadow:0 1px 0 #D7DCE4,0 30px 50px -30px rgba(22,24,29,.35);display:flex;flex-direction:column;gap:28px}
+.sr-readhead{display:flex;gap:18px;align-items:center}
+.sr-readhead h2{margin:0;font-weight:900;font-size:34px;letter-spacing:-.035em;line-height:1}
+.sr-readhead p{margin:6px 0 0;font-size:15px;color:#5B616C}
+.sr-readeyes{display:flex;gap:4px;flex:none}
+.sr-scan{animation:sr-scan 1.7s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes sr-scan{0%{translate:-9px 2px}78%{translate:9px 2px}88%,100%{translate:-9px 4px}}
+.sr-readcard.finished .sr-scan{animation:none;translate:0 0}
+.sr-readbody{display:flex;flex-wrap:wrap;gap:32px}
+.sr-readbody .sr-lines{flex:1 1 180px;display:flex;flex-direction:column;gap:12px;padding-top:6px}
+.sr-stages{flex:2 1 320px;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.sr-stages li{display:grid;grid-template-columns:22px 1fr auto;column-gap:12px;align-items:center;font-size:17px;color:#8A919E;transition:color .3s}
+.sr-stages li[data-state="active"],.sr-stages li[data-state="done"]{color:#16181D}
+.sr-stages .how{font-size:14px;color:#5B616C;font-variant-numeric:tabular-nums}
+.sr-stages .mark{width:18px;height:18px;border-radius:50%;border:2px solid #C4C9D1;box-sizing:border-box;position:relative;transition:background .3s,border-color .3s}
+.sr-stages li[data-state="active"] .mark{border-color:#D7DCE4;border-top-color:#2340D9;animation:sr-spin .8s linear infinite}
+.sr-stages li[data-state="done"] .mark{background:#2340D9;border-color:#2340D9}
+.sr-stages li[data-state="done"] .mark::after{content:"";position:absolute;left:4px;top:3.5px;width:7px;height:4px;border-left:2.2px solid #FFFFFF;border-bottom:2.2px solid #FFFFFF;transform:rotate(-45deg)}
+.sr-stages li[data-state="skipped"] .what{text-decoration:line-through;text-decoration-color:#8A919E}
+@keyframes sr-spin{to{rotate:360deg}}
+.sr-bar-track{grid-column:2 / 4;height:6px;margin-top:8px;border-radius:3px;background:#EEF0F3;overflow:hidden}
+.sr-bar-fill{display:block;height:100%;width:100%;background:#2340D9;border-radius:3px;transform-origin:left;transform:scaleX(0);transition:transform .5s cubic-bezier(.23,1,.32,1)}
+
+/* Re-check: what changed since the last PDF. */
+.sr-recheck{display:flex;flex-direction:column;gap:4px;background:#FFFFFF;border-radius:6px;padding:18px 22px;box-shadow:0 1px 0 #D7DCE4}
+.sr-recheck strong{font-size:20px;letter-spacing:-.01em}
+.sr-recheck span{font-size:15px;color:#5B616C}
+
+/* The fix list as a stack of index cards: one at a time, or all of them with Show all. */
+.sr-stackbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-size:15px;font-weight:700;color:#3D424C}
+.sr-stacknav{display:flex;gap:8px;align-items:center}
+.sr-iconbtn{width:44px;height:44px;border-radius:50%;border:2px solid #16181D;background:#FFFFFF;color:#16181D;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s}
+.sr-iconbtn:active{transform:scale(.94)}
+.sr-iconbtn:disabled{border-color:#D7DCE4;color:#B9BEC7;cursor:default}
+.sr-textbtn{font:inherit;font-weight:800;font-size:15px;min-height:44px;padding:0 16px;border-radius:999px;border:2px solid #B9BEC7;background:transparent;color:#16181D;cursor:pointer}
+.sr-textbtn[aria-pressed="true"]{border-color:#16181D;background:#16181D;color:#FFFFFF}
+.sr-stack{display:grid;position:relative;isolation:isolate}
+.sr-stack > .sr-card,.sr-stack > .sr-endcard{grid-area:1 / 1}
+.sr-stack.one > :not(.current){display:none}
+.sr-stack.one > .current{animation:sr-card-in .45s cubic-bezier(.23,1,.32,1) both}
+.sr-stack.one > .current.back{animation-name:sr-card-in-back}
+@keyframes sr-card-in{from{opacity:0;translate:36px 0;rotate:1.5deg}}
+@keyframes sr-card-in-back{from{opacity:0;translate:-36px 0;rotate:-1.5deg}}
+/* A hint of the cards waiting underneath, so it reads as a stack. */
+.sr-stack.one::before,.sr-stack.one::after{content:"";grid-area:1 / 1;border-radius:6px;background:#FFFFFF;box-shadow:0 1px 0 #D7DCE4;z-index:-1}
+.sr-stack.one::before{translate:8px 8px;rotate:.8deg}
+.sr-stack.one::after{translate:16px 15px;rotate:1.6deg;opacity:.6}
+.sr-stack.one.last::before,.sr-stack.one.last::after{display:none}
+.sr-stack.all{display:flex;flex-direction:column;gap:22px}
+.sr-stack.all > *{grid-area:auto}
+.sr-stack .sr-divider{display:none}
+.sr-stack.all .sr-divider{display:block;margin:12px 0 -6px;font-weight:900;font-size:22px;letter-spacing:-.02em}
+.sr-stack.all .sr-endcard{display:none}
+.sr-endcard{background:#FFFFFF;border-radius:6px;padding:28px;box-shadow:0 1px 0 #D7DCE4,0 14px 26px -22px rgba(22,24,29,.4);display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.sr-endcard h3{margin:0;font-size:28px;font-weight:900;letter-spacing:-.03em}
+.sr-endcard p{margin:0;color:#3D424C}
+.sr-endcard .sr-cta{margin-top:4px}
+
+@media (prefers-reduced-motion: reduce){
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+  .sr-scan,.sr-stages li[data-state="active"] .mark,.sr-stack.one > .current{animation:none}
+  .sr-bar-fill,.sr-phases span,.sr-guide summary::after{transition:none}
+}

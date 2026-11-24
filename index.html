@@ -23,7 +23,12 @@
       <svg id="logo-eyes" aria-hidden="true" width="46" height="22" viewBox="0 0 230 112" style="overflow: visible"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-lp" cx="60" cy="58" r="14" fill="#16181D"></circle><path d="M174 6 L222 33 L222 79 L174 106 L126 79 L126 33 Z" fill="#FFC21A"></path><circle cx="174" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-lp" cx="178" cy="58" r="14" fill="#16181D"></circle></svg>
       <span style="font-weight: 900; font-size: 24px; letter-spacing: -0.04em"><span id="logo-text">second read</span></span>
     </button>
-    <button type="button" id="again" class="sr-again" hidden>Check another college's PDF</button>
+    <ol class="sr-phases" id="phases" aria-label="Where you are">
+      <li data-phase="start" aria-current="step"><span>Your PDF</span></li>
+      <li data-phase="reading"><span>Second read</span></li>
+      <li data-phase="results"><span>Fix list</span></li>
+    </ol>
+    <button type="button" id="again" class="sr-again" hidden>Check a new PDF</button>
     <nav class="sr-nav" aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 24px; font-size: 16px; font-weight: 600">
       <a href="#how" class="js-goto" style="text-decoration: none">How it stays private</a>
       <a href="#drop" class="js-goto" style="text-decoration: none">Try a sample</a>
@@ -31,7 +36,7 @@
   </header>
 
   <main class="sr-wrap" id="view-start" style="padding-top: 28px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 56px">
-    <section style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
+    <section id="hero" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
       <div style="flex: 999 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
         <h1 style="margin: 0; font-weight: 900; font-size: clamp(50px, 7.4vw, 96px); line-height: 0.92; letter-spacing: -0.05em; text-wrap: balance"><span class="sr-word" style="--i: 0">Your</span> <span class="sr-word" style="--i: 1">application,</span> <span class="sr-word" style="--i: 2">read</span> <span class="sr-word sr-twice" style="--i: 3">twice.<svg aria-hidden="true" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 15 C 60 6, 120 20, 180 11 S 260 6, 296 13" pathLength="1" fill="none" stroke="#2340D9" stroke-width="7" stroke-linecap="round"></path></svg></span></h1>
         <p class="sr-lede" style="margin: 0; max-width: 600px; font-size: 21px; color: #3D424C; text-wrap: pretty">Second Read goes through your Common App PDF on your own laptop and finds every spot where it disagrees with itself. It points. You fix. It never writes a word for you.</p>
@@ -57,7 +62,7 @@
           <label class="sr-drop" id="drop-label" for="pdf" style="position: relative; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: #FFFFFF; border-radius: 6px; padding: 46px 40px 38px; box-shadow: 0 1px 0 #D7DCE4, 0 18px 30px -20px rgba(22,24,29,.25); cursor: pointer">
             <svg class="sr-clip" aria-hidden="true" width="34" height="74" viewBox="0 0 34 74" fill="none" stroke="#8A919E" stroke-width="2.5" stroke-linecap="round" style="position: absolute; top: -26px; left: 36px"><path d="M10 50V14a7 7 0 0 1 14 0v42a11 11 0 0 1-22 0V20"></path></svg>
             <span style="font-weight: 900; font-size: 36px; line-height: 1.02; letter-spacing: -0.035em">Drop your Common App PDF on this page.</span>
-            <span style="color: #3D424C; max-width: 540px">In Common App, go to My Colleges, pick a college and open Review and submit. Print preview is there; download that PDF. Each college's PDF has your shared sections plus that college's questions, so check each one.</span>
+            <span style="color: #3D424C; max-width: 540px">The PDF from Common App's Print preview. Each college gets its own, with your shared sections plus that college's questions, so check each one.</span>
             <span style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 6px">
               <span class="sr-pick" style="display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: #2340D9; color: #FFFFFF; font-weight: 800; font-size: 17px; transition: background .2s">
                 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M5 20h14"></path></svg>
@@ -67,21 +72,44 @@
             </span>
             <input id="pdf" class="sr-vh" type="file" accept="application/pdf">
           </label>
-          <button type="button" id="sample" style="align-self: flex-start; font: inherit; font-weight: 800; font-size: 16px; min-height: 48px; padding: 0 20px; border-radius: 999px; border: 2px solid #16181D; background: transparent; color: #16181D; cursor: pointer">No PDF handy? Try Riley's made-up application</button>
+          <div class="sr-under-drop">
+            <button type="button" id="sample" style="align-self: flex-start; font: inherit; font-weight: 800; font-size: 16px; min-height: 48px; padding: 0 20px; border-radius: 999px; border: 2px solid #16181D; background: transparent; color: #16181D; cursor: pointer">No PDF handy? Try Riley's made-up application</button>
+            <details class="sr-guide">
+              <summary>Where do I get the PDF?</summary>
+              <ol>
+                <li>Open Common App and go to <strong>My Colleges</strong>.</li>
+                <li>Pick one college, then open <strong>Review and submit</strong>.</li>
+                <li>Click <strong>Print preview</strong> and download the PDF it opens.</li>
+                <li>Drop that file above. About a minute, start to finish.</li>
+              </ol>
+            </details>
+          </div>
         </div>
 
         <div id="view-reading" hidden>
-          <div style="background: #FFFFFF; border-radius: 6px; padding: 40px; box-shadow: 0 1px 0 #D7DCE4, 0 18px 30px -20px rgba(22,24,29,.25); display: flex; flex-wrap: wrap; gap: 32px">
-            <div class="sr-lines" id="read-lines" aria-hidden="true" style="flex: 1 1 180px; display: flex; flex-direction: column; gap: 12px; padding-top: 6px">
-              <div class="sr-reader"><svg width="66" height="16" viewBox="0 0 260 60" style="position: absolute; left: -66px; top: -8px; overflow: visible; transform-origin: 100% 50%; rotate: 24deg; filter: drop-shadow(0 3px 2px rgba(22,24,29,.2))"><path d="M0 0 H 190 V 60 H 0 Z" fill="#FFC21A"></path><path d="M0 20 H 190 M0 40 H 190" stroke="#E0A800" stroke-width="3"></path><path d="M0 0 V 60" stroke="#EBCB9E" stroke-width="6"></path><path d="M190 0 L 246 30 L 190 60 Z" fill="#EBCB9E"></path><path d="M232 22 L 260 30 L 232 38 Z" fill="#2A2C31"></path></svg></div>
+          <div class="sr-readcard">
+            <div class="sr-readhead">
+              <div class="sr-readeyes" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 112 112" aria-hidden="true"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-scan" cx="56" cy="56" r="14" fill="#16181D"></circle></svg><svg width="34" height="34" viewBox="0 0 112 112" aria-hidden="true"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-scan" cx="56" cy="56" r="14" fill="#16181D"></circle></svg></div>
+              <div>
+                <h2 id="read-title">Reading on this laptop</h2>
+                <p id="read-file"></p>
+              </div>
             </div>
-            <div style="flex: 2 1 300px; display: flex; flex-direction: column; gap: 10px">
-              <div id="read-title" style="font-weight: 900; font-size: 30px; letter-spacing: -0.03em">Reading your application</div>
-              <ul id="read-found" aria-live="polite" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 17px"></ul>
-              <p id="read-note" aria-live="polite" style="margin: 0; font-size: 15px; color: #5B616C"></p>
-              <button type="button" id="read-skip" class="sr-again" hidden style="align-self: flex-start; margin-top: 6px">Skip Gemini Nano and show the sure ones</button>
-              <div id="read-error" class="sr-error" role="alert" hidden><strong id="read-error-title"></strong><span id="read-error-body"></span><button type="button" id="read-back" class="sr-again" style="align-self: flex-start">Try another PDF</button></div>
+            <div class="sr-readbody">
+              <div class="sr-lines" id="read-lines" aria-hidden="true">
+                <div class="sr-reader"><svg width="66" height="16" viewBox="0 0 260 60" style="position: absolute; left: -66px; top: -8px; overflow: visible; transform-origin: 100% 50%; rotate: 24deg; filter: drop-shadow(0 3px 2px rgba(22,24,29,.2))"><path d="M0 0 H 190 V 60 H 0 Z" fill="#FFC21A"></path><path d="M0 20 H 190 M0 40 H 190" stroke="#E0A800" stroke-width="3"></path><path d="M0 0 V 60" stroke="#EBCB9E" stroke-width="6"></path><path d="M190 0 L 246 30 L 190 60 Z" fill="#EBCB9E"></path><path d="M232 22 L 260 30 L 232 38 Z" fill="#2A2C31"></path></svg></div>
+              </div>
+              <ol class="sr-stages" id="read-stages" aria-live="polite">
+                <li data-stage="pdf"><span class="mark" aria-hidden="true"></span><span class="what">Read the PDF</span><span class="how"></span></li>
+                <li data-stage="parts"><span class="mark" aria-hidden="true"></span><span class="what">Find each part</span><span class="how"></span></li>
+                <li data-stage="code"><span class="mark" aria-hidden="true"></span><span class="what">Compare the parts in code</span><span class="how"></span></li>
+                <li data-stage="nano"><span class="mark" aria-hidden="true"></span><span class="what">Ask Gemini Nano, on this laptop</span><span class="how"></span>
+                  <span class="sr-bar-track" hidden><span class="sr-bar-fill" id="nano-bar"></span></span></li>
+                <li data-stage="list"><span class="mark" aria-hidden="true"></span><span class="what">Put your fix list together</span><span class="how"></span></li>
+              </ol>
             </div>
+            <button type="button" id="read-skip" class="sr-again" hidden>Skip Gemini Nano and show the sure ones</button>
+            <div id="read-error" class="sr-error" role="alert" hidden><strong id="read-error-title"></strong><span id="read-error-body"></span><button type="button" id="read-back" class="sr-again" style="align-self: flex-start">Try another PDF</button></div>
           </div>
         </div>
       </div>
@@ -142,7 +170,17 @@
         <span><svg aria-hidden="true" width="30" height="10" viewBox="0 0 30 10"><path d="M1 5 H 29" stroke="#2340D9" stroke-width="3.5" stroke-linecap="round"></path></svg><strong>Pen</strong> checked by code, so these are sure.</span>
         <span><svg aria-hidden="true" width="30" height="10" viewBox="0 0 30 10"><path d="M1 5 C 6 2, 10 8, 15 5 S 24 2, 29 5" stroke="#8A919E" stroke-width="2.5" fill="none" stroke-linecap="round"></path></svg><strong>Pencil</strong> read by Gemini Nano on this laptop. Double-check these.</span>
       </div>
-      <div id="res-sure" class="sr-cards"></div>
+      <div id="res-recheck" class="sr-recheck" hidden><strong id="res-recheck-line"></strong><span id="res-recheck-note"></span></div>
+      <div class="sr-stackbar" id="stackbar" hidden>
+        <span id="stack-count" aria-live="polite"></span>
+        <span class="sr-stacknav">
+          <button type="button" id="stack-prev" class="sr-iconbtn" aria-label="Previous card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+          <button type="button" id="stack-next" class="sr-iconbtn" aria-label="Next card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
+          <button type="button" id="stack-mode" class="sr-textbtn" aria-pressed="false">Show all</button>
+        </span>
+      </div>
+      <div id="res-stack" class="sr-stack"></div>
+      <div id="res-sure" class="sr-cards" hidden></div>
       <details id="res-maybes" class="sr-fold-group" hidden>
         <summary id="res-maybes-sum"></summary>
         <p class="sr-fold-note">Gemini Nano is small and reads quickly. Some of these may be nothing. Each one still shows your own words from both places, so you can tell in a second.</p>
