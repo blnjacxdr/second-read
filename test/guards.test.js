@@ -54,3 +54,37 @@ test('Firebase Hosting never serves dev/, eval/, test/, tools/, docs/ or private
   assert.match(csp, /frame-ancestors 'none'/);
   assert.match(csp, /object-src 'none'/);
 });
+
+// Links from a model's response become clickable only if they are https.
+test('only https source links are allowed', async () => {
+  const { safeLinkUrl } = await import('../src/core/grounding.js');
+  assert.equal(safeLinkUrl('https://www.omsi.edu/about'), 'https://www.omsi.edu/about');
+  for (const bad of ['javascript:alert(1)', 'JavaScript:alert(1)', 'data:text/html,hi', 'http://example.com', 'vbscript:x', '', null, undefined, 'not a url']) {
+    assert.equal(safeLinkUrl(bad), null, String(bad));
+  }
+});
+
+// The app draws file and model text with textContent only. Raw HTML is allowed in exactly these places:
+// two fixed SVG icons, and Google's search suggestions (required to be shown as sent; the live site's
+// Content-Security-Policy blocks any script inside them, and they sit in a shadow root).
+test('src/ never writes HTML except the reviewed places', async () => {
+  const { readFileSync, readdirSync, statSync } = await import('node:fs');
+  const { join } = await import('node:path');
+  const root = new URL('../src', import.meta.url).pathname;
+  const files = [];
+  const walk = (dir) => readdirSync(dir).forEach((f) => { const p = join(dir, f); statSync(p).isDirectory() ? walk(p) : p.endsWith('.js') && files.push(p); });
+  walk(root);
+  const allowed = [
+    /innerHTML = '<svg aria-hidden="true" width="14"/,
+    /innerHTML = '<svg width="40" height="20"/,
+    /shadowRoot\.innerHTML = '';/,
+    /attachShadow\(\{ mode: 'open' \}\)\)\.innerHTML = answer\.searchSuggestionsHtml \|\| '';/,
+  ];
+  for (const file of files) {
+    readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
+      if (/innerHTML|outerHTML|insertAdjacentHTML|document\.write|\beval\(|new Function\(/.test(line) && !line.trim().startsWith('//') && !line.trim().startsWith('*')) {
+        assert.ok(allowed.some((re) => re.test(line)), `${file}:${i + 1} writes HTML or runs code: ${line.trim()}`);
+      }
+    });
+  }
+});

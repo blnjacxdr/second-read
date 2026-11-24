@@ -7,6 +7,7 @@
 // three-dot menu > Manage debug tokens). Never set this in production code.
 self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
 
+import { safeLinkUrl } from '../src/core/grounding.js';
 import {
   createSecondReadAI, onDeviceAvailability, prepareOnDeviceModel,
   findContradictionsOnDevice, checkNamesInCloud,
@@ -98,7 +99,9 @@ async function runCloudCheck(withSearch) {
     for (const source of answer.sources) {
       const li = el('li');
       const a = el('a', source.title);
-      a.href = source.uri; a.target = '_blank'; a.rel = 'noopener noreferrer';
+      const href = safeLinkUrl(source.uri);
+      if (!href) continue;
+      a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer';
       li.append(a); list.append(li);
     }
     $('sources').replaceChildren(el('p', answer.sources.length ? 'Sources:' : 'Sources: none'), list);

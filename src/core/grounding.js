@@ -35,3 +35,16 @@ export function readGroundedAnswer(response) {
     inferenceSource: response.inferenceSource,
   };
 }
+
+/**
+ * A link we're willing to put on the page: only https:// web addresses. A grounding source comes from a
+ * response, so a "javascript:" or "data:" link must never become clickable. Returns the URL or null.
+ */
+export function safeLinkUrl(uri) {
+  try {
+    const url = new URL(String(uri));
+    return url.protocol === 'https:' ? url.href : null;
+  } catch {
+    return null;
+  }
+}

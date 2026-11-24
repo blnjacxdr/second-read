@@ -13,6 +13,7 @@ import { layoutReport, isImageOnlyPdf, IMAGE_ONLY_MESSAGE } from '../src/core/la
 import { describeOnDeviceStatus, onDeviceAvailability } from '../src/core/privacy.js';
 import { cloudQuestions, placeConflicts, answerStatus } from '../src/core/cloud-names.js';
 import { createSentLog } from '../src/core/sent-log.js';
+import { safeLinkUrl } from '../src/core/grounding.js';
 // src/ai.js (Firebase, loaded from Google's servers) is imported only when the AI
 // button is clicked, so reading the PDF and the code checks work even where
 // Google's servers are blocked or the computer is offline.
@@ -268,7 +269,9 @@ async function runCloud(withSearch) {
     const sources = el('ul');
     for (const source of answer.sources) {
       const li = el('li'); const link = el('a', source.title);
-      link.href = source.uri; link.target = '_blank'; link.rel = 'noopener noreferrer';
+      const href = safeLinkUrl(source.uri);
+      if (!href) continue;
+      link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer';
       li.append(link); sources.append(li);
     }
     $('sources').replaceChildren(answer.sources.length ? card('Sources', sources) : el('span'));

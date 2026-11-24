@@ -13,6 +13,7 @@ import { isImageOnlyPdf, IMAGE_ONLY_MESSAGE } from './core/layout-report.js';
 import { onDeviceAvailability } from './core/privacy.js';
 import { cloudQuestions, placeConflicts, answerStatus } from './core/cloud-names.js';
 import { createSentLog } from './core/sent-log.js';
+import { safeLinkUrl } from './core/grounding.js';
 import { presentFlags, headlineFor, receiptFor, nanoNote } from './core/present.js';
 import { startEyes, startLogo } from './ui/eyes.js';
 import { startScrolling } from './ui/scroll.js';
@@ -407,8 +408,10 @@ function drawAnswers(send, answer) {
     const sources = el('ul', undefined, 'sr-sources');
     for (const s of answer.sources) {
       const li = el('li');
+      const href = safeLinkUrl(s.uri);
+      if (!href) continue; // only https links become clickable
       const link = el('a', s.title);
-      link.href = s.uri; link.target = '_blank'; link.rel = 'noopener noreferrer';
+      link.href = href; link.target = '_blank'; link.rel = 'noopener noreferrer';
       li.append(link);
       sources.append(li);
     }
