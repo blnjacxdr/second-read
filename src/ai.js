@@ -21,6 +21,9 @@ import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
 export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
+// The search-grounded check uses full Flash: Flash-Lite often skips the search or returns no grounding data,
+// and judges and students should see sources every time. Still a fraction of a cent per check.
+export const GROUNDED_MODEL = 'gemini-3.5-flash';
 
 /**
  * Sets up Firebase, App Check and both models. Call once.
@@ -68,7 +71,7 @@ export function createSecondReadAI() {
 
   const publicModel = getGenerativeModel(ai, {
     mode: InferenceMode.ONLY_IN_CLOUD,
-    inCloudParams: { model: CLOUD_MODEL, tools: [{ googleSearch: {} }] },
+    inCloudParams: { model: GROUNDED_MODEL, tools: [{ googleSearch: {} }] },
   });
 
   // Same cloud model without Google Search. Search grounding is not in the
