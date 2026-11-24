@@ -21,7 +21,7 @@
   <header class="sr-wrap sr-head">
     <button type="button" id="logo" aria-label="Second Read, back to top" style="font: inherit; background: none; border: 0; padding: 0; cursor: pointer; display: flex; gap: 10px; align-items: center; min-height: 44px; color: #16181D">
       <svg id="logo-eyes" aria-hidden="true" width="46" height="22" viewBox="0 0 230 112" style="overflow: visible"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-lp" cx="60" cy="58" r="14" fill="#16181D"></circle><path d="M174 6 L222 33 L222 79 L174 106 L126 79 L126 33 Z" fill="#FFC21A"></path><circle cx="174" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-lp" cx="178" cy="58" r="14" fill="#16181D"></circle></svg>
-      <span style="font-weight: 900; font-size: 24px; letter-spacing: -0.04em; white-space: nowrap"><span id="logo-text">second read</span></span>
+      <span style="font-weight: 900; font-size: 24px; letter-spacing: -0.04em; white-space: nowrap">second read</span>
     </button>
     <ol class="sr-phases" id="phases" aria-label="Where you are">
       <li data-phase="start" aria-current="step"><button type="button" disabled>Your PDF</button></li>
@@ -54,7 +54,7 @@
           </div>
           </div>
         </div>
-        <p aria-hidden="true" style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 28px; line-height: 1.05; color: #2340D9; transform: rotate(-3deg); text-align: center">the second read happens on your laptop. not a server, not us.</p>
+        <p id="margin-note" aria-hidden="true" style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 28px; line-height: 1.05; color: #2340D9; transform: rotate(-3deg); text-align: center">the second read happens on your laptop. not a server, not us.</p>
       </div>
     </section>
 
@@ -99,7 +99,7 @@
             </div>
             <div class="sr-readbody">
               <div class="sr-lines" id="read-lines" aria-hidden="true">
-                <div class="sr-reader"><svg width="66" height="16" viewBox="0 0 260 60" style="position: absolute; left: -66px; top: -8px; overflow: visible; transform-origin: 100% 50%; scale: -1 1; rotate: -24deg; filter: drop-shadow(0 3px 2px rgba(22,24,29,.2))"><path d="M0 0 H 190 V 60 H 0 Z" fill="#FFC21A"></path><path d="M0 20 H 190 M0 40 H 190" stroke="#E0A800" stroke-width="3"></path><path d="M0 0 V 60" stroke="#EBCB9E" stroke-width="6"></path><path d="M190 0 L 246 30 L 190 60 Z" fill="#EBCB9E"></path><path d="M232 22 L 260 30 L 232 38 Z" fill="#2A2C31"></path></svg></div>
+                <div class="sr-reader"><svg class="sr-lens" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><line x1="34" y1="34" x2="55" y2="55" stroke="#16181D" stroke-width="9" stroke-linecap="round"></line><line x1="36" y1="36" x2="54" y2="54" stroke="#FFC21A" stroke-width="5" stroke-linecap="round"></line><circle cx="22" cy="22" r="17" fill="rgba(234,240,255,.45)" stroke="#16181D" stroke-width="4"></circle><path d="M12 17 A11 11 0 0 1 20 11" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path></svg></div>
               </div>
               <ol class="sr-stages" id="read-stages" aria-live="polite">
                 <li data-stage="pdf"><span class="mark" aria-hidden="true"></span><span class="what">Read the PDF</span><span class="how"></span></li>
@@ -122,6 +122,7 @@
         <div style="display: flex; gap: 10px; align-items: center; font-weight: 800"><span class="sr-ready" id="nano-dot" aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: #1F7A45"></span><span id="nano-title" aria-live="polite">Checking for Gemini Nano…</span></div>
         <p id="nano-body" style="margin: 0; font-size: 16px; color: #3A3A2A">It's the AI built into Chrome, and it runs right here on this laptop. Your essays never touch a cloud.</p>
         <p id="nano-extra" style="margin: 0; font-size: 15px; color: #55543F">On a Chromebook or another browser? The code checks still run, and we'll say which ones got skipped.</p>
+        <button type="button" id="nano-get" class="sr-cta sr-note-btn" hidden>Download Gemini Nano</button>
       </aside>
     </section>
 
@@ -183,6 +184,7 @@
         <div id="res-file" style="font-size: 15px; color: #5B616C"></div>
         <h1 id="res-headline" aria-live="polite" style="margin: 0; font-weight: 900; font-size: clamp(40px, 5.4vw, 68px); line-height: 0.96; letter-spacing: -0.045em; text-wrap: balance"></h1>
         <p id="res-subhead" style="margin: 0; color: #3D424C; max-width: 600px"></p>
+        <p id="res-nano-tip" class="sr-nanotip" hidden></p>
         <p id="res-allkept" class="sr-note-in" aria-hidden="true" hidden style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 30px; color: #2340D9; transform: rotate(-2deg)">all on purpose? bold strategy. respect.</p>
         <div id="res-stamp" class="sr-stamp" aria-hidden="true" hidden style="position: absolute; right: 4px; top: -8px; border: 4px solid #C8372D; color: #C8372D; border-radius: 10px; padding: 6px 16px; font-weight: 900; font-size: 30px; letter-spacing: 0.01em; transform: rotate(-8deg)">clean copy</div>
       </div>
@@ -204,7 +206,7 @@
       <section id="names-panel" class="sr-names" aria-labelledby="names-h">
         <div class="sr-names-head">
           <div>
-            <p class="sr-pen-label" aria-hidden="true">optional, and the only thing that goes online</p>
+            <p class="sr-pen-label" aria-hidden="true">the only part that goes online</p>
             <h2 id="names-h">Fact-check the names</h2>
             <p class="sr-names-intro">Google Search can check public names like programs, awards and places, for example whether a summer program is really held where you wrote it is. You pick which names go. Nothing else does.</p>
           </div>
@@ -235,7 +237,7 @@
           <div aria-hidden="true" class="sr-dash"></div>
           <dl id="receipt-rows" class="sr-receipt-rows"></dl>
           <div aria-hidden="true" class="sr-dash"></div>
-          <dl class="sr-receipt-rows" style="font-size: 15px; font-weight: 700"><dt>sent to the internet</dt><dd class="sr-zero" id="receipt-sent">0<span class="sr-zero-note" aria-hidden="true">seriously, zero</span></dd></dl>
+          <dl class="sr-receipt-rows" style="font-size: 15px; font-weight: 700"><dt>sent to the internet</dt><dd id="receipt-sent">0</dd></dl>
           <div aria-hidden="true" class="sr-dash"></div>
           <div id="receipt-tossed-note" style="text-align: center; color: #5B616C" hidden>"tossed" means Gemini Nano quoted words that aren't in your application, so that flag was thrown out</div>
           <div style="text-align: center; margin-top: 10px">thanks for not uploading</div>
@@ -246,7 +248,7 @@
   </main>
 
   <footer class="sr-wrap sr-foot" style="padding-top: 22px; padding-bottom: 40px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: #5B616C">
-    <span class="sr-maker">Made by a high school senior, during his own application season.<span class="sr-aside" aria-hidden="true">this was his procrastination</span></span>
+    <span>Made by a high school senior, during his own application season.</span>
     <span>Not affiliated with Common App. Protected by reCAPTCHA; Google's <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" rel="noopener noreferrer">Terms</a> apply.</span>
   </footer>
 </div>

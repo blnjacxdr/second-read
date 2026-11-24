@@ -61,9 +61,11 @@ const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
  */
 export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
   const total = counts.sure + counts.maybes;
-  const nanoNote = nano === 'skipped'
-    ? ' Gemini Nano isn\'t on this computer, so only the code checks ran.'
-    : nano === 'failed' ? ' Gemini Nano stopped partway, so some AI checks didn\'t run.' : '';
+  const nanoNote = {
+    skipped: ' Gemini Nano isn\'t on this computer, so only the code checks ran.',
+    'skipped-by-you': ' You skipped Gemini Nano, so only the code checks ran.',
+    failed: ' Gemini Nano stopped partway, so some AI checks didn\'t run.',
+  }[nano] ?? '';
   if (total === 0) {
     return { headline: 'No arguments here.', subhead: `Every place we compared agrees with itself.${nanoNote}`, state: 'clean' };
   }
@@ -73,7 +75,7 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
     return { headline: `All ${total} on purpose.`, subhead: 'Your call, every time. Nothing left to look at.', state: 'all-kept' };
   }
   if (left === 0) {
-    return { headline: 'Clean copy.', subhead: 'Download the PDF again from Common App to check the new version.', state: 'done' };
+    return { headline: 'Every spot handled.', subhead: 'Download the PDF again from Common App to check the new version.', state: 'done' };
   }
   const parts = [];
   if (counts.sure) parts.push(`${plural(counts.sure, 'sure one', 'sure ones')} from the code checks`);
@@ -103,12 +105,12 @@ export function receiptFor({ pageCount, codeChecks, nano = 'ran', nanoQuestions 
 export function nanoNote(availability) {
   switch (availability) {
     case 'available':
-      return { ready: true, title: 'Gemini Nano is ready', body: 'It\'s the AI built into Chrome, and it runs right here on this laptop. Your essays never touch a cloud.' };
+      return { ready: true, title: 'Gemini Nano is ready', body: 'It\'s the AI built into Chrome, and it runs right here on this laptop. It reads what your essays mean, so it catches mismatches code alone can\'t.' };
     case 'downloading':
-      return { ready: false, title: 'Gemini Nano is downloading', body: 'Chrome is getting it now. Until it\'s done, the code checks run on their own, and the results say what was skipped.' };
+      return { ready: false, title: 'Gemini Nano is downloading', body: 'Chrome is getting it now. It reads hours, titles and awards in your essays, so it catches more. Until it\'s done, the code checks run on their own.' };
     case 'downloadable':
-      return { ready: false, title: 'Gemini Nano isn\'t on this laptop yet', body: 'Chrome can download it, but it isn\'t here yet. The code checks still run, and the results say what was skipped.' };
+      return { ready: false, canDownload: true, title: 'Gemini Nano catches more', body: 'It reads hours, titles and awards in your essays, and it runs on this laptop, not a server. Chrome downloads it once. The code checks run either way.' };
     default:
-      return { ready: false, title: 'No Gemini Nano in this browser', body: 'It needs Chrome on a laptop or desktop. The code checks still run, and the results say what was skipped. Nothing is sent anywhere instead.' };
+      return { ready: false, title: 'No Gemini Nano in this browser', body: 'In Chrome on a laptop, Gemini Nano also reads hours, titles and awards in your essays, so it catches more. Here, the code checks still run, and nothing is sent anywhere instead.' };
   }
 }

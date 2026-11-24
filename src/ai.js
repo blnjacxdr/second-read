@@ -18,6 +18,7 @@ import { assertOnDevice } from './core/privacy.js';
 import { CONTRADICTION_SCHEMA, contradictionPrompt, FACTS_SCHEMA, factsPrompt, CLAIM_SCHEMA, claimPrompt, NAMES_SCHEMA, namesPrompt } from './core/prompts.js';
 import { cloudNamesPrompt, parseCloudAnswer } from './core/cloud-names.js';
 import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
+import { CONTEXT_SCHEMA, contextPrompt } from './core/name-context.js';
 import { readGroundedAnswer } from './core/grounding.js';
 
 export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
@@ -71,6 +72,11 @@ export function createSecondReadAI() {
     mode: InferenceMode.ONLY_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: MENTION_SCHEMA } },
   });
+  // Reads a name in the student's own sentence against Google's answer. The sentence is private: on the device only.
+  const contextModel = getGenerativeModel(ai, {
+    mode: InferenceMode.ONLY_ON_DEVICE,
+    onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: CONTEXT_SCHEMA } },
+  });
 
   const publicModel = getGenerativeModel(ai, {
     mode: InferenceMode.ONLY_IN_CLOUD,
@@ -85,7 +91,7 @@ export function createSecondReadAI() {
     inCloudParams: { model: CLOUD_MODEL },
   });
 
-  return { privateModel, factsModel, claimModel, namesModel, mentionModel, publicModel, publicModelWithoutSearch };
+  return { privateModel, factsModel, claimModel, namesModel, mentionModel, contextModel, publicModel, publicModelWithoutSearch };
 }
 
 // Kept here too so older pages can import it from src/ai.js.
@@ -129,6 +135,16 @@ export async function askMentionOnDevice(mentionModel, collegeName, sentence) {
   const result = await mentionModel.generateContent(mentionPrompt(collegeName, sentence));
   assertOnDevice(result.response);
   return JSON.parse(result.response.text()).aboutAttending === true;
+}
+
+/**
+ * After the name check: does a detail in the student's sentence disagree with Google's answer? Asked on the
+ * device only. Returns { agrees, quote }. Throws PrivacyError if the answer did not come from the device.
+ */
+export async function checkNameContextOnDevice(contextModel, name, google, sentence) {
+  const result = await contextModel.generateContent(contextPrompt(name, google, sentence));
+  assertOnDevice(result.response);
+  return JSON.parse(result.response.text());
 }
 
 /**

@@ -56,6 +56,8 @@ test('a clean application, and an honest note when Gemini Nano did not run', () 
   assert.equal(clean.headline, 'No arguments here.');
   assert.equal(clean.state, 'clean');
   assert.match(headlineFor({ sure: 0, maybes: 0 }, new Map(), [], { nano: 'skipped' }).subhead, /only the code checks ran/);
+  // Skipping it yourself is not the same as not having it.
+  assert.match(headlineFor({ sure: 1, maybes: 0 }, new Map(), ['a'], { nano: 'skipped-by-you' }).subhead, /You skipped Gemini Nano/);
   assert.match(headlineFor({ sure: 1, maybes: 0 }, new Map(), ['a'], { nano: 'failed' }).subhead, /stopped partway/);
 });
 

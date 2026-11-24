@@ -98,3 +98,12 @@ Reduced motion: no transitions, no scanning eyes, no card animations; everything
 - The phase tabs are buttons: Your PDF, Second read (how the last read went, with Back to your fix list) and Fix list.
 - The fold has Back, Next and "Skip this part". A Back to top button (the eyes looking up) shows once the top is out of sight. The page ends with "Your turn." and the two ways to start.
 - Checks for real applications: a start grade earlier than the grades listed ("since freshman year" with 10, 11, 12), counts that differ ("14 tutors" and "20 tutors"), hours flagged at a 2x gap instead of 3x, and an honor level question in the name check. Held-out totals stayed at 1 false alarm; a "for four years" rule was tried and dropped because it added one.
+
+## Nov 24, late: premium sweep
+- Reading: a magnifying glass (pencil-yellow handle) moves along the lines instead of the pencil.
+- Happy eyes add an ink arch so the smile reads even on the small logo. Click a start-page eye and it winks.
+- Easter eggs are now for students: after midnight the handwritten note says the time and suggests sleep, and in the three days before Nov 1, Nov 15, Jan 1 and Jan 15 it counts down (src/core/margin-note.js). The logo triple-click, the footer and receipt hover notes are gone.
+- The logo always goes home. The receipt no longer follows the page.
+- Gemini Nano: the sticky note says what it adds and offers "Download Gemini Nano" when Chrome can get it. Results without it show what it would have added; skipping it yourself is worded as such.
+- Hybrid name check: after Google answers, Gemini Nano reads each name in the student's own sentences, on the laptop, and points at a detail that disagrees (src/core/name-context.js). Its words must be in the application or nothing is shown.
+- Sweep fixes: "1 page", a red mark on the step that stopped, "Try another PDF" opens the file picker, the stack opens on the first card still to decide, page titles follow the phase, the drop sheet opens up while a file is dragged over the page, "Fixed it" strikes the title line by line, header button never wraps, and the fix list prints cleanly (Print or save as PDF on the last card).

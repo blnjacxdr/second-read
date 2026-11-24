@@ -38,6 +38,8 @@ export function addFace(svg, centers) {
     const bottom = node('path', { class: 'sr-lbot', d: `M${cx - 40} ${cy + 40} V${cy - 2} Q${cx} ${cy - 44} ${cx + 40} ${cy - 2} V${cy + 40} Z`, fill: '#FFC21A' });
     g.append(top, bottom);
     svg.append(g);
+    // The ink arch for happy: drawn over the cheek's edge, outside the clip so its round ends show.
+    svg.append(node('path', { class: 'sr-smile', d: `M${cx - 21} ${cy - 2} Q${cx} ${cy - 30} ${cx + 21} ${cy - 2}`, fill: 'none', stroke: '#16181D', 'stroke-width': 7, 'stroke-linecap': 'round' }));
   });
 }
 

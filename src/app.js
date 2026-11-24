@@ -19,6 +19,8 @@ import { compareChecks, carriedDecisions, recheckSummary } from './core/recheck.
 import { startEyes, startLogo } from './ui/eyes.js';
 import { startScrolling } from './ui/scroll.js';
 import { addFace, setFace } from './ui/face.js';
+import { marginNote } from './core/margin-note.js';
+import { contextSentences, googleSays, contextFinding } from './core/name-context.js';
 
 const $ = (id) => document.getElementById(id);
 const CODE_CHECK_COUNT = 7;      // the checks in runCodeChecks: other colleges' names, start years, titles, grade years, counts, repeats, limits
@@ -111,6 +113,7 @@ async function setPhase(name) {
       if (i === at) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
     });
     updateTabs(name);
+    document.title = { start: 'Second Read: your Common App, read twice', reading: 'Reading your PDF | Second Read', results: `${$('res-headline').textContent || 'Your fix list'} | Second Read` }[name];
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
   if (document.startViewTransition && !reduced()) await document.startViewTransition(apply).finished.catch(() => {});
@@ -150,7 +153,29 @@ async function showNanoStatus() {
   $('nano-dot').style.background = note.ready ? '#1F7A45' : '#B26B00';
   $('nano-dot').classList.toggle('sr-ready', note.ready); // only a ready model gets the breathing dot
   $('nano-extra').hidden = !note.ready; // the not-ready message already says this
+  $('nano-get').hidden = !note.canDownload;
   return availability;
+}
+
+// Chrome downloads Gemini Nano once, and only after a click. The note shows the progress.
+async function getNano() {
+  const button = $('nano-get');
+  button.disabled = true;
+  button.textContent = 'Starting the download…';
+  try {
+    const { models, prepareOnDeviceModel } = await loadAi();
+    await prepareOnDeviceModel(models.privateModel, (fraction) => {
+      button.textContent = `Downloading Gemini Nano: ${Math.round(fraction * 100)}%`;
+    });
+    await showNanoStatus();
+  } catch (err) {
+    console.error('Gemini Nano download stopped:', err);
+    $('nano-body').textContent = 'Chrome couldn\'t download Gemini Nano right now. It needs a laptop with enough free space. The code checks still run.';
+    button.hidden = true;
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Download Gemini Nano';
+  }
 }
 
 // ---------- The second read ----------
@@ -186,6 +211,9 @@ function resetReading(label) {
 
 function readingError(title, body) {
   $('read-title').textContent = 'That didn\'t work';
+  $('read-file').textContent = 'Nothing was sent anywhere. Try another PDF when you\'re ready.';
+  // The step that stopped gets a red mark, so it's clear where it stopped.
+  document.querySelectorAll('#read-stages li[data-state="active"]').forEach((li) => { li.dataset.state = 'failed'; });
   $('read-error-title').textContent = title;
   $('read-error-body').textContent = body;
   $('read-error').hidden = false;
@@ -219,7 +247,7 @@ async function check(file, label) {
       return;
     }
     await wait(350);
-    stage('pdf', 'done', `${pageCount} pages, ${seconds(performance.now() - started)}`);
+    stage('pdf', 'done', `${pageCount} ${pageCount === 1 ? 'page' : 'pages'}, ${seconds(performance.now() - started)}`);
 
     stage('parts', 'active');
     const result = readCommonApp(rows);
@@ -322,7 +350,9 @@ function cardFor(card) {
   const top = el('div', undefined, 'sr-card-top');
   const tag = el('span', undefined, 'sr-card-src');
   tag.append(icon(SOURCE[card.tone].icon, { size: 15, color: card.tone === 'pen' ? '#2340D9' : '#5B616C' }), SOURCE[card.tone].text);
-  top.append(tag, el('h3', card.title));
+  const heading = el('h3');
+  heading.append(el('span', card.title, 'sr-title'));
+  top.append(tag, heading);
   const quotes = el('div', undefined, 'sr-quotes');
   card.quotes.forEach((q, i) => {
     if (i > 0) {
@@ -351,9 +381,7 @@ function cardFor(card) {
     button.addEventListener('click', () => decide(card.id, choice));
   }
   actions.append(fix, keep, note);
-  const strike = el('div', undefined, 'sr-strike');
-  strike.setAttribute('aria-hidden', 'true');
-  parts.push(actions, strike);
+  parts.push(actions);
   article.append(...parts);
   return article;
 }
@@ -404,13 +432,18 @@ function buildStack() {
     $('names-panel').scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'start' });
     $('names-start').focus({ preventScroll: true });
   });
+  const print = el('button', 'Print or save as PDF', 'sr-linkbtn');
+  print.type = 'button';
+  print.addEventListener('click', () => window.print());
   const buttons = el('div', undefined, 'sr-endactions');
-  buttons.append(again, names);
+  buttons.append(again, names, print);
   end.append(buttons);
   items.push(end);
   stack.replaceChildren(...items);
   run.slots = items.filter((n) => !n.classList.contains('sr-divider'));
-  run.at = 0;
+  // Open on the first card still to decide (after a re-check, "on purpose" ones carried over).
+  const firstOpen = [...sure, ...maybes].findIndex((c) => !run.decisions.has(c.id));
+  run.at = firstOpen === -1 ? 0 : firstOpen;
   // Each card gets a view-transition name, so Show all can move the very same cards (see setStackMode).
   items.forEach((node, i) => { node.dataset.vt = `card-${i}`; });
   // One tick per card: where you are, and which ones you've decided. Click one to jump to it.
@@ -506,13 +539,20 @@ function paintTicks() {
 function updateHeadline() {
   const { cards, decisions } = run;
   const ids = [...cards.sure, ...cards.maybes].map((c) => c.id);
-  const nano = run.nano === 'ran' ? 'ran' : run.nano === 'failed' ? 'failed' : 'skipped';
+  const nano = ['ran', 'failed', 'skipped-by-you'].includes(run.nano) ? run.nano : 'skipped';
+  // What Gemini Nano would add, said once under the headline when it didn't run.
+  $('res-nano-tip').hidden = nano === 'ran';
+  $('res-nano-tip').textContent = nano === 'skipped-by-you'
+    ? 'Gemini Nano also reads hours, titles and awards in your essays. Check this PDF again and let it finish to include those.'
+    : nano === 'failed'
+      ? 'Check this PDF again to give Gemini Nano another try. It reads hours, titles and awards in your essays.'
+      : 'With Gemini Nano (in Chrome on a laptop), Second Read also reads hours, titles and awards in your essays and checks names in your own sentences, so it catches more.';
   const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length }, decisions, ids, { nano });
   $('res-headline').textContent = h.headline;
+  if (!$('view-results').hidden) document.title = `${h.headline} | Second Read`;
   $('res-subhead').textContent = h.subhead;
   $('res-stamp').hidden = !(h.state === 'done' || h.state === 'clean');
   $('res-allkept').hidden = h.state !== 'all-kept';
-  document.getElementById('logo-eyes')?.classList.toggle('sr-happy', h.state === 'done');
   // Everything handled (or nothing to handle): the logo looks pleased, and stays that way.
   if (h.state === 'done' || h.state === 'clean') face('logo', 'happy');
   else if ($('logo-eyes').classList.contains('face-happy')) face('logo', null);
@@ -527,9 +567,7 @@ function updateReceipt() {
   dl.replaceChildren();
   for (const [label, value] of rows.slice(0, -1)) dl.append(el('dt', label), el('dd', String(value)));
   const sent = rows.at(-1)[1];
-  const cell = $('receipt-sent');
-  cell.firstChild.textContent = String(sent);
-  cell.classList.toggle('sr-zero', sent === 0);
+  $('receipt-sent').textContent = String(sent);
 }
 
 // Re-check: compare with the previous check in this tab. "On purpose" choices carry over; the summary says
@@ -713,9 +751,9 @@ function drawAnswers(send, answer) {
     const status = answerStatus(q, a, conflicts);
     if (status === 'look') looks += 1;
     const li = el('li', undefined, status);
+    li.dataset.qid = String(q.id);
     li.style.setProperty('--i', String(i));
-    const verdict = el('span', undefined, 'verdict');
-    verdict.append(icon(VERDICT[status].icon, { size: 17 }), VERDICT[status].text);
+    const verdict = verdictTag(status);
     const body = el('span', undefined, 'body');
     body.append(el('span', q.kind === 'partOf' ? `Is ${q.name} part of ${q.college}? ` : `${q.name}. `, 'name'));
     if (a) {
@@ -753,6 +791,50 @@ function drawAnswers(send, answer) {
     ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look.`
     : `Checked ${send.length}. Nothing looks off.`);
   if (looks) face('logo', 'worried', 1800);
+  checkNamesInContext(send, answer, looks);
+}
+
+function verdictTag(status) {
+  const verdict = el('span', undefined, 'verdict');
+  verdict.append(icon(VERDICT[status].icon, { size: 17 }), VERDICT[status].text);
+  return verdict;
+}
+
+// Hybrid step: Google's answers came in from the cloud; now Gemini Nano, on this laptop, reads each name in the
+// student's own sentences and points at any detail that disagrees. Only runs when Gemini Nano is here.
+async function checkNamesInContext(send, answer, looksSoFar) {
+  if ((await onDeviceAvailability().catch(() => 'unavailable')) !== 'available') return;
+  const jobs = send.map((q) => ({ q, google: googleSays(answer.answers.find((a) => a.id === q.id)) }))
+    .filter((j) => j.google).map((j) => ({ ...j, sentences: contextSentences(j.q, run.result.sections) }))
+    .filter((j) => j.sentences.length);
+  if (jobs.length === 0) return;
+  const before = $('names-status-text').textContent;
+  namesStatus('Gemini Nano is reading each name in your own sentences, on this laptop…', { busy: true });
+  let found = 0;
+  try {
+    const { models, checkNameContextOnDevice } = await loadAi();
+    for (const { q, google, sentences } of jobs) {
+      for (const sentence of sentences) {
+        const reply = await checkNameContextOnDevice(models.contextModel, q.name, google, sentence.text).catch(() => null);
+        const finding = contextFinding(reply, sentence, run.result.sections, q.name);
+        if (!finding) continue;
+        const li = $('names-answers').querySelector(`li[data-qid="${q.id}"]`);
+        if (li) {
+          if (!li.classList.contains('look')) found += 1;
+          li.classList.remove('fine', 'unsure');
+          li.classList.add('look', 'sr-flash');
+          li.querySelector('.verdict').replaceWith(verdictTag('look'));
+          li.querySelector('.body').append(el('span', `In your own words: "${finding.quote}". Gemini Nano, on this laptop, read that as not matching Google's answer.`, 'clash'));
+        }
+        break;
+      }
+    }
+  } catch (err) {
+    console.error('Name context check stopped:', err);
+  }
+  const looks = looksSoFar + found;
+  namesStatus(found ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look. Gemini Nano also read each name in your own sentences.` : `${before} Gemini Nano read each name in your own sentences too.`);
+  if (found) face('logo', 'worried', 1800);
 }
 
 function drawSentLog() {
@@ -779,7 +861,7 @@ for (const id of ['drop-label', 'sample', 'closing-pick']) {
 
 const eyes = startEyes();
 const scrolling = startScrolling();
-startLogo(() => scrolling.toTop());
+startLogo(() => (document.body.classList.contains('phase-start') ? scrolling.toTop() : goToStart()));
 showNanoStatus();
 document.body.classList.add('phase-start');
 
@@ -791,6 +873,11 @@ $('pdf').addEventListener('blur', () => eyes.lookUp());
 const drop = $('drop-label');
 for (const type of ['dragenter', 'dragover']) drop.addEventListener(type, () => eyes.lookDown());
 drop.addEventListener('dragleave', () => eyes.lookUp());
+// While a file is dragged anywhere over the start page, the drop sheet opens up to catch it.
+let drags = 0;
+window.addEventListener('dragenter', () => { if (document.body.classList.contains('phase-start')) { drags += 1; document.body.classList.add('dragging'); } });
+window.addEventListener('dragleave', () => { drags = Math.max(0, drags - 1); if (!drags) document.body.classList.remove('dragging'); });
+window.addEventListener('drop', () => { drags = 0; document.body.classList.remove('dragging'); });
 window.addEventListener('dragover', (e) => e.preventDefault());
 window.addEventListener('drop', (e) => {
   e.preventDefault();
@@ -808,7 +895,12 @@ $('sample').addEventListener('click', async () => {
   }
 });
 
-$('read-back').addEventListener('click', goToStart);
+$('read-back').addEventListener('click', () => { goToStart(); $('pdf').click(); });
+$('nano-get').addEventListener('click', getNano);
+{
+  const note = marginNote(new Date());
+  if (note) $('margin-note').textContent = note;
+}
 $('read-done').addEventListener('click', openLastResults);
 {
   const [start, reading, results] = document.querySelectorAll('#phases button');

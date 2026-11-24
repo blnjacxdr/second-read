@@ -85,6 +85,16 @@ export function startEyes() {
     setTimeout(() => { following = true; if (cursor) lookAt(...cursor); else aimBoth(0, 0); }, 2950);
   }
 
+  // Click an eye and it winks.
+  [1, 2].forEach((n) => {
+    const eye = document.getElementById(`sr-eye-${n}`);
+    eye?.addEventListener('click', () => {
+      if (reduced()) return;
+      eye.classList.add('wink');
+      setTimeout(() => eye.classList.remove('wink'), 420);
+    });
+  });
+
   // A file dragged over the drop sheet (or keyboard focus on it): both eyes look down at it, pupils wide.
   const pupils = () => document.querySelectorAll('.sr-eye .sr-pupil circle:first-child');
   return {
@@ -102,24 +112,7 @@ export function startEyes() {
   };
 }
 
-/** Easter egg: click the logo three times quickly and it does a double take. Every click scrolls to the top. */
+/** The logo is the way home: from any phase it goes back to the start page; on the start page it scrolls up. */
 export function startLogo(onClick) {
-  const logo = document.getElementById('logo');
-  const eyes = document.getElementById('logo-eyes');
-  const text = document.getElementById('logo-text');
-  let taps = 0;
-  let reset = 0;
-  logo?.addEventListener('click', () => {
-    clearTimeout(reset);
-    taps += 1;
-    if (taps >= 3) {
-      taps = 0;
-      eyes?.classList.add('sr-dt');
-      if (text) text.textContent = 'wait, what?';
-      setTimeout(() => { eyes?.classList.remove('sr-dt'); if (text) text.textContent = 'second read'; }, 1600);
-    } else {
-      reset = setTimeout(() => { taps = 0; }, 700);
-    }
-    onClick();
-  });
+  document.getElementById('logo')?.addEventListener('click', onClick);
 }
