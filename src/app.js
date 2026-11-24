@@ -482,6 +482,8 @@ function buildStack() {
   const buttons = el('div', undefined, 'sr-endactions');
   buttons.append(again, names, print);
   end.append(buttons);
+  // The celebration lives on the end card: it plays when you arrive there with everything handled.
+  end.prepend($('res-done'));
   items.push(end);
   stack.replaceChildren(...items);
   run.slots = items.filter((n) => !n.classList.contains('sr-divider'));
@@ -598,7 +600,10 @@ function updateHeadline() {
   swapText($('res-headline'), h.headline);
   if (!$('view-results').hidden) document.title = `${h.headline} | Second Read`;
   swapText($('res-subhead'), h.subhead);
-  $('res-stamp').hidden = !(h.state === 'done' || h.state === 'clean');
+  // When everything is handled, the eyes from the logo show up beside the headline, pleased.
+  const celebrate = h.state === 'done' || h.state === 'clean';
+  if (celebrate && $('res-done').hidden) $('res-done-note').textContent = h.state === 'clean' ? 'spotless.' : 'nice work. go submit.';
+  $('res-done').hidden = !celebrate;
   $('res-allkept').hidden = h.state !== 'all-kept';
   // Everything handled (or nothing to handle): the logo looks pleased, and stays that way.
   if (h.state === 'done' || h.state === 'clean') face('logo', 'happy');

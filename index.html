@@ -38,6 +38,7 @@
   </header>
 
   <main class="sr-wrap" id="view-start" style="padding-top: 28px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 56px">
+    <div class="sr-screen sr-screen-first">
     <section id="hero" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
       <div style="flex: 999 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
         <h1 style="margin: 0; font-weight: 900; font-size: clamp(50px, 7.4vw, 96px); line-height: 0.92; letter-spacing: -0.05em; text-wrap: balance"><span class="sr-word" style="--i: 0">Your</span> <span class="sr-word" style="--i: 1">application,</span> <span class="sr-word" style="--i: 2">read</span> <span class="sr-word sr-twice" style="--i: 3">twice.<svg aria-hidden="true" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 15 C 60 6, 120 20, 180 11 S 260 6, 296 13" pathLength="1" fill="none" stroke="#2340D9" stroke-width="7" stroke-linecap="round"></path></svg></span></h1>
@@ -125,8 +126,8 @@
         <button type="button" id="nano-get" class="sr-cta sr-note-btn" hidden>Download Gemini Nano</button>
       </aside>
     </section>
-
-    <a class="sr-seehow js-goto" href="#fold">See how it works<svg aria-hidden="true" width="26" height="44" viewBox="0 0 26 44" fill="none" stroke="#2340D9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 C 9 14, 17 24, 13 39"></path><path d="M5 31 L13 40 L21 30"></path></svg></a>
+    <a class="sr-seehow js-goto" href="#fold">See how it works<svg aria-hidden="true" width="22" height="36" viewBox="0 0 26 44" fill="none" stroke="#2340D9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 C 9 14, 17 24, 13 39"></path><path d="M5 31 L13 40 L21 30"></path></svg></a>
+    </div>
     <section class="sr-fold" id="fold" aria-label="What Second Read looks for">
       <div class="sr-fstage">
         <div class="sr-count" aria-hidden="true"><b></b><span>pages apart</span></div>
@@ -152,7 +153,6 @@
           <p>Second Read folds your application until they sit side by side. Your words from both places. You decide which one is true.</p>
           <div class="sr-fctl" role="group" aria-label="Walk through the fold">
             <button type="button" id="fold-back" class="sr-iconbtn" aria-label="Back one step"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
-            <span class="sr-ftrack" aria-hidden="true"><span id="fold-fill"></span></span>
             <button type="button" id="fold-next" class="sr-textbtn">Next</button>
             <button type="button" id="fold-skip" class="sr-linkbtn">Skip this part</button>
           </div>
@@ -160,6 +160,7 @@
       </div>
     </section>
 
+    <div class="sr-screen sr-screen-last">
     <section id="how" aria-label="How it stays private" class="sr-promise" style="display: flex; flex-wrap: wrap; gap: 28px 44px; border-top: 2px solid var(--ink); padding-top: 28px">
       <p style="flex: 1 1 260px; margin: 0; color: var(--ink-2); font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 28 V8 C10 6 11 5 13 5 H43 C45 5 46 6 46 8 V28 M4 29 H52 C52 33 50 35 47 35 H9 C6 35 4 33 4 29 M21 17 L26 22 L35 12" pathLength="1"></path></svg><strong style="display: block; color: var(--ink); font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Nothing leaves this laptop.</strong>Open DevTools and watch the Network tab while it works. We'd honestly love that.</p>
       <p style="flex: 1 1 260px; margin: 0; color: var(--ink-2); font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3 H42 V35 L38 32 L34 35 L30 32 L26 35 L22 32 L18 35 L14 32 Z M19 11 H37 M19 17 H37 M19 23 H30" pathLength="1"></path></svg><strong style="display: block; color: var(--ink); font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Receipts for every flag.</strong>You see your own words from both places. If the quote isn't really in your application, the flag doesn't show.</p>
@@ -174,9 +175,10 @@
         <button type="button" id="closing-sample" class="sr-again">Try Riley's made-up application</button>
       </div>
     </section>
+    </div>
   </main>
 
-  <button type="button" id="to-top" class="sr-totop" aria-label="Back to top"><svg aria-hidden="true" width="40" height="20" viewBox="0 0 230 112"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle cx="56" cy="42" r="14" fill="#16181D"></circle><path d="M174 6 L222 33 L222 79 L174 106 L126 79 L126 33 Z" fill="#FFC21A"></path><circle cx="174" cy="56" r="31" fill="#EBCB9E"></circle><circle cx="174" cy="42" r="14" fill="#16181D"></circle></svg><span>Back to top</span></button>
+  <button type="button" id="to-top" class="sr-totop" aria-label="Back to top"><svg aria-hidden="true" width="40" height="20" viewBox="0 0 230 112"><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-tp" cx="56" cy="42" r="14" fill="#16181D"></circle><path d="M174 6 L222 33 L222 79 L174 106 L126 79 L126 33 Z" fill="#FFC21A"></path><circle cx="174" cy="56" r="31" fill="#EBCB9E"></circle><circle class="sr-tp" cx="174" cy="42" r="14" fill="#16181D"></circle></svg><span>Back to top</span></button>
 
   <main class="sr-wrap" id="view-results" hidden tabindex="-1" style="padding-top: 18px; padding-bottom: 80px; display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-start">
     <section style="flex: 999 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
@@ -186,7 +188,19 @@
         <p id="res-subhead" style="margin: 0; color: var(--ink-2); max-width: 600px"></p>
         <p id="res-nano-tip" class="sr-nanotip" hidden></p>
         <p id="res-allkept" class="sr-note-in" aria-hidden="true" hidden style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 30px; color: var(--pen); transform: rotate(-2deg)">all on purpose? bold strategy. respect.</p>
-        <div id="res-stamp" class="sr-stamp" aria-hidden="true" hidden style="position: absolute; right: 0; top: -46px; border: 4px solid var(--stamp); color: var(--stamp); border-radius: 10px; padding: 6px 16px; font-weight: 900; font-size: 30px; letter-spacing: 0.01em; transform: rotate(-8deg)">clean copy</div>
+        <div id="res-done" class="sr-done" aria-hidden="true" hidden>
+          <svg class="sr-done-eyes" width="132" height="66" viewBox="0 0 230 112">
+            <g class="sr-done-spark"><path d="M14 22 L2 12" pathLength="1"></path><path d="M10 44 L-4 42" pathLength="1"></path><path d="M216 22 L228 12" pathLength="1"></path><path d="M220 44 L234 42" pathLength="1"></path></g>
+            <defs><clipPath id="sr-done-l"><circle cx="56" cy="56" r="31"></circle></clipPath><clipPath id="sr-done-r"><circle cx="174" cy="56" r="31"></circle></clipPath></defs>
+            <path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle>
+            <g clip-path="url(#sr-done-l)"><path class="sr-done-cheek" d="M16 96 V54 Q56 12 96 54 V96 Z" fill="#FFC21A"></path></g>
+            <path class="sr-done-arch" d="M35 54 Q56 26 77 54" fill="none" stroke="#16181D" stroke-width="7" stroke-linecap="round" pathLength="1"></path>
+            <path d="M174 6 L222 33 L222 79 L174 106 L126 79 L126 33 Z" fill="#FFC21A"></path><circle cx="174" cy="56" r="31" fill="#EBCB9E"></circle>
+            <g clip-path="url(#sr-done-r)"><path class="sr-done-cheek" d="M134 96 V54 Q174 12 214 54 V96 Z" fill="#FFC21A"></path></g>
+            <path class="sr-done-arch" d="M153 54 Q174 26 195 54" fill="none" stroke="#16181D" stroke-width="7" stroke-linecap="round" pathLength="1"></path>
+          </svg>
+          <span class="sr-done-note" id="res-done-note">nice work.</span>
+        </div>
       </div>
       <div id="res-recheck" class="sr-recheck" hidden><strong id="res-recheck-line"></strong><span id="res-recheck-note"></span></div>
       <div class="sr-stackbar" id="stackbar" hidden>

@@ -39,7 +39,7 @@ export function addFace(svg, centers) {
     g.append(top, bottom);
     svg.append(g);
     // The ink arch for happy: drawn over the cheek's edge, outside the clip so its round ends show.
-    svg.append(node('path', { class: 'sr-smile', d: `M${cx - 21} ${cy - 2} Q${cx} ${cy - 30} ${cx + 21} ${cy - 2}`, fill: 'none', stroke: '#16181D', 'stroke-width': 7, 'stroke-linecap': 'round' }));
+    svg.append(node('path', { class: 'sr-smile', d: `M${cx - 21} ${cy - 2} Q${cx} ${cy - 30} ${cx + 21} ${cy - 2}`, fill: 'none', stroke: '#16181D', 'stroke-width': 7, 'stroke-linecap': 'round', pathLength: 1 }));
   });
 }
 

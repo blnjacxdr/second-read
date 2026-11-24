@@ -132,3 +132,16 @@ goes is what read as game UI: 800 to 900 weights everywhere, thick black outline
 shadows. Now the main headline is the one heavy moment, titles are 700 and buttons 600. Secondary buttons are soft
 fills and icon buttons are ghosts. Sheets get a hairline and a short soft shadow. The "clean copy" stamp sits above
 the headline, not on it.
+
+## Nov 24: pre-deploy pass
+- The start page is three even screens: the first (headline, drop sheet, "See how it works" at its bottom), the
+  fold, and the promises with "Your turn." centered on the last.
+- The fold's progress line is gone; Back, Next and Skip stay.
+- The "clean copy" stamp is replaced: when every card is handled, the logo's eyes appear on the last card, pop in,
+  the cheeks spring up into a smile, the smile line draws on, four pen strokes flick out, and a handwritten "nice
+  work. go submit." follows. Then they keep a slow happy bob. The logo and reading card's happy faces hop and bob too.
+- Dark mode had turned some pupils light (they used the text color). Pupils are always ink-black now.
+- Phones keep the header on one line.
+Checks before deploy: 177 tests pass; held-out code-check totals unchanged; no PREFER_* modes; the debug token only
+in dev; the only HTML written is Google's suggestions in a sandboxed frame; nothing stored in the browser; hosting
+ignores dev, eval, test, tools and docs; every phase walked in light, dark, phone and reduced motion with no page errors.

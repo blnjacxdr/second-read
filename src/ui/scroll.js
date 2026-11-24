@@ -112,7 +112,6 @@ export function startScrolling() {
   document.getElementById('fold-skip')?.addEventListener('click', skipFold);
 
   // The fold's own progress line, and the Back to top button once the hero is out of sight.
-  const fill = document.getElementById('fold-fill');
   const top = document.getElementById('to-top');
   let ticking = false;
   window.addEventListener('scroll', () => {
@@ -121,7 +120,6 @@ export function startScrolling() {
     requestAnimationFrame(() => {
       ticking = false;
       const f = foldState();
-      if (fill && f) fill.style.transform = `scaleX(${Math.max(0, Math.min(1, f.p)).toFixed(3)})`;
       if (f) {
         document.getElementById('fold-back').disabled = f.p <= 0.01;
         document.getElementById('fold-next').textContent = f.p >= 0.99 ? 'Keep going' : 'Next';
@@ -129,6 +127,8 @@ export function startScrolling() {
       // Shown once the top is out of sight, and tucked away again at the very bottom, where it would cover the footer.
       const nearBottom = window.scrollY + window.innerHeight > document.documentElement.scrollHeight - 140;
       document.body.classList.toggle('scrolled', window.scrollY > 8);
+      // Back to top shows once the first screen is out of sight, and tucks away at the very bottom, where it
+      // would cover the footer.
       if (top) top.classList.toggle('show', document.body.classList.contains('phase-start') && window.scrollY > window.innerHeight * 1.1 && !nearBottom);
     });
   }, { passive: true });
