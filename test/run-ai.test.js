@@ -52,3 +52,16 @@ test('an invented quote is dropped, never shown', async () => {
   assert.deepEqual(run.flags, []);
   assert.ok(run.dropped.length > 0);
 });
+
+test('cloud mode skips the narrow comparisons but still asks about other colleges named', async () => {
+  let comparisons = 0;
+  let mentions = 0;
+  const run = await runAiChecks({
+    app, codeFlags, comparisons: false,
+    ask: async () => { comparisons += 1; return { contradictions: [] }; },
+    askMention: async () => { mentions += 1; return { likelySlip: false }; },
+  });
+  assert.equal(comparisons, 0);
+  assert.equal(run.comparisons, 0);
+  assert.equal(mentions, codeFlags.filter((f) => f.kind === 'other-college-name').length);
+});

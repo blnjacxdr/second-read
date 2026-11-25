@@ -363,6 +363,7 @@ async function askNano(current) {
       codeFlags: current.codeFlags,
       ask: hybrid ? consentedAsker(hybrid, sentLog) : onDeviceAsker(models),
       design: 'extract',
+      comparisons: !hybrid, // in the cloud, the whole read below replaces the narrow questions
       askMention: (name, sentence) => (hybrid ? askMentionConsented(hybrid, sentLog, name, sentence) : askMentionOnDevice(models.mentionModel, name, sentence)),
       onProgress: (_message, progress) => {
         if (skipped || !progress) return;
@@ -395,7 +396,7 @@ async function askNano(current) {
       }
     }
     current.nano = out.failed ? 'failed' : hybrid ? 'cloud' : 'ran';
-    stage('nano', 'done', `${out.comparisons} questions`);
+    stage('nano', 'done', hybrid ? 'read it all together' : `${out.comparisons} questions`);
   } catch (err) {
     console.error('Gemini Nano stopped:', err);
     current.nano = 'failed';

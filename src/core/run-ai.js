@@ -37,13 +37,15 @@ export const DESIGNS = {
  * @param {(question: object) => Promise<object>} args.ask  sends one DESIGNS[design].question(...) to Nano on this computer
  * @param {'open'|'extract'|'claim'} [args.design]
  * @param {(collegeName: string, sentence: string) => Promise<object>} args.askMention on-device mention question
+ * @param {boolean} [args.comparisons]  false skips the narrow comparisons (cloud mode, where the whole-application
+ *   read does that job: on Nov 24 they added no catches in two test runs and were most of the prompts and time)
  * @param {(message: string, progress?: { done: number, total: number }) => void} [args.onProgress]
  *   progress is given for the comparisons, so a page can draw a real progress bar
  * @returns {Promise<{ flags, dropped, log, mentionAnswers, comparisons, failed }>}
  */
-export async function runAiChecks({ app, codeFlags, ask, askMention, design = 'open', onProgress = () => {} }) {
+export async function runAiChecks({ app, codeFlags, ask, askMention, design = 'open', comparisons = true, onProgress = () => {} }) {
   const { question, toFlags } = DESIGNS[design];
-  const plan = planComparisons(app);
+  const plan = comparisons ? planComparisons(app) : [];
   const kept = [];
   const dropped = [];
   const log = []; // every answer and what happened to it (dev screens only)
