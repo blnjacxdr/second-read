@@ -11,9 +11,10 @@ import { runAiChecks } from '../src/core/run-ai.js';
 import { scoreApplication, totalScores } from '../src/core/eval.js';
 import { onDeviceAvailability } from '../src/core/privacy.js';
 import { createSentLog } from '../src/core/sent-log.js';
-import { wholeReadFlags } from '../src/core/whole-read.js';
+import { wholeReadFlags, applyVerdicts } from '../src/core/whole-read.js';
 
-const RUNS = 3; // Gemini Nano answers differently run to run, so one run proves little
+const RUNS = 3;
+const reviewVariant = 'D'; // the false-alarm list shows this setup's false alarms // Gemini Nano answers differently run to run, so one run proves little
 const $ = (id) => document.getElementById(id);
 const say = (text) => { $('status').textContent = text; };
 
@@ -58,7 +59,7 @@ $('run').addEventListener('click', async () => {
     const toReview = [];
     for (let r = 1; r <= runs; r++) {
       const narrow = [];
-      const withWhole = [];
+      const withWhole = {};
       for (const [i, a] of apps.entries()) {
         const started = performance.now();
         const skipNarrow = hybrid && $('skip-narrow').checked;
@@ -74,12 +75,34 @@ $('run').addEventListener('click', async () => {
         const base = [...a.codeFlags, ...run.flags];
         narrow.push(scoreApplication(base, a.entry, a.result.sections));
         if (hybrid) {
-          say(`Run ${r}, application ${i + 1} of ${apps.length}: reading it all together…`);
-          const whole = await module.wholeReadConsented(hybrid, sentLog, a.app).catch((err) => { failed += 1; console.warn(err.message); return null; });
-          const extra = wholeReadFlags(whole, a.app.sections, base).kept;
-          const scored = scoreApplication([...base, ...extra], a.entry, a.result.sections);
-          withWhole.push(scored);
-          if (r === runs) toReview.push(...scored.wrongFlags.map((f) => ({ file: a.entry.file, flag: f })));
+          // Four cloud setups from one run, so they can be compared on the same applications:
+          //   A: Nov 24 original (instructions first, one pass)
+          //   B: data first, one pass
+          //   C: B plus a second look for other disagreements
+          //   D: C plus the check step (strict: keep "conflict" only; lenient: keep "unsure" too)
+          const ask = (opts) => module.wholeReadConsented(hybrid, sentLog, a.app, opts).catch((err) => { failed += 1; console.warn(err.message); return null; });
+          const flagsFrom = (answer, existing) => wholeReadFlags(answer, a.app.sections, existing).kept;
+          say(`Application ${i + 1} of ${apps.length}: original read…`);
+          const flagsA = flagsFrom(await ask({ layout: 'instructions-first' }), base);
+          say(`Application ${i + 1} of ${apps.length}: data-first read…`);
+          const flagsB = flagsFrom(await ask({ layout: 'data-first' }), base);
+          say(`Application ${i + 1} of ${apps.length}: second look…`);
+          const flagsC = [...flagsB, ...flagsFrom(await ask({ layout: 'data-first', alreadyFound: flagsB }), [...base, ...flagsB])];
+          let verdicts = null;
+          if (flagsC.length) {
+            say(`Application ${i + 1} of ${apps.length}: checking each flag…`);
+            verdicts = await module.verifyConsented(hybrid, sentLog, a.app, flagsC).catch((err) => { failed += 1; console.warn(err.message); return null; });
+          }
+          const variants = {
+            A: flagsA, B: flagsB, C: flagsC,
+            D: applyVerdicts(flagsC, verdicts), E: applyVerdicts(flagsC, verdicts, { keepUnsure: true }),
+            F: applyVerdicts(flagsB, verdicts ? { verdicts: verdicts.verdicts.filter((v) => v.n <= flagsB.length) } : null),
+          };
+          for (const [k, extra] of Object.entries(variants)) {
+            const scored = scoreApplication([...base, ...extra], a.entry, a.result.sections);
+            (withWhole[k] ??= []).push(scored);
+            if (k === reviewVariant && r === runs) toReview.push(...scored.wrongFlags.map((f) => ({ file: a.entry.file, flag: f })));
+          }
         }
         if (!hybrid && r === runs) {
           toReview.push(...narrow.at(-1).wrongFlags.map((f) => ({ file: a.entry.file, flag: f })));
@@ -89,8 +112,11 @@ $('run').addEventListener('click', async () => {
       const t = totalScores(narrow);
       report.push(line(`Code + narrow questions, run ${r}`, t), `  by kind: ${kinds(t)}`);
       if (hybrid) {
-        const w = totalScores(withWhole);
-        report.push(line(`Code + narrow + whole read, run ${r}`, w), `  by kind: ${kinds(w)}`);
+        const names = { A: 'A original read', B: 'B data first', C: 'C data first + second look', D: 'D = C + check step (strict)', E: 'E = C + check step (keeps unsure)', F: 'F = B + check step (strict)' };
+        for (const [k, label] of Object.entries(names)) {
+          const w = totalScores(withWhole[k]);
+          report.push(line(`Code + ${label}`, w), `  by kind: ${kinds(w)}`);
+        }
       }
       $('out').textContent = report.join('\n');
     }

@@ -387,7 +387,7 @@ async function askNano(current) {
     // pair of places that disagree. Its quotes are checked like every other AI flag (src/core/whole-read.js).
     if (hybrid) {
       stage('nano', 'active', 'reading it all together');
-      const whole = await Promise.race([wholeReadConsented(hybrid, sentLog, current.app).catch(() => null), skip]);
+      const whole = await Promise.race([wholeReadConsented(hybrid, sentLog, current.app, { layout: 'instructions-first' }).catch(() => null), skip]);
       if (whole && !skipped) {
         const extra = wholeReadFlags(whole, current.app.sections, [...current.codeFlags, ...current.aiFlags]);
         current.aiFlags = [...current.aiFlags, ...extra.kept];

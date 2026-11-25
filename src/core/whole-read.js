@@ -7,7 +7,7 @@
 
 import { locateQuote } from './quotes.js';
 
-export const MAX_CONFLICTS = 8;
+export const MAX_CONFLICTS = 12;
 const KINDS = ['hours', 'role', 'award', 'dates', 'grades', 'number', 'place', 'organization', 'college', 'other'];
 
 export const WHOLE_READ_SCHEMA = {
@@ -33,21 +33,102 @@ export const WHOLE_READ_SCHEMA = {
   required: ['conflicts'],
 };
 
-/** Every section, labeled with its id, in a stable order: activities, honors, essays. */
-export function wholeReadPrompt(app) {
-  const ids = [...app.activityIds, ...(app.honorIds ?? []), ...app.essayIds].filter((id) => app.sections[id]);
-  return [
-    'Below is one student\'s college application, split into labeled sections.',
-    'Find every place where two DIFFERENT sections state the same fact differently: hours or weeks, a role or title,',
-    'an award or placing, a year or grade, a count or amount, a place, an organization name, or the name of the college.',
-    'Do not report: things that can both be true (a role that changed over time, a club that grew), differences in',
-    'wording or tone, opinions, or anything only one section mentions.',
-    `List at most ${MAX_CONFLICTS}, most important first. For each, copy the exact words from each section into quoteA`,
-    'and quoteB (3 to 25 words, copied character for character), name the sections by their ids, give a short title',
-    '(under 8 words) and say in one sentence why they disagree. If nothing disagrees, return an empty list.',
+const sectionIds = (app) => [...app.activityIds, ...(app.honorIds ?? []), ...app.essayIds].filter((id) => app.sections[id]);
+const applicationText = (app) => sectionIds(app).map((id) => `[${id}]\n${app.sections[id]}\n`);
+
+const WHAT_COUNTS = [
+  'Find every place where two DIFFERENT sections state the same fact differently: hours or weeks, a role or title,',
+  'an award or placing, an award\'s level, a year or grade, a count or amount, a place, an organization name, plans to',
+  'continue, or the name of the college.',
+  'Do not report: things that can both be true (a role that changed over time, a club that grew, two different events,',
+  'a summary next to a detail), differences in wording or tone, opinions, or anything only one section mentions.',
+];
+const HOW_TO_ANSWER = [
+  `List each one you find, at most ${MAX_CONFLICTS}, most important first. Most applications have none or a few, and an`,
+  'empty list is a fine answer. For each, copy the exact words from each section into quoteA and quoteB (3 to 25 words,',
+  'copied character for character), name the sections by their ids, give a short title (under 8 words) and say in one',
+  'sentence why they disagree.',
+];
+
+/**
+ * The whole-application question.
+ * layout 'data-first' puts the application before the instructions, as Google advises for long inputs to Gemini 3;
+ * 'instructions-first' is the Nov 24 original, kept so the test page can compare the two.
+ * alreadyFound (a second look) lists conflicts found before, so the model looks for different ones.
+ */
+export function wholeReadPrompt(app, { layout = 'data-first', alreadyFound = [] } = {}) {
+  const found = alreadyFound.length === 0 ? [] : [
     '',
-    ...ids.map((id) => `[${id}]\n${app.sections[id]}\n`),
+    'These were already found. Do not list them again; look for any OTHER disagreements:',
+    ...alreadyFound.map((f) => `- [${f.citations[0].sectionId}] "${f.citations[0].quote}" vs [${f.citations[1].sectionId}] "${f.citations[1].quote}"`),
+  ];
+  if (layout === 'instructions-first') {
+    return [
+      'Below is one student\'s college application, split into labeled sections.',
+      ...WHAT_COUNTS, ...HOW_TO_ANSWER, ...found, '',
+      ...applicationText(app),
+    ].join('\n');
+  }
+  return [
+    '<application>',
+    ...applicationText(app),
+    '</application>',
+    '',
+    'Above is one student\'s college application, split into sections labeled with ids in brackets.',
+    ...WHAT_COUNTS, ...HOW_TO_ANSWER, ...found,
   ].join('\n');
+}
+
+// ---------- the check step ----------
+//
+// Research on finding inconsistencies (VERISPEC, 2026) found that making a model argue each candidate before
+// reporting it cut false alarms sharply. So after the read, one more question: for each flag, can both statements
+// be true? Only "conflict" verdicts are kept (or "unsure" too, in the lenient setting).
+
+export const VERDICTS = ['conflict', 'consistent', 'unsure'];
+export const VERIFY_SCHEMA = {
+  type: 'object',
+  properties: {
+    verdicts: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: { n: { type: 'integer' }, verdict: { type: 'string', enum: VERDICTS }, reason: { type: 'string' } },
+        required: ['n', 'verdict', 'reason'],
+      },
+    },
+  },
+  required: ['verdicts'],
+};
+
+export function verifyPrompt(app, flags) {
+  return [
+    '<application>',
+    ...applicationText(app),
+    '</application>',
+    '',
+    'Above is one student\'s college application. Someone listed the possible disagreements below. Check each one',
+    'against the whole application.',
+    '',
+    ...flags.map((f, i) => `${i + 1}. [${f.citations[0].sectionId}] "${f.citations[0].quote}" vs [${f.citations[1].sectionId}] "${f.citations[1].quote}" (${f.title})`),
+    '',
+    'For each number, give a verdict:',
+    '- "conflict": the two statements cannot both be true as written. A counselor would ask the student to fix it.',
+    '- "consistent": both can be true. For example: a role that changed over time, two different events, a total next',
+    '  to a part of it, different units that fit together, or wording that only sounds different.',
+    '- "unsure": it depends on something the application doesn\'t say.',
+    'Give one short reason for each. Answer for every number.',
+  ].join('\n');
+}
+
+/** Keeps the flags whose verdict is "conflict" (and "unsure" when lenient). A flag with no verdict is kept. */
+export function applyVerdicts(flags, answer, { keepUnsure = false } = {}) {
+  const byNumber = new Map((answer?.verdicts ?? []).map((v) => [Number(v.n), String(v.verdict)]));
+  return flags.filter((f, i) => {
+    const verdict = byNumber.get(i + 1);
+    if (verdict === undefined) return true;
+    return verdict === 'conflict' || (keepUnsure && verdict === 'unsure');
+  });
 }
 
 const overlapsAny = (ranges, others) => ranges.some((r) => others.some((o) => r.start < o.end && o.start < r.end));

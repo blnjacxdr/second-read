@@ -22,7 +22,7 @@ import { MENTION_SCHEMA, mentionPrompt } from './core/ai-checks.js';
 import { CONTEXT_SCHEMA, contextPrompt } from './core/name-context.js';
 import { readGroundedAnswer } from './core/grounding.js';
 import { withJsonShape, parseModelJson, CLOUD_PURPOSE } from './core/consent.js';
-import { WHOLE_READ_SCHEMA, wholeReadPrompt } from './core/whole-read.js';
+import { WHOLE_READ_SCHEMA, wholeReadPrompt, VERIFY_SCHEMA, verifyPrompt } from './core/whole-read.js';
 
 export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
 // The search-grounded check uses full Flash: Flash-Lite often skips the search or returns no grounding data,
@@ -205,7 +205,7 @@ export function createConsentedHybridModels(models) {
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: schema } },
     inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
   });
-  return { facts: make(FACTS_SCHEMA), mention: make(MENTION_SCHEMA), context: make(CONTEXT_SCHEMA), whole: make(WHOLE_READ_SCHEMA) };
+  return { facts: make(FACTS_SCHEMA), mention: make(MENTION_SCHEMA), context: make(CONTEXT_SCHEMA), whole: make(WHOLE_READ_SCHEMA), verify: make(VERIFY_SCHEMA) };
 }
 
 // Each prompt goes in the sent log before it is sent, so "What was sent" is complete.
@@ -233,6 +233,11 @@ export function checkNameContextConsented(hybrid, sentLog, name, google, sentenc
 }
 
 /** The whole-application read (src/core/whole-read.js): cloud only, after the yes. Returns the model's conflicts. */
-export function wholeReadConsented(hybrid, sentLog, app) {
-  return askHybrid(hybrid.whole, wholeReadPrompt(app), WHOLE_READ_SCHEMA, sentLog);
+export function wholeReadConsented(hybrid, sentLog, app, options = {}) {
+  return askHybrid(hybrid.whole, wholeReadPrompt(app, options), WHOLE_READ_SCHEMA, sentLog);
+}
+
+/** The check step: one question that gives a verdict on every flag the whole read found. */
+export function verifyConsented(hybrid, sentLog, app, flags) {
+  return askHybrid(hybrid.verify, verifyPrompt(app, flags), VERIFY_SCHEMA, sentLog);
 }
