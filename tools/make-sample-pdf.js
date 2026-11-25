@@ -113,7 +113,7 @@ async function buildFor(supplement) {
 
   function activity(a) {
     heading(a.type, 2);
-    const left = [`${a.grades.join(', ')} (${a.timing})`, `${a.hoursPerWeek} hr/wk, ${a.weeksPerYear} wk/yr`, a.plans];
+    const left = [`${(a.grades ?? []).join(', ')} (${a.timing ?? 'School'})`, `${a.hoursPerWeek} hr/wk, ${a.weeksPerYear} wk/yr`, a.plans];
     const width = X.right - X.activityRight;
     const right = [
       ...wrap(`${a.organization}, ${a.position}`, bold, SIZE.body, width).map((t) => ({ t, font: bold })),
@@ -150,7 +150,7 @@ async function buildFor(supplement) {
   heading(app.personalInfo.school, 3);
   field('Graduation Date', [`06/${app.personalInfo.graduationYear}`]);
   heading('Honors', 2);
-  for (const h of app.honors) field(h.title, [h.level, h.grades.join(', ')], [X.answer, X.honorGrades]);
+  for (const h of app.honors ?? []) field(h.title, [h.level, (h.grades ?? []).join(', ')], [X.answer, X.honorGrades]);
   heading('Future plans', 2);
   field('Career interest', ['Engineer']);
 
@@ -166,8 +166,9 @@ async function buildFor(supplement) {
   newPage();
   heading(`${supplement.college} questions`, 1);
   heading('General', 2);
-  for (const answer of supplement.answers) field(answer.label, [answer.value]);
-  heading(supplement.group, 2);
+  // Test sets written by other chats may leave out the short-answer fields or the group heading; use plain defaults.
+  for (const answer of supplement.answers ?? []) field(answer.label, [answer.value]);
+  heading(supplement.group ?? 'Writing', 2);
   essay(supplement.prompt, supplement.text);
   heading('Affirmations', 2);
   field('Affirmation', ['Yes (sample)']);
