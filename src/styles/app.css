@@ -495,6 +495,16 @@ details[open]::details-content{block-size:auto;opacity:1}
 @media (prefers-reduced-motion:reduce){.sr-fctl{display:none}}
 
 /* The end of the start page: one clear thing to do next, instead of just running out. */
+/* Three ways it reads, closest first. A real ranking, so the numbers mean something. */
+.sr-modes{padding:56px 0 8px}
+.sr-modes h2{margin:0 0 26px;font-weight:700;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.03em;line-height:1.05;max-width:22ch;text-wrap:balance}
+.sr-modes-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px 40px;counter-reset:mode}
+.sr-modes-list li{counter-increment:mode;position:relative;padding-top:18px;border-top:2px solid var(--line);color:var(--ink-2);font-size:17px;line-height:1.5}
+.sr-modes-list li:first-child{border-top-color:var(--pen)}
+.sr-modes-list li::before{content:counter(mode);position:absolute;top:14px;right:0;font-weight:700;font-size:15px;color:var(--muted)}
+.sr-modes-list strong{display:block;color:var(--ink);font-weight:700;font-size:21px;letter-spacing:-.015em;margin:2px 0 6px}
+.sr-modes-note{display:block;font-family:var(--font-hand);font-size:26px;line-height:1;color:var(--pen);rotate:-2deg;transform-origin:left}
+.sr-modes-list li:last-child .sr-modes-note{color:var(--muted)}
 .sr-closing{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:56px 0 24px}
 .sr-closing h2{margin:0;font-weight:900;font-size:clamp(44px,6vw,76px);letter-spacing:-.05em;line-height:.95}
 .sr-closing p{margin:0;max-width:520px;color:var(--ink-2);font-size:19px;text-wrap:pretty}

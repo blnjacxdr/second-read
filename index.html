@@ -172,9 +172,18 @@
       <p style="flex: 1 1 260px; margin: 0; color: var(--ink-2); font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6 H48 C50 6 51 7 51 9 V25 C51 27 50 28 48 28 H22 L13 36 V28 H8 C6 28 5 27 5 25 V9 C5 7 6 6 8 6 M15 17 C 18 13, 21 21, 24 17 S 30 13, 33 17 S 39 21, 42 16" pathLength="1"></path></svg><strong style="display: block; color: var(--ink); font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Their voice stays theirs.</strong>No suggested wording, no rewrites. Admissions wants to hear the student, so we stay out of it.</p>
     </section>
 
+    <section id="modes" class="sr-modes" aria-labelledby="modes-h">
+      <h2 id="modes-h">How closely it reads depends on the laptop.</h2>
+      <ol class="sr-modes-list">
+        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Offered when this laptop doesn't have Gemini Nano, and only after you say yes. The application goes to Google's Gemini API for that visit, and every word sent is listed.</li>
+        <li><span class="sr-modes-note">good, and private</span><strong>Gemini Nano, on this laptop</strong>A smaller Gemini model built into Chrome on some laptops. It reads the essays without anything leaving the laptop.</li>
+        <li><span class="sr-modes-note">a first pass</span><strong>Code checks only</strong>Fast and exact, but they only catch mistakes they have a rule for, so they miss plenty. A clean result here isn't a sign-off. Read it yourself too.</li>
+      </ol>
+    </section>
+
     <section id="closing" class="sr-closing" aria-labelledby="closing-h">
       <h2 id="closing-h">Try it on one.</h2>
-      <p>Drop in a student's Common App PDF. It takes about a minute, and it never leaves this laptop.</p>
+      <p>Drop in a student's Common App PDF. It takes about a minute, and it stays on this laptop unless you say yes.</p>
       <div class="sr-closing-actions">
         <label for="pdf" class="sr-cta" tabindex="0" id="closing-pick">Choose a PDF</label>
         <button type="button" id="closing-sample" class="sr-again">Try Riley's made-up application</button>
@@ -269,6 +278,7 @@
 
   <footer class="sr-wrap sr-foot" style="padding-top: 22px; padding-bottom: 40px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: var(--muted)">
     <span>Made by a high school senior, during his own application season, for the counselors (and parents) who read hundreds of these.</span>
+    <span>Reads with Google's Gemini models, through Firebase AI Logic.</span>
     <span>Not affiliated with Common App. Protected by reCAPTCHA; Google's <a href="https://policies.google.com/privacy" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" rel="noopener noreferrer">Terms</a> apply.</span>
   </footer>
   <div id="toast" class="sr-toast" role="status" aria-live="polite" hidden><span id="toast-text"></span><button type="button" id="toast-undo" class="sr-toast-undo">Undo</button></div>
