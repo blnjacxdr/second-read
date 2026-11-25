@@ -1,7 +1,7 @@
 // The scorer itself, on made-up text (never the held-out set).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { flagMatches, scoreApplication, totalScores, toPdfSectionId } from '../src/core/eval.js';
+import { flagMatches, matchKind, scoreApplication, totalScores, toPdfSectionId } from '../src/core/eval.js';
 
 const sections = {
   'activity-1': 'Debate or speech\nNorth Ridge Debate, President\nLed weekly practice.\n10, 11, 12 (School)\n5 hr/wk, 30 wk/yr\nWill continue',
@@ -55,5 +55,14 @@ test('a key quote missing from the PDF is counted, so a broken key is noticed', 
 test('totals add up across applications', () => {
   const a = { planted: 2, caught: 1, falseAlarms: 1, trickyTriggered: 0, keyQuotesMissing: 0, byKind: { role: { planted: 1, caught: 1 } } };
   const b = { planted: 1, caught: 0, falseAlarms: 2, trickyTriggered: 1, keyQuotesMissing: 0, byKind: { role: { planted: 1, caught: 0 } } };
-  assert.deepEqual(totalScores([a, b]), { planted: 3, caught: 1, falseAlarms: 3, trickyTriggered: 1, keyQuotesMissing: 0, byKind: { role: { planted: 2, caught: 1 } }, falseAlarmKinds: {} });
+  assert.deepEqual(totalScores([a, b]), { planted: 3, caught: 1, caughtBySectionOnly: 0, falseAlarms: 3, trickyTriggered: 1, keyQuotesMissing: 0, byKind: { role: { planted: 2, caught: 1 } }, falseAlarmKinds: {} });
+});
+
+test('a key quote the PDF does not contain falls back to matching by section', () => {
+  const sections = { 'activity-1': 'Robotics Club, Captain\n12 hr/wk, 50 wk/yr', 'personal-essay': 'I spend twenty hours a week in the robotics lab.' };
+  const places = [{ sectionId: 'activity-1', quote: '12 hours per week' }, { sectionId: 'personal-essay', quote: 'twenty hours a week' }];
+  const flag = { id: 'x', citations: [{ sectionId: 'activity-1', quote: '12 hr/wk, 50 wk/yr' }, { sectionId: 'personal-essay', quote: 'I spend twenty hours a week' }] };
+  assert.equal(matchKind(flag, places, sections), 'section');
+  const wrongEssayLine = { id: 'y', citations: [{ sectionId: 'activity-1', quote: '12 hr/wk, 50 wk/yr' }, { sectionId: 'personal-essay', quote: 'in the robotics lab' }] };
+  assert.equal(matchKind(wrongEssayLine, places, sections), null);
 });

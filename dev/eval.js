@@ -18,7 +18,7 @@ const $ = (id) => document.getElementById(id);
 const say = (text) => { $('status').textContent = text; };
 
 const line = (label, t) =>
-  `${label}: caught ${t.caught}/${t.planted}, false alarms ${t.falseAlarms}, tricky cases flagged ${t.trickyTriggered}`;
+  `${label}: caught ${t.caught}/${t.planted}${t.caughtBySectionOnly ? ` (${t.caughtBySectionOnly} by section only)` : ''}, false alarms ${t.falseAlarms}, tricky cases flagged ${t.trickyTriggered}`;
 const kinds = (t) => Object.entries(t.byKind).map(([k, v]) => `${k} ${v.caught}/${v.planted}`).join(', ') +
   `\n  false alarms by check: ${Object.entries(t.falseAlarmKinds).map(([k, n]) => `${k} ${n}`).join(', ') || 'none'}`;
 

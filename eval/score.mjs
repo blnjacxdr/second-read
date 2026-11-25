@@ -61,6 +61,6 @@ for (const file of apps) {
 }
 
 const total = totalScores(scores);
-console.log(`\nCode checks: caught ${total.caught} of ${total.planted} planted mistakes, ${total.falseAlarms} false alarm(s), ` +
+console.log(`\nCode checks: caught ${total.caught} of ${total.planted} planted mistakes${total.caughtBySectionOnly ? ` (${total.caughtBySectionOnly} by section only)` : ""}, ${total.falseAlarms} false alarm(s), ` +
   `${total.trickyTriggered} tricky consistent case(s) flagged.`);
 console.log('By kind (caught/planted):', Object.entries(total.byKind).map(([k, v]) => `${k} ${v.caught}/${v.planted}`).join(', '));

@@ -31,21 +31,30 @@ function overlaps(a, b) {
 }
 
 /**
- * True if the flag points at the same places as the planted case (same set of
- * sections) and overlaps its quote in every one of them. (Overlap in just one
- * place counted a flag about the right essay sentence but the wrong activity
- * line as a catch.)
+ * How a flag matches a planted case: 'exact', 'section' or null.
+ * It must point at the same set of sections. Then, in each section, its quote must overlap one of the key's quotes
+ * there ('exact'). Some key quotes can't be found in the PDF at all (the test writer quoted a short field like hours or
+ * grades in a different format than the PDF prints). For those sections the right section is the best we can check,
+ * so the match is 'section', and the totals report how many catches relied on that.
+ * (Overlap in just one place counted a flag about the right essay sentence but the wrong activity line as a catch,
+ * so every section still has to agree.)
  */
-export function flagMatches(flag, places, sections) {
+export function matchKind(flag, places, sections) {
   const flagSections = new Set(flag.citations.map((c) => c.sectionId));
   const placeSections = new Set(places.map((p) => toPdfSectionId(p.sectionId)));
-  if (flagSections.size !== placeSections.size || [...flagSections].some((s) => !placeSections.has(s))) return false;
-  return places.every((place) => {
-    const sectionId = toPdfSectionId(place.sectionId);
-    const keyRanges = rangesFor(sections, sectionId, place.quote);
+  if (flagSections.size !== placeSections.size || [...flagSections].some((s) => !placeSections.has(s))) return null;
+  let loose = false;
+  for (const sectionId of placeSections) {
+    const keyRanges = places.filter((p) => toPdfSectionId(p.sectionId) === sectionId).flatMap((p) => rangesFor(sections, sectionId, p.quote));
+    if (keyRanges.length === 0) { loose = true; continue; }
     const flagRanges = flag.citations.filter((c) => c.sectionId === sectionId).flatMap((c) => rangesFor(sections, sectionId, c.quote));
-    return overlaps(keyRanges, flagRanges);
-  });
+    if (!overlaps(keyRanges, flagRanges)) return null;
+  }
+  return loose ? 'section' : 'exact';
+}
+
+export function flagMatches(flag, places, sections) {
+  return matchKind(flag, places, sections) !== null;
 }
 
 /**
@@ -58,6 +67,7 @@ export function scoreApplication(flags, entry, sections) {
   const usedFlags = new Set();
   const byKind = {};
   let keyQuotesMissing = 0;
+  let caughtBySectionOnly = 0;
 
   for (const mistake of entry.mistakes) {
     byKind[mistake.kind] ??= { planted: 0, caught: 0 };
@@ -68,6 +78,7 @@ export function scoreApplication(flags, entry, sections) {
     const matching = flags.filter((f) => flagMatches(f, mistake.places, sections));
     if (matching.length > 0) {
       caughtIds.add(mistake.id);
+      if (!matching.some((f) => matchKind(f, mistake.places, sections) === 'exact')) caughtBySectionOnly += 1;
       byKind[mistake.kind].caught += 1;
       for (const f of matching) usedFlags.add(f.id);
     }
@@ -93,6 +104,7 @@ export function scoreApplication(flags, entry, sections) {
   return {
     planted: entry.mistakes.length,
     caught: caughtIds.size,
+    caughtBySectionOnly,
     falseAlarms,
     falseAlarmKinds,
     trickyTriggered,
@@ -105,9 +117,9 @@ export function scoreApplication(flags, entry, sections) {
 
 /** Adds up per-application scores. */
 export function totalScores(scores) {
-  const total = { planted: 0, caught: 0, falseAlarms: 0, trickyTriggered: 0, keyQuotesMissing: 0, byKind: {}, falseAlarmKinds: {} };
+  const total = { planted: 0, caught: 0, caughtBySectionOnly: 0, falseAlarms: 0, trickyTriggered: 0, keyQuotesMissing: 0, byKind: {}, falseAlarmKinds: {} };
   for (const s of scores) {
-    for (const key of ['planted', 'caught', 'falseAlarms', 'trickyTriggered', 'keyQuotesMissing']) total[key] += s[key];
+    for (const key of ['planted', 'caught', 'caughtBySectionOnly', 'falseAlarms', 'trickyTriggered', 'keyQuotesMissing']) total[key] += s[key] ?? 0;
     for (const [kind, k] of Object.entries(s.byKind)) {
       total.byKind[kind] ??= { planted: 0, caught: 0 };
       total.byKind[kind].planted += k.planted;
