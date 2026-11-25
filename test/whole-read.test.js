@@ -61,3 +61,14 @@ test('the check step numbers every flag and keeps only the conflicts', () => {
   assert.deepEqual(applyVerdicts(flags, answer, { keepUnsure: true }).map((f) => f.title), ['a', 'c', 'd']);
   assert.deepEqual(applyVerdicts(flags, null).map((f) => f.title), ['a', 'b', 'c', 'd']);
 });
+
+test('another college named in a college essay can be one place; other single-section answers are still dropped', () => {
+  const s = { ...sections, 'college-essay-1': 'I toured campus twice. That is the kind of community I would find at Smith.' };
+  const withCollege = { ...app, sections: s, essayIds: ['personal-essay', 'college-essay-1'], college: 'Barnard College' };
+  assert.match(wholeReadPrompt(withCollege), /This application is for Barnard College/);
+  const one = { kind: 'college', title: 'Names Smith', sectionA: 'college-essay-1', quoteA: 'the kind of community I would find at Smith', sectionB: 'college-essay-1', quoteB: 'the kind of community I would find at Smith', why: 'x' };
+  const { kept } = wholeReadFlags({ conflicts: [one, { ...one, kind: 'role' }] }, s);
+  assert.equal(kept.length, 1);
+  assert.deepEqual(kept[0].citations.map((c) => c.sectionId), ['college-essay-1']);
+  assert.match(wholeReadPrompt(withCollege, { alreadyFound: kept }), /\[college-essay-1\] "the kind of community I would find at Smith"/);
+});

@@ -33,6 +33,8 @@ export const WHOLE_READ_SCHEMA = {
   required: ['conflicts'],
 };
 
+/** A flag's places as one line: [section] "quote" vs [section] "quote". */
+const describe = (flag) => flag.citations.map((c) => `[${c.sectionId}] "${c.quote}"`).join(' vs ');
 const sectionIds = (app) => [...app.activityIds, ...(app.honorIds ?? []), ...app.essayIds].filter((id) => app.sections[id]);
 const applicationText = (app) => sectionIds(app).map((id) => `[${id}]\n${app.sections[id]}\n`);
 
@@ -56,16 +58,26 @@ const HOW_TO_ANSWER = [
  * 'instructions-first' is the Nov 24 original, kept so the test page can compare the two.
  * alreadyFound (a second look) lists conflicts found before, so the model looks for different ones.
  */
+// Which college this PDF is for, so a college essay that names another college as the student's choice stands out.
+// (Nov 24: without it, the read missed "the kind of community I'd find at Smith" in a Barnard essay.) This is the
+// one disagreement that can sit inside a single section, so it is reported with sectionA and sectionB the same.
+const collegeLine = (app) => (app.college ? [
+  `This application is for ${app.college}. If a college essay names a DIFFERENT college as the place the student wants`,
+  'to attend or study (a name left over from another college\'s essay), report it with kind "college", sectionA and',
+  'sectionB both that essay\'s id, and quoteA and quoteB both the sentence that names the other college. Naming another',
+  'college for a real reason (a nearby school, a past program) is not a disagreement.',
+] : []);
+
 export function wholeReadPrompt(app, { layout = 'data-first', alreadyFound = [] } = {}) {
   const found = alreadyFound.length === 0 ? [] : [
     '',
     'These were already found. Do not list them again; look for any OTHER disagreements:',
-    ...alreadyFound.map((f) => `- [${f.citations[0].sectionId}] "${f.citations[0].quote}" vs [${f.citations[1].sectionId}] "${f.citations[1].quote}"`),
+    ...alreadyFound.map((f) => `- ${describe(f)}`),
   ];
   if (layout === 'instructions-first') {
     return [
       'Below is one student\'s college application, split into labeled sections.',
-      ...WHAT_COUNTS, ...HOW_TO_ANSWER, ...found, '',
+      ...WHAT_COUNTS, ...collegeLine(app), ...HOW_TO_ANSWER, ...found, '',
       ...applicationText(app),
     ].join('\n');
   }
@@ -75,7 +87,7 @@ export function wholeReadPrompt(app, { layout = 'data-first', alreadyFound = [] 
     '</application>',
     '',
     'Above is one student\'s college application, split into sections labeled with ids in brackets.',
-    ...WHAT_COUNTS, ...HOW_TO_ANSWER, ...found,
+    ...WHAT_COUNTS, ...collegeLine(app), ...HOW_TO_ANSWER, ...found,
   ].join('\n');
 }
 
@@ -110,7 +122,7 @@ export function verifyPrompt(app, flags) {
     'Above is one student\'s college application. Someone listed the possible disagreements below. Check each one',
     'against the whole application.',
     '',
-    ...flags.map((f, i) => `${i + 1}. [${f.citations[0].sectionId}] "${f.citations[0].quote}" vs [${f.citations[1].sectionId}] "${f.citations[1].quote}" (${f.title})`),
+    ...flags.map((f, i) => `${i + 1}. ${describe(f)} (${f.title})`),
     '',
     'For each number, give a verdict:',
     '- "conflict": the two statements cannot both be true as written. A counselor would ask the student to fix it.',
@@ -156,9 +168,11 @@ export function wholeReadFlags(answer, sections, existing = []) {
     const a = String(c.sectionA ?? '').trim();
     const b = String(c.sectionB ?? '').trim();
     if (!sections[a] || !sections[b]) { dropped.push({ reason: 'unknown section' }); continue; }
-    if (a === b) { dropped.push({ reason: 'same section twice' }); continue; }
+    // One section is allowed only for another college's name in a college essay (see collegeLine).
+    const single = a === b;
+    if (single && !(c.kind === 'college' && /^college-essay-/.test(a))) { dropped.push({ reason: 'same section twice' }); continue; }
     const foundA = locateQuote(sections, { sectionId: a, quote: String(c.quoteA ?? '') });
-    const foundB = locateQuote(sections, { sectionId: b, quote: String(c.quoteB ?? '') });
+    const foundB = single ? foundA : locateQuote(sections, { sectionId: b, quote: String(c.quoteB ?? '') });
     if (!foundA || !foundB) { dropped.push({ reason: 'quote not found in the application' }); continue; }
     const seen = (sid, ranges) => covered.some((x) => x.sectionId === sid && overlapsAny(ranges, x.ranges));
     if (seen(a, foundA.ranges) && seen(b, foundB.ranges)) { dropped.push({ reason: 'already flagged' }); continue; }
@@ -168,7 +182,7 @@ export function wholeReadFlags(answer, sections, existing = []) {
       kind: KINDS.includes(c.kind) ? c.kind : 'other',
       title: String(c.title ?? 'These disagree').slice(0, 70),
       detail: `${String(c.why ?? '').slice(0, 240)} Check which is right.`.trim(),
-      citations: [{ sectionId: a, quote: foundA.text }, { sectionId: b, quote: foundB.text }],
+      citations: single ? [{ sectionId: a, quote: foundA.text }] : [{ sectionId: a, quote: foundA.text }, { sectionId: b, quote: foundB.text }],
     };
     kept.push(flag);
     cover(flag);

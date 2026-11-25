@@ -10,11 +10,11 @@ import { runAiChecks } from '../src/core/run-ai.js';
 import { scoreApplication, totalScores } from '../src/core/eval.js';
 import { onDeviceAvailability } from '../src/core/privacy.js';
 import { createSentLog } from '../src/core/sent-log.js';
-import { wholeReadFlags, applyVerdicts } from '../src/core/whole-read.js';
+import { wholeReadFlags } from '../src/core/whole-read.js';
 
 const NANO_RUNS = 3; // Gemini Nano answers differently run to run, so one run proves little
 const CLOUD_AT_ONCE = 4; // applications read in parallel in the cloud; Nano reads one at a time
-const REVIEW_VARIANT = 'D'; // the false-alarm list shows this setup's false alarms
+const REVIEW_VARIANT = 'G'; // the false-alarm list shows this setup's false alarms
 // Gemini 3.5 Flash list prices (USD per million tokens), for a rough cost line. Thinking bills as output.
 const PRICE = { input: 1.5, output: 9 };
 
@@ -26,13 +26,14 @@ const GROUPS = {
 const isFinal = (folder) => folder.startsWith('final');
 const canReview = (folder) => folder === 'fresh' || folder.startsWith('practice');
 
+// Nov 24, practice-1: the check step removed more real catches than false alarms, so it's no longer run here
+// (verifyConsented stays in src/ai.js). Two independent reads are compared instead: each read misses different things.
 const VARIANTS = {
   A: 'A original read',
   B: 'B data first',
   C: 'C data first + second look',
-  D: 'D = C + check step (strict)',
-  E: 'E = C + check step (keeps unsure)',
-  F: 'F = B + check step (strict)',
+  G: 'G = A and B together (two reads)',
+  H: 'H = A and C together (three reads)',
 };
 
 const $ = (id) => document.getElementById(id);
@@ -83,17 +84,11 @@ async function cloudVariants(module, hybrid, sentLog, a, base, onFail) {
   const [answerA, answerB] = await Promise.all([ask({ layout: 'instructions-first' }), ask({ layout: 'data-first' })]);
   const flagsA = flagsFrom(answerA, base);
   const flagsB = flagsFrom(answerB, base);
-  const flagsC = [...flagsB, ...flagsFrom(await ask({ layout: 'data-first', alreadyFound: flagsB }), [...base, ...flagsB])];
-  const verdicts = flagsC.length
-    ? await module.verifyConsented(hybrid, sentLog, a.app, flagsC).catch((err) => { onFail(err); return null; })
-    : null;
-  const forB = verdicts ? { verdicts: (verdicts.verdicts ?? []).filter((v) => v.n <= flagsB.length) } : null;
-  return {
-    A: flagsA, B: flagsB, C: flagsC,
-    D: applyVerdicts(flagsC, verdicts),
-    E: applyVerdicts(flagsC, verdicts, { keepUnsure: true }),
-    F: applyVerdicts(flagsB, forB),
-  };
+  const answerC = await ask({ layout: 'data-first', alreadyFound: flagsB });
+  const flagsC = [...flagsB, ...flagsFrom(answerC, [...base, ...flagsB])];
+  const flagsG = [...flagsA, ...flagsFrom(answerB, [...base, ...flagsA])];
+  const flagsH = [...flagsG, ...flagsFrom(answerC, [...base, ...flagsG])];
+  return { A: flagsA, B: flagsB, C: flagsC, G: flagsG, H: flagsH };
 }
 
 $('run').addEventListener('click', async () => {
@@ -171,7 +166,7 @@ $('run').addEventListener('click', async () => {
       const u = sentLog.usage();
       const dollars = (u.input * PRICE.input + u.output * PRICE.output) / 1e6;
       report.push(`Cloud: ${u.calls} prompts, ${u.input.toLocaleString()} input + ${u.output.toLocaleString()} output tokens, ` +
-        `about $${dollars.toFixed(2)} for this run (about $${(dollars / apps.length).toFixed(3)} per application, all six setups together)`);
+        `about $${dollars.toFixed(2)} for this run (about $${(dollars / apps.length).toFixed(3)} per application for 3 reads; one read is about a third)`);
     }
     if ($('review').checked) showReview(toReview);
     say('Done. Copy the numbers below and paste them into the chat.');

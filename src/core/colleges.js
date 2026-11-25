@@ -167,6 +167,7 @@ export const COLLEGES = [
   { name: "Stevens Institute of Technology", aliases: [] },
   { name: "Rochester Institute of Technology", aliases: ["RIT"] },
   { name: "Cooper Union", aliases: [] },
+  { name: "School of the Art Institute of Chicago", aliases: ["SAIC"] },
   { name: "Colorado School of Mines", aliases: [] },
   { name: "University of Richmond", aliases: [] },
   { name: "College of William & Mary", aliases: ["William & Mary", "William and Mary"] },
