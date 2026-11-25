@@ -8,9 +8,23 @@
 
 export const CONSENT_COPY = {
   question: 'Gemini Nano isn\'t on this laptop. Read this application with Gemini in Google\'s cloud instead?',
-  what: 'This sends the essays, activities and honors in this PDF to Google\'s Gemini API, for this visit only. Google doesn\'t use it to improve its products. Every word sent shows under "What was sent."',
+  // Honest about retention (researched Nov 24): on the paid Gemini API, Google doesn't train on prompts, and keeps
+  // them only for a limited time to check for abuse.
+  what: 'This sends the essays, activities and honors in this PDF to Google\'s Gemini API. Google doesn\'t use them to improve its products and keeps them only briefly, to check for abuse. Every word sent shows under "What was sent."',
   yes: 'Use the cloud for this visit',
   no: 'Code checks only',
+};
+
+/** The closer read, offered after Gemini Nano has read (laptops that have Nano). The button is the yes. */
+export const CLOSER_COPY = {
+  label: 'optional, with your yes',
+  title: 'Read it closer',
+  intro: 'Gemini Nano reads in small pieces on this laptop. Gemini in Google\'s cloud can read the whole application at once and usually finds more. This sends the essays, activities and honors in this PDF to Google\'s Gemini API. Google doesn\'t use them to improve its products and keeps them only briefly, to check for abuse. Every word sent shows under "What was sent."',
+  button: 'Send it to Gemini for a closer read',
+  reading: 'Gemini is reading it all together, in Google\'s cloud…',
+  found: (n) => (n === 1 ? 'Gemini found 1 more spot. It\'s added to the list as a maybe.' : `Gemini found ${n} more spots. They're added to the list as maybes.`),
+  none: 'Gemini read it all together and found nothing new.',
+  failed: 'Couldn\'t reach Gemini in the cloud just now. Nothing new was added; try again in a minute.',
 };
 
 /** Purpose line in the sent log for each cloud question. */

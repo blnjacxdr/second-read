@@ -38,6 +38,25 @@ test('"prefer" inference modes only in the consented fallback', () => {
   for (const line of calls) assert.match(line, /cloudConsent === true/, `built without checking consent: ${line.trim()}`);
 });
 
+// The closer read sends application text to the cloud (ONLY_IN_CLOUD) for counselors who have Gemini Nano and click
+// "Read it closer". Its model is built in one function, which app.js calls only on a line that checks the click's yes.
+test('the closer-read cloud model is built only after its yes', () => {
+  const ai = readFileSync(join(root, 'src', 'ai.js'), 'utf8').replace(/\r\n/g, '\n');
+  const fn = ai.indexOf('export function createCloserReadModel(');
+  assert.ok(fn > 0, 'createCloserReadModel exists');
+  const body = ai.slice(fn, ai.indexOf('\n}\n', fn));
+  assert.match(body, /InferenceMode\.ONLY_IN_CLOUD/);
+  assert.doesNotMatch(body, /googleSearch/, 'no Google Search with application text');
+  const app = readFileSync(join(root, 'src', 'app.js'), 'utf8').replace(/\r\n/g, '\n');
+  const calls = app.split('\n').filter((line) => line.includes('createCloserReadModel('));
+  assert.ok(calls.length >= 1, 'app.js builds the closer-read model somewhere');
+  for (const line of calls) assert.match(line, /closerConsent === true/, `built without checking the yes: ${line.trim()}`);
+  for (const file of srcFiles) {
+    if (file.endsWith(join('src', 'ai.js')) || file.endsWith(join('src', 'app.js'))) continue;
+    assert.doesNotMatch(readFileSync(file, 'utf8'), /createCloserReadModel\(/, file);
+  }
+});
+
 test('the App Check debug token is only ever set in dev/', () => {
   for (const file of srcFiles) {
     assert.doesNotMatch(readFileSync(file, 'utf8'), /FIREBASE_APPCHECK_DEBUG_TOKEN\s*=/, file);

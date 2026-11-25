@@ -238,6 +238,22 @@ export function wholeReadConsented(hybrid, sentLog, app, options = {}) {
   return askHybrid(hybrid.whole, wholeReadPrompt(app, options), WHOLE_READ_SCHEMA, sentLog);
 }
 
+// The closer read (Nov 24, the builder's decision). For a counselor whose laptop HAS Gemini Nano: after Nano's reading, the
+// results page offers "Read it closer". Only after that click (the yes, with what gets sent spelled out beside the
+// button) does app.js build this model, on a line that checks closerConsent === true (test/guards.test.js).
+// ONLY_IN_CLOUD: the counselor asked for the cloud by name, so it must never quietly run on the device instead.
+export function createCloserReadModel(models) {
+  return getGenerativeModel(models.ai, {
+    mode: InferenceMode.ONLY_IN_CLOUD,
+    inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
+  });
+}
+
+/** The whole-application read through the closer-read model. Logged in the sent log before it is sent. */
+export function closerReadConsented(model, sentLog, app) {
+  return askHybrid(model, wholeReadPrompt(app, { layout: 'instructions-first' }), WHOLE_READ_SCHEMA, sentLog);
+}
+
 /** The check step: one question that gives a verdict on every flag the whole read found. */
 export function verifyConsented(hybrid, sentLog, app, flags) {
   return askHybrid(hybrid.verify, verifyPrompt(app, flags), VERIFY_SCHEMA, sentLog);

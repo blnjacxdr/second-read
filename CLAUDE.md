@@ -9,10 +9,13 @@ For history, decisions, setup and the day-by-day plan, read `docs/HANDOFF.md` fi
 
 ## Privacy rules
 1. Application text goes to deterministic code and the on-device model (`InferenceMode.ONLY_ON_DEVICE`) by
-   default. The one exception is the consented fallback (the builder's decision, Nov 24): with no Gemini Nano, the user
+   default. First exception, the consented fallback (the builder's decision, Nov 24): with no Gemini Nano, the user
    is asked in plain words, and only after a yes does `createConsentedHybridModels` build `PREFER_ON_DEVICE`
-   models. Every prompt goes in the sent log first. `PREFER_IN_CLOUD` is never used. `test/guards.test.js` enforces this.
-2. Only public names (organizations, programs, colleges) go to the cloud model
+   models. Second exception, the closer read (the builder's decision, Nov 24): on a laptop WITH Gemini Nano, after Nano's
+   reading, the results page offers "Read it closer". Only after that click does `createCloserReadModel` build an
+   `ONLY_IN_CLOUD` model (no Google Search) for one whole-application read. Every prompt goes in the sent log first.
+   `PREFER_IN_CLOUD` is never used. `test/guards.test.js` enforces this.
+2. Google Search grounding gets only public names (organizations, programs, colleges), never application text
    (`ONLY_IN_CLOUD` + Google Search). Every string sent is recorded in the sent log first.
 3. No on-device model: ask first (src/core/consent.js). "No" means code checks only. Never fall back to the
    cloud without that explicit yes.

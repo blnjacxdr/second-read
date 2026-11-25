@@ -175,7 +175,7 @@
     <section id="modes" class="sr-modes" aria-labelledby="modes-h">
       <h2 id="modes-h">How closely it reads depends on the laptop.</h2>
       <ol class="sr-modes-list">
-        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Offered when this laptop doesn't have Gemini Nano, and only after you say yes. The application goes to Google's Gemini API for that visit, and every word sent is listed.</li>
+        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Offered when this laptop doesn't have Gemini Nano, or after Nano's reading if you want a closer one. Only after you say yes. The application goes to Google's Gemini API for that visit, and every word sent is listed.</li>
         <li><span class="sr-modes-note">good, and private</span><strong>Gemini Nano, on this laptop</strong>A smaller Gemini model built into Chrome on some laptops. It reads the essays without anything leaving the laptop.</li>
         <li><span class="sr-modes-note">a first pass</span><strong>Code checks only</strong>Fast and exact, but they only catch mistakes they have a rule for, so they miss plenty. A clean result here isn't a sign-off. Read it yourself too.</li>
       </ol>
@@ -232,10 +232,21 @@
         <p class="sr-fold-note">Gemini Nano read these as background, like someone the student knows went there. They aren't counted above, but they're here so nothing is hidden.</p>
         <div id="res-background-list" class="sr-cards"></div>
       </details>
+      <section id="closer-panel" class="sr-names sr-closer" aria-labelledby="closer-h" hidden>
+        <div class="sr-names-head">
+          <div>
+            <p class="sr-pen-label" aria-hidden="true" id="closer-label"></p>
+            <h2 id="closer-h"></h2>
+            <p class="sr-names-intro" id="closer-intro"></p>
+          </div>
+          <button type="button" id="closer-start" class="sr-cta"></button>
+        </div>
+        <p id="closer-status" class="sr-names-status" aria-live="polite" hidden><span class="sr-mini-eyes" aria-hidden="true"><i></i><i></i></span><span id="closer-status-text"></span></p>
+      </section>
       <section id="names-panel" class="sr-names" aria-labelledby="names-h">
         <div class="sr-names-head">
           <div>
-            <p class="sr-pen-label" aria-hidden="true">the only part that goes online</p>
+            <p class="sr-pen-label" aria-hidden="true">public names only</p>
             <h2 id="names-h">Fact-check the names</h2>
             <p class="sr-names-intro">Google Search can check public names like programs, awards and places, for example whether a summer program is really held where the student wrote it is. You pick which names go. Nothing else does.</p>
           </div>

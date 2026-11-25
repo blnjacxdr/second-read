@@ -21,7 +21,7 @@ import { startScrolling } from './ui/scroll.js';
 import { addFace, setFace } from './ui/face.js';
 import { marginNote } from './core/margin-note.js';
 import { contextSentences, googleSays, contextFinding } from './core/name-context.js';
-import { CONSENT_COPY } from './core/consent.js';
+import { CONSENT_COPY, CLOSER_COPY } from './core/consent.js';
 import { wholeReadFlags } from './core/whole-read.js';
 
 const $ = (id) => document.getElementById(id);
@@ -40,6 +40,7 @@ let last = null;      // the previous check in this tab, for re-checking (never 
 let cloudChecks = 0;
 let busy = false;     // true while a PDF is being read; the phase tabs wait
 let cloudConsent = null; // no Gemini Nano: null = not asked yet, true = yes for this visit, false = code checks only
+let closerConsent = false; // has Gemini Nano: true only once the counselor clicks "Read it closer" for this PDF
 
 // The eyes that can make faces: the logo (every phase), the two on the reading card, and the start page pair.
 const faces = {
@@ -506,7 +507,8 @@ function buildStack() {
   const stack = $('res-stack');
   const items = [...sure.map(cardFor)];
   if (maybes.length) {
-    items.push(el('h2', `${maybes.length} ${maybes.length === 1 ? 'maybe' : 'maybes'} from Gemini Nano. Skim ${maybes.length === 1 ? 'this' : 'these'}.`, 'sr-divider'));
+    const who = run.nano === 'ran' && !run.closer ? 'Gemini Nano' : 'Gemini';
+    items.push(el('h2', `${maybes.length} ${maybes.length === 1 ? 'maybe' : 'maybes'} from ${who}. Skim ${maybes.length === 1 ? 'this' : 'these'}.`, 'sr-divider'));
     items.push(...maybes.map(cardFor));
   }
   const end = el('div', undefined, 'sr-endcard');
@@ -656,10 +658,10 @@ function updateHeadline() {
 
 function updateReceipt() {
   const rows = receiptFor({
-    pageCount: run.pageCount, codeChecks: CODE_CHECK_COUNT, nano: run.nano, nanoQuestions: run.comparisons, tossed: run.tossed, sentCount: sentLog.entries().length,
+    pageCount: run.pageCount, codeChecks: CODE_CHECK_COUNT, nano: run.nano, nanoQuestions: run.comparisons, tossed: run.tossed, sentCount: sentLog.entries().length, closer: run.closer,
   });
   $('receipt-tossed-note').hidden = !(run.tossed > 0);
-  $('receipt-tossed-note').textContent = `"tossed" means ${run.nano === 'cloud' ? 'Gemini' : 'Gemini Nano'} quoted words that aren't in the application, so that flag was thrown out`;
+  $('receipt-tossed-note').textContent = `"tossed" means ${run.nano === 'cloud' || run.closer !== undefined ? 'Gemini' : 'Gemini Nano'} quoted words that aren't in the application, so that flag was thrown out`;
   const dl = $('receipt-rows');
   dl.replaceChildren();
   for (const [label, value] of rows.slice(0, -1)) dl.append(el('dt', label), el('dd', String(value)));
@@ -699,6 +701,7 @@ async function showResults() {
   $('res-background-sum').textContent = `${background.length} other college ${background.length === 1 ? 'mention that reads' : 'mentions that read'} like a story, not a slip`;
   $('res-background-list').replaceChildren(...background.map(cardFor));
   resetNamesPanel();
+  resetCloserPanel();
   updateHeadline();
   updateReceipt();
   drawSentLog(); // a cloud reading (with a yes) is listed under "What was sent" right away
@@ -718,6 +721,60 @@ function namesStatus(text, { busy = false } = {}) {
   swapText($('names-status-text'), text);
   // Replay the small pop each time the message changes, so a new step is noticed.
   line.style.animation = 'none'; void line.offsetWidth; line.style.animation = '';
+}
+
+// ---------- The closer read (laptops with Gemini Nano, after its reading, only with a yes) ----------
+
+function closerStatus(text, { busy = false } = {}) {
+  const line = $('closer-status');
+  line.hidden = !text;
+  line.classList.toggle('busy', busy);
+  swapText($('closer-status-text'), text);
+}
+
+// Offered when Gemini Nano read this PDF on the device (or was skipped or stopped). Not offered after a cloud reading,
+// or when the counselor already said "code checks only" to the cloud.
+function resetCloserPanel() {
+  closerConsent = false;
+  const offer = ['ran', 'failed', 'skipped-by-you'].includes(run.nano) && cloudConsent !== false && !run.closer;
+  $('closer-panel').hidden = !offer;
+  $('closer-label').textContent = CLOSER_COPY.label;
+  $('closer-h').textContent = CLOSER_COPY.title;
+  $('closer-intro').textContent = CLOSER_COPY.intro;
+  $('closer-start').textContent = CLOSER_COPY.button;
+  $('closer-start').hidden = false;
+  $('closer-start').disabled = false;
+  closerStatus('');
+}
+
+async function readCloser() {
+  const current = run;
+  $('closer-start').disabled = true;
+  closerConsent = true; // the click is the yes; the panel says exactly what goes
+  closerStatus(CLOSER_COPY.reading, { busy: true });
+  try {
+    const { models, createCloserReadModel, closerReadConsented } = await loadAi();
+    const model = closerConsent === true ? createCloserReadModel(models) : null;
+    const answer = await closerReadConsented(model, sentLog, current.app);
+    if (run !== current) return; // a new PDF was opened meanwhile
+    const extra = wholeReadFlags(answer, current.app.sections, [...current.codeFlags, ...current.aiFlags]);
+    current.aiFlags = [...current.aiFlags, ...extra.kept];
+    current.closer = extra.kept.length;
+    current.tossed += extra.dropped.filter((d) => d.reason === 'quote not found in the application').length;
+    current.cards = presentFlags({ result: current.result, codeFlags: current.codeFlags, aiFlags: current.aiFlags, mentionAnswers: current.mentionAnswers });
+    buildStack();
+    updateHeadline();
+    updateReceipt();
+    drawSentLog();
+    $('closer-start').hidden = true;
+    closerStatus(extra.kept.length ? CLOSER_COPY.found(extra.kept.length) : CLOSER_COPY.none);
+  } catch (err) {
+    console.error('closer read failed:', err.name, err.message); // the error only, never the text
+    closerStatus(CLOSER_COPY.failed);
+    $('closer-start').disabled = false;
+  } finally {
+    closerConsent = false;
+  }
 }
 
 function resetNamesPanel() {
@@ -1017,6 +1074,7 @@ $('closing-pick').addEventListener('keydown', (e) => { if (e.key === 'Enter' || 
 $('closing-sample').addEventListener('click', () => $('sample').click());
 $('again').addEventListener('click', goToStart);
 $('names-start').addEventListener('click', pickNames);
+$('closer-start').addEventListener('click', readCloser);
 // "Try a sample" in the top links runs the sample, not just scrolls to it.
 $('nav-sample').addEventListener('click', (e) => { e.preventDefault(); $('sample').click(); });
 $('names-send').addEventListener('click', sendNames);
