@@ -175,7 +175,7 @@
     <section id="modes" class="sr-modes" aria-labelledby="modes-h">
       <h2 id="modes-h">How closely it reads depends on the laptop.</h2>
       <ol class="sr-modes-list">
-        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Offered when this laptop doesn't have Gemini Nano, or after Nano's reading if you want a closer one. Only after you say yes. The application goes to Google's Gemini API for that visit, and every word sent is listed.</li>
+        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Offered when this laptop doesn't have Gemini Nano, or after Nano's reading if you want a closer one. Only after you say yes. Google doesn't train on it and keeps it only briefly, and every word sent is listed.</li>
         <li><span class="sr-modes-note">good, and private</span><strong>Gemini Nano, on this laptop</strong>A smaller Gemini model built into Chrome on some laptops. It reads the essays without anything leaving the laptop.</li>
         <li><span class="sr-modes-note">a first pass</span><strong>Code checks only</strong>Fast and exact, but they only catch mistakes they have a rule for, so they miss plenty. A clean result here isn't a sign-off. Read it yourself too.</li>
       </ol>
@@ -229,7 +229,7 @@
       <p class="sr-keys" id="stack-keys" hidden>Keys: <kbd>←</kbd> <kbd>→</kbd> move, <kbd>F</kbd> fixed it, <kbd>P</kbd> on purpose.</p>
       <details id="res-background" class="sr-fold-group" hidden>
         <summary id="res-background-sum"></summary>
-        <p class="sr-fold-note">Gemini Nano read these as background, like someone the student knows went there. They aren't counted above, but they're here so nothing is hidden.</p>
+        <p class="sr-fold-note">Gemini read these as background, like someone the student knows went there. They aren't counted above, but they're here so nothing is hidden.</p>
         <div id="res-background-list" class="sr-cards"></div>
       </details>
       <section id="closer-panel" class="sr-names sr-closer" aria-labelledby="closer-h" hidden>
@@ -264,7 +264,7 @@
             <p class="sr-small">The Google searches behind these answers. Tap one to see the results yourself.</p>
             <div id="names-chips"></div>
           </div>
-          <details id="sent-box" class="sr-sentbox" hidden><summary><span>See exactly what was sent to Google</span></summary><div id="sent-log"></div></details>
+          <details id="sent-box" class="sr-sentbox" hidden><summary><span>What was sent: see exactly what went to Google</span></summary><div id="sent-log"></div></details>
         </div>
       </section>
     </section>

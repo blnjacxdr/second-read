@@ -555,7 +555,7 @@ body.dragging #drop-label{outline:3px dashed var(--pen);outline-offset:6px;trans
 body.dragging #drop-label .sr-clip{transform:rotate(-14deg)}
 /* Printing the fix list: just the cards, as a clean list. */
 @media print{
-  .sr-margin,.sr-head,#view-start,.sr-side,#names-panel,.sr-stackbar,.sr-actions,.sr-endcard,.sr-totop,.sr-foot,#res-recheck,#res-nano-tip,#res-stamp{display:none!important}
+  .sr-margin,.sr-head,#view-start,.sr-side,#names-panel,#closer-panel,.sr-stackbar,.sr-actions,.sr-endcard,.sr-totop,.sr-foot,#res-recheck,#res-nano-tip,#res-stamp{display:none!important}
   .sr-paper{background:none!important}
   #view-results{display:block!important;padding:0!important}
   .sr-stack{display:block!important}

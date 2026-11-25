@@ -85,3 +85,13 @@ test('the sticky note explains Gemini Nano, and says the cloud is only used afte
     assert.doesNotMatch(n.body, /Click|Prepare/);
   }
 });
+
+test('after a closer read, the maybes are credited to Gemini and the receipt shows it', () => {
+  const ids = ['a', 'b', 'c'];
+  const h = headlineFor({ sure: 2, maybes: 1 }, new Map(), ids, { nano: 'ran', closer: true });
+  assert.match(h.subhead, /1 maybe from Gemini\./);
+  assert.match(h.subhead, /read it closer in Google's cloud, as you chose/);
+  const rows = receiptFor({ pageCount: 9, codeChecks: 7, nano: 'ran', closer: 2, sentCount: 1 });
+  assert.deepEqual(rows.find((r) => r[0] === 'closer read (your yes)'), ['closer read (your yes)', '2 new']);
+  assert.equal(receiptFor({ pageCount: 9, codeChecks: 7 }).some((r) => r[0].startsWith('closer')), false);
+});

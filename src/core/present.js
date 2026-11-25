@@ -57,11 +57,11 @@ const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
  * @param {{ sure: number, maybes: number }} counts
  * @param {Map<string, 'fixed'|'kept'>} decisions  what the student chose per card
  * @param {string[]} ids  every card id shown (sure and maybes)
- * @param {{ nano: 'ran'|'skipped'|'failed' }} options
+ * @param {{ nano: 'ran'|'skipped'|'failed'|'cloud'|'skipped-by-you', closer?: boolean }} options  closer: the closer read ran
  */
-export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
+export function headlineFor(counts, decisions, ids, { nano = 'ran', closer = false } = {}) {
   const total = counts.sure + counts.maybes;
-  const nanoNote = {
+  const nanoNote = closer ? ' Gemini Nano read it on this laptop, then Gemini read it closer in Google\'s cloud, as you chose.' : {
     skipped: ' Gemini Nano isn\'t on this computer, so only the code checks ran.',
     'skipped-by-you': ' You skipped the Gemini step, so only the code checks ran.',
     cloud: ' Gemini read the essays in Google\'s cloud, as you chose.',
@@ -80,7 +80,7 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
   }
   const parts = [];
   if (counts.sure) parts.push(`${plural(counts.sure, 'sure one', 'sure ones')} from the code checks`);
-  if (counts.maybes) parts.push(`${plural(counts.maybes, 'maybe', 'maybes')} from Gemini${nano === 'cloud' ? '' : ' Nano'}`);
+  if (counts.maybes) parts.push(`${plural(counts.maybes, 'maybe', 'maybes')} from Gemini${nano === 'cloud' || closer ? '' : ' Nano'}`);
   return {
     headline: `${plural(left, 'spot', 'spots')} to look at.`,
     subhead: `${parts.join(', and ')}.${nanoNote}`,
@@ -105,12 +105,12 @@ export function receiptFor({ pageCount, codeChecks, nano = 'ran', nanoQuestions 
   ];
 }
 
-/** The sticky note on the start page, from Chrome's Gemini Nano availability. Words for students, not developers. */
+/** The sticky note on the start page, from Chrome's Gemini Nano availability. Plain words for counselors, not developers. */
 export function nanoNote(availability) {
   const without = 'Without it, Second Read asks before using Gemini in Google\'s cloud instead. Say no and the code checks still run.';
   switch (availability) {
     case 'available':
-      return { ready: true, title: 'Gemini Nano is ready', body: 'It\'s the AI built into Chrome, and it runs right here on this laptop. It reads what the essays mean, so it catches mismatches code alone can\'t.' };
+      return { ready: true, title: 'Gemini Nano is ready', body: 'It\'s the AI built into Chrome, and it runs right here on this laptop. It reads what the essays mean, so it catches mismatches code alone can\'t. Afterwards you can ask Gemini in the cloud for a closer read.' };
     case 'downloading':
       return { ready: false, title: 'Gemini Nano is downloading', body: `Chrome is getting it now. It reads hours, titles and awards on this laptop, so it catches more. ${without}` };
     case 'downloadable':

@@ -423,7 +423,9 @@ function cardFor(card) {
   const top = el('div', undefined, 'sr-card-top');
   const tag = el('span', undefined, 'sr-card-src');
   // Read in the cloud (with a yes): the maybes came from Gemini there, not Gemini Nano.
-  const tagText = card.tone === 'pencil' && run?.nano === 'cloud' ? 'Maybe. Gemini\'s reading, so give it a look.' : SOURCE[card.tone].text;
+  // Cloud flags (a cloud reading, or the closer read) have ids that start with "cloud:".
+  const fromCloud = run?.nano === 'cloud' || String(card.id).startsWith('cloud:');
+  const tagText = card.tone === 'pencil' && fromCloud ? 'Maybe. Gemini\'s reading in the cloud, so give it a look.' : SOURCE[card.tone].text;
   tag.append(icon(SOURCE[card.tone].icon, { size: 15 }), tagText);
   const heading = el('h3');
   heading.append(el('span', card.title, 'sr-title'));
@@ -522,11 +524,18 @@ function buildStack() {
     $('names-panel').scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'start' });
     $('names-start').focus({ preventScroll: true });
   });
+  const closer = el('button', 'Read it closer with Gemini', 'sr-textbtn');
+  closer.type = 'button';
+  closer.hidden = $('closer-panel').hidden || $('closer-start').hidden;
+  closer.addEventListener('click', () => {
+    $('closer-panel').scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'start' });
+    $('closer-start').focus({ preventScroll: true });
+  });
   const print = el('button', 'Print or save as PDF', 'sr-linkbtn');
   print.type = 'button';
   print.addEventListener('click', () => window.print());
   const buttons = el('div', undefined, 'sr-endactions');
-  buttons.append(again, names, print);
+  buttons.append(again, closer, names, print);
   end.append(buttons);
   // The celebration lives on the end card: it plays when you arrive there with everything handled.
   end.prepend($('res-done'));
@@ -636,13 +645,13 @@ function updateHeadline() {
   const ids = [...cards.sure, ...cards.maybes].map((c) => c.id);
   const nano = ['ran', 'cloud', 'failed', 'skipped-by-you'].includes(run.nano) ? run.nano : 'skipped';
   // What Gemini would add, said once under the headline when it didn't run.
-  $('res-nano-tip').hidden = nano === 'ran' || nano === 'cloud';
+  $('res-nano-tip').hidden = nano === 'ran' || nano === 'cloud' || run.closer !== undefined;
   $('res-nano-tip').textContent = nano === 'skipped-by-you'
-    ? 'Gemini Nano also reads hours, titles and awards in the essays. Check this PDF again and let it finish to include those.'
+    ? 'Gemini also reads hours, titles and awards in the essays. Use "Read it closer" below, or check this PDF again and let Gemini Nano finish.'
     : nano === 'failed'
-      ? 'Check this PDF again to give Gemini Nano another try. It reads hours, titles and awards in the essays.'
+      ? 'Gemini Nano stopped partway. Use "Read it closer" below, or check this PDF again to give Nano another try.'
       : 'With Gemini Nano (in Chrome on a laptop), or with Gemini in the cloud if you say yes, Second Read also reads hours, titles and awards in the essays and checks names in the student\'s own sentences, so it catches more.';
-  const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length }, decisions, ids, { nano });
+  const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length }, decisions, ids, { nano, closer: run.closer !== undefined });
   swapText($('res-headline'), h.headline);
   if (!$('view-results').hidden) document.title = `${h.headline} | Second Read`;
   swapText($('res-subhead'), h.subhead);
@@ -696,12 +705,12 @@ async function showResults() {
     ? `${run.label}, ${college ? `${college} version` : 'Common App PDF'}`
     : `The ${college ?? 'Common App'} PDF`;
   applyRecheck();
+  resetCloserPanel(); // before the stack: the end card offers the closer read only while the panel does
   buildStack();
   $('res-background').hidden = background.length === 0;
   $('res-background-sum').textContent = `${background.length} other college ${background.length === 1 ? 'mention that reads' : 'mentions that read'} like a story, not a slip`;
   $('res-background-list').replaceChildren(...background.map(cardFor));
   resetNamesPanel();
-  resetCloserPanel();
   updateHeadline();
   updateReceipt();
   drawSentLog(); // a cloud reading (with a yes) is listed under "What was sent" right away
@@ -762,11 +771,11 @@ async function readCloser() {
     current.closer = extra.kept.length;
     current.tossed += extra.dropped.filter((d) => d.reason === 'quote not found in the application').length;
     current.cards = presentFlags({ result: current.result, codeFlags: current.codeFlags, aiFlags: current.aiFlags, mentionAnswers: current.mentionAnswers });
+    $('closer-start').hidden = true; // before the stack, so the end card stops offering it
     buildStack();
     updateHeadline();
     updateReceipt();
     drawSentLog();
-    $('closer-start').hidden = true;
     closerStatus(extra.kept.length ? CLOSER_COPY.found(extra.kept.length) : CLOSER_COPY.none);
   } catch (err) {
     console.error('closer read failed:', err.name, err.message); // the error only, never the text
