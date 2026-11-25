@@ -97,6 +97,7 @@ export function scoreApplication(flags, entry, sections) {
     falseAlarmKinds,
     trickyTriggered,
     trickyFlags: trickyFlags.size,
+    wrongFlags: wrong, // for the dev page's review list (fresh set only); totals never use them
     byKind,
     keyQuotesMissing,
   };

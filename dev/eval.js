@@ -55,12 +55,14 @@ $('run').addEventListener('click', async () => {
     const runs = engine === 'cloud' ? 1 : RUNS;
     let seconds = 0;
     let failed = 0;
+    const toReview = [];
     for (let r = 1; r <= runs; r++) {
       const narrow = [];
       const withWhole = [];
       for (const [i, a] of apps.entries()) {
         const started = performance.now();
-        const run = await runAiChecks({
+        const skipNarrow = hybrid && $('skip-narrow').checked;
+        const run = skipNarrow ? { flags: [], failed: 0 } : await runAiChecks({
           app: a.app,
           codeFlags: a.codeFlags,
           ask: hybrid ? module.consentedAsker(hybrid, sentLog) : module.onDeviceAsker(models),
@@ -75,7 +77,12 @@ $('run').addEventListener('click', async () => {
           say(`Run ${r}, application ${i + 1} of ${apps.length}: reading it all together…`);
           const whole = await module.wholeReadConsented(hybrid, sentLog, a.app).catch((err) => { failed += 1; console.warn(err.message); return null; });
           const extra = wholeReadFlags(whole, a.app.sections, base).kept;
-          withWhole.push(scoreApplication([...base, ...extra], a.entry, a.result.sections));
+          const scored = scoreApplication([...base, ...extra], a.entry, a.result.sections);
+          withWhole.push(scored);
+          if (r === runs) toReview.push(...scored.wrongFlags.map((f) => ({ file: a.entry.file, flag: f })));
+        }
+        if (!hybrid && r === runs) {
+          toReview.push(...narrow.at(-1).wrongFlags.map((f) => ({ file: a.entry.file, flag: f })));
         }
         seconds += (performance.now() - started) / 1000;
       }
@@ -89,6 +96,7 @@ $('run').addEventListener('click', async () => {
     }
     report.push(`AI time: ${(seconds / runs).toFixed(0)} s per run for ${apps.length} applications${failed ? `; ${failed} AI call(s) failed` : ''}` +
       (hybrid ? `; ${sentLog.entries().length} prompts sent to the cloud` : ''));
+    if ($('review').checked && set === 'fresh') showReview(toReview);
     say('Done. Copy the numbers below and paste them into the chat.');
   } catch (err) {
     say(`Stopped: ${err.message}`);
@@ -98,3 +106,27 @@ $('run').addEventListener('click', async () => {
     $('run').disabled = false;
   }
 });
+
+/** The false alarms, for the person running the page to judge. Fresh set only: held-out text is never shown. */
+function showReview(items) {
+  const list = $('review-list');
+  list.replaceChildren();
+  for (const { file, flag } of items) {
+    const li = document.createElement('li');
+    const head = document.createElement('div');
+    head.textContent = `${file}: ${flag.title} (${flag.check === 'on-device' ? 'Gemini' : 'code'})`;
+    li.append(head);
+    for (const c of flag.citations ?? []) {
+      const q = document.createElement('q');
+      q.textContent = `${c.sectionId}: ${c.quote}`;
+      li.append(q);
+    }
+    if (flag.detail) {
+      const why = document.createElement('div');
+      why.textContent = `Why: ${flag.detail}`;
+      li.append(why);
+    }
+    list.append(li);
+  }
+  $('review-box').hidden = items.length === 0;
+}
