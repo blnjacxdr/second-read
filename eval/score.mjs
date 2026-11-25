@@ -15,7 +15,10 @@ import { readCommonApp } from '../src/core/common-app.js';
 import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
 import { scoreApplication, totalScores } from '../src/core/eval.js';
 
-const dir = fileURLToPath(new URL('./heldout/', import.meta.url));
+// Which set to score: eval/heldout by default, or another folder under eval/ (node eval/score.mjs fresh).
+const set = process.argv[2] ?? 'heldout';
+if (!/^[a-z0-9-]+$/.test(set)) throw new Error('set name: letters, digits and dashes only');
+const dir = fileURLToPath(new URL(`./${set}/`, import.meta.url));
 const key = JSON.parse(readFileSync(join(dir, 'answer-key.json'), 'utf8'));
 const apps = readdirSync(dir).filter((f) => /^app-\d+\.json$/.test(f)).sort();
 
