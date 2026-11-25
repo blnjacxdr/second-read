@@ -683,6 +683,7 @@ async function showResults() {
   resetNamesPanel();
   updateHeadline();
   updateReceipt();
+  drawSentLog(); // a cloud reading (with a yes) is listed under "What was sent" right away
   await setPhase('results');
   $('view-results').focus({ preventScroll: true });
   last = run; // the next check in this tab compares against this one
