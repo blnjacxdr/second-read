@@ -11,8 +11,10 @@
 import { locateQuote } from './quotes.js';
 
 /** The answer key names the college's essay "supplement-main"; in a PDF it is the first college essay. */
+// The PDF reader names a college's own essay "college-essay-1". Test applications have one supplement each, whatever
+// its id ("supplement-main", "supplement-uw"), so every supplement id maps there.
 export function toPdfSectionId(sectionId) {
-  return sectionId === 'supplement-main' ? 'college-essay-1' : sectionId;
+  return /^supplement-/.test(sectionId) ? 'college-essay-1' : sectionId;
 }
 
 /** For an activity, the answer key may quote the hours line; our activity text uses the same "N hr/wk, M wk/yr". */

@@ -16,9 +16,10 @@
 // Every page is marked SAMPLE / fictional applicant.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { deepWinAnsi } from './winansi.js';
 
 const [inputPath, outputPath] = process.argv.slice(2);
-const app = JSON.parse(readFileSync(inputPath ?? new URL('../sample/application.json', import.meta.url), 'utf8'));
+const app = deepWinAnsi(JSON.parse(readFileSync(inputPath ?? new URL('../sample/application.json', import.meta.url), 'utf8')));
 
 const PAGE = { width: 612, height: 792, bottom: 50, contentTop: 740 };
 const X = { left: 36, answer: 179, activityRight: 176, honorGrades: 286, right: 560 };

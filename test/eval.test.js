@@ -21,6 +21,7 @@ const entry = {
 test('the key\'s "supplement-main" is the PDF\'s first college essay', () => {
   assert.equal(toPdfSectionId('supplement-main'), 'college-essay-1');
   assert.equal(toPdfSectionId('activity-3'), 'activity-3');
+  assert.equal(toPdfSectionId('supplement-uw'), 'college-essay-1'); // any supplement id (one per test app)
 });
 
 test('a flag matches when it points at the same sections and overlaps a quote', () => {

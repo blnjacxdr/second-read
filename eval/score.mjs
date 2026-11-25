@@ -13,13 +13,16 @@ import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { toPlainItems, buildRows } from '../src/core/pdf-lines.js';
 import { readCommonApp } from '../src/core/common-app.js';
 import { runCodeChecks, checkInputFromPdf } from '../src/core/checks.js';
-import { scoreApplication, totalScores } from '../src/core/eval.js';
+import { scoreApplication, totalScores, toPdfSectionId } from '../src/core/eval.js';
+import { deepWinAnsi } from '../tools/winansi.js';
+import { locateQuote } from '../src/core/quotes.js';
 
 // Which set to score: eval/heldout by default, or another folder under eval/ (node eval/score.mjs fresh).
 const set = process.argv[2] ?? 'heldout';
 if (!/^[a-z0-9-]+$/.test(set)) throw new Error('set name: letters, digits and dashes only');
 const dir = fileURLToPath(new URL(`./${set}/`, import.meta.url));
-const key = JSON.parse(readFileSync(join(dir, 'answer-key.json'), 'utf8'));
+// Key quotes get the same character swap as the PDFs (tools/winansi.js), so they still match.
+const key = deepWinAnsi(JSON.parse(readFileSync(join(dir, 'answer-key.json'), 'utf8')));
 const apps = readdirSync(dir).filter((f) => /^app-\d+\.json$/.test(f)).sort();
 
 async function readPdf(path) {
@@ -32,7 +35,7 @@ async function readPdf(path) {
 const scores = [];
 for (const file of apps) {
   const pdfPath = join(dir, file.replace('.json', '.pdf'));
-  if (!existsSync(pdfPath)) {
+  { // rebuilt every run, so a change to the PDF tool always shows up
     execFileSync(process.execPath, [fileURLToPath(new URL('../tools/make-sample-pdf.js', import.meta.url)), join(dir, file), pdfPath]);
   }
   const result = await readPdf(pdfPath);
@@ -40,6 +43,17 @@ for (const file of apps) {
   const entry = key.applications.find((a) => a.file === file) ?? { mistakes: [], trickyConsistent: [] };
   const score = scoreApplication(flags, entry, result.sections);
   scores.push(score);
+  // --why: for each key quote not found, print labels only (never the quote text): which mistake kind and section,
+  // whether that section exists in the PDF, and the quote's length. Enough to fix a key or the reader blind.
+  if (process.argv.includes('--why')) {
+    for (const m of entry.mistakes) for (const place of m.places) {
+      const id = toPdfSectionId(place.sectionId);
+      if (locateQuote(result.sections, { sectionId: id, quote: place.quote }, { minWords: 1 })) continue;
+      const anywhere = Object.keys(result.sections).find((sid) => locateQuote(result.sections, { sectionId: sid, quote: place.quote }, { minWords: 1 }));
+      console.log(`   not found: ${m.kind} in ${place.sectionId} -> ${id} (${result.sections[id] === undefined ? 'section missing' : 'section exists'}), ` +
+        `${place.quote.split(/\s+/).length} words${anywhere ? `, but found in ${anywhere}` : ''}`);
+    }
+  }
   console.log(`${file}: caught ${score.caught}/${score.planted}, false alarms ${score.falseAlarms}, ` +
     `tricky cases flagged ${score.trickyTriggered}/${(entry.trickyConsistent ?? []).length}` +
     `${result.missing.length ? `, READER MISSED: ${result.missing.join(', ')}` : ''}` +
