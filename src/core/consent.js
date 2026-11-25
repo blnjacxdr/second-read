@@ -8,7 +8,7 @@
 
 export const CONSENT_COPY = {
   question: 'Gemini Nano isn\'t on this laptop. Read this application with Gemini in Google\'s cloud instead?',
-  what: 'This sends the essays and activity list in this PDF to Google\'s Gemini API, for this visit only. Google doesn\'t use it to improve its products. Every word sent shows under "What was sent."',
+  what: 'This sends the essays, activities and honors in this PDF to Google\'s Gemini API, for this visit only. Google doesn\'t use it to improve its products. Every word sent shows under "What was sent."',
   yes: 'Use the cloud for this visit',
   no: 'Code checks only',
 };

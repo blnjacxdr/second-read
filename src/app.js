@@ -22,6 +22,7 @@ import { addFace, setFace } from './ui/face.js';
 import { marginNote } from './core/margin-note.js';
 import { contextSentences, googleSays, contextFinding } from './core/name-context.js';
 import { CONSENT_COPY } from './core/consent.js';
+import { wholeReadFlags } from './core/whole-read.js';
 
 const $ = (id) => document.getElementById(id);
 const CODE_CHECK_COUNT = 7;      // the checks in runCodeChecks: other colleges' names, start years, titles, grade years, counts, repeats, limits
@@ -354,7 +355,7 @@ async function askNano(current) {
   });
   const track = document.querySelector('.sr-bar-track');
   try {
-    const { models, onDeviceAsker, askMentionOnDevice, createConsentedHybridModels, consentedAsker, askMentionConsented } = await loadAi();
+    const { models, onDeviceAsker, askMentionOnDevice, createConsentedHybridModels, consentedAsker, askMentionConsented, wholeReadConsented } = await loadAi();
     // On the device by default; through the hybrid models only when there is no Nano and the counselor said yes.
     const hybrid = !onDevice && cloudConsent === true ? createConsentedHybridModels(models) : null;
     const work = runAiChecks({
@@ -381,6 +382,18 @@ async function askNano(current) {
     current.mentionAnswers = out.mentionAnswers ?? new Map();
     current.comparisons = out.comparisons;
     current.tossed = out.dropped.length;
+    // In the cloud (after the yes), one more question: Gemini reads the whole application at once and lists every
+    // pair of places that disagree. Its quotes are checked like every other AI flag (src/core/whole-read.js).
+    if (hybrid) {
+      stage('nano', 'active', 'reading it all together');
+      const whole = await Promise.race([wholeReadConsented(hybrid, sentLog, current.app).catch(() => null), skip]);
+      if (whole && !skipped) {
+        const extra = wholeReadFlags(whole, current.app.sections, [...current.codeFlags, ...current.aiFlags]);
+        current.aiFlags = [...current.aiFlags, ...extra.kept];
+        current.comparisons += 1;
+        current.tossed += extra.dropped.filter((d) => d.reason === 'quote not found in the application').length;
+      }
+    }
     current.nano = out.failed ? 'failed' : hybrid ? 'cloud' : 'ran';
     stage('nano', 'done', `${out.comparisons} questions`);
   } catch (err) {

@@ -4,7 +4,7 @@ import { CONSENT_COPY, withJsonShape, parseModelJson } from '../src/core/consent
 
 test('the consent question says what is sent, where, and that it is optional', () => {
   assert.match(CONSENT_COPY.question, /Gemini Nano isn't on this laptop/);
-  assert.match(CONSENT_COPY.what, /essays and activity list/);
+  assert.match(CONSENT_COPY.what, /essays, activities and honors/);
   assert.match(CONSENT_COPY.what, /What was sent/);
   assert.match(CONSENT_COPY.no, /Code checks only/);
 });
