@@ -36,6 +36,10 @@ const VARIANTS = {
   H: 'H = A and C together (three reads)',
 };
 
+// Why Gemini's answers were thrown away (counts only), across every read in a run. "quote not found" means Gemini
+// spotted something but didn't copy the words exactly, so the quote check dropped it.
+let dropReasons = {};
+
 const $ = (id) => document.getElementById(id);
 const say = (text) => { $('status').textContent = text; };
 const line = (label, t) =>
@@ -80,7 +84,11 @@ async function loadApplications(folders) {
 /** One application in the cloud: every setup in VARIANTS from the same answers. */
 async function cloudVariants(module, hybrid, sentLog, a, base, onFail) {
   const ask = (opts) => module.wholeReadConsented(hybrid, sentLog, a.app, opts).catch((err) => { onFail(err); return null; });
-  const flagsFrom = (answer, existing) => wholeReadFlags(answer, a.app.sections, existing).kept;
+  const flagsFrom = (answer, existing) => {
+    const out = wholeReadFlags(answer, a.app.sections, existing);
+    for (const d of out.dropped) dropReasons[d.reason] = (dropReasons[d.reason] ?? 0) + 1;
+    return out.kept;
+  };
   const [answerA, answerB] = await Promise.all([ask({ layout: 'instructions-first' }), ask({ layout: 'data-first' })]);
   const flagsA = flagsFrom(answerA, base);
   const flagsB = flagsFrom(answerB, base);
@@ -98,6 +106,7 @@ $('run').addEventListener('click', async () => {
   const engine = $('engine').value;
   const report = [`Set: ${choice}. Engine: ${engine === 'cloud' ? 'Gemini in the cloud' : 'Gemini Nano'}.`];
   const toReview = [];
+  dropReasons = {};
   try {
     if (folders.some(isFinal) && !window.confirm('This is the FINAL test set. Run it only once, after the feature freeze. Run it now?')) {
       throw new Error('not run.');
@@ -168,6 +177,7 @@ $('run').addEventListener('click', async () => {
       report.push(`Cloud: ${u.calls} prompts, ${u.input.toLocaleString()} input + ${u.output.toLocaleString()} output tokens, ` +
         `about $${dollars.toFixed(2)} for this run (about $${(dollars / apps.length).toFixed(3)} per application for 3 reads; one read is about a third)`);
     }
+    if (hybrid) report.push(`Gemini answers thrown away (all reads): ${Object.entries(dropReasons).map(([k, n]) => `${k} ${n}`).join(', ') || 'none'}`);
     if ($('review').checked) showReview(toReview);
     say('Done. Copy the numbers below and paste them into the chat.');
   } catch (err) {
