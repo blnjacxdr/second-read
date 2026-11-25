@@ -651,7 +651,8 @@ function updateHeadline() {
     : nano === 'failed'
       ? 'Gemini Nano stopped partway. Use "Read it closer" below, or check this PDF again to give Nano another try.'
       : 'With Gemini Nano (in Chrome on a laptop), or with Gemini in the cloud if you say yes, Second Read also reads hours, titles and awards in the essays and checks names in the student\'s own sentences, so it catches more.';
-  const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length }, decisions, ids, { nano, closer: run.closer !== undefined });
+  const cloudMaybes = cards.maybes.filter((c) => String(c.id).startsWith('cloud:')).length;
+  const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length, cloudMaybes }, decisions, ids, { nano, closer: run.closer !== undefined });
   swapText($('res-headline'), h.headline);
   if (!$('view-results').hidden) document.title = `${h.headline} | Second Read`;
   swapText($('res-subhead'), h.subhead);
@@ -750,6 +751,7 @@ function resetCloserPanel() {
   $('closer-label').textContent = CLOSER_COPY.label;
   $('closer-h').textContent = CLOSER_COPY.title;
   $('closer-intro').textContent = CLOSER_COPY.intro;
+  $('closer-fine').textContent = CLOSER_COPY.fine;
   $('closer-start').textContent = CLOSER_COPY.button;
   $('closer-start').hidden = false;
   $('closer-start').disabled = false;

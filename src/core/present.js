@@ -54,7 +54,7 @@ const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 
 /**
  * The big line at the top of the results, and the line under it.
- * @param {{ sure: number, maybes: number }} counts
+ * @param {{ sure: number, maybes: number, cloudMaybes?: number }} counts  cloudMaybes: how many maybes came from the cloud
  * @param {Map<string, 'fixed'|'kept'>} decisions  what the student chose per card
  * @param {string[]} ids  every card id shown (sure and maybes)
  * @param {{ nano: 'ran'|'skipped'|'failed'|'cloud'|'skipped-by-you', closer?: boolean }} options  closer: the closer read ran
@@ -80,7 +80,11 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran', closer = fal
   }
   const parts = [];
   if (counts.sure) parts.push(`${plural(counts.sure, 'sure one', 'sure ones')} from the code checks`);
-  if (counts.maybes) parts.push(`${plural(counts.maybes, 'maybe', 'maybes')} from Gemini${nano === 'cloud' || closer ? '' : ' Nano'}`);
+  // Say who found each maybe: a cloud reading's are Gemini's; after a closer read, some may be Nano's and some Gemini's.
+  const cloudMaybes = nano === 'cloud' ? counts.maybes : Math.min(counts.cloudMaybes ?? 0, counts.maybes);
+  const nanoMaybes = counts.maybes - cloudMaybes;
+  if (nanoMaybes) parts.push(`${plural(nanoMaybes, 'maybe', 'maybes')} from Gemini Nano`);
+  if (cloudMaybes) parts.push(`${plural(cloudMaybes, 'maybe', 'maybes')} from Gemini${closer ? '\'s closer read' : ''}`);
   return {
     headline: `${plural(left, 'spot', 'spots')} to look at.`,
     subhead: `${parts.join(', and ')}.${nanoNote}`,

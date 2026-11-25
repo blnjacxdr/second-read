@@ -19,7 +19,9 @@ export const CONSENT_COPY = {
 export const CLOSER_COPY = {
   label: 'optional, with your yes',
   title: 'Read it closer',
-  intro: 'Gemini Nano reads in small pieces on this laptop. Gemini in Google\'s cloud can read the whole application at once and usually finds more. This sends the essays, activities and honors in this PDF to Google\'s Gemini API. Google doesn\'t use them to improve its products and keeps them only briefly, to check for abuse. Every word sent shows under "What was sent."',
+  intro: 'Gemini Nano reads in small pieces. Gemini in Google\'s cloud reads the whole application at once and usually finds more.',
+  // What goes, said right beside the button that sends it.
+  fine: 'This sends the essays, activities and honors in this PDF to Google\'s Gemini API. Google doesn\'t use them to improve its products and keeps them only briefly, to check for abuse. Every word sent shows under "What was sent."',
   button: 'Send it to Gemini for a closer read',
   reading: 'Gemini is reading it all together, in Google\'s cloud…',
   found: (n) => `${n === 1 ? 'Gemini found 1 more spot. It\'s added to the list as a maybe.' : `Gemini found ${n} more spots. They're added to the list as maybes.`} Every word sent is under "What was sent" below.`,

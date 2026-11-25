@@ -145,7 +145,7 @@ a{color:var(--pen)}a:hover{color:var(--pen-dark)}
 .sr-doodle{display:block;margin-bottom:12px;overflow:visible}
 .sr-doodle path{stroke-dasharray:1 1;stroke-dashoffset:0}
 /* End of the page: the two eyes peek up from behind the footer and look up at you. */
-.sr-foot{position:relative;border-top:2px solid var(--ink)}
+.sr-foot{position:relative;border-top:1px solid var(--line)}
 @supports (animation-timeline: view()) {
   .sr-doodle path{animation:sr-draw-doodle linear both;animation-timeline:view();animation-range:entry 20% cover 45%}
 }
@@ -786,3 +786,6 @@ body.phase-reading .sr-screen{display:contents}
 .sr-consent{display:flex;flex-direction:column;gap:10px;padding:18px 20px;border-radius:8px;background:var(--pen-tint);border:1px solid var(--line-2)}
 .sr-consent strong{font-size:18px;font-weight:700;color:var(--ink)}
 .sr-consent p{margin:0;font-size:15px;color:var(--ink-2);max-width:62ch}
+
+/* The closer read: what gets sent, in smaller type right under the button that sends it. */
+.sr-closer-fine{margin:0;font-size:14px;line-height:1.5;color:var(--muted);max-width:62ch}

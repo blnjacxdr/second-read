@@ -88,10 +88,16 @@ test('the sticky note explains Gemini Nano, and says the cloud is only used afte
 
 test('after a closer read, the maybes are credited to Gemini and the receipt shows it', () => {
   const ids = ['a', 'b', 'c'];
-  const h = headlineFor({ sure: 2, maybes: 1 }, new Map(), ids, { nano: 'ran', closer: true });
-  assert.match(h.subhead, /1 maybe from Gemini\./);
+  const h = headlineFor({ sure: 2, maybes: 1, cloudMaybes: 1 }, new Map(), ids, { nano: 'ran', closer: true });
+  assert.match(h.subhead, /1 maybe from Gemini's closer read\./);
   assert.match(h.subhead, /read it closer in Google's cloud, as you chose/);
   const rows = receiptFor({ pageCount: 9, codeChecks: 7, nano: 'ran', closer: 2, sentCount: 1 });
   assert.deepEqual(rows.find((r) => r[0] === 'closer read (your yes)'), ['closer read (your yes)', '2 new']);
   assert.equal(receiptFor({ pageCount: 9, codeChecks: 7 }).some((r) => r[0].startsWith('closer')), false);
+});
+
+test('after a closer read that found nothing, the maybes stay credited to Gemini Nano', () => {
+  const ids = ['a', 'b'];
+  assert.match(headlineFor({ sure: 1, maybes: 1, cloudMaybes: 0 }, new Map(), ids, { nano: 'ran', closer: true }).subhead, /1 maybe from Gemini Nano,|1 maybe from Gemini Nano\./);
+  assert.match(headlineFor({ sure: 0, maybes: 3, cloudMaybes: 2 }, new Map(), ['a', 'b', 'c'], { nano: 'ran', closer: true }).subhead, /1 maybe from Gemini Nano, and 2 maybes from Gemini's closer read\./);
 });
