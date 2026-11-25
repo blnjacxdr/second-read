@@ -1,0 +1,130 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Priya Ananya Sharma",
+    "school": "Cedarcrest International Academy",
+    "graduationYear": 2027,
+    "email": "priya.sharma@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "Co-President & Algorithms Lead",
+      "organization": "Pacific Northwest Girls in Computing",
+      "description": "Organized annual Seattle hackathon for 210 high school girls; taught dynamic programming and graph theory prep workshops.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 9,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Research",
+      "position": "Computational Biology Intern",
+      "organization": "Puget Sound Marine Genomics Institute",
+      "description": "Built Python pipeline clustering eelgrass microbiome RNA-seq datasets to identify thermal-stress resilience markers.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 30,
+      "weeksPerYear": 9,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Dance",
+      "position": "Senior Soloist & Youth Choreographer",
+      "organization": "Nritya Kala Bharatanatyam Ensemble",
+      "description": "Completed Arangetram solo recital after 9 years of training; choreographed rhythmic jathi sequences for junior Bellevue showcase.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 46,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Academic",
+      "position": "Varsity Captain",
+      "organization": "Cedarcrest Science Bowl Team",
+      "description": "Competed in regional DOE National Science Bowl qualifiers specializing in Earth science, probability, and molecular biology.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 32,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "USACO Diamond Division Competitor",
+      "grades": [
+        11,
+        12
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "NCWIT Award for Aspirations in Computing National Honorable Mention",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "Washington State Science & Engineering Fair 1st Place Bioinformatics",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "Three weeks before my Bharatanatyam Arangetram—the two-hour solo debut that marks nine years of classical Indian dance training—my left ankle buckled during a rapid adavu sequence, leaving me in a walking boot with a grade-two lateral sprain. For a dancer who had spent every Sunday morning since age eight rehearsing intricate footwork, sitting on a folding chair while my guru tapped out the tala rhythm with a wooden stick felt like watching my own preparation evaporate.\n\nAt first, I tried to bargain with the recovery timeline, secretly testing weight-bearing turns in my bedroom until sharp pain forced me to stop. My physical therapist was blunt: if I rushed back onto the stage at full impact, I risked chronic instability; if I postponed the recital by six months, I would have to rebuild my stamina from scratch during senior fall. What frustrated me most was feeling passive. In competitive programming or Science Bowl, when a solution fails, I can trace the bug line by line and fix it through sheer mental persistence. Ligaments do not respond to brute force.\n\nInstead of canceling, my guru and I stripped the choreography down to its architecture. Deprived of leaps and brisk floor patterns, I had to relearn every piece through upper-body alignment, mudra hand geometry, and abhinaya—facial storytelling. Sitting on a stool in front of the studio mirror, I discovered how sloppy my eye movements and wrist angles had become whenever I relied on athletic footwork to carry a phrase. I began annotating rhythmic cycles like state machines, mapping every beat of the mridangam drum against breath control and stillness.\n\nBy the week of the performance, my ankle was cleared for modified choreography without high-impact jumps. Walking onto the stage in Bellevue with brass ankle bells strapped carefully over athletic tape, I was no longer trying to prove endurance. Every gesture felt deliberate, economical, and grounded. When I finished the final tillana, the applause mattered less than the realization that constraint had made me a far more attentive artist.\n\nThat summer, when my computational biology internship pipeline kept crashing on noisy marine RNA-seq reads, I recognized the same lesson. Rather than throwing heavier neural models at messy biological data, I stepped back, examined the underlying variance structure, and designed a cleaner statistical filter. Setbacks rarely announce themselves as invitations to redesign, yet learning to work inside rigid physical limits taught me how to find clarity when my usual tools are taken away.\n\nThat redesigned mindset carried straight into my work co-leading Pacific Northwest Girls in Computing. When two hundred middle and high school students arrived at our annual Seattle hackathon, many hesitated to open a terminal because they assumed software engineering required memorizing syntax before building anything real. Drawing on what I had learned rebuilding my dance routine around core principles, I scrapped our lecture-heavy morning workshop and replaced it with small collaborative debugging tables where beginners built interactive visualizations within their first hour.\n\nWhether I am tracing recursive dynamic-programming states in USACO or holding an expressive mudra in stillness on stage, I have come to appreciate that elegance comes from economy rather than excess. At Georgia Tech, I look forward to carrying that disciplined creativity into both algorithmic research and collaborative engineering communities."
+  },
+  "supplements": [
+    {
+      "id": "supplement-gatech",
+      "college": "Georgia Institute of Technology",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why do you want to study your chosen major specifically at Georgia Tech?",
+      "wordLimit": 300,
+      "text": "I want to study Computer Science at Georgia Tech because its Threads curriculum lets me unite algorithmic rigor with real-world biological and scientific modeling rather than treating software as an isolated discipline. Building an RNA-seq clustering pipeline during my internship at the Puget Sound Marine Genomics Institute showed me how deeply ecological and medical breakthroughs depend on scalable data structures and statistical computing. Combining the Intelligence and Modeling & Simulation threads at Georgia Tech will give me the mathematical foundation to design efficient algorithms for noisy genomic and environmental datasets. Beyond coursework, I am excited to join Vertically Integrated Projects (VIP) teams and HackGT, collaborating with engineers who pair technical depth with immediate societal impact."
+    }
+  ],
+  "publicNames": [
+    "Pacific Northwest Girls in Computing",
+    "Puget Sound Marine Genomics Institute",
+    "Nritya Kala Bharatanatyam Ensemble",
+    "DOE National Science Bowl",
+    "USACO",
+    "NCWIT Award for Aspirations in Computing",
+    "Washington State Science & Engineering Fair",
+    "Georgia Institute of Technology",
+    "HackGT"
+  ]
+}

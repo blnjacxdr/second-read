@@ -1,0 +1,131 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Amara Oluwaseun Adeyemi",
+    "school": "Lekki Peninsula International College",
+    "graduationYear": 2027,
+    "email": "amara.adeyemi@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "Founder & Solar Microgrid Lead",
+      "organization": "Lagos Youth Clean Energy Initiative",
+      "description": "Built 15 portable solar-battery study lamps and rooftop microgrid monitors for students in Makoko and Lekki communities.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 45,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Debate/Speech",
+      "position": "National Team Speaker",
+      "organization": "Nigeria Schools Debating Championship",
+      "description": "Represented Lagos State in World Schools style parliamentary debates; coached 30 junior speakers in economics and African affairs.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Journalism/Publication",
+      "position": "Managing Editor",
+      "organization": "The Lagoon Literary & Policy Review",
+      "description": "Edited youth essays and short fiction exploring West African urbanization, climate adaptation, and Afrobeats cultural history.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Track and Field",
+      "position": "Varsity 400m & 4x400m Relay Sprinter",
+      "organization": "Lekki Peninsula Athletics",
+      "description": "Competed in Lagos inter-school athletics championships; led morning track conditioning and sprint mechanics drills.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 9,
+      "weeksPerYear": 30,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Pan-African Schools Debating Championship Top 5 Speaker",
+      "grades": [
+        11
+      ],
+      "level": "International"
+    },
+    {
+      "id": "honor-2",
+      "title": "Nigerian Olympiad in Physics National Finalist",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "Yale Young African Scholars Alumni Award",
+      "grades": [
+        11
+      ],
+      "level": "International"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "In Lagos, you can tell the exact moment the national grid drops by the chorus of diesel generators coughing to life down the street. Growing up in Lekki, I spent countless evenings finishing physics problem sets beside the low rumble of our backup inverter, irritated whenever voltage surges reset our router mid-upload. In tenth grade, convinced that clean engineering could solve anything, I organized four classmates into the Lagos Youth Clean Energy Initiative to assemble low-cost solar reading lamps from salvaged laptop lithium cells and PVC housing for students in waterfront neighborhoods.\n\nOur first batch of twenty lamps was an engineering humiliation. Within three weeks of distribution during the June rainy season, seven units failed—corroded by salt humidity from the Lagos Lagoon, with overheated charge controllers that puffed two battery packs. Sitting in our school workshop surrounded by dead circuits, I felt the sting of having promised a reliable tool and delivered fragile prototypes.\n\nInstead of quietly shelving the project, we walked back to the students' homes during a Saturday downpour to inspect every failed lamp in person. Listening to how families actually used them revealed everything our bench tests had missed: students hung the lamps from damp wooden rafters, charged phones off ports never rated for inductive loads, and needed six hours of steady low-lumen light rather than one dazzling burst. Back at the workbench, we redesigned the enclosure with marine-grade silicone seals, added thermal fuses and current-limiting buck converters, and replaced recycled cells with tested LiFePO4 batteries.\n\nThat setback reshaped how I think about both physics and leadership. In parliamentary debate, success often rewards the fastest rebuttal; in community engineering, speed without listening creates brittle solutions. When we delivered forty redesigned lamps the following term, thirty-nine were still running smoothly eight months later, and two students from the neighborhood joined our assembly team to learn soldering and circuit diagnostics.\n\nWhether I am running the anchor leg of a 4x400-meter relay in humid coastal heat or editing policy essays for our school review, I have learned that durability is built through honest feedback loops. At Yale University, I want to study Electrical Engineering and Energy Studies so I can design resilient decentralized power systems tailored to rapidly growing African cities.\n\nBeyond the physics bench and debate podium, editing The Lagoon Literary & Policy Review taught me how stories shape civic imagination. Reviewing dozens of student essays on coastal erosion along Victoria Island and the energy transition across West Africa reminded me that technical blueprints only gain traction when citizens see their own lived experience reflected in the solution. Pairing narrative clarity with empirical evidence became my favorite way to bridge classrooms and neighborhoods.\n\nRunning the anchor leg of a 4x400-meter relay in Lagos humidity demands patience through the backstretch before committing everything to the final hundred meters. At Yale, I hope to bring that same endurance, curiosity, and collaborative spirit to both engineering labs and residential college life."
+  },
+  "supplements": [
+    {
+      "id": "supplement-yale",
+      "college": "Yale University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "What is it about Yale that has led you to apply?",
+      "wordLimit": 125,
+      "text": "Yale's conviction that engineering belongs inside a broad liberal arts conversation speaks directly to how I work. Building solar study lamps in Lagos taught me that decentralized energy grids succeed only when circuit design meets local economics and community trust. At Yale, I want to combine Electrical Engineering with the Multidisciplinary Academic Program in Energy Studies, testing microgrid hardware at the Center for Engineering Innovation and Design while debating climate finance in residential college seminars."
+    }
+  ],
+  "publicNames": [
+    "Lagos Youth Clean Energy Initiative",
+    "Nigeria Schools Debating Championship",
+    "The Lagoon Literary & Policy Review",
+    "Pan-African Schools Debating Championship",
+    "Nigerian Olympiad in Physics",
+    "Yale Young African Scholars",
+    "Yale University",
+    "Center for Engineering Innovation and Design"
+  ]
+}

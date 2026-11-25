@@ -1,0 +1,129 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Chloé Juliette Moreau",
+    "school": "Lycée International Saint-Germain",
+    "graduationYear": 2027,
+    "email": "chloe.moreau@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Academic",
+      "position": "Secretary-General",
+      "organization": "Paris Inter-Lycée Model United Nations",
+      "description": "Directed 340-delegate bilingual conference; authored crisis committee dossiers on European energy security and Mediterranean migration.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Community Service (Volunteer)",
+      "position": "French & Civics Tutor",
+      "organization": "Accueil Jeunes Belleville",
+      "description": "Tutored unaccompanied teenage newcomers in French grammar, math, and administrative literacy twice weekly in eastern Paris.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 38,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Theater/Drama",
+      "position": "Lead Actress & Dramaturg",
+      "organization": "Atelier Théâtre Montmartre",
+      "description": "Performed contemporary French and English plays; adapted Albert Camus essays into a youth stage production.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 7,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Journalism/Publication",
+      "position": "European Affairs Columnist",
+      "organization": "La Tribune des Lycéens",
+      "description": "Published monthly bilingual essays analyzing EU climate legislation, rail infrastructure, and youth voter turnout.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 42,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Concours Général de Philosophie Regional Finalist",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "The Hague International Model UN Outstanding Delegate",
+      "grades": [
+        11
+      ],
+      "level": "International"
+    },
+    {
+      "id": "honor-3",
+      "title": "Cambridge C2 Proficiency English Certificate (Grade A)",
+      "grades": [
+        10
+      ],
+      "level": "International"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?",
+    "wordLimit": 650,
+    "text": "In the French lycée system, philosophy is taught as an art of structured doubt: every dissertation begins with a thesis, pivots to an antithesis, and resolves in a carefully balanced synthesis. By eleventh grade, I had mastered that architecture so thoroughly that I treated political arguments like architectural blueprints—tidy, symmetrical, and slightly detached from the streets outside our classroom windows in Paris.\n\nMy confidence in clean theoretical frameworks unraveled on a rainy Wednesday evening in Belleville, where I volunteer as a French and civics tutor for teenage newcomers navigating residency paperwork and school placement. That night, I was helping a sixteen-year-old boy from Guinea, Mamadou, prepare for an administrative interview. Pulling out my neatly color-coded notebook, I began explaining the universalist principles of the French Republic—how citizenship transcends origin through shared civic values. Mamadou listened politely, then pointed to a rejection letter stamped with an unreadable bureaucratic code because his birth certificate had been translated without an accredited seal.\n\n'Your principles live on the third floor,' he told me quietly, 'and the office door is locked on the ground floor.'\n\nWalking home along the Canal Saint-Martin that evening, I felt uncomfortable realizing how easily I had used abstract ideals to smooth over administrative friction I had never personally faced. In Model UN conferences and history seminars, I routinely debated migration policy in sweeping macroeconomic terms while overlooking how procedural bottlenecks—an unreturned phone call, a missing notary stamp, a three-month housing wait—determine whether a young person sits in a classroom or on a shelter cot.\n\nThe following month, I challenged both my own habits and our tutoring center's curriculum. Instead of teaching civic vocabulary from textbook excerpts, I worked with two local law students to build a plain-language 'administrative navigation' guide translating municipal forms, school enrollment rights, and transit subsidies into clear steps. I also brought that ground-level perspective into my column for La Tribune des Lycéens, interviewing municipal clerks alongside newcomer students to understand where policy intent broke down in practice.\n\nPreparing for the Concours Général de Philosophie later that spring, I still wrote thesis, antithesis, and synthesis—but my essays sounded different. I stopped treating synthesis as a neat compromise on paper and began seeing it as an ongoing negotiation between universal ideals and lived human constraints. At Columbia University, I want to study Political Science and Comparative Literature to keep examining how laws, narratives, and institutions shape belonging across borders.\n\nPerforming on stage with Atelier Théâtre Montmartre reinforced that same lesson from an unexpected angle. When we adapted Albert Camus's essays for a youth audience, we quickly discovered that philosophical lines fell flat unless every actor understood the concrete human stakes beneath the words. Rehearsing late into Paris evenings taught me how voice, posture, and pacing turn abstract ideas into shared emotional truth.\n\nLooking back at that rainy Wednesday in Belleville, I am grateful Mamadou challenged me to look past the third floor of theory to the locked door on the ground floor. Whether I am chairing a crisis committee, translating civic forms for newcomer teens, or writing monthly columns for La Tribune des Lycéens, I care about making institutions legible and humane."
+  },
+  "supplements": [
+    {
+      "id": "supplement-columbia",
+      "college": "Columbia University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in attending Columbia University? We encourage you to consider the aspect(s) that you find unique and compelling about Columbia.",
+      "wordLimit": 150,
+      "text": "Having spent years dissecting primary texts in a French lycée and tutoring newcomer teenagers across Paris, I am drawn to Columbia because the Core Curriculum treats foundational ideas not as museum pieces, but as urgent questions tested in the middle of a global city. Moving from a morning Literature Humanities seminar straight onto the subway toward internships at international policy institutes in New York mirrors how I already learn: reading Montesquieu or Camus at dawn and seeing how institutions work on the street by dusk. At Columbia, I want to pair Political Science with Comparative Literature, joining the Columbia Political Review to examine democratic governance across Europe and North America."
+    }
+  ],
+  "publicNames": [
+    "Paris Inter-Lycée Model United Nations",
+    "Accueil Jeunes Belleville",
+    "Atelier Théâtre Montmartre",
+    "La Tribune des Lycéens",
+    "Concours Général",
+    "The Hague International Model UN",
+    "Cambridge C2 Proficiency",
+    "Columbia University",
+    "Columbia Political Review"
+  ]
+}

@@ -1,0 +1,665 @@
+{
+  "about": "Evaluation answer key for 20 fictional Common Application JSON profiles (app-1.json through app-20.json) testing cross-section consistency (timeline, hours/timing, counts) and real-world factual accuracy.",
+  "applications": [
+    {
+      "file": "app-1.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "11, 12 (Year)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "When I founded the Silicon Valley Student Robotics Collective with two classmates"
+            }
+          ],
+          "explanation": "Activity 1 lists participation only in grades 11 and 12, contradicting the personal essay where the applicant describes founding the robotics collective during sophomore year (grade 10)."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "11, 12 (Break)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "During the summer before twelfth grade, while testing soil-moisture sensors in a Morgan Hill apricot orchard"
+            }
+          ],
+          "explanation": "Summer before 12th grade is logged under grade 11/12 Break, which is consistent with Common App summer reporting conventions."
+        }
+      ]
+    },
+    {
+      "file": "app-2.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "9"
+            },
+            {
+              "sectionId": "activity-1",
+              "quote": "10, 11, 12 (School)"
+            }
+          ],
+          "explanation": "Honor 1 (Georgia Scholastic Press Association Best News Feature) is listed in grade 9, before the applicant joined The Peachtree Chronicle in grade 10."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "11, 12 (Year)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Every Saturday morning since eleventh grade, I have sat at that machine wearing white cotton gloves"
+            }
+          ],
+          "explanation": "Year-round Saturday shifts starting in 11th grade accurately match grades 11, 12 (Year)."
+        }
+      ]
+    },
+    {
+      "file": "app-3.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "count",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "Installed 8 low-cost PM2.5 air sensors near highway crossings in El Paso; analyzed dust-storm particulate spikes with UTEP mentors."
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Over six months, we mounted fifteen solar-powered particulate sensors on neighborhood porches, community centers, and our bakery's own awning."
+            },
+            {
+              "sectionId": "supplement-ut-austin",
+              "quote": "When I helped deploy fifteen low-cost PM2.5 air sensors across border neighborhoods with the Borderlands Environmental Youth Coalition"
+            }
+          ],
+          "explanation": "Activity 3 states 8 air sensors were installed, whereas both the personal essay and UT Austin supplement state 15 sensors were deployed."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-4",
+              "quote": "12 hr/wk, 48 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "At 5:15 a.m. on Saturdays, the ovens at Panadería La Estrella smell of toasted anise, cinnamon, and warm yeast"
+            }
+          ],
+          "explanation": "Weekend bakery shifts starting at 5:15 a.m. across Saturday and Sunday total 12 hours per week consistently."
+        }
+      ]
+    },
+    {
+      "file": "app-4.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "hours",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "9, 10, 11, 12 (School)"
+            },
+            {
+              "sectionId": "activity-1",
+              "quote": "25 hr/wk, 48 wk/yr"
+            }
+          ],
+          "explanation": "Activity 1 claims 48 weeks per year strictly during 'School' timing, which exceeds the ~36-week academic school year."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "28 hr/wk, 12 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Working summers as a mechanic at Lincoln Square Cyclery in Chicago"
+            }
+          ],
+          "explanation": "28 hours/week for 12 weeks during Break matches a full-time summer bike mechanic job."
+        }
+      ]
+    },
+    {
+      "file": "app-5.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "USACO Diamond Division Competitor"
+            }
+          ],
+          "explanation": "The USA Computing Olympiad (USACO) consists of Bronze, Silver, Gold, and Platinum divisions; there is no Diamond division."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "9, 10, 11, 12 (Year)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Three weeks before my Bharatanatyam Arangetram—the two-hour solo debut that marks nine years of classical Indian dance training"
+            }
+          ],
+          "explanation": "Year-round practice throughout grades 9–12 aligns with preparing for a traditional Bharatanatyam Arangetram solo debut."
+        }
+      ]
+    },
+    {
+      "file": "app-6.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "honor-2",
+              "quote": "10, 11"
+            },
+            {
+              "sectionId": "activity-3",
+              "quote": "11, 12 (School)"
+            }
+          ],
+          "explanation": "Honor 2 lists qualifying for NCHSAA 3A West Regional Wrestling in grades 10 and 11, but Activity 3 lists high school wrestling participation only in grades 11 and 12."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "When Hurricane Helene swept through western North Carolina in the fall of my sophomore year"
+            }
+          ],
+          "explanation": "For a Class of 2027 senior, sophomore fall was Fall 2024, when Hurricane Helene devastated western North Carolina (September 2024)."
+        }
+      ]
+    },
+    {
+      "file": "app-7.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "hours",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "9, 10, 11, 12 (Break)"
+            },
+            {
+              "sectionId": "activity-3",
+              "quote": "7 hr/wk, 44 wk/yr"
+            }
+          ],
+          "explanation": "Activity 3 lists 44 weeks per year while marked as 'Break' only, which is impossible since school breaks do not span 44 weeks of the year."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "Concours Général de Philosophie Regional Finalist"
+            },
+            {
+              "sectionId": "honor-1",
+              "quote": "11"
+            }
+          ],
+          "explanation": "In the French lycée system, students sit for the Concours Général in Première (grade 11) and Terminale (grade 12)."
+        }
+      ]
+    },
+    {
+      "file": "app-8.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "honor-3",
+              "quote": "AP Physics C: Mechanics & Calculus BC National AP Scholar"
+            }
+          ],
+          "explanation": "The College Board discontinued the National AP Scholar award in 2021, so a Class of 2027 student could not have earned it in grade 11."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "every Yamanote Line platform plays a distinct seven-second departure melody composed specifically to calm commuters while nudging them aboard."
+            }
+          ],
+          "explanation": "JR East stations on Tokyo's Yamanote Line genuinely use distinct ~7-second platform departure melodies (hassha melody)."
+        }
+      ]
+    },
+    {
+      "file": "app-9.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "12 (Break)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "That changed during tenth grade when a tropical storm flooded my grandmother's ground-floor apartment in Little Havana"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "That question led me to the Miami Urban Resilience Design Studio the following summer, where I spent eight weeks studying vernacular Caribbean stilt houses"
+            }
+          ],
+          "explanation": "The summer following 10th grade corresponds to grade 11 (rising junior), contradicting Activity 2 listing participation only in grade 12."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "Every October during king tide in Miami, saltwater bubbles up through storm drains along Calle Ocho"
+            }
+          ],
+          "explanation": "South Florida king tides peak in October and frequently back up through storm drains in low-lying neighborhoods like Little Havana."
+        }
+      ]
+    },
+    {
+      "file": "app-10.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timing",
+          "places": [
+            {
+              "sectionId": "activity-4",
+              "quote": "11, 12 (Break)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Volunteering as an IRS VITA tax preparer each spring grounded those numbers in human reality"
+            }
+          ],
+          "explanation": "Activity 4 lists 'Break' timing, contradicting spring IRS VITA tax-season volunteering (January–April) during the school year."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "We scraped 150 years of Minnesota Department of Natural Resources lake ice-out dates"
+            }
+          ],
+          "explanation": "The Minnesota DNR actually maintains historical lake ice-out datasets extending back to the mid-1800s."
+        }
+      ]
+    },
+    {
+      "file": "app-11.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "count",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Built 15 portable solar-battery study lamps and rooftop microgrid monitors for students in Makoko and Lekki communities."
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Our first batch of twenty lamps was an engineering humiliation."
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "When we delivered forty redesigned lamps the following term, thirty-nine were still running smoothly eight months later"
+            }
+          ],
+          "explanation": "Activity 1 states 15 lamps were built, contradicting the personal essay which describes delivering 20 initial lamps followed by 40 redesigned lamps (60 total)."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "honor-3",
+              "quote": "Yale Young African Scholars Alumni Award"
+            },
+            {
+              "sectionId": "honor-3",
+              "quote": "11"
+            }
+          ],
+          "explanation": "Yale Young African Scholars (YYAS) is a real selective summer program for African secondary school students typically completed after 10th or 11th grade."
+        }
+      ]
+    },
+    {
+      "file": "app-12.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timing",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "11, 12 (Break)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Working early morning shifts at Cedar Mill Coffee Roasters before school reinforced that same patience"
+            }
+          ],
+          "explanation": "Activity 3 is marked as 'Break' only (46 weeks/year), contradicting the essay's statement that the applicant worked early shifts before school."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "honor-2",
+              "quote": "OSAA 6A Metro League All-Academic Soccer Team"
+            }
+          ],
+          "explanation": "OSAA 6A Metro League is the real athletic conference for large suburban high schools in Washington County, Oregon."
+        }
+      ]
+    },
+    {
+      "file": "app-13.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "11, 12 (Year)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "With two classmates, I founded Guanabara Bay Youth Ocean Watch to shift from reactive trash pickup to spatial diagnostics."
+            }
+          ],
+          "explanation": "The personal essay places the founding of Guanabara Bay Youth Ocean Watch in 10th grade, contradicting Activity 1 which lists only grades 11 and 12."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "Swimming five kilometers in open Atlantic swells teaches you to read currents by subtle shifts in water temperature and foam lines."
+            }
+          ],
+          "explanation": "Copacabana faces the open Atlantic Ocean just outside the mouth of Guanabara Bay, where coastal currents exchange debris."
+        }
+      ]
+    },
+    {
+      "file": "app-14.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "10 (School)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "That curiosity led me to spend the summer before twelfth grade in a polymer research cohort in Cleveland"
+            }
+          ],
+          "explanation": "Activity 1 lists grade 10 (School), contradicting the essay which specifies the summer before 12th grade (grade 11/12 Break)."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "supplement-cwru",
+              "quote": "At Case Western Reserve University, I want to major in Macromolecular Science and Engineering—one of the few dedicated polymer programs in the country"
+            }
+          ],
+          "explanation": "CWRU genuinely houses one of the nation's premier dedicated Macromolecular Science and Engineering departments alongside Sears think[box]."
+        }
+      ]
+    },
+    {
+      "file": "app-15.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "12 (School)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "That changed when two classmates and I decided to start South Side Preparatory Academy's first mock trial team."
+            }
+          ],
+          "explanation": "Activity 1 lists participation only in grade 12, contradicting the essay's account of founding the team in 10th grade and reaching state quarterfinals in 11th grade."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "honor-2",
+              "quote": "QuestBridge College Prep Scholar"
+            },
+            {
+              "sectionId": "honor-2",
+              "quote": "11"
+            }
+          ],
+          "explanation": "QuestBridge College Prep Scholars are selected during junior year (grade 11)."
+        }
+      ]
+    },
+    {
+      "file": "app-16.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "honor-3",
+              "quote": "Intel Science Talent Search Semifinalist"
+            }
+          ],
+          "explanation": "Intel ended its sponsorship of the Science Talent Search in 2016; since 2017 it has been the Regeneron Science Talent Search."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Captured exoplanet transit light curves using school's 11-inch Schmidt-Cassegrain telescope; submitted data to AAVSO."
+            }
+          ],
+          "explanation": "An 11-inch Schmidt-Cassegrain telescope with a cooled CMOS camera can detect ~1% hot-Jupiter transit dips and submit photometry to the AAVSO Exoplanet Database."
+        }
+      ]
+    },
+    {
+      "file": "app-17.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "During the Quebec provincial 1500-meter semifinals in tenth grade, I entered the final lap in second place"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Two summers later, that exact lesson surfaced in a completely different lab. While interning with a computational neuroimaging group in Montreal"
+            }
+          ],
+          "explanation": "Two summers after 10th grade would be the summer after 12th grade (post-graduation), which has not occurred yet for a 12th-grade applicant."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "Canadian Open Mathematics Challenge (COMC) Quebec Honor Roll"
+            }
+          ],
+          "explanation": "The Canadian Open Mathematics Challenge (COMC) is administered nationally by the Canadian Mathematical Society with provincial honor rolls."
+        }
+      ]
+    },
+    {
+      "file": "app-18.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "12 (Year)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "When I joined the Phoenix High School Solar Vehicle Team in tenth grade, I was fascinated by aerodynamic carbon-fiber shells"
+            }
+          ],
+          "explanation": "Activity 1 lists participation only in grade 12, contradicting the essay's statement that the student joined the solar vehicle team in 10th grade."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "supplement-purdue",
+              "quote": "Purdue's School of Mechanical Engineering—and specifically the Ray W. Herrick Laboratories, where researchers tackle high-efficiency HVAC, thermal systems, and acoustics"
+            }
+          ],
+          "explanation": "Purdue's Ray W. Herrick Laboratories is a real research facility renowned for HVAC, thermal systems, and acoustics."
+        }
+      ]
+    },
+    {
+      "file": "app-19.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "12 (School)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "On a snowy Sunday afternoon in tenth grade, I carried my violin into a quiet rehabilitation ward in Boston"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "First, I founded Notes for Healing Boston, recruiting twenty-two student musicians to play weekly acoustic sessions in hospital wards"
+            }
+          ],
+          "explanation": "Activity 3 lists participation only in grade 12, contradicting the essay which states Notes for Healing Boston was founded in 10th grade."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Led first violins in Jordan Hall performances"
+            }
+          ],
+          "explanation": "Jordan Hall is the historic primary concert venue of the New England Conservatory in Boston."
+        }
+      ]
+    },
+    {
+      "file": "app-20.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "timeline",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "9"
+            },
+            {
+              "sectionId": "activity-1",
+              "quote": "10, 11, 12 (Year)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "During my sophomore track season in Houston, I spent three straight weeks fouling four out of every five throws"
+            }
+          ],
+          "explanation": "Honor 1 lists an iGEM High School medal in grade 9, before the applicant joined the synthetic biology club in grade 10."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "supplement-rice",
+              "quote": "Steps from the Texas Medical Center and Rice's Oshman Engineering Design Kitchen"
+            }
+          ],
+          "explanation": "Rice University is located directly across from the Texas Medical Center and houses the Oshman Engineering Design Kitchen (OEDK)."
+        }
+      ]
+    }
+  ]
+}

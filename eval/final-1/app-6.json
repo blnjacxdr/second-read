@@ -1,0 +1,129 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Caleb Wyatt Miller",
+    "school": "Blue Ridge Summit High School",
+    "graduationYear": 2027,
+    "email": "caleb.miller@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Environmental",
+      "position": "Trail Crew Youth Leader",
+      "organization": "Blue Ridge Parkway Youth Conservation Corps",
+      "description": "Constructed stone water-bars and restored eroded switchbacks across 18 miles of Appalachian high-country trails; trained 25 volunteers.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 32,
+      "weeksPerYear": 8,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Instrumental",
+      "position": "Clawhammer Banjo & Fiddle Player",
+      "organization": "Watauga Old-Time Youth String Band",
+      "description": "Performed traditional Appalachian tunes at local farmers markets and heritage festivals; transcribed oral fiddle melodies for youth archive.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 7,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Wrestling",
+      "position": "Varsity 157-lb Captain",
+      "organization": "Blue Ridge Summit Wrestling",
+      "description": "2x Regional Qualifier; organized offseason strength sessions and mentored middle school wrestlers in Watauga County.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 24,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Apiary & Orchard Hand",
+      "organization": "High Country Heritage Farm",
+      "description": "Managed 35 Langstroth beehives, extracted mountain wildflower honey, and pruned heirloom apple trees on weekends.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 40,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "North Carolina Governor's School East Nominee & Attendee (Natural Science)",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "NCHSAA 3A West Regional Wrestling Qualifier",
+      "grades": [
+        10,
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Merit Commended Student",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "To build a stone water-bar that survives a Blue Ridge cloudburst, you have to think like runoff. Working with the Blue Ridge Parkway Youth Conservation Corps each summer, I have spent weeks digging trenches across steep granite switchbacks and levering three-hundred-pound locust logs and fieldstones into place with a steel rock bar. If you set a stone ten degrees too flat, silt settles behind it and water spills straight down the tread, carving a gully six inches deep in a single afternoon. Angle it cleanly toward the downhill slope, and the mountain sheds rain without losing its soil.\n\nGrowing up in Boone, North Carolina, I learned early that landscapes, music, and communities all depend on how well people maintain what they inherit. On Saturday mornings, I check thirty-five beehives at High Country Heritage Farm, lifting heavy honey supers and inspecting brood frames for varroa mites before the afternoon heat settles into the holler. On Saturday evenings, I sit on wooden folding chairs outside the general store with the Watauga Old-Time Youth String Band, playing clawhammer banjo and fiddle tunes passed down across four generations of mountain musicians.\n\nAt first glance, hauling trail rock, tending bees, and playing modal fiddle tunes in G-tuning look like nostalgia. To me, they are applied ecology and living systems engineering. When Hurricane Helene swept through western North Carolina in the fall of my sophomore year, washing out county roads and tearing away creek banks near our farm, those skills stopped being weekend hobbies overnight. For two weeks while power lines were down, our trail crew partnered with local neighbors to clear fallen hemlocks from access roads, haul potable water, and stabilize washed-out culverts before heavy equipment could reach the ridge.\n\nWatching how intact forest buffers held their hillsides while cleared slopes slid into the creeks gave me a sharper education in watershed hydrology than any textbook chapter. That experience led me to study forest ecology at North Carolina Governor's School the following summer, where I investigated how hemlock woolly adelgid infestations alter stream temperatures in headwater trout habitats.\n\nWhether I am locking up a tight cradle on the wrestling mat, tuning a fifth string by ear, or calculating slope gradients on a mountain trail, I care about leverage and stewardship. I want to study Environmental Science and Forestry at UNC-Chapel Hill so I can bring modern hydrological modeling and conservation policy back to the Appalachian watersheds that shaped me.\n\nWorking weekends at High Country Heritage Farm taught me a similar lesson about patience and seasonal rhythm. Inspecting thirty-five beehives in early spring means reading subtle cues on every comb—whether the queen is laying steadily, whether nectar stores are balanced, and when to add a fresh super before the mountain sourwood blooms. Rushing an inspection agitates the colony; moving calmly keeps the hive productive.\n\nLooking back at those flooded creeks after Hurricane Helene, I realize how closely ecological health and rural community resilience depend on each other. Whether I am wrestling in the 157-pound weight class, clawhammering an old fiddle tune on the porch, or restoring eroded switchbacks in the Blue Ridge Mountains, I take pride in steady, dependable stewardship."
+  },
+  "supplements": [
+    {
+      "id": "supplement-unc",
+      "college": "University of North Carolina at Chapel Hill",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Discuss one of your personal qualities and share a story, anecdote, or memory of how it helped you make a positive impact on a community.",
+      "wordLimit": 250,
+      "text": "Steadiness under physical strain is the quality my teammates and neighbors rely on most. After severe flooding washed out rural access roads and trails in Watauga County during my sophomore year, our trail crew spent days clearing downed timber and rebuilding drainage channels with hand tools. Because I had spent summers setting stone water-bars with the Youth Conservation Corps, I knew how to pace a crew safely, read unstable creek banks, and anchor runoff diversions that would hold through aftershocks of rain. Helping reopen a washed-out driveway for an elderly neighbor reminded me that practical endurance only matters when it serves the people around you—a mindset I hope to bring to UNC's campus and Carolina's environmental fieldwork communities."
+    }
+  ],
+  "publicNames": [
+    "Blue Ridge Parkway Youth Conservation Corps",
+    "Watauga Old-Time Youth String Band",
+    "High Country Heritage Farm",
+    "North Carolina Governor's School",
+    "NCHSAA",
+    "National Merit Scholarship Program",
+    "University of North Carolina at Chapel Hill"
+  ]
+}

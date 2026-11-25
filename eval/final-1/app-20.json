@@ -1,0 +1,132 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "David Samuel Okafor",
+    "school": "Westchase STEM & Humanities High School",
+    "graduationYear": 2027,
+    "email": "david.okafor@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "Lead Bio-Design & Diagnostics Developer",
+      "organization": "Houston Youth Synthetic Biology Club",
+      "description": "Developed paper-based colorimetric strip prototype for detecting lead contamination in older household tap water.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 42,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Track and Field",
+      "position": "Varsity Discus & Shot Put Thrower",
+      "organization": "Westchase High School Track & Field",
+      "description": "UIL Region III qualifier in discus; mentored freshman throwers in rotational footwork and weight-room safety.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 28,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Youth STEM & Reading Mentor",
+      "organization": "Alief Community Youth Center",
+      "description": "Organized Saturday hands-on chemistry and reading sessions for 45 elementary students in southwest Houston.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Music: Vocal",
+      "position": "Bass Section Leader",
+      "organization": "Houston Youth Chamber Choir",
+      "description": "Performed sacred and contemporary choral repertoire across Texas; arranged Nigerian folk hymns for a cappella octet.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "iGEM High School Grand Jamboree Silver Medal Team Member",
+      "grades": [
+        9
+      ],
+      "level": "International"
+    },
+    {
+      "id": "honor-2",
+      "title": "Science & Engineering Fair of Houston 1st Place Biochemistry",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "Texas All-State Choir Bass II Finalist",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "When you spin inside a seven-foot concrete throwing circle with a two-kilogram discus balanced against your fingertips, rushing your hips by even a fraction of a second sends the disc sailing foul into the netting. During my sophomore track season in Houston, I spent three straight weeks fouling four out of every five throws because I tried to muscle the release with my upper body instead of letting ground force build cleanly from my feet.\n\nFrustratingly, I was making the exact same mistake in our school's synthetic biology lab after practice. Our team was trying to engineer a low-cost paper test strip that changed color in the presence of dissolved lead in tap water, inspired by boil-water notices in older Houston apartment complexes. Eager to get dramatic color shifts for the regional science fair, I overloaded our cellulose strips with reactive reagents—only to watch background noise turn every control strip purple within ten minutes.\n\nMy chemistry mentor looked at my stained bench notebook and asked a question that sounded straight out of track practice: 'Are you trying to force a loud signal before stabilizing your baseline?' Stripping the assay back to first principles meant spending two patient months testing pH buffers, paper pore sizes, and drying temperatures one variable at a time until our negative controls stayed crisp white and ten parts per billion of lead produced a clear magenta line.\n\nThat summer, our team earned a silver medal at the iGEM High School competition, and the following spring I threw a personal-best discus mark to qualify for UIL regionals. Both breakthroughs came from the same shift: respecting sequence over brute force.\n\nWhether I am anchoring the bass line in chamber choir, arranging Nigerian folk hymns for our octet, or leading Saturday science experiments for elementary students in Alief, I have learned that strong foundations make everything above them effortless. At Rice University, I want to study Bioengineering to build affordable point-of-care diagnostics for underserved communities."
+  },
+  "supplements": [
+    {
+      "id": "supplement-rice",
+      "college": "Rice University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Please explain why you wish to study in the academic areas you selected.",
+      "wordLimit": 150,
+      "text": "Designing a low-cost paper test strip for tap-water lead detection with the Houston Youth Synthetic Biology Club convinced me that the most impactful medical and environmental tools are simple, portable, and accessible outside major hospitals. I want to major in Bioengineering at Rice University because its curriculum pairs quantitative transport and biomaterials coursework with immediate translational prototyping. Steps from the Texas Medical Center and Rice's Oshman Engineering Design Kitchen, I hope to develop point-of-care water and clinical diagnostics that empower families in Houston and around the globe."
+    }
+  ],
+  "publicNames": [
+    "Houston Youth Synthetic Biology Club",
+    "UIL",
+    "Alief Community Youth Center",
+    "Houston Youth Chamber Choir",
+    "iGEM",
+    "Science & Engineering Fair of Houston",
+    "Texas All-State Choir",
+    "Rice University",
+    "Texas Medical Center",
+    "Oshman Engineering Design Kitchen"
+  ]
+}

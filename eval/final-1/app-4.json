@@ -1,0 +1,129 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Liam Connor O'Sullivan",
+    "school": "Northside Technical Prep High School",
+    "graduationYear": 2027,
+    "email": "liam.osullivan@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Robotics",
+      "position": "Lead Controls Programmer",
+      "organization": "FIRST Robotics Competition Team 4096",
+      "description": "Programmed swerve-drive odometry and AprilTag vision targeting in Java; mentored 12 rookies through Chicago regional competitions.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 25,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Rowing",
+      "position": "Varsity Coxswain & Lightweight Rower",
+      "organization": "Chicago River Youth Rowing Club",
+      "description": "Steered 8+ shells along the North Branch of the Chicago River at 5:30 a.m.; competed at Midwest Junior Rowing Championships.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 42,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Bicycle Mechanic",
+      "organization": "Lincoln Square Cyclery",
+      "description": "Rebuilt wheel hubs, tuned hydraulic disc brakes, and diagnosed commuter e-bike electrical faults during busy spring/summer seasons.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 28,
+      "weeksPerYear": 12,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Adaptive Swim Instructor",
+      "organization": "Chicago Park District Special Recreation",
+      "description": "Led weekly one-on-one water safety and stroke lessons for children with autism and physical disabilities at Horner Park pool.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "FIRST Robotics Midwest Regional Engineering Inspiration Award",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Illinois State Scholar",
+      "grades": [
+        12
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "Midwest Junior Rowing Championships 3rd Place Varsity 8+",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "There is a specific sound a bicycle wheel makes when its spoke tension is off by a quarter-turn: a dull, flat thud instead of a clean musical ping. Working summers as a mechanic at Lincoln Square Cyclery in Chicago, I can spend two straight hours at the truing stand with a spoke wrench and a tension meter, plucking steel spokes like guitar strings until an aluminum rim spins within half a millimeter of true. Nobody is rushing me when I am truing a wheel, yet I routinely look up to realize the shop lights are dimming and I have missed my lunch break.\n\nWhat captivates me about mechanical feedback loops is that small, invisible imbalances inevitably announce themselves at speed. A wheel that feels fine on the repair stand will wobble violently at twenty-five miles an hour down a Lakefront Trail descent. I first recognized that same principle in an entirely different setting: sitting in the stern of an eight-person racing shell as a coxswain on the Chicago River at dawn. When eight rowers catch the water even a tenth of a second apart, the boat checks its momentum and rolls side to side. My job is to read subtle cues—the pitch of the hull, the splash of an oar blade, the breathing rhythm of stroke seat—and make micro-corrections in real time.\n\nIn eleventh grade, that obsession with closed-loop control followed me straight into FIRST Robotics. Our team was building a swerve-drive robot capable of translating and rotating simultaneously, and our early autonomous routines drifted wildly whenever the wheels crossed scuffed arena carpet. Instead of hard-coding longer delays, I spent weeks reading control-theory documentation, watching university lecture videos on PID loops, and asking our electrical mentor how gyroscopic drift could be fused with wheel encoder data. When we finally tuned the proportional and derivative gains so the robot snapped cleanly onto an AprilTag target from three meters away, the sensation was identical to feeling a rowing shell lift onto the keel.\n\nWhenever I hit a wall in these systems, I turn to two places: hands-on teardown and community forums. Whether I am reading vintage wheel-building manuals by Jobst Brandt or dissecting open-source WPILib repositories at midnight, I love tracing how generations of builders solved the same physical constraints with cleaner math or simpler geometry.\n\nTruing wheels, steering shells, and programming autonomous robots have taught me that precision is rarely dramatic. It is built out of patient measurement, honest feedback, and the willingness to adjust one quarter-turn at a time. At the University of Michigan, I want to study Mechanical Engineering and Robotics to keep designing machines that respond gracefully to an unpredictable physical world. Whether I am truing a commuter wheel after school or calibrating gyroscope gains before a regional match, I find deep satisfaction in turning noisy mechanical behavior into steady, predictable motion."
+  },
+  "supplements": [
+    {
+      "id": "supplement-umich",
+      "college": "University of Michigan",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Describe the unique qualities that attract you to the specific undergraduate College or School to which you are applying at the University of Michigan. How would that curriculum support your interests?",
+      "wordLimit": 550,
+      "text": "What draws me to the University of Michigan College of Engineering is how seamlessly it treats mechanical design, embedded controls, and real-world testing as one continuous craft. Having spent four years programming swerve-drive odometry in FIRST Robotics, truing bicycle wheels in a neighborhood shop, and coxing racing shells on the Chicago River, I learn best when theoretical equations are immediately tested against friction, wind, and imperfect hardware. Michigan's Mechanical Engineering curriculum—particularly courses like ME 350 (Design and Manufacturing II) and ME 360 (Modeling, Analysis and Control of Dynamic Systems)—speaks directly to how I think about machines as closed-loop physical systems. Beyond the classroom, the Wilson Student Team Project Center offers an unmatched ecosystem where I can join M-Fly or Michigan Autonomous Aerial Vehicles and collaborate across disciplines on flight controls and structural fabrication. At Michigan Engineering, I hope to pair rigorous systems modeling with hands-on prototyping to build resilient autonomous robotics."
+    }
+  ],
+  "publicNames": [
+    "FIRST Robotics Competition",
+    "Chicago River Youth Rowing Club",
+    "Midwest Junior Rowing Championships",
+    "Chicago Park District",
+    "Illinois State Scholar",
+    "WPILib",
+    "University of Michigan",
+    "Wilson Student Team Project Center"
+  ]
+}

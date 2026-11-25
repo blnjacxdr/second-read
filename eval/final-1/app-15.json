@@ -1,0 +1,125 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Devon Nathaniel Brooks",
+    "school": "South Side Preparatory Academy",
+    "graduationYear": 2027,
+    "email": "devon.brooks@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Academic",
+      "position": "Co-Founder & Lead Mock Trial Attorney",
+      "organization": "South Side Constitutional Mock Trial Team",
+      "description": "Built school's first competitive mock trial squad; wrote cross-examinations and won Best Attorney at regional tournament.",
+      "grades": [
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 9,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Youth Culinary Line Cook",
+      "organization": "Bronzeville Community Kitchen & Cafe",
+      "description": "Prepped lunch service, managed food safety logs, and assisted with weekly free neighborhood produce boxes.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 46,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Student Govt./Politics",
+      "position": "Student Representative",
+      "organization": "Chicago Youth Participatory Budgeting Council",
+      "description": "Evaluated $1M in municipal youth infrastructure proposals; led town halls across South Side high schools.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Basketball",
+      "position": "Varsity Point Guard",
+      "organization": "South Side Prep Basketball",
+      "description": "Led team in assists; organized summer evening open-gym leagues for middle schoolers at Washington Park.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 24,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Illinois High School Mock Trial Invitational Outstanding Attorney",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "QuestBridge College Prep Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "Posse Foundation Semifinalist",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "During lunch rush at Bronzeville Community Kitchen, communication has to be stripped to its essentials: 'Behind, hot pan,' 'Two collards up,' 'Corner.' For three years, working the prep line after school and on weekends has helped pay my family's utility bills while teaching me how a kitchen stays calm when tickets stack to the floor. Yet until tenth grade, I assumed my kitchen job and my dream of studying constitutional law belonged on completely separate tracks.\n\nThat changed when two classmates and I decided to start South Side Preparatory Academy's first mock trial team. We had no alumni coaches, no courtroom props, and a case packet full of Fourth Amendment search-and-seizure precedent that felt like a foreign language. At our first scrimmage against a suburban school with a dedicated legal booster club, we lost by forty points. Our opening statements sounded stiff because we were trying to imitate television lawyers instead of speaking plainly.\n\nSitting in the break room at the restaurant the next afternoon, watching our head chef explain a complex braising technique to a new dishwasher using clear, step-by-step stories, I realized what we had gotten wrong. Persuasion is not performance; it is clarity under pressure. That week, I reorganized our mock trial practices around kitchen prep drills: every witness had to summarize their testimony in three plain sentences before touching legal terminology, and every cross-examination question had to earn its place like an ingredient on a crowded station.\n\nBy junior year, our team reached the state quarterfinals, and I earned an Outstanding Attorney award—not because I memorized more Latin phrases, but because I learned how to listen to a witness's exact words and build a coherent narrative in real time. Serving on the Chicago Youth Participatory Budgeting Council reinforced that same skill, helping classmates translate neighborhood needs—from safer crosswalks to library Wi-Fi upgrades—into concrete municipal proposals.\n\nRunning point guard on the basketball court taught me to see two passes ahead; working a hot kitchen line taught me composure when plans break down. Organizing summer evening open-gym leagues at Washington Park also showed me how safe public spaces anchor neighborhood life for younger kids looking for mentors.\n\nLooking back at that first forty-point mock trial loss, I am grateful we had to build our team from scratch without a playbook. Learning to translate complex legal rules into plain, honest human stories gave me a voice I carry into every room. At the University of Chicago, I want to study Public Policy and Law, Letters, and Society so I can advocate for fair economic and legal institutions in cities like my own."
+  },
+  "supplements": [
+    {
+      "id": "supplement-uchicago",
+      "college": "University of Chicago",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "How does the University of Chicago, as you know it now, satisfy your desire for a particular kind of learning, community, and future?",
+      "wordLimit": 250,
+      "text": "Growing up on Chicago's South Side, I have seen how economic and legal institutions shape neighborhoods blocks away from Hyde Park. What draws me to the University of Chicago is its refusal to separate rigorous theoretical inquiry from lived urban questions. Majoring in Law, Letters, and Society alongside Public Policy will let me examine constitutional history in small discussion seminars while researching municipal governance through the Institute of Politics. Having built my high school's mock trial team from scratch and worked weekend shifts in a community kitchen, I thrive in communities where intense debate and practical accountability go hand in hand."
+    }
+  ],
+  "publicNames": [
+    "Chicago Youth Participatory Budgeting Council",
+    "Illinois High School Mock Trial Invitational",
+    "QuestBridge",
+    "Posse Foundation",
+    "University of Chicago",
+    "Institute of Politics"
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Sofia Isabel Herrera-Gomez",
+    "school": "Biscayne Arts & Design Magnet High School",
+    "graduationYear": 2027,
+    "email": "sofia.herreragomez@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Art",
+      "position": "Lead Exhibition Designer & Muralist",
+      "organization": "Little Havana Youth Arts Collective",
+      "description": "Designed climate-resilience street murals and interactive sea-level rise installations displayed at Wynwood community galleries.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 11,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Architecture",
+      "position": "Student Architectural Fellow",
+      "organization": "Miami Urban Resilience Design Studio",
+      "description": "Built scale models of elevated modular housing and permeable mangrove boardwalks for Miami-Dade coastal neighborhoods.",
+      "grades": [
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 24,
+      "weeksPerYear": 8,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Athletics: Club",
+      "sport": "Sailing",
+      "position": "Laser Radial Skipper",
+      "organization": "Biscayne Bay Youth Sailing Foundation",
+      "description": "Raced single-handed dinghies in Florida regattas; taught basic wind reading and rigging safety to middle school beginners.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Portfolio Mentor",
+      "organization": "Dade Public School Art Access Initiative",
+      "description": "Reviewed architecture and fine-arts portfolios and supplied donated drafting materials to 40 under-resourced 9th graders.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 32,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards National Silver Medal (Architecture & Industrial Design)",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Congressional Art Competition Florida District 27 Winner",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Honor Society Chapter Vice President",
+      "grades": [
+        11,
+        12
+      ],
+      "level": "School"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "Every October during king tide in Miami, saltwater bubbles up through storm drains along Calle Ocho and turns familiar intersections into shallow mirrors reflecting pastel storefronts and royal palms. Growing up two blocks from Biscayne Bay, I learned early that architecture in South Florida cannot pretend the ground is fixed. Buildings here sit on porous oolitic limestone, negotiating daily between salt air, hurricane winds, and rising groundwater.\n\nWhen I entered Biscayne Arts & Design Magnet High School, I imagined architecture mostly as sculptural form—clean basswood models, dramatic cantilevers, and sunlit galleries. That changed during tenth grade when a tropical storm flooded my grandmother's ground-floor apartment in Little Havana, warping her cedar bookshelves and forcing us to prop furniture onto cinder blocks. Helping her scrape waterlogged drywall made me ask why coastal homes were still designed as if flooding were an anomaly rather than a certainty.\n\nThat question led me to the Miami Urban Resilience Design Studio the following summer, where I spent eight weeks studying vernacular Caribbean stilt houses alongside modern amphibious foundations. Using laser-cut basswood, recycled acrylic, and cast plaster, I built a sectional scale model of a duplex raised on permeable limestone piers, surrounded by bioswale planters that filter storm surge rather than fighting it with concrete seawalls. When I exhibited the model alongside an interactive sea-level mural in Wynwood, neighbors stopped not to critique the aesthetics, but to ask how much retrofitting a foundation actually costs.\n\nSailing Laser dinghies on Biscayne Bay every weekend reinforces that same lesson on the water. You never overpower a twenty-knot gust; you ease the mainsheet, hike out, and adjust your angle so wind becomes forward motion. Good urban design works the same way—working with ecological forces instead of denying them.\n\nWhether I am mixing exterior acrylics for a neighborhood mural or drafting cross-sections at 2:00 a.m., I see design as civic storytelling in three dimensions. At Boston University, I want to study Architectural Studies and Urban Design so I can help coastal cities from Miami to Boston build resilient public spaces that protect working-class neighborhoods without erasing their cultural soul.\n\nMentoring ninth-grade artists through the Dade Public School Art Access Initiative reinforced that same commitment to practical access. Many talented younger students in Miami assumed architecture and industrial design required expensive studio software or private portfolio prep. Reviewing their sketchbook concepts on Saturday mornings and sharing donated drafting tools showed me how quickly confidence grows when creative resources are shared openly.\n\nLooking back at those king-tide afternoons along Calle Ocho, I no longer see rising water simply as a threat to sketch around. Instead, it is a design prompt demanding empathy, structural ingenuity, and respect for the neighborhoods that give coastal cities their life."
+  },
+  "supplements": [
+    {
+      "id": "supplement-bu",
+      "college": "Boston University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Reflect on a social or community issue that deeply resonates with you. Why is this issue important to you, and how have you been involved in addressing or raising awareness about it?",
+      "wordLimit": 300,
+      "text": "Coastal flooding and climate gentrification in low-lying neighborhoods resonate deeply with me because I have watched both reshape Miami's working-class communities. When king tides and tropical storms inundate inland streets in Little Havana, residents with the fewest resources absorb the highest repair costs while higher-elevation neighborhoods rapidly redevelop. Through the Little Havana Youth Arts Collective, I designed public murals mapping historic shoreline changes alongside local residents' stories, turning abstract climate projections into neighborhood dialogue. Later, at the Miami Urban Resilience Design Studio, I prototyped elevated modular housing models using permeable materials to keep longtime families rooted safely in place. At Boston University, I want to continue linking architectural design with environmental justice through BU's Initiative on Cities."
+    }
+  ],
+  "publicNames": [
+    "Little Havana Youth Arts Collective",
+    "Miami Urban Resilience Design Studio",
+    "Biscayne Bay Youth Sailing Foundation",
+    "Dade Public School Art Access Initiative",
+    "Scholastic Art & Writing Awards",
+    "Congressional Art Competition",
+    "National Honor Society",
+    "Boston University",
+    "Initiative on Cities"
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Jordan Avery Vance",
+    "school": "Sunset Ridge High School",
+    "graduationYear": 2027,
+    "email": "jordan.vance@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Environmental",
+      "position": "Watershed Restoration Intern",
+      "organization": "Tualatin Riverkeepers Youth Corps",
+      "description": "Planted 900+ native Oregon ash and sedge saplings along riparian buffers; monitored dissolved oxygen and stream shade.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Soccer",
+      "position": "Varsity Center Back",
+      "organization": "Sunset Ridge High School Soccer",
+      "description": "Anchored defensive line in Metro League play; organized offseason captain practices and youth referee clinics.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 22,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Barista & Shift Opener",
+      "organization": "Cedar Mill Coffee Roasters",
+      "description": "Dialed espresso grinders, managed morning rush orders, and trained 5 new hires before school and on weekends.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 46,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Journalism/Publication",
+      "position": "Photojournalist & Layout Editor",
+      "organization": "The Ridge Observer",
+      "description": "Photographed local climate rallies, high school athletics, and Pacific Northwest forest ecology photo essays.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Oregon Envirothon State Championship 2nd Place Forestry Team",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "OSAA 6A Metro League All-Academic Soccer Team",
+      "grades": [
+        11,
+        12
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "Northwest Scholastic Press Association Photography Award",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "Standing knee-deep in cold November mud along a tributary of the Tualatin River outside Portland, a planting dibble looks simple enough: push the steel blade into wet clay, rock it back, drop in a bare-root willow sapling, and tamp the soil shut with your heel. During my first restoration workday in tenth grade, I treated it like a race, proud that I had planted eighty saplings before lunch while everyone else was still kneeling in small groups.\n\nSix months later, our crew returned in May to check survival rates. Nearly half of my rapid-fire plantings had either drowned in poorly drained pockets or dried out on exposed gravel bars, while the saplings planted slowly by an older volunteer who tested soil moisture by hand had leafed out into thick green shoots. Looking at rows of brittle brown twigs I had rushed into the ground taught me an uncomfortable lesson about the difference between motion and stewardship.\n\nThat realization changed how I approached everything from watershed fieldwork to playing center back on my high school soccer team. As a defender, I used to chase every loose ball out of position, mistaking constant sprinting for leadership. Learning to read riparian terrain—noticing where alder shade cooled the water and where reed canary grass choked out native sedges—taught me to slow down, scan the whole field, and communicate early so teammates moved together instead of scrambling late.\n\nBy junior year, when I became a youth crew leader with Tualatin Riverkeepers, I stopped measuring workdays by sapling counts. Instead, I showed new volunteers how to read soil texture, match red-osier dogwood to wet banks and Oregon grape to drier uplands, and record dissolved-oxygen readings before and after canopy planting. Documenting those seasonal shifts with my camera for our school newspaper helped classmates see that the creek behind our shopping centers was a living salmon corridor rather than a drainage ditch.\n\nWorking early morning shifts at Cedar Mill Coffee Roasters before school reinforced that same patience: dialing in espresso extraction means adjusting grind size one tiny notch at a time and tasting the result honestly. Training younger baristas during the 6:30 a.m. rush taught me how calm, clear communication keeps a small team moving smoothly when the ticket line stretches out the door.\n\nLooking back at those rows of bare-root saplings along the Tualatin River, I realize growth rarely happens at a sprint. Whether I am anchoring the back line on the soccer pitch, framing a photo essay for The Ridge Observer, or logging stream temperatures in autumn rain, I care about steady, attentive stewardship. At the University of Oregon, I want to study Environmental Studies and Journalism so I can connect ecological restoration science with clear, visual public storytelling across the Pacific Northwest."
+  },
+  "supplements": [
+    {
+      "id": "supplement-uoregon",
+      "college": "University of Oregon",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Explain why you are interested in your chosen major and how the University of Oregon will help you achieve your academic and career goals.",
+      "wordLimit": 250,
+      "text": "Restoring native riparian buffers with Tualatin Riverkeepers and photographing local ecology stories for my school paper showed me that environmental recovery depends equally on field science and clear public communication. I want to major in Environmental Studies at the University of Oregon because its interdisciplinary curriculum bridges ecological science, public policy, and environmental humanities. Studying in Eugene places me steps from the Willamette River watershed and UO's Environmental Leadership Program, where undergraduates collaborate directly with regional land trusts and agencies. Pairing field ecology coursework with multimedia storytelling in the School of Journalism and Communication will prepare me to translate Pacific Northwest conservation research into lasting community action."
+    }
+  ],
+  "publicNames": [
+    "Tualatin Riverkeepers",
+    "Cedar Mill Coffee Roasters",
+    "The Ridge Observer",
+    "Oregon Envirothon",
+    "OSAA",
+    "Northwest Scholastic Press Association",
+    "University of Oregon",
+    "Environmental Leadership Program"
+  ]
+}

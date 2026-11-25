@@ -1,0 +1,131 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Elena Sofia Morales",
+    "school": "Franklin Mountain High School",
+    "graduationYear": 2027,
+    "email": "elena.morales@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Community Service (Volunteer)",
+      "position": "Bilingual Intake Coordinator",
+      "organization": "Paso del Norte Legal Aid Clinic",
+      "description": "Assisted 120+ asylum-seeking and low-income families with Spanish-English document translation and Know Your Rights workshops.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 7,
+      "weeksPerYear": 46,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Cross Country",
+      "position": "Varsity Captain",
+      "organization": "Franklin Mountain High School Cross Country",
+      "description": "Ran 5K varsity events across West Texas; led summer dawn conditioning runs in Chihuahuan Desert trails for 22 teammates.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 13,
+      "weeksPerYear": 30,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Science/Math",
+      "position": "President & Air Quality Lead",
+      "organization": "Borderlands Environmental Youth Coalition",
+      "description": "Installed 8 low-cost PM2.5 air sensors near highway crossings in El Paso; analyzed dust-storm particulate spikes with UTEP mentors.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Weekend Baker & Counter Lead",
+      "organization": "Panadería La Estrella",
+      "description": "Prepared conchas and bolillos starting at 5 a.m. weekends; managed register and inventory to help fund family household expenses.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 48,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "National Hispanic Recognition Program Awardee",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "UIL District 1-6A Academic All-District Cross Country",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "Texas Envirothon Regional Top Team Award",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "At 5:15 a.m. on Saturdays, the ovens at Panadería La Estrella smell of toasted anise, cinnamon, and warm yeast long before the sun clears the Franklin Mountains. For three years, my weekend mornings have begun by sliding sheet pans of conchas onto cooling racks while trucks idle along the border highway two blocks away. For a long time, I treated those early bakery shifts and my weekday afternoons at the Paso del Norte Legal Aid Clinic as obligations completely separate from my science classes. Bakery work paid for groceries; clinic volunteering translated paperwork; chemistry and environmental science belonged in a lab.\n\nThat division broke down during a fierce spring dust storm in eleventh grade. After closing the bakery counter at noon, I walked outside to find the sky turned bruised amber, the air thick with desert silt and diesel exhaust from stalled freight traffic near the bridge. When I arrived at the legal aid clinic an hour later, half the families in the waiting room were coughing, and a grandmother from Ciudad Juárez asked me why her grandson's asthma inhaler seemed to run out twice as fast whenever the wind blew from the industrial corridor. I realized I could translate her words into English, yet I had no data to prove what her lungs already knew.\n\nThe following Monday, I proposed a partnership between our school's Borderlands Environmental Youth Coalition and graduate researchers at the University of Texas at El Paso. Over six months, we mounted fifteen solar-powered particulate sensors on neighborhood porches, community centers, and our bakery's own awning. Learning to calibrate optical particle counters and clean messy CSV logs in Python felt intimidating at first, especially after six-mile morning cross-country practices. Yet every time I wanted to quit debugging a script, I pictured the waiting room on that amber afternoon.\n\nWhen our first semester of data came back, the pattern was unmistakable: PM2.5 concentrations near the highway crossings spiked to more than triple federal guidelines during afternoon idling windows, disproportionately affecting Spanish-speaking neighborhoods with the lowest tree canopy. We translated our findings into bilingual one-page briefs and presented them at a local air-quality town hall. Seeing neighbors point to their own street names on our map taught me that data is a form of translation too—one that turns lived experience into policy evidence.\n\nRunning cross country across rocky desert trails taught me how to pace myself up long inclines without burning out early. Combining bakery shifts, clinic intake, and environmental monitoring taught me something deeper: I do not have to choose between serving my community and pursuing rigorous engineering. At UT Austin, I want to study environmental engineering so I can design cleaner urban air systems for border and industrial communities like the one that raised me."
+  },
+  "supplements": [
+    {
+      "id": "supplement-ut-austin",
+      "college": "The University of Texas at Austin",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in the major you indicated as your first-choice major?",
+      "wordLimit": 300,
+      "text": "Growing up in El Paso between the Chihuahuan Desert and major international freight corridors, I have seen firsthand how infrastructure choices directly shape public health. When I helped deploy fifteen low-cost PM2.5 air sensors across border neighborhoods with the Borderlands Environmental Youth Coalition, watching raw particulate spikes align with afternoon truck idling transformed Environmental Engineering from an abstract discipline into an urgent toolkit. I want to major in Environmental Engineering in the Cockrell School of Engineering because it bridges fluid mechanics, atmospheric chemistry, and civil infrastructure design. At UT Austin, I am eager to investigate urban air dispersion modeling and sustainable filtration systems, applying quantitative engineering methods to protect vulnerable neighborhoods across Texas."
+    }
+  ],
+  "publicNames": [
+    "Paso del Norte Legal Aid Clinic",
+    "Borderlands Environmental Youth Coalition",
+    "University of Texas at El Paso",
+    "National Hispanic Recognition Program",
+    "UIL",
+    "Texas Envirothon",
+    "The University of Texas at Austin",
+    "Cockrell School of Engineering"
+  ]
+}

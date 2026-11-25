@@ -1,0 +1,128 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Mateo Alejandro Silva",
+    "school": "Colégio Internacional da Gávea",
+    "graduationYear": 2027,
+    "email": "mateo.silva@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Environmental",
+      "position": "Co-Founder & Coastal Mapping Lead",
+      "organization": "Guanabara Bay Youth Ocean Watch",
+      "description": "Mapped plastic debris accumulation and mangrove health across 6 Rio beaches using drone photogrammetry and youth cleanups.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 9,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: Club",
+      "sport": "Swimming",
+      "position": "Open-Water & 1500m Freestyle Swimmer",
+      "organization": "Clube de Regatas Copacabana Youth Squad",
+      "description": "Trained 6 mornings weekly in pool and ocean swells; competed in Rio state open-water 5km crossings.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 46,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Math & Portuguese Literacy Mentor",
+      "organization": "Projeto Vidigal Educação",
+      "description": "Tutored 25 elementary students in fractions, reading comprehension, and environmental science every Saturday morning.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 38,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Music: Instrumental",
+      "position": "Classical & Bossa Nova Acoustic Guitarist",
+      "organization": "Carioca Youth Chamber Ensemble",
+      "description": "Performed Villa-Lobos preludes and Brazilian jazz arrangements at cultural centers across Rio de Janeiro.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Brazilian Astronomy and Astronautics Olympiad (OBA) Gold Medal",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Rio de Janeiro State Open-Water Swimming 5km Junior Top 5",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "IB Diploma Predicted 42/45 Academic Excellence Award",
+      "grades": [
+        12
+      ],
+      "level": "School"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?",
+    "wordLimit": 650,
+    "text": "Every Saturday at 6:00 a.m., before beachgoers unfold striped umbrellas along Copacabana, my swim squad wades past the shorebreak to train along the coastal buoys. Swimming five kilometers in open Atlantic swells teaches you to read currents by subtle shifts in water temperature and foam lines. For years, I assumed that protecting Rio de Janeiro's coastline simply meant organizing bigger weekend beach cleanups—gathering volunteers, filling blue trash bags, and posting photographs online.\n\nIn tenth grade, after our club collected eighty bags of plastic along Arpoador on a Sunday afternoon, I returned at dawn on Tuesday to find the tide line carpeted again with bottle caps, polystyrene fragments, and fishing line. Watching waves undo a weekend's labor in forty-eight hours forced me to question our entire approach. Cleanups treated symptoms along the sand while ignoring the storm drains, tidal eddies, and mangrove bottlenecks feeding Guanabara Bay.\n\nWith two classmates, I founded Guanabara Bay Youth Ocean Watch to shift from reactive trash pickup to spatial diagnostics. Borrowing an entry-level mapping drone and learning open-source GIS software, we surveyed six beaches and mangrove inlets after heavy summer rains, tagging debris hotspots against tidal currents and municipal drainage outfalls. Our orthomosaic maps revealed that over sixty percent of the shoreline plastic originated from three unscreened urban canal mouths rather than beach litter.\n\nPresenting those maps to local neighborhood associations and marine biologists at a public forum changed both our credibility and my understanding of environmentalism. Instead of scolding beachgoers, we partnered with municipal engineers to advocate for low-cost litter-trap booms at two canal outfalls and expanded mangrove seedling planting along degraded bay margins.\n\nLeading Saturday math and Portuguese reading sessions at Projeto Vidigal Educação deepened that conviction. Watching eight-year-old students light up when fractions suddenly clicked through games involving soccer scores and beach tides reminded me that education and environmental stewardship share the same foundation: meeting people where they are and building trust step by step.\n\nPlaying Heitor Villa-Lobos preludes on classical guitar taught me that counterpoint works only when separate melodic lines listen to one another. Coastal conservation requires that same harmony between oceanography, civil engineering, and neighborhood voices. At the University of Virginia, I want to study Environmental Sciences and Civil Engineering to design data-driven coastal protection systems for urban bays around the world."
+  },
+  "supplements": [
+    {
+      "id": "supplement-uva",
+      "college": "University of Virginia",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "What about your individual background, perspective, or experience will serve as a source of strength for you or those around you at UVA?",
+      "wordLimit": 300,
+      "text": "Growing up in Rio de Janeiro—a city where rainforest mountains drop straight into dense coastal neighborhoods and Guanabara Bay—taught me that environmental challenges are never purely technical or purely social; they are both at once. Whether mapping urban runoff patterns with Guanabara Bay Youth Ocean Watch, swimming five-kilometer open-water races at dawn, or tutoring children in Vidigal every Saturday, I have learned to move comfortably between quantitative data and lived community experience. At UVA, I will bring that cross-cultural, problem-solving perspective into Environmental Sciences seminars, student sustainability initiatives, and the university's strong tradition of student self-governance."
+    }
+  ],
+  "publicNames": [
+    "Guanabara Bay Youth Ocean Watch",
+    "Clube de Regatas Copacabana",
+    "Projeto Vidigal Educação",
+    "Carioca Youth Chamber Ensemble",
+    "Brazilian Astronomy and Astronautics Olympiad",
+    "University of Virginia"
+  ]
+}

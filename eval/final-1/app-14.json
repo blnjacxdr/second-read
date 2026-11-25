@@ -1,0 +1,132 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Hannah Grace Kowalski",
+    "school": "Cuyahoga Valley STEM High School",
+    "graduationYear": 2027,
+    "email": "hannah.kowalski@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "Lead Materials Researcher",
+      "organization": "Cleveland Polymer & Recycling Lab Youth Cohort",
+      "description": "Tested tensile strength of recycled PET-glass composites for low-cost modular sidewalk pavers; co-authored regional paper.",
+      "grades": [
+        10
+      ],
+      "timing": "School",
+      "hoursPerWeek": 28,
+      "weeksPerYear": 9,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Instrumental",
+      "position": "Principal Cellist",
+      "organization": "Greater Cleveland Youth Symphony",
+      "description": "Performed Dvorak and Elgar symphonic repertoire at Severance Music Center; coached middle school string quartets.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 9,
+      "weeksPerYear": 42,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Repair Cafe Electronics Fixer",
+      "organization": "Lakewood Community Repair Collective",
+      "description": "Diagnosed and soldered broken toasters, lamps, and small appliances for 90+ neighbors to keep e-waste out of landfills.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Tennis",
+      "position": "Varsity First Doubles",
+      "organization": "Cuyahoga Valley Tennis",
+      "description": "Competed in Northeast Ohio district tournaments; ran summer beginner clinics at Lakewood Park courts.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 20,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Ohio Academy of Science State Science Day Superior Rating",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Ohio Music Education Association All-State Orchestra Cellist",
+      "grades": [
+        11,
+        12
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Merit Finalist",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "Inside a broken 1980s Sunbeam toaster lies a lesson in honest engineering: gleaming nichrome heating ribbons wound around mica sheets, held together by machine screws you can actually turn with a flathead screwdriver. One Saturday a month at the Lakewood Community Repair Collective, I sit at a folding table with a multimeter, a soldering iron, and a bin of heat-shrink tubing, helping neighbors revive lamps, blenders, and radios they were minutes away from throwing in the trash. When I am tracing a continuity fault across a circuit board, two hours vanish before I remember to uncurl my shoulders.\n\nWhat captivates me about materials and failure analysis is that every fracture or burn mark tells a physical biography. A snapped plastic gear in a modern food processor reveals where a manufacturer substituted brittle polystyrene for glass-filled nylon to save four cents per unit. That curiosity led me to spend the summer before twelfth grade in a polymer research cohort in Cleveland, melting shredded post-consumer PET bottles with crushed waste glass to press experimental composite pavers. Watching samples snap under a hydraulic three-point bend tester—and adjusting cooling rates until flexural strength jumped by thirty percent—felt like solving a puzzle written in molecular chains.\n\nWhenever I hit a wall, I turn to two very different teachers: retired machinists who volunteer beside me at the repair cafe, and materials science journals I read on the bus home. The machinists taught me how to feel thread pitch with my fingertips; the papers taught me how polymer crystallinity governs impact resistance.\n\nPlaying principal cello in the Greater Cleveland Youth Symphony relies on that exact same sensitivity to material resonance. A spruce soundboard responds differently to January dryness than to humid Lake Erie Augusts, forcing you to adjust bow weight and rosin before a single note sounds clean. Rehearsing Dvorak's Eighth Symphony with eighty peers taught me how individual precision serves a larger collective voice.\n\nWhether I am soldering a thermal fuse at a neighborhood repair table, testing polymer composite beams in a lab, or coaching middle school cellists, I am drawn to the quiet craft of making things last. At Case Western Reserve University, I want to study Materials Science and Engineering so I can design durable, circular polymers built to be repaired and reused rather than discarded."
+  },
+  "supplements": [
+    {
+      "id": "supplement-cwru",
+      "college": "Case Western Reserve University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Case Western Reserve University is known for its hands-on research and collaborative spirit. Describe an intellectual interest you hope to pursue at CWRU and how you will take advantage of our resources.",
+      "wordLimit": 250,
+      "text": "Spending summers testing recycled PET-glass composites in Cleveland and weekends fixing household electronics at a community repair cafe sparked my passion for sustainable polymer design. At Case Western Reserve University, I want to major in Macromolecular Science and Engineering—one of the few dedicated polymer programs in the country—to study how chemical upcycling and composite reinforcement can extend material lifespans. Beyond research labs, I am eager to prototype circular hardware at Sears think[box] and continue performing chamber music through the Joint Music Program with the Cleveland Institute of Music."
+    }
+  ],
+  "publicNames": [
+    "Cleveland Polymer & Recycling Lab",
+    "Greater Cleveland Youth Symphony",
+    "Severance Music Center",
+    "Lakewood Community Repair Collective",
+    "Ohio Academy of Science",
+    "Ohio Music Education Association",
+    "National Merit Scholarship Program",
+    "Case Western Reserve University",
+    "Sears think[box]",
+    "Cleveland Institute of Music"
+  ]
+}

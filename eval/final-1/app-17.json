@@ -1,0 +1,130 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Nadia Claire Tremblay",
+    "school": "École Secondaire Saint-Laurent",
+    "graduationYear": 2027,
+    "email": "nadia.tremblay@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "AI & Neuroimaging Research Intern",
+      "organization": "Montreal Youth Computational Health Lab",
+      "description": "Trained convolutional neural networks to detect motion artifacts in pediatric brain MRI scans; presented at McGill youth symposium.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 26,
+      "weeksPerYear": 8,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: Club",
+      "sport": "Speed Skating",
+      "position": "Short-Track Provincial Competitor",
+      "organization": "Club de Patinage de Vitesse Montréal",
+      "description": "Trained 5 days weekly on Olympic oval and short-track ice; competed in Quebec provincial 1000m and 1500m events.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Bilingual Math & Coding Mentor",
+      "organization": "TechnoJeunes Montréal",
+      "description": "Led free French-English Python and logic workshops for 60 girls across Montreal community centers.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Academic",
+      "position": "Editor & Problem Writer",
+      "organization": "Québec Secondary Math Circle",
+      "description": "Wrote combinatorics and number-theory problem sets in French and English for provincial math competition prep.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 36,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Canadian Open Mathematics Challenge (COMC) Quebec Honor Roll",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Expo-Sciences Hydro-Québec Provincial Silver Medal",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "Quebec Short-Track Speed Skating Provincial Finalist",
+      "grades": [
+        10,
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "In short-track speed skating, leaning forty-five degrees into a tight corner at forty kilometers an hour means trusting three millimeters of tempered steel blade against shaved ice. During the Quebec provincial 1500-meter semifinals in tenth grade, I entered the final lap in second place, dipped my left hand too low to steady a crossover, and caught my skate edge on a rut. Within half a second, I was sliding across the ice into the padded barrier while the pack flashed past.\n\nSitting on the bench unlacing my boots with a bruised hip and a disqualification mark beside my name, I replayed that single turn obsessively. For months afterward, I skated conservatively through corners, braking slightly before entering the apex so I would never lose an edge again—and watching my lap times stagnate half a second off my personal best. My coach finally pulled me aside after morning practice and pointed out the paradox: on short-track ice, slowing down into a curve reduces the centrifugal force pressing your blade into the surface, making you more likely to slip, not safer.\n\nRebuilding my confidence meant relearning physics through muscle memory. I spent weeks doing dry-land balance drills, filming my hip angles frame by frame, and gradually trusting speed again until leaning deep into a turn felt fluid rather than reckless.\n\nTwo summers later, that exact lesson surfaced in a completely different lab. While interning with a computational neuroimaging group in Montreal, my first neural network classifier achieved ninety-six percent accuracy detecting motion artifacts in pediatric brain MRI scans—until I tested it on scans from a different hospital scanner and watched performance collapse to random guessing. Like my cautious cornering after my fall, my model had overfitted to safe, familiar patterns instead of learning invariant structure. Stripping away shortcut features and retraining with cross-scanner augmentation dropped our training score slightly while making the model genuinely reliable on unseen clinical data.\n\nGrowing up bilingual in Montreal, switching naturally between French and English across classrooms, clinics, and skating rinks, taught me that fluency requires risking mistakes in real time. Mentoring girls in free coding workshops through TechnoJeunes Montréal reinforced that lesson every week as I watched hesitant beginners celebrate their first working loops.\n\nWhether I am leaning into a tight short-track corner on Olympic ice or debugging cross-scanner normalization in a neuroimaging pipeline, I have learned that speed and accuracy depend on trusting well-built fundamentals. At MIT, I want to study Computer Science and Brain and Cognitive Sciences to build trustworthy medical AI tools that hold their edge under real-world clinical conditions."
+  },
+  "supplements": [
+    {
+      "id": "supplement-mit",
+      "college": "Massachusetts Institute of Technology",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Describe the world you come from; for example, your family, clubs, school, community, city, or town. How has that world shaped your dreams and aspirations?",
+      "wordLimit": 225,
+      "text": "Growing up in Montreal means living at the intersection of two languages, bitter February winters, and a thriving artificial-intelligence research community just metro stops from neighborhood outdoor rinks. Switching between French and English at school, racing short-track speed skating before dawn, and mentoring girls in bilingual coding workshops taught me that rigor and warmth belong together. When my computational health internship showed me how motion artifacts distort pediatric MRI scans, I saw how local AI research can directly help clinicians and families. That world shaped my goal to study computer science and neuroscience at MIT, uniting mathematical precision with human-centered healthcare."
+    }
+  ],
+  "publicNames": [
+    "Montreal Youth Computational Health Lab",
+    "McGill University",
+    "Club de Patinage de Vitesse Montréal",
+    "TechnoJeunes Montréal",
+    "Québec Secondary Math Circle",
+    "Canadian Open Mathematics Challenge",
+    "Expo-Sciences Hydro-Québec",
+    "Massachusetts Institute of Technology"
+  ]
+}

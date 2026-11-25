@@ -1,0 +1,130 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Kenji Takahashi",
+    "school": "Musashino International School",
+    "graduationYear": 2027,
+    "email": "kenji.takahashi@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Journalism/Publication",
+      "position": "Audio Producer & Podcast Host",
+      "organization": "Tokyo Youth Soundscape Project",
+      "description": "Recorded and edited 24 documentary episodes exploring urban acoustics, craft workshops, and commuter culture across Tokyo.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 45,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Track and Field",
+      "position": "Varsity 800m & 1500m Runner",
+      "organization": "Kanto Plain International Schools League Track",
+      "description": "Competed in regional meets in Tokyo and Yokohama; organized pace-group training logs for middle-distance runners.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 11,
+      "weeksPerYear": 32,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Science/Math",
+      "position": "Acoustic Engineering Team Lead",
+      "organization": "Musashino STEM Innovation Club",
+      "description": "Designed low-cost recycled-felt acoustic baffles for open-plan school study rooms; cut reverberation time by 38%.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "English Conversation Partner",
+      "organization": "Mitaka Senior Community Center",
+      "description": "Hosted weekly bilingual storytelling and smartphone troubleshooting sessions for 30 retired residents in Mitaka.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "New York Times Student Podcast Contest Runner-Up",
+      "grades": [
+        11
+      ],
+      "level": "International"
+    },
+    {
+      "id": "honor-2",
+      "title": "Kanto Plain All-League Track & Field 1500m Silver Medalist",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "AP Physics C: Mechanics & Calculus BC National AP Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "If you stand on the platform of Shinjuku Station at 8:15 a.m. with a pair of binaural microphones clipped to your collar, the city stops looking like a crowd and starts sounding like an orchestra. Beneath the rush of footsteps and pneumatic train doors, every Yamanote Line platform plays a distinct seven-second departure melody composed specifically to calm commuters while nudging them aboard. Two years ago, I bought a secondhand field recorder at a shop in Akihabara, and ever since, I have lost countless weekend afternoons chasing the hidden acoustic architecture of Tokyo.\n\nWhat captivates me about sound is that it sits right at the intersection of wave physics and human memory. An echo in a cedar temple hall in Kamakura or the rhythmic clack of a wooden loom in a small Hachioji textile workshop carries two stories at once: the mathematical geometry of how sound waves reflect off surfaces, and the cultural history of why people built that space to sound the way it does. When I sit down at my laptop in the evening to edit raw field recordings into episodes for the Tokyo Youth Soundscape Project, I routinely look up at 1:00 a.m. surprised that four hours have vanished while I equalized low-frequency subway rumble out of an interview with an eighty-year-old shamisen maker.\n\nCuriosity about why our own school's glass-walled library felt exhausting to study in pushed me from recording sound to engineering it. Together with three friends in the Musashino STEM Innovation Club, I measured impulse responses using a starter pistol balloon pop and a calibrated microphone, discovering that hard concrete ceilings stretched reverberation times past 1.8 seconds. Reading acoustic engineering textbooks and consulting an architectural acoustician in Shibuya, we prototyped modular wall baffles from compressed recycled denim and felt, reducing echo by nearly forty percent.\n\nWhenever I want to go deeper, I alternate between spectral analysis software and human conversation. Software shows me frequency spikes at 500 hertz; talking to sound designers, train engineers, and elderly neighbors at the Mitaka Senior Community Center reminds me why clarity matters in the first place. One retired machinist told me he could still identify the exact model of a lathe solely by the pitch of its bearings.\n\nWhether I am pacing two laps into a 1500-meter race or layering ambient rain under a documentary narration, I pay attention to rhythm, resonance, and noise. At Northwestern University, I want to combine Mechanical Engineering and Sound Design through the Segal Design Institute, building quieter, more humane environments where technology and storytelling reinforce each other. Listening closely has taught me that every neighborhood carries an acoustic signature worth preserving and improving."
+  },
+  "supplements": [
+    {
+      "id": "supplement-northwestern",
+      "college": "Northwestern University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "We want to be sure we're considering your application in the context of your personal experiences: What aspects of your background, your identity, or your school, community, and/or household settings have most shaped how you see the world today? And how will those perspectives shape your contributions to the Northwestern community?",
+      "wordLimit": 300,
+      "text": "Growing up in Tokyo between an international high school and a traditional neighborhood in Mitaka taught me to listen across two very different frequencies. At school, debates moved quickly in English across twenty nationalities; ten minutes away at the Mitaka Senior Community Center, where I volunteer weekly, meaning lived in quiet pauses, seasonal rituals, and the tactile craft of retired artisans. Producing the Tokyo Youth Soundscape Project trained me to bridge those worlds—using field recording and acoustic physics to capture stories that rarely make headlines. At Northwestern, I want to bring that interdisciplinary ear to both the McCormick School of Engineering and the School of Communication, collaborating through the Segal Design Institute and WNUR radio to build human-centered acoustic tools and documentary audio."
+    }
+  ],
+  "publicNames": [
+    "Tokyo Youth Soundscape Project",
+    "Kanto Plain International Schools League",
+    "Musashino STEM Innovation Club",
+    "Mitaka Senior Community Center",
+    "New York Times Student Podcast Contest",
+    "Northwestern University",
+    "Segal Design Institute",
+    "McCormick School of Engineering",
+    "WNUR"
+  ]
+}

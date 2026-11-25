@@ -1,0 +1,127 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Grace Eunji Kim",
+    "school": "Beacon Hill Girls' Preparatory School",
+    "graduationYear": 2027,
+    "email": "grace.kim@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Music: Instrumental",
+      "position": "Concertmaster & Chamber Violinist",
+      "organization": "New England Conservatory Preparatory String Orchestra",
+      "description": "Led first violins in Jordan Hall performances; organized free chamber music concerts at Boston public hospitals.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 46,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Research",
+      "position": "Clinical Neurology & Music Cognition Intern",
+      "organization": "Charles River Auditory Neuroscience Lab",
+      "description": "Analyzed EEG auditory-evoked responses in rhythmic speech therapy trials for post-stroke aphasia patients.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 25,
+      "weeksPerYear": 9,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Founder & Lead Volunteer",
+      "organization": "Notes for Healing Boston",
+      "description": "Coordinated 22 student musicians performing bedside acoustic duets in rehabilitation and oncology wards across Boston.",
+      "grades": [
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Academic",
+      "position": "Co-Editor",
+      "organization": "Beacon Hill Bioethics & Science Review",
+      "description": "Edited student research essays examining neurotechnology ethics, clinical trial equity, and music therapy.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 32,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "From the Top NPR Young Artist Fellow",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Massachusetts State Science & Engineering Fair 2nd Place Behavioral Science",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Merit Semifinalist",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on something that someone has done for you that has made you happy or thankful in a surprising way. How has this gratitude affected or motivated you?",
+    "wordLimit": 650,
+    "text": "On a snowy Sunday afternoon in tenth grade, I carried my violin into a quiet rehabilitation ward in Boston expecting to play a twenty-minute Bach recital for a room of half-asleep patients. Instead, an eighty-two-year-old retired carpenter named Mr. Henderson, who had lost most of his spoken speech after a left-hemisphere stroke, tapped his fingers steadily against his wheelchair armrest in exact 3/4 time to a Brahms waltz—and then sang the opening phrase clearly before struggling to say his own name.\n\nAfter I packed my instrument, Mr. Henderson reached out with his unaffected hand, pointed to my violin case, and tapped twice over his heart. That wordless gesture surprised me more than any conservatory audition result ever had. For ten years, I had viewed violin technique through the lens of perfectionism—clean intonation, crisp spiccato, and competition rankings. Seeing rhythm unlock a neural pathway that spoken language could not reach transformed music from a solitary pursuit into a biological bridge.\n\nThat afternoon sparked two parallel commitments. First, I founded Notes for Healing Boston, recruiting twenty-two student musicians to play weekly acoustic sessions in hospital wards, tailoring repertoire and tempo to patients' energy rather than performing formal recitals. Second, I cold-emailed auditory neuroscience researchers along the Charles River until a lab invited me to intern the following summer, studying how melodic intonation therapy engages right-hemisphere motor networks in aphasia recovery.\n\nSitting in front of MATLAB screens cleaning noisy EEG waveforms felt worlds away from Jordan Hall, yet both required the same discipline: listening closely for signal buried inside static. Co-editing our school's bioethics review further pushed me to examine how emerging neurotechnologies can be deployed equitably so clinical breakthroughs reach every patient.\n\nWhenever a script failed or a bow passage felt stiff, I remembered Mr. Henderson tapping 3/4 time on his armrest. At Brown University, I want to pursue the Open Curriculum across Neuroscience and Music so I can keep investigating how rhythmic perception helps injured brains heal."
+  },
+  "supplements": [
+    {
+      "id": "supplement-brown",
+      "college": "Brown University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits. Tell us about any academic interests that excite you, and how you might pursue them at Brown.",
+      "wordLimit": 250,
+      "text": "Watching a stroke survivor sing a waltz melody fluently despite severe aphasia sparked my fascination with how auditory rhythm reorganizes neural circuits. Brown's Open Curriculum is uniquely suited to my goal of uniting Neuroscience and Music without treating either as a secondary hobby. Having analyzed EEG speech-therapy data in a Boston auditory lab while serving as concertmaster in a youth orchestra, I want to study neural plasticity and music cognition at Brown's Carney Institute for Brain Science while performing in the Brown University Orchestra. Freed from rigid distribution barriers, I can build an interdisciplinary foundation connecting clinical neurology, acoustics, and human care."
+    }
+  ],
+  "publicNames": [
+    "New England Conservatory Preparatory String Orchestra",
+    "Charles River Auditory Neuroscience Lab",
+    "Notes for Healing Boston",
+    "Beacon Hill Bioethics & Science Review",
+    "From the Top",
+    "Massachusetts State Science & Engineering Fair",
+    "National Merit Scholarship Program",
+    "Brown University",
+    "Carney Institute for Brain Science",
+    "Brown University Orchestra"
+  ]
+}

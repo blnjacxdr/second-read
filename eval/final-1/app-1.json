@@ -1,0 +1,128 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Maya Lin",
+    "school": "Oakridge Valley High School",
+    "graduationYear": 2027,
+    "email": "maya.lin@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "Co-Founder & Lead Hardware Engineer",
+      "organization": "Silicon Valley Student Robotics Collective",
+      "description": "Designed autonomous orchard-monitoring rovers; led 14 peers in PCB fabrication, ROS2 navigation, and field testing with local stone-fruit growers.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Research",
+      "position": "Student Researcher",
+      "organization": "Santa Clara Valley Water Quality Lab",
+      "description": "Analyzed microplastic filtration efficiency across 60 bioswale soil samples; co-authored poster presented at regional environmental symposium.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 25,
+      "weeksPerYear": 10,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Athletics: Club",
+      "sport": "Badminton",
+      "position": "Varsity Singles & Mixed Doubles Captain",
+      "organization": "Bay Area Youth Badminton Academy",
+      "description": "Competed in NorCal junior circuit tournaments; organized weekly footwork drills and mentored 18 incoming freshman players.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Curriculum Lead & Instructor",
+      "organization": "CodeBridge Cupertino",
+      "description": "Taught Python and Scratch workshops to 85 middle school students at public libraries; translated beginner guides into Mandarin.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 32,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "AIME Qualifier",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Regeneron Science Talent Search Entrant & Regional Fair 2nd Place",
+      "grades": [
+        12
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Merit Semifinalist",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on something that someone has done for you that has made you happy or thankful in a surprising way. How has this gratitude affected or motivated you?",
+    "wordLimit": 650,
+    "text": "Every Tuesday afternoon during my sophomore year, Mr. Alvarez, the custodian who locked up the engineering wing at Oakridge Valley High School, left a single chipped ceramic mug filled with lukewarm chamomile tea beside my soldering station. We rarely spoke beyond a nod and a quiet 'Buenas tardes,' yet that mug became the anchor of my week. At the time, I was convinced that building an autonomous orchard rover meant staying until the janitorial carts rattled down the corridor, proving my seriousness through sheer exhaustion. When I burned through my third motor controller in October and sat staring at blackened silicon, Mr. Alvarez did not offer technical advice. He simply pointed at the cooling tea and said, 'Even copper wires need time to cool before you bend them again.'\n\nBefore that autumn, I measured my worth in output: lines of C++ committed, practice problem sets completed, and tournament brackets won. Growing up in Cupertino, surrounded by the hum of semiconductor campuses, it felt natural to treat every waking hour like an optimization problem. When I founded the Silicon Valley Student Robotics Collective with two classmates, I wrote schedules down to fifteen-minute increments and grew frustrated when teammates needed breaks or when our chassis tolerances drifted by a millimeter. I thought gratitude was something you expressed at the end of a project, once the trophy was on the shelf or the paper was published.\n\nMr. Alvarez's quiet ritual inverted that logic. Observing him work taught me a different kind of precision. He checked every classroom door handle twice, coiled extension cords without a single kink, and still paused to ask the freshman robotics recruits how their algebra quizzes had gone. His care was not loud or transactional; it was preventive maintenance for people. Slowly, I began arriving twenty minutes earlier to our club sessions not to solder, but to ask my teammates what was happening in their lives outside the lab. When our junior mechanical lead struggled to balance part-time shifts at her family's bakery with CAD deadlines, we redesigned our sprint calendar around her hours instead of sidelining her.\n\nThat shift changed both our engineering and my own habits. During the summer before twelfth grade, while testing soil-moisture sensors in a Morgan Hill apricot orchard, our rover's LiDAR mount snapped in the afternoon heat. Instead of panicking or pulling an all-nighter alone, I called a fifteen-minute shade break, passed around cold water, and brainstormed a field fix with the team using zip ties and aluminum flashing from a grower's shed. The sensor held through four straight hours of dusty rows.\n\nLast spring, before Mr. Alvarez transferred to an elementary school across town, I machined an insulated stainless-steel travel mug on our shop lathe and etched a tiny circuit-board leaf onto the lid. Leaving it on his cart felt small compared to the steadiness he had given me, yet watching him smile reminded me why I want to study mechanical engineering. Good systems do not run at redline forever; they are built with margin, resilience, and care for the people operating them. Whether I am debugging firmware at midnight or mentoring younger builders, I still hear the clink of that ceramic mug reminding me to let the metal cool."
+  },
+  "supplements": [
+    {
+      "id": "supplement-stanford",
+      "college": "Stanford University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "The Stanford community is deeply curious and driven to learn in and out of the classroom. Reflect on an idea or experience that makes you genuinely excited about learning.",
+      "wordLimit": 250,
+      "text": "Watching water infiltrate compacted orchard soil after a winter storm first hooked me on the hidden physics of everyday landscapes. During my summer research at the Santa Clara Valley Water Quality Lab, I expected microplastic capture in bioswales to depend mainly on filter mesh size. Instead, staining soil cores revealed that earthworm burrows and root channels created preferential flow paths that bypassed our carefully layered sand columns entirely. That single observation sent me down a rabbit hole of Darcy's law, capillary hysteresis, and soil-mechanics papers I barely had the multivariable calculus to read. What excites me most about learning is that moment when a neat textbook equation collides with messy physical reality and refuses to behave. At Stanford, I want to keep chasing those collisions across mechanical engineering and Earth systems, building low-cost field sensors that turn muddy empirical surprises into actionable environmental data."
+    }
+  ],
+  "publicNames": [
+    "Silicon Valley Student Robotics Collective",
+    "Santa Clara Valley Water Quality Lab",
+    "Bay Area Youth Badminton Academy",
+    "CodeBridge Cupertino",
+    "AIME",
+    "Regeneron Science Talent Search",
+    "National Merit Scholarship Program",
+    "Stanford University"
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Arjun Vikram Patel",
+    "school": "Meadowbrook Science Magnet High School",
+    "graduationYear": 2027,
+    "email": "arjun.patel@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "Co-Captain & Astro-Imaging Lead",
+      "organization": "Meadowbrook Astronomy & Astrophysics Society",
+      "description": "Captured exoplanet transit light curves using school's 11-inch Schmidt-Cassegrain telescope; submitted data to AAVSO.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Academic",
+      "position": "Team Captain",
+      "organization": "New Jersey Science Olympiad Varsity Team",
+      "description": "Medaled in Astronomy, Fermi Questions, and Dynamic Planet; built calibration guides for 25 underclassmen competitors.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 7,
+      "weeksPerYear": 34,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Sidewalk Telescope Host",
+      "organization": "Edison Public Library Stargazing Nights",
+      "description": "Hosted monthly public astronomy nights showing Saturn's rings and lunar craters to 200+ local families and children.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 24,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Music: Instrumental",
+      "position": "Tabla Percussionist",
+      "organization": "Tri-State Indian Classical Youth Ensemble",
+      "description": "Accompanied vocal and sitar recitals across New Jersey; studied rhythmic teental compositions for 8 years.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 46,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "USA Astronomy and Astrophysics Olympiad (USAAAO) National Finalist",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "New Jersey Science Olympiad State 1st Place Astronomy",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "Intel Science Talent Search Semifinalist",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "Under New Jersey's suburban light pollution, the night sky rarely looks dramatic to the naked eye—just a hazy wash of orange sodium vapor and twenty faint stars. Yet if you cool a monochrome CMOS camera to minus fifteen degrees Celsius behind an eleven-inch telescope and stack four hours of three-minute exposures, a tiny dip of one percent in a star's brightness reveals a gas giant crossing its sun four hundred light-years away. Sitting on a folding chair in our school courtyard at 2:00 a.m. watching live photometry graphs plot an exoplanet transit is the easiest way for me to lose all sense of time.\n\nWhat captivates me about observational astrophysics is how much information hides inside faint, noisy signals. An exoplanet transit curve is essentially a shadow measured from trillions of miles away: from the depth of the dip you infer planetary radius; from its slope you deduce orbital inclination; from subtle timing variations you detect unseen companion worlds tugging gravitationally on their neighbor. My first three attempts at capturing a transit failed completely—once because dew fogged our corrector plate, once because a passing cloud ruined my reference star calibration, and once because I miscalculated UTC meridian flip timing.\n\nEach failure pushed me deeper into Python image-reduction pipelines, flat-field calibration frames, and the open-source forums of the American Association of Variable Star Observers. When our club finally uploaded a clean light curve of WASP-12b that matched professional ephemeris predictions within two minutes, I felt connected to a global network of backyard and university observers watching the same sky.\n\nOnce a month, I wheel that same telescope onto the sidewalk outside the Edison Public Library. Watching a seven-year-old gasp when Saturn's rings snap into focus through the eyepiece reminds me why pure research matters: wonder is contagious when you share the instrument. Answering their unfiltered questions about black holes and light-years forces me to strip away equations and explain the cosmos clearly.\n\nPlaying tabla in an Indian classical ensemble trains a complementary kind of precision—counting interlocking sixteen-beat cycles until complex rhythms feel intuitive. At Cornell University, I want to study Astrophysics and Physics so I can help build next-generation astronomical instrumentation and exoplanet detection pipelines."
+  },
+  "supplements": [
+    {
+      "id": "supplement-cornell",
+      "college": "Cornell University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Students in Arts and Sciences embrace the opportunity to delve into multifaceted academic interests, embodying in 21st century terms Ezra Cornell's 'any person... any study' founding vision. Tell us about the areas of study you are excited to explore, and specifically why you wish to pursue them in our College.",
+      "wordLimit": 650,
+      "text": "Spending freezing midnight hours calibrating exoplanet transit light curves in New Jersey taught me that modern astrophysics lives at the crossroads of theoretical physics, statistical computing, and optical instrumentation. In Cornell's College of Arts and Sciences, I am excited to major in Astronomy with a concentration in Astrophysics while taking advanced coursework in Physics and Computer Science. Having worked with an eleven-inch Schmidt-Cassegrain telescope and submitted photometry to the AAVSO, I am drawn to Cornell's deep legacy in planetary science and observational astronomy—from Carl Sagan's spirit of public science communication to current faculty research on exoplanet atmospheres and radio interferometry at the Cornell Center for Astrophysics and Planetary Science. Beyond my major, Ezra Cornell's vision invites me to keep exploring South Asian musicology and philosophy seminars alongside quantum mechanics, collaborating with peers who bring equal curiosity to lab benches and recital halls."
+    }
+  ],
+  "publicNames": [
+    "Meadowbrook Astronomy & Astrophysics Society",
+    "AAVSO",
+    "New Jersey Science Olympiad",
+    "Edison Public Library",
+    "Tri-State Indian Classical Youth Ensemble",
+    "USA Astronomy and Astrophysics Olympiad",
+    "Cornell University",
+    "Cornell Center for Astrophysics and Planetary Science"
+  ]
+}

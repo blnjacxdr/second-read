@@ -1,0 +1,129 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Benjamin Thomas Lindqvist",
+    "school": "Minnehaha West High School",
+    "graduationYear": 2027,
+    "email": "benjamin.lindqvist@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Ice Hockey",
+      "position": "Varsity Defenseman & Assistant Captain",
+      "organization": "Minnehaha West High School Hockey",
+      "description": "Played penalty-kill defense; organized summer pond-hockey clinics and equipment drives for Twin Cities youth players.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 16,
+      "weeksPerYear": 26,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Science/Math",
+      "position": "Student Data Analyst & Co-Founder",
+      "organization": "Twin Cities Civic Data Club",
+      "description": "Analyzed Minnesota lake ice-out records and municipal snowplow GPS logs using R and Python; published interactive dashboards.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 7,
+      "weeksPerYear": 42,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Rink Zamboni Operator & Skate Sharpener",
+      "organization": "Braemar Ice Arena",
+      "description": "Resurfaced ice sheets, sharpened 30+ pairs of skates per shift, and maintained refrigeration logbooks on weekends.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 44,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Tax Prep Volunteer (VITA Certified)",
+      "organization": "Hennepin County Free Tax Clinic",
+      "description": "Prepared federal and Minnesota property-tax returns for 55 low-income seniors and working families each spring.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 14,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Minnesota State High School League Academic All-State Hockey",
+      "grades": [
+        11,
+        12
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "American Statistical Association DataFest High School Best Visualization",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "AP Calculus BC & AP Statistics National Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "At 11:30 p.m. on a Friday night at Braemar Ice Arena, after the last adult-league skaters have unlaced their boots and gone home, I climb onto the Zamboni and drop the conditioner blade onto the scarred ice. Driving slow, overlapping ovals while hot floodwater freezes into a glass-smooth sheet is the quietest part of my week—and the place where my obsession with applied statistics began. Every hour during my shifts, I log brine temperatures, compressor pressures, and ambient humidity into a clipboard binder so the sheet neither cracks from brittleness nor turns slushy during noon tournaments.\n\nOne winter evening, flipping back through three years of dusty arena binders, I noticed that February humidity spikes correlated closely with subtle variations in ice hardness—and, oddly enough, with higher third-period penalty minutes during high school games. What started as a half-joking curiosity turned into my favorite weekend pastime: pulling public datasets, cleaning messy rows in R, and hunting for hidden patterns beneath everyday routines.\n\nWith two friends, I founded the Twin Cities Civic Data Club to apply that same curiosity to Minnesota public records. We scraped 150 years of Minnesota Department of Natural Resources lake ice-out dates to model how warming winters are compressing the outdoor rink season across Hennepin County, and we mapped municipal snowplow GPS feeds to see which residential side streets waited longest after heavy blizzards. When I am deep inside a statistical regression or debugging a ggplot visualization, three hours vanish before I realize my tea has gone cold.\n\nWhenever I get stuck on a modeling question, I turn to public documentation, CRAN vignettes, and our high school AP Statistics teacher, who taught me that every outlier has a physical story behind it if you bother to check the raw logbook. Volunteering as an IRS VITA tax preparer each spring grounded those numbers in human reality: behind every W-2 line item or renter's credit calculation sits a retired neighbor trying to stretch a fixed pension through a Minnesota winter.\n\nPlaying defense on our varsity hockey team taught me to read the whole sheet of ice before making a breakout pass. Statistics gives me that same wide-angle view of cities and climate. At the University of Wisconsin–Madison, I want to study Data Science and Economics to turn messy civic records into clearer, fairer public policy.\n\nOver the past year, that work has grown from a three-person club into a shared civic resource across Minneapolis and St. Paul. High school reporters used our snowplow response maps to write investigative stories on neighborhood equity, and local lake associations incorporated our ice-out trend charts into annual watershed briefings. Debugging messy data taught me humility: every missing sensor reading or misaligned timestamp reflects a real human system with its own constraints.\n\nLooking back at those late nights on the Zamboni at Braemar Ice Arena, I realize the clipboard binder and the R console are tools of the same craft. Both demand careful observation, respect for physical evidence, and patience to verify assumptions before drawing conclusions. At UW-Madison, I am excited to carry that grounded curiosity from ice sheets to economic and environmental policy."
+  },
+  "supplements": [
+    {
+      "id": "supplement-uw-madison",
+      "college": "University of Wisconsin-Madison",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Tell us why you would like to attend the University of Wisconsin–Madison. In addition, please include why you are interested in studying the major(s) you have selected.",
+      "wordLimit": 300,
+      "text": "I want to attend the University of Wisconsin–Madison because the Wisconsin Idea—that university research should directly improve lives across the state and region—mirrors how I already use quantitative tools. Working at a local ice rink, volunteering at a free tax clinic, and analyzing Minnesota lake ice-out records with the Twin Cities Civic Data Club taught me that statistics is most compelling when it answers real civic questions. Studying Data Science and Economics in the College of Letters & Science will let me pair rigorous statistical computing with public-policy analysis, while UW's Center for Limnology and Institute for Research on Poverty offer unmatched opportunities to study Great Lakes climate shifts and regional economic mobility."
+    }
+  ],
+  "publicNames": [
+    "Twin Cities Civic Data Club",
+    "Hennepin County Free Tax Clinic",
+    "IRS VITA",
+    "Minnesota State High School League",
+    "American Statistical Association DataFest",
+    "Minnesota Department of Natural Resources",
+    "University of Wisconsin-Madison",
+    "Center for Limnology"
+  ]
+}

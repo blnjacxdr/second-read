@@ -1,0 +1,129 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Samuel Josiah Reyes",
+    "school": "Desert Sol High School",
+    "graduationYear": 2027,
+    "email": "samuel.reyes@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Science/Math",
+      "position": "Solar Car Telemetry & Battery Lead",
+      "organization": "Phoenix High School Solar Vehicle Team",
+      "description": "Designed lithium-iron-phosphate battery management telemetry and MPPT solar array logging for cross-country solar car challenge.",
+      "grades": [
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 42,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "HVAC & Pool Pump Service Apprentice",
+      "organization": "Valley Sun Mechanical Services",
+      "description": "Assisted licensed technicians diagnosing capacitor failures, refrigerant pressures, and variable-speed motors in 110°F summers.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 30,
+      "weeksPerYear": 10,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Heat-Relief Hydration & Outreach Volunteer",
+      "organization": "Maricopa County Heat Action Network",
+      "description": "Distributed insulated water jugs, electrolyte packs, and cooling-center maps to unhoused residents during summer heat waves.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 12,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Swimming",
+      "position": "Varsity 200m Freestyle & Relay Swimmer",
+      "organization": "Desert Sol High School Swim & Dive",
+      "description": "Competed in AIA Division I meets; led 5:30 a.m. outdoor lap workouts before Arizona desert sunrise.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 11,
+      "weeksPerYear": 24,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Solar Car Challenge National Telemetry & Engineering Design Award",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Arizona Science & Engineering Fair 1st Place Energy & Transportation",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Hispanic Recognition Program Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "In Phoenix in July, heat is not weather—it is a structural test on every wire, compressor, and human body in the valley. Spending the past two summers working alongside my uncle as an HVAC service apprentice, I have climbed onto flat gravel roofs at 7:00 a.m. before asphalt shingles soften, carrying gauges and replacement run capacitors to revive air conditioners that failed overnight at 114 degrees. For a retired couple living on a fixed income in South Phoenix, a working compressor is not a luxury; it is emergency medical equipment.\n\nThose summer rooftops changed how I looked at my favorite after-school commitment: building our school's solar-powered race car. When I joined the Phoenix High School Solar Vehicle Team in tenth grade, I was fascinated by aerodynamic carbon-fiber shells and maximum-power-point tracking algorithms. Yet during our first endurance test on an asphalt track outside Tucson, cabin temperatures inside our canopy soared past 125 degrees, causing our battery management system to throttle current and nearly sidelining our car.\n\nInstead of treating heat as an external nuisance, I started applying thermodynamics from my summer HVAC work straight to our battery pack. Working with our electrical sub-team, I redesigned the battery enclosure with phase-change thermal pads, redirected wheel-well airflow through low-drag NACA ducts, and wrote a Python telemetry dashboard that alerted our chase vehicle whenever individual cell temperatures drifted two degrees above ambient norms. When we drove from Texas to California in the national Solar Car Challenge that July, our battery pack never once entered thermal throttling.\n\nVolunteering on weekends with the Maricopa County Heat Action Network kept me grounded in why thermal engineering matters far beyond race tracks. Handing cold water and shade maps to neighbors waiting at unshaded bus stops showed me how unevenly urban heat falls across a city—and how practical engineering can protect vulnerable households.\n\nWhether I am swimming 5:30 a.m. freestyle sets before the desert sun rises or testing capacitor microfarads with a multimeter, I care about building systems that stay reliable under extreme stress. At Purdue University, I want to study Mechanical Engineering and Sustainable Energy Systems to design high-efficiency cooling and grid-storage technologies for a warming world."
+  },
+  "supplements": [
+    {
+      "id": "supplement-purdue",
+      "college": "Purdue University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "How will opportunities at Purdue support your interests, both in and out of the classroom?",
+      "wordLimit": 250,
+      "text": "Working summer HVAC apprenticeships in 114-degree Phoenix heat while designing battery thermal telemetry for my high school solar car taught me that energy engineering has to survive real physical extremes. Purdue's School of Mechanical Engineering—and specifically the Ray W. Herrick Laboratories, where researchers tackle high-efficiency HVAC, thermal systems, and acoustics—aligns directly with the problems I want to solve. Outside the classroom, I am eager to join Purdue Solar Racing and EPICS (Engineering Projects in Community Service), uniting hands-on vehicle powertrains with community-focused sustainable infrastructure."
+    }
+  ],
+  "publicNames": [
+    "Phoenix High School Solar Vehicle Team",
+    "Maricopa County Heat Action Network",
+    "AIA",
+    "Solar Car Challenge",
+    "Arizona Science & Engineering Fair",
+    "National Hispanic Recognition Program",
+    "Purdue University",
+    "Ray W. Herrick Laboratories",
+    "Purdue Solar Racing",
+    "EPICS"
+  ]
+}

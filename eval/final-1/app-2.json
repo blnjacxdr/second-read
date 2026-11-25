@@ -1,0 +1,132 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Marcus Darnell Jackson",
+    "school": "Peachtree Ridge Magnet High School",
+    "graduationYear": 2027,
+    "email": "marcus.jackson@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Journalism/Publication",
+      "position": "Editor-in-Chief",
+      "organization": "The Peachtree Chronicle",
+      "description": "Led 28 student reporters; launched investigative series on Atlanta transit equity and school zoning; won regional scholastic press award.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 11,
+      "weeksPerYear": 38,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Debate/Speech",
+      "position": "Varsity Policy Debate Captain",
+      "organization": "Atlanta Urban Debate League",
+      "description": "Researched federal housing and infrastructure policy; reached quarterfinals at Emory Barkley Forum; coached 15 novice debaters.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Archival Digitization Assistant",
+      "organization": "Auburn Avenue Research Library",
+      "description": "Cataloged and scanned 1,400+ civil rights era church bulletins and neighborhood newsletters; created searchable metadata indexes.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 45,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Music: Instrumental",
+      "position": "First Chair Trombone",
+      "organization": "Metropolitan Atlanta Youth Wind Ensemble",
+      "description": "Performed in Symphony Hall concert series; arranged brass quintet pieces for community senior center outreach concerts.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Georgia Scholastic Press Association Best News Feature",
+      "grades": [
+        9
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "National Speech & Debate Association Academic All-American",
+      "grades": [
+        11,
+        12
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "AP Scholar with Distinction",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "The microfilm reader on the third floor of the Auburn Avenue Research Library hums like an aging refrigerator, and if you advance the reel too quickly, seventy years of Atlanta history blurs into silver streaks. Every Saturday morning since eleventh grade, I have sat at that machine wearing white cotton gloves, turning fragile 1960s neighborhood mimeographs into high-resolution digital files. Most people think of archives as quiet rooms where finished history rests. Working there taught me that history is actually a rough draft held together by staples, margin notes, and the stubbornness of ordinary residents.\n\nMy fascination began when I stumbled across a 1968 newsletter from the Summerhill neighborhood protesting the construction of a highway spur that would bisect three blocks of family-owned groceries and barbershops. Typed on an uneven ribbon, the flyer listed bus routes, childcare shifts for mothers attending city council hearings, and handwritten phone trees. Reading those names, I recognized the street where my grandfather once repaired alternators. Until that afternoon, I had treated journalism and policy debate—my two biggest commitments at Peachtree Ridge Magnet High School—as separate worlds: one about telling immediate stories, the other about arguing abstract federal frameworks.\n\nThat yellowed flyer collapsed the distance between them. When I became Editor-in-Chief of The Peachtree Chronicle the following fall, I realized our coverage rarely looked past school spirit events and AP exam schedules. Meanwhile, dozens of our students rode two MARTA buses each morning because route adjustments had quietly lengthened their commutes by forty minutes. Drawing on what I had learned indexing primary sources on Auburn Avenue, I organized a six-person reporting team to pull public transit ridership spreadsheets, interview bus operators at Five Points, and map tardy records against bus arrival windows.\n\nPublishing that three-part series was the hardest thing I have done in high school. Our first draft read like a debate brief—dense with policy jargon and light on human voice. Remembering the warmth and specificity of the 1968 Summerhill newsletter, we went back to the bus stops at 6:30 a.m. in January cold to listen before we wrote. When the series ran, the local neighborhood planning unit invited our student reporters to present our findings, and two morning feeder routes were adjusted the following semester.\n\nWhether I am blowing a sustained pedal tone on my trombone in wind ensemble or cross-examining an opponent at a debate tournament, I care most about resonance—how a single clear signal carries across a room. Archival work gave me my sense of pitch. It showed me that communities survive because someone took the time to document what happened, ask hard questions of power, and preserve the record for the next generation. At Howard University, I want to combine political science and investigative journalism so that the stories of neighborhoods like mine never vanish into unindexed reels."
+  },
+  "supplements": [
+    {
+      "id": "supplement-howard",
+      "college": "Howard University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Explain why you are interested in attending Howard University and how your academic and personal goals align with Howard's motto, Truth and Service.",
+      "wordLimit": 250,
+      "text": "In my work digitizing civil rights era newsletters at the Auburn Avenue Research Library, I repeatedly encountered Howard alumni who returned to Atlanta as lawyers, editors, and urban planners to build civic institutions from the ground up. That lineage is why Truth and Service is not an abstract motto to me—it is a blueprint for how scholarship operates in the world. As Editor-in-Chief of my high school newspaper and a varsity policy debater, I have spent four years investigating how municipal transit and zoning decisions shape educational equity. At Howard, I want to major in Political Science within the College of Arts and Sciences while writing for The Hilltop, learning from faculty who treat rigorous empirical research as a direct obligation to the public. Surrounded by peers who share a commitment to intellectual excellence and community accountability, I hope to sharpen both my policy analysis and my journalistic voice so I can advocate for fair urban infrastructure across the South."
+    }
+  ],
+  "publicNames": [
+    "The Peachtree Chronicle",
+    "Atlanta Urban Debate League",
+    "Emory Barkley Forum",
+    "Auburn Avenue Research Library",
+    "Metropolitan Atlanta Youth Wind Ensemble",
+    "Georgia Scholastic Press Association",
+    "National Speech & Debate Association",
+    "AP Scholar with Distinction",
+    "MARTA",
+    "Howard University",
+    "The Hilltop"
+  ]
+}
