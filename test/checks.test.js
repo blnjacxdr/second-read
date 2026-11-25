@@ -174,3 +174,8 @@ test('counts: the same thing counted differently is flagged; growth sentences ar
   assert.equal(run('The Marsh Hollow bird count grew from 10 volunteers to 40 volunteers.').length, 0);
   assert.equal(run('At the Marsh Hollow bird count our 2024 season was cold.').length, 0);
 });
+
+test('the longer college list finds safe short names and skips surnames', () => {
+  const names = findCollegeMentions('I loved the Villanova tour, then Texas A&M and UConn. My coach, Mr. Temple, went to Smith.').map((m) => m.college.name);
+  assert.deepEqual(names, ['Villanova University', 'Texas A&M University', 'University of Connecticut']);
+});
