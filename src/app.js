@@ -348,6 +348,7 @@ async function askNano(current) {
   stage('nano', 'active', 'starting');
   let skipped = false;
   const skip = new Promise((resolve) => {
+    $('read-skip').textContent = onDevice ? 'Skip Gemini Nano and show the sure ones' : 'Skip Gemini and show the sure ones';
     $('read-skip').hidden = false;
     $('read-skip').onclick = () => { skipped = true; resolve(null); };
   });
@@ -406,7 +407,9 @@ function cardFor(card) {
   article.dataset.id = card.id;
   const top = el('div', undefined, 'sr-card-top');
   const tag = el('span', undefined, 'sr-card-src');
-  tag.append(icon(SOURCE[card.tone].icon, { size: 15 }), SOURCE[card.tone].text);
+  // Read in the cloud (with a yes): the maybes came from Gemini there, not Gemini Nano.
+  const tagText = card.tone === 'pencil' && run?.nano === 'cloud' ? 'Maybe. Gemini\'s reading, so give it a look.' : SOURCE[card.tone].text;
+  tag.append(icon(SOURCE[card.tone].icon, { size: 15 }), tagText);
   const heading = el('h3');
   heading.append(el('span', card.title, 'sr-title'));
   top.append(tag, heading);
@@ -642,6 +645,7 @@ function updateReceipt() {
     pageCount: run.pageCount, codeChecks: CODE_CHECK_COUNT, nano: run.nano, nanoQuestions: run.comparisons, tossed: run.tossed, sentCount: sentLog.entries().length,
   });
   $('receipt-tossed-note').hidden = !(run.tossed > 0);
+  $('receipt-tossed-note').textContent = `"tossed" means ${run.nano === 'cloud' ? 'Gemini' : 'Gemini Nano'} quoted words that aren't in the application, so that flag was thrown out`;
   const dl = $('receipt-rows');
   dl.replaceChildren();
   for (const [label, value] of rows.slice(0, -1)) dl.append(el('dt', label), el('dd', String(value)));

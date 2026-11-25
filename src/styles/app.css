@@ -330,10 +330,11 @@ body.phase-reading #view-reading{max-width:none}
    anything sized in vh divides by --z (see .sr-fold, .sr-fstage, #page). Scripts measure with
    getBoundingClientRect, which already includes zoom, so cursor and scroll math stay right. */
 :root{--z:1}
-@media (min-width:1360px) and (min-height:700px){:root{--z:1.1}}
-@media (min-width:1600px) and (min-height:780px){:root{--z:1.2}}
-@media (min-width:1840px) and (min-height:860px){:root{--z:1.3}}
-@media (min-width:2400px) and (min-height:1100px){:root{--z:1.55}}
+/* Tuned on the builder's 1920 screen (Nov 25): 1.3 was too big; about 1.05 matched what looked right. */
+@media (min-width:1360px) and (min-height:700px){:root{--z:1.02}}
+@media (min-width:1600px) and (min-height:780px){:root{--z:1.04}}
+@media (min-width:1840px) and (min-height:860px){:root{--z:1.06}}
+@media (min-width:2400px) and (min-height:1100px){:root{--z:1.3}}
 html{zoom:var(--z)}
 /* Touch screens get bigger targets whatever their width. */
 @media (pointer:coarse){.sr-iconbtn{width:48px;height:48px}.sr-textbtn,.sr-actions button{min-height:48px}}

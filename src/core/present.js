@@ -63,7 +63,7 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran' } = {}) {
   const total = counts.sure + counts.maybes;
   const nanoNote = {
     skipped: ' Gemini Nano isn\'t on this computer, so only the code checks ran.',
-    'skipped-by-you': ' You skipped Gemini Nano, so only the code checks ran.',
+    'skipped-by-you': ' You skipped the Gemini step, so only the code checks ran.',
     cloud: ' Gemini read the essays in Google\'s cloud, as you chose.',
     failed: ' Gemini Nano stopped partway, so some AI checks didn\'t run.',
   }[nano] ?? '';
