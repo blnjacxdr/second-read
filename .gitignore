@@ -3,3 +3,6 @@ node_modules/
 *.log
 # Never commit a real application. Put your own PDFs here for local testing only.
 private/
+
+# Test PDFs are rebuilt from the JSON by eval/score.mjs on every run, so they are not tracked (they kept showing as changed).
+eval/**/*.pdf

@@ -40,5 +40,12 @@ dropped, not shown. Never loosen this to make a flag appear.
 Only the fictional applicant in `sample/`. Never commit a real person's application.
 `sample/expected-flags.json` is the answer key; keep it in sync with `sample/application.json`.
 
+The scored test sets in `eval/` are fictional too. Rules for whoever tunes the checks:
+- `eval/final-*`: the final test. Never open, read or print these files, and never tune on them. Run them once,
+  after the feature freeze, and report totals only.
+- `eval/heldout`: unseen so far. Totals and labels only.
+- `eval/practice-*` and `eval/fresh`: practice sets. Tuning on them and reading their false alarms is fine.
+- PDFs in `eval/` are rebuilt from the JSON by `node eval/score.mjs <set>` and aren't tracked by git.
+
 ## Scope
 One-project rule until Nov 30. New ideas go in the builder's Parked ideas list, not in code.
