@@ -12,6 +12,8 @@
       "tools/**",
       "docs/**",
       "private/**",
+      "*.pdf",
+      "*.docx",
       "*.md",
       "LICENSE",
       "package.json",
