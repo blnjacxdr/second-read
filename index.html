@@ -62,6 +62,15 @@
     <section id="drop" style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
       <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
         <div id="view-idle" style="display: contents">
+          <fieldset id="read-how" class="sr-how">
+            <legend>How closely should it read?</legend>
+            <div class="sr-how-opts">
+              <label class="sr-how-opt"><input type="radio" name="read-how" value="cloud"><span class="sr-how-note">closest read</span><strong>Gemini in Google's cloud</strong><span class="sr-how-sub">On Google's servers, never used for training</span></label>
+              <label class="sr-how-opt"><input type="radio" name="read-how" value="nano"><span class="sr-how-note">good, and private</span><strong>Gemini Nano, on this laptop</strong><span class="sr-how-sub" id="read-how-nano-why">Nothing leaves the laptop</span></label>
+              <label class="sr-how-opt"><input type="radio" name="read-how" value="code"><span class="sr-how-note">a first pass</span><strong>Code checks only</strong><span class="sr-how-sub">Instant, and stays on the laptop</span></label>
+            </div>
+            <p id="read-how-what" class="sr-how-what" aria-live="polite" hidden></p>
+          </fieldset>
           <label class="sr-drop" id="drop-label" for="pdf" style="position: relative; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: var(--sheet); border-radius: 6px; padding: 46px 40px 38px; box-shadow: 0 1px 0 var(--line), 0 18px 30px -20px rgba(22,24,29,.25); cursor: pointer">
             <svg class="sr-clip" aria-hidden="true" width="34" height="74" viewBox="0 0 34 74" fill="none" stroke="#8A919E" stroke-width="2.5" stroke-linecap="round" style="position: absolute; top: -26px; left: 36px"><path d="M10 50V14a7 7 0 0 1 14 0v42a11 11 0 0 1-22 0V20"></path></svg>
             <span style="font-weight: 900; font-size: 36px; line-height: 1.02; letter-spacing: -0.035em">Drop a student's Common App PDF here.</span>
@@ -113,11 +122,6 @@
             </div>
             <button type="button" id="read-skip" class="sr-again" hidden>Skip Gemini Nano and show the sure ones</button>
             <button type="button" id="read-done" class="sr-cta" hidden>Back to the fix list</button>
-            <div id="read-consent" class="sr-consent" role="group" aria-labelledby="consent-q" hidden>
-              <strong id="consent-q"></strong>
-              <p id="consent-what"></p>
-              <div class="sr-endactions"><button type="button" id="consent-yes" class="sr-cta"></button><button type="button" id="consent-no" class="sr-again"></button></div>
-            </div>
             <div id="read-error" class="sr-error" role="alert" hidden><strong id="read-error-title"></strong><span id="read-error-body"></span><button type="button" id="read-back" class="sr-again" style="align-self: flex-start">Try another PDF</button></div>
           </div>
         </div>
@@ -127,7 +131,7 @@
         <span class="sr-tape" aria-hidden="true"></span>
         <div style="display: flex; gap: 10px; align-items: center; font-weight: 800"><span class="sr-ready" id="nano-dot" aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: var(--ok)"></span><span id="nano-title" aria-live="polite">Checking for Gemini Nano…</span></div>
         <p id="nano-body" style="margin: 0; font-size: 16px; color: var(--sticky-ink)">It's the AI built into Chrome, and it runs right here on this laptop. It reads what the essays mean, so it catches mismatches code alone can't.</p>
-        <p id="nano-extra" style="margin: 0; font-size: 15px; color: var(--sticky-ink)">On a Chromebook or another browser? Second Read asks before using Google's cloud. Say no and the code checks still run.</p>
+        <p id="nano-extra" style="margin: 0; font-size: 15px; color: var(--sticky-ink)">On a Chromebook or another browser? Under "How closely should it read?", pick Gemini in the cloud or code checks only.</p>
         <button type="button" id="nano-get" class="sr-cta sr-note-btn" hidden>Download Gemini Nano</button>
       </aside>
     </section>
@@ -175,7 +179,7 @@
     <section id="modes" class="sr-modes" aria-labelledby="modes-h">
       <h2 id="modes-h">How closely it reads depends on the laptop.</h2>
       <ol class="sr-modes-list">
-        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Offered when this laptop doesn't have Gemini Nano, or after Nano's reading if you want a closer one. Only after you say yes. Google doesn't train on it and keeps it only briefly, and every word sent is listed.</li>
+        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Pick it before you drop the PDF, or ask for it after Nano's reading. Never unless you pick it. Google doesn't train on it and keeps it only briefly, and every word sent is listed.</li>
         <li><span class="sr-modes-note">good, and private</span><strong>Gemini Nano, on this laptop</strong>A smaller Gemini model built into Chrome on some laptops. It reads the essays without anything leaving the laptop.</li>
         <li><span class="sr-modes-note">a first pass</span><strong>Code checks only</strong>Fast and exact, but they only catch mistakes they have a rule for, so they miss plenty. A clean result here isn't a sign-off. Read it yourself too.</li>
       </ol>
@@ -240,7 +244,7 @@
             <h2 id="closer-h"></h2>
             <p class="sr-names-intro" id="closer-intro"></p>
           </div>
-          <button type="button" id="closer-start" class="sr-cta"></button>
+          <div class="sr-closer-btns"><button type="button" id="closer-nano" class="sr-again" hidden></button><button type="button" id="closer-start" class="sr-cta"></button></div>
         </div>
         <p class="sr-closer-fine" id="closer-fine"></p>
         <p id="closer-status" class="sr-names-status" aria-live="polite" hidden><span class="sr-mini-eyes" aria-hidden="true"><i></i><i></i></span><span id="closer-status-text"></span></p>

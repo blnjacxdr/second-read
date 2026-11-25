@@ -57,6 +57,28 @@ test('the closer-read cloud model is built only after its yes', () => {
   }
 });
 
+// The start-page pick (Nov 25): a counselor whose laptop has Nano can pick the cloud before reading. That model is
+// cloud-only, never searches, and app.js builds it only on a line that checks the pick.
+test('the picked-cloud model is built only after the cloud is picked', () => {
+  const ai = readFileSync(join(root, 'src', 'ai.js'), 'utf8').replace(/\r\n/g, '\n');
+  const fn = ai.indexOf('export function createChosenCloudModels(');
+  assert.ok(fn > 0, 'createChosenCloudModels exists');
+  const body = ai.slice(fn, ai.indexOf('\n}\n', fn));
+  assert.match(body, /InferenceMode\.ONLY_IN_CLOUD/);
+  assert.doesNotMatch(body, /googleSearch/, 'no Google Search with application text');
+  const app = readFileSync(join(root, 'src', 'app.js'), 'utf8').replace(/\r\n/g, '\n');
+  const calls = app.split('\n').filter((line) => line.includes('createChosenCloudModels('));
+  assert.ok(calls.length >= 1, 'app.js builds the picked-cloud models somewhere');
+  for (const line of calls) assert.match(line, /cloudConsent === true/, `built without checking the pick: ${line.trim()}`);
+  // cloudConsent is set from the picker only, never switched on anywhere else.
+  const sets = app.split('\n').filter((line) => /cloudConsent\s*=[^=]/.test(line));
+  for (const line of sets) assert.match(line, /cloudConsent = (null|false|choice === 'cloud')/, `cloudConsent set some other way: ${line.trim()}`);
+  for (const file of srcFiles) {
+    if (file.endsWith(join('src', 'ai.js')) || file.endsWith(join('src', 'app.js'))) continue;
+    assert.doesNotMatch(readFileSync(file, 'utf8'), /createChosenCloudModels\(/, file);
+  }
+});
+
 test('the App Check debug token is only ever set in dev/', () => {
   for (const file of srcFiles) {
     assert.doesNotMatch(readFileSync(file, 'utf8'), /FIREBASE_APPCHECK_DEBUG_TOKEN\s*=/, file);
@@ -78,10 +100,12 @@ test('the PDF reader loads pdf.js from the repo, never from another website', ()
 
 // Deploy guard: the dev pages (they carry the App Check debug setup), the held-out test set, the tests,
 // tools and docs must never be served by Firebase Hosting.
-test('Firebase Hosting never serves dev/, eval/, test/, tools/, docs/ or private/', async () => {
+// '**/.*' only matches dotfiles by their own name; files INSIDE a dot folder (.git/HEAD) slip past it,
+// and .git was live on the site until Nov 25. '**/.*/**' covers the folders' contents.
+test('Firebase Hosting never serves dev/, eval/, test/, tools/, docs/, private/ or dot folders like .git', async () => {
   const { readFileSync } = await import('node:fs');
   const hosting = JSON.parse(readFileSync(new URL('../firebase.json', import.meta.url), 'utf8')).hosting;
-  for (const dir of ['dev/**', 'eval/**', 'test/**', 'tools/**', 'docs/**', 'private/**', '**/node_modules/**', '**/.*']) {
+  for (const dir of ['dev/**', 'eval/**', 'test/**', 'tools/**', 'docs/**', 'private/**', '**/node_modules/**', '**/.*', '**/.*/**', '.git/**']) {
     assert.ok(hosting.ignore.includes(dir), `firebase.json hosting.ignore is missing ${dir}`);
   }
   const csp = hosting.headers[0].headers.find((h) => h.key === 'Content-Security-Policy').value;

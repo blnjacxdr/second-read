@@ -533,8 +533,6 @@ details[open]::details-content{block-size:auto;opacity:1}
 /* Happy eyes get an ink arch too, so the smile reads even on the small logo. */
 .sr-face .sr-smile{opacity:0;transition:opacity .25s var(--ease-out)}
 .sr-face.face-happy .sr-smile{opacity:1;transition-delay:.12s}
-/* A wink: one eyelid shuts for a moment (click an eye on the start page). */
-.sr-eye.wink .sr-lidg{animation:none;translate:0 0;transition:translate .1s var(--ease-out)}
 /* The sticky note's download button. */
 .sr-note-btn{margin-top:6px;min-height:42px;font-size:15px;padding:0 18px}
 .sr-nanotip{margin:4px 0 0;max-width:600px;font-size:15px;color:var(--sticky-ink);background:var(--sticky);padding:10px 14px;border-radius:4px;box-shadow:0 6px 12px -10px rgba(22,24,29,.4)}
@@ -783,9 +781,6 @@ body.phase-reading .sr-screen{display:contents}
 @media (max-width:600px){.sr-nav a[href="#how"]{display:none}.sr-head{gap:10px}}
 
 /* No Gemini Nano: the question about reading in the cloud, inside the reading card. */
-.sr-consent{display:flex;flex-direction:column;gap:10px;padding:18px 20px;border-radius:8px;background:var(--pen-tint);border:1px solid var(--line-2)}
-.sr-consent strong{font-size:18px;font-weight:700;color:var(--ink)}
-.sr-consent p{margin:0;font-size:15px;color:var(--ink-2);max-width:62ch}
 
 /* The closer read: what gets sent, in smaller type right under the button that sends it. */
 .sr-closer-fine{margin:0;font-size:14px;line-height:1.5;color:var(--muted);max-width:62ch}
@@ -815,3 +810,26 @@ body.phase-reading .sr-screen{display:contents}
   .sr-studentlist{box-shadow:none;padding:0}
   .sr-studentlist-head button{display:none}
 }
+
+/* The reading picker above the drop sheet (Nov 25). Three radio buttons styled as cards: the real radio is hidden
+   but still focusable, so arrow keys and screen readers work; the card shows which one is picked. */
+.sr-how{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:10px}
+.sr-how legend{padding:0;margin-bottom:10px;font-weight:800;font-size:19px;color:var(--ink)}
+.sr-how-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.sr-how-opt{position:relative;display:flex;flex-direction:column;gap:2px;padding:12px 16px 14px 16px;border-radius:var(--radius-sheet);background:var(--sheet);border:2px solid var(--line);cursor:pointer;transition:border-color .2s,background .2s}
+.sr-how-opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.sr-how-opt strong{font-size:16px;font-weight:700;color:var(--ink);line-height:1.25;padding-right:22px}
+.sr-how-note{font-family:var(--font-hand);font-size:22px;line-height:1;color:var(--pen)}
+.sr-how-sub{font-size:14px;color:var(--muted);line-height:1.35}
+.sr-how-opt::after{content:"";position:absolute;top:14px;right:14px;width:14px;height:14px;border-radius:50%;border:2px solid var(--line-strong);box-sizing:border-box;transition:border-width .2s,border-color .2s}
+.sr-how-opt:hover{border-color:var(--line-strong)}
+.sr-how-opt:has(input:checked){border-color:var(--pen);background:var(--pen-tint)}
+.sr-how-opt:has(input:checked)::after{border:5px solid var(--pen)}
+.sr-how-opt:has(input:focus-visible){outline:3px solid var(--pen);outline-offset:3px}
+.sr-how-opt:has(input:disabled){cursor:not-allowed;background:transparent;border-style:dashed}
+.sr-how-opt:has(input:disabled) strong,.sr-how-opt:has(input:disabled) .sr-how-note{color:var(--faint)}
+.sr-how-what{margin:0;padding:12px 16px;border-radius:var(--radius-sheet);background:var(--pen-tint);border:1px solid var(--line-2);font-size:15px;color:var(--ink-2);max-width:70ch}
+@media (prefers-reduced-motion: reduce){.sr-how-opt,.sr-how-opt::after{transition:none}}
+.sr-closer-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+/* Click Loomis on the start page and he goes googly (src/ui/eyes.js). */
+#sr-eyes{cursor:pointer}

@@ -57,13 +57,17 @@ const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
  * @param {{ sure: number, maybes: number, cloudMaybes?: number }} counts  cloudMaybes: how many maybes came from the cloud
  * @param {Map<string, 'fixed'|'kept'>} decisions  the counselor's choice per card: 'fixed' = ask the student, 'kept' = it's fine
  * @param {string[]} ids  every card id shown (sure and maybes)
- * @param {{ nano: 'ran'|'skipped'|'failed'|'cloud'|'skipped-by-you', closer?: boolean }} options  closer: the closer read ran
+ * @param {{ nano: 'ran'|'skipped'|'failed'|'cloud'|'skipped-by-you'|'code-by-you'|'cloud-failed', closer?: boolean }} options  closer: the closer read ran
  */
 export function headlineFor(counts, decisions, ids, { nano = 'ran', closer = false } = {}) {
   const total = counts.sure + counts.maybes;
-  const nanoNote = closer ? ' Gemini Nano read it on this laptop, then Gemini read it closer in Google\'s cloud, as you chose.' : {
+  const nanoNote = closer ? (nano === 'ran'
+    ? ' Gemini Nano read it on this laptop, then Gemini read it closer in Google\'s cloud, as you chose.'
+    : ' Gemini read it closer in Google\'s cloud, as you chose.') : {
     skipped: ' Gemini Nano isn\'t on this computer, so only the code checks ran.',
     'skipped-by-you': ' You skipped the Gemini step, so only the code checks ran.',
+    'code-by-you': ' You picked code checks only, so no AI read it.',
+    'cloud-failed': ' Gemini in the cloud couldn\'t be reached, so only the code checks ran.',
     cloud: ' Gemini read the essays in Google\'s cloud, as you chose.',
     failed: ' Gemini Nano stopped partway, so some AI checks didn\'t run.',
   }[nano] ?? '';
@@ -100,6 +104,10 @@ export function receiptFor({ pageCount, codeChecks, nano = 'ran', nanoQuestions 
     ? [['nano questions', nanoQuestions], ['nano answers tossed', tossed]]
     : nano === 'cloud'
       ? [['cloud questions (your yes)', nanoQuestions], ['cloud answers tossed', tossed]]
+    : nano === 'code-by-you'
+      ? [['ai reading', 'not picked']]
+    : nano === 'cloud-failed'
+      ? [['gemini (cloud)', 'couldn\'t reach']]
     : [['gemini nano', { 'skipped-by-you': 'skipped', failed: 'stopped' }[nano] ?? 'not here']];
   return [
     ['pages read', pageCount],
@@ -112,7 +120,7 @@ export function receiptFor({ pageCount, codeChecks, nano = 'ran', nanoQuestions 
 
 /** The sticky note on the start page, from Chrome's Gemini Nano availability. Plain words for counselors, not developers. */
 export function nanoNote(availability) {
-  const without = 'Without it, Second Read asks before using Gemini in Google\'s cloud instead. Say no and the code checks still run.';
+  const without = 'Without it, you can pick Gemini in Google\'s cloud or code checks only, under "How closely should it read?"';
   switch (availability) {
     case 'available':
       return { ready: true, title: 'Gemini Nano is ready', body: 'It\'s the AI built into Chrome, and it runs right here on this laptop. It reads what the essays mean, so it catches mismatches code alone can\'t. Afterwards you can ask Gemini in the cloud for a closer read.' };

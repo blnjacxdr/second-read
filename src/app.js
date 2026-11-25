@@ -1,8 +1,9 @@
 // Second Read, the app. One page, five phases:
 //   1 Your PDF (start page) -> 2 hand it over -> 3 the second read (reading stage) -> 4 fix list -> 5 re-check
-// Privacy: the PDF never leaves the tab. Application text goes only to code and to Gemini Nano (ONLY_ON_DEVICE, in
-// src/ai.js). The only thing that can reach the internet is the optional name check: the names the student ticks,
-// recorded in the sent log before sending. All file text is drawn with textContent, never as HTML.
+// Privacy: the PDF never leaves the tab. By default application text goes only to code and to Gemini Nano
+// (ONLY_ON_DEVICE, in src/ai.js). It goes to Gemini in Google's cloud only when the counselor picks that on the start
+// page, or clicks "Read it closer" after Nano's reading; every prompt is recorded in the sent log before sending.
+// The optional name check sends public names only. All file text is drawn with textContent, never as HTML.
 // Logic lives in src/core (tested); this file only wires it to the page. Firebase is loaded only by src/ai.js.
 
 import { readPdfRows } from './pdf.js';
@@ -21,7 +22,7 @@ import { startScrolling } from './ui/scroll.js';
 import { addFace, setFace } from './ui/face.js';
 import { marginNote } from './core/margin-note.js';
 import { contextSentences, googleSays, contextFinding } from './core/name-context.js';
-import { CONSENT_COPY, CLOSER_COPY } from './core/consent.js';
+import { CONSENT_COPY, CLOSER_COPY, readingChoices } from './core/consent.js';
 import { wholeReadFlags } from './core/whole-read.js';
 
 const $ = (id) => document.getElementById(id);
@@ -39,7 +40,9 @@ let run = null;       // the PDF being checked now
 let last = null;      // the previous check in this tab, for re-checking (never stored anywhere else)
 let cloudChecks = 0;
 let busy = false;     // true while a PDF is being read; the phase tabs wait
-let cloudConsent = null; // no Gemini Nano: null = not asked yet, true = yes for this visit, false = code checks only
+let cloudConsent = null; // true only for a check started with "Gemini in Google's cloud" picked (the pick is the yes)
+let nanoHere = false;    // Gemini Nano is ready on this laptop (from the last status check)
+let readChoice = null;   // the start-page pick this visit: 'cloud', 'nano' or 'code' (null until Nano's status is known)
 let closerConsent = false; // has Gemini Nano: true only once the counselor clicks "Read it closer" for this PDF
 
 // The eyes that can make faces: the logo (every phase), the two on the reading card, and the start page pair.
@@ -188,7 +191,28 @@ async function showNanoStatus() {
   $('nano-dot').classList.toggle('sr-ready', note.ready); // only a ready model gets the breathing dot
   $('nano-extra').hidden = !note.ready; // the not-ready message already says this
   $('nano-get').hidden = !note.canDownload;
+  nanoHere = availability === 'available';
+  showPicker(availability);
   return availability;
+}
+
+// The reading picker above the drop sheet. Nano is greyed out, with the reason, when this laptop doesn't have it.
+// What the cloud sends is shown right under the choices whenever the cloud is picked, before any PDF is chosen.
+function showPicker(availability) {
+  const { picked, nano } = readingChoices(availability, readChoice);
+  readChoice = picked;
+  document.querySelector('input[name="read-how"][value="nano"]').disabled = !nano.enabled;
+  $('read-how-nano-why').textContent = nano.enabled ? 'Nothing leaves the laptop' : nano.why;
+  document.querySelector(`input[name="read-how"][value="${picked}"]`).checked = true;
+  showPickNote();
+}
+
+function showPickNote() {
+  const box = $('read-how-what');
+  growWhile($('read-how'), () => {
+    box.hidden = readChoice !== 'cloud';
+    box.textContent = readChoice === 'cloud' ? `${CONSENT_COPY.what} Choosing a PDF or the sample now counts as your yes.` : '';
+  });
 }
 
 // Chrome downloads Gemini Nano once, and only after a click. The note shows the progress.
@@ -224,7 +248,6 @@ function stage(name, state, how = '') {
 
 function resetReading(label) {
   document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini Nano, on this laptop';
-  $('read-consent').hidden = true;
   face('reading', null);
   $('read-done').hidden = true;
   $('read-title').textContent = 'Loomis is reading, on this laptop';
@@ -264,6 +287,9 @@ function readingError(title, body) {
 
 async function check(file, label) {
   busy = true;
+  // The pick at the moment the PDF was handed over decides this whole check, even if the picker changes later.
+  const choice = readChoice ?? 'code';
+  cloudConsent = choice === 'cloud';
   resetReading(label);
   await setPhase('reading');
   const started = performance.now();
@@ -303,7 +329,7 @@ async function check(file, label) {
     stage('code', 'done', `${CODE_CHECK_COUNT} checks`);
     run = { label, pageCount, result, app, codeFlags, aiFlags: [], mentionAnswers: new Map(), nano: 'skipped', comparisons: 0, tossed: 0, decisions: new Map() };
 
-    await askNano(run);
+    await askNano(run, choice);
 
     stage('list', 'active');
     await wait(240);
@@ -320,45 +346,36 @@ async function check(file, label) {
   }
 }
 
-// Gemini Nano runs only when it's already on this computer. A student can skip it and see the sure ones now.
-// No Gemini Nano: ask once per visit whether to read in Google's cloud instead. Resolves true or false.
-function askConsent() {
-  if (cloudConsent !== null) return Promise.resolve(cloudConsent);
-  const box = $('read-consent');
-  $('consent-q').textContent = CONSENT_COPY.question;
-  $('consent-what').textContent = CONSENT_COPY.what;
-  $('consent-yes').textContent = CONSENT_COPY.yes;
-  $('consent-no').textContent = CONSENT_COPY.no;
-  box.hidden = false;
-  stage('nano', 'active', 'waiting for you');
-  return new Promise((resolve) => {
-    const answer = (yes) => { cloudConsent = yes; box.hidden = true; resolve(yes); };
-    $('consent-yes').onclick = () => answer(true);
-    $('consent-no').onclick = () => answer(false);
-    $('consent-yes').focus({ preventScroll: true });
-  });
-}
-
-async function askNano(current) {
+// The AI step, as picked on the start page. 'code': no AI at all. 'nano': Gemini Nano on this laptop (if it's
+// still here). 'cloud': Gemini in Google's cloud. The counselor can skip the AI and see the sure ones now.
+async function askNano(current, choice) {
   const onDevice = (await onDeviceAvailability().catch(() => 'unavailable')) === 'available';
-  if (!onDevice && !(await askConsent())) {
+  if (choice === 'code') {
+    current.nano = 'code-by-you';
+    stage('nano', 'skipped', 'you picked code only');
+    return;
+  }
+  if (choice === 'nano' && !onDevice) {
     stage('nano', 'skipped', 'not on this laptop');
     return;
   }
-  if (!onDevice) document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini in Google\'s cloud (you said yes)';
-  if (!onDevice) $('read-title').textContent = 'Loomis is reading, with Gemini in the cloud';
+  const cloud = choice === 'cloud';
+  if (cloud) document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini in Google\'s cloud (you picked it)';
+  if (cloud) $('read-title').textContent = 'Loomis is reading, with Gemini in the cloud';
   stage('nano', 'active', 'starting');
   let skipped = false;
   const skip = new Promise((resolve) => {
-    $('read-skip').textContent = onDevice ? 'Skip Gemini Nano and show the sure ones' : 'Skip Gemini and show the sure ones';
+    $('read-skip').textContent = cloud ? 'Skip Gemini and show the sure ones' : 'Skip Gemini Nano and show the sure ones';
     $('read-skip').hidden = false;
     $('read-skip').onclick = () => { skipped = true; resolve(null); };
   });
   const track = document.querySelector('.sr-bar-track');
   try {
-    const { models, onDeviceAsker, askMentionOnDevice, createConsentedHybridModels, consentedAsker, askMentionConsented, wholeReadConsented } = await loadAi();
-    // On the device by default; through the hybrid models only when there is no Nano and the counselor said yes.
-    const hybrid = !onDevice && cloudConsent === true ? createConsentedHybridModels(models) : null;
+    const { models, onDeviceAsker, askMentionOnDevice, createConsentedHybridModels, createChosenCloudModels, consentedAsker, askMentionConsented, wholeReadConsented } = await loadAi();
+    // On the device unless the cloud was picked. Picked with no Nano here: the hybrid models (the SDK's fallback).
+    // Picked on a laptop with Nano: cloud-only models, so the reading can't quietly run on Nano instead.
+    const hybrid = cloud && !onDevice && cloudConsent === true ? createConsentedHybridModels(models)
+      : cloud && onDevice && cloudConsent === true ? createChosenCloudModels(models) : null;
     const work = runAiChecks({
       app: current.app,
       codeFlags: current.codeFlags,
@@ -384,17 +401,29 @@ async function askNano(current) {
     current.mentionAnswers = out.mentionAnswers ?? new Map();
     current.comparisons = out.comparisons;
     current.tossed = out.dropped.length;
-    // In the cloud (after the yes), one more question: Gemini reads the whole application at once and lists every
+    // In the cloud (as picked), one more question: Gemini reads the whole application at once and lists every
     // pair of places that disagree. Its quotes are checked like every other AI flag (src/core/whole-read.js).
     if (hybrid) {
       stage('nano', 'active', 'reading it all together');
-      const whole = await Promise.race([wholeReadConsented(hybrid, sentLog, current.app, { layout: 'instructions-first' }).catch(() => null), skip]);
-      if (whole && !skipped) {
-        const extra = wholeReadFlags(whole, current.app.sections, [...current.codeFlags, ...current.aiFlags]);
-        current.aiFlags = [...current.aiFlags, ...extra.kept];
-        current.comparisons += 1;
-        current.tossed += extra.dropped.filter((d) => d.reason === 'quote not found in the application').length;
+      const whole = await Promise.race([wholeReadConsented(hybrid, sentLog, current.app, { layout: 'instructions-first' }).catch((err) => {
+        console.error('Cloud reading failed:', err.name, err.message); // the error only, never the text
+        return null;
+      }), skip]);
+      if (skipped) {
+        current.nano = 'skipped-by-you';
+        stage('nano', 'skipped', 'skipped');
+        return;
       }
+      // The whole read is the cloud reading. If it didn't come back, say so: never claim Gemini read it.
+      if (!whole) {
+        current.nano = 'cloud-failed';
+        stage('nano', 'skipped', 'couldn\'t reach Gemini');
+        return;
+      }
+      const extra = wholeReadFlags(whole, current.app.sections, [...current.codeFlags, ...current.aiFlags]);
+      current.aiFlags = [...current.aiFlags, ...extra.kept];
+      current.comparisons += 1;
+      current.tossed += extra.dropped.filter((d) => d.reason === 'quote not found in the application').length;
     }
     current.nano = out.failed ? 'failed' : hybrid ? 'cloud' : 'ran';
     stage('nano', 'done', hybrid ? 'read it all together' : `${out.comparisons} questions`);
@@ -690,17 +719,21 @@ function paintTicks() {
 function updateHeadline() {
   const { cards, decisions } = run;
   const ids = [...cards.sure, ...cards.maybes].map((c) => c.id);
-  const nano = ['ran', 'cloud', 'failed', 'skipped-by-you'].includes(run.nano) ? run.nano : 'skipped';
+  const nano = ['ran', 'cloud', 'failed', 'skipped-by-you', 'code-by-you', 'cloud-failed'].includes(run.nano) ? run.nano : 'skipped';
   // What Gemini would add, said once under the headline when it didn't run.
   // After Nano's reading, a one-line offer of the closer read sits under the headline (the panel lower down has the
   // details and the button that sends). When it's offered, it replaces the tip below.
   $('res-closer-tip').hidden = $('closer-panel').hidden || $('closer-start').hidden || $('closer-start').disabled;
   $('res-nano-tip').hidden = nano === 'ran' || nano === 'cloud' || run.closer !== undefined || !$('res-closer-tip').hidden;
-  $('res-nano-tip').textContent = nano === 'skipped-by-you'
+  $('res-nano-tip').textContent = nano === 'cloud-failed'
+    ? 'Gemini in the cloud didn\'t answer this time. Use "Read it closer" below to try again in a minute.'
+    : nano === 'code-by-you'
+    ? 'You picked code checks only. Gemini also reads hours, titles and awards in the essays: use "Read it closer" below.'
+    : nano === 'skipped-by-you'
     ? 'Gemini also reads hours, titles and awards in the essays. Use "Read it closer" below, or check this PDF again and let Gemini Nano finish.'
     : nano === 'failed'
       ? 'Gemini Nano stopped partway. Use "Read it closer" below, or check this PDF again to give Nano another try.'
-      : 'With Gemini Nano (in Chrome on a laptop), or with Gemini in the cloud if you say yes, Second Read also reads hours, titles and awards in the essays and checks names in the student\'s own sentences, so it catches more.';
+      : 'With Gemini Nano (in Chrome on a laptop), or with Gemini in the cloud if you pick it, Second Read also reads hours, titles and awards in the essays and checks names in the student\'s own sentences, so it catches more.';
   const cloudMaybes = cards.maybes.filter((c) => String(c.id).startsWith('cloud:')).length;
   const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length, cloudMaybes }, decisions, ids, { nano, closer: run.closer !== undefined });
   swapText($('res-headline'), h.headline);
@@ -748,9 +781,15 @@ function applyRecheck() {
   banner.hidden = false;
 }
 
+function drawBackground() {
+  const { background } = run.cards;
+  $('res-background').hidden = background.length === 0;
+  $('res-background-sum').textContent = `${background.length} other college ${background.length === 1 ? 'mention that reads' : 'mentions that read'} like a story, not a slip`;
+  $('res-background-list').replaceChildren(...background.map(cardFor));
+}
+
 async function showResults() {
   run.cards = presentFlags({ result: run.result, codeFlags: run.codeFlags, aiFlags: run.aiFlags, mentionAnswers: run.mentionAnswers });
-  const { background } = run.cards;
   const college = run.result.college;
   $('res-file').textContent = run.label
     ? `${run.label}, ${college ? `${college} version` : 'Common App PDF'}`
@@ -758,9 +797,7 @@ async function showResults() {
   applyRecheck();
   resetCloserPanel(); // before the stack: the end card offers the closer read only while the panel does
   buildStack();
-  $('res-background').hidden = background.length === 0;
-  $('res-background-sum').textContent = `${background.length} other college ${background.length === 1 ? 'mention that reads' : 'mentions that read'} like a story, not a slip`;
-  $('res-background-list').replaceChildren(...background.map(cardFor));
+  drawBackground();
   resetNamesPanel();
   updateHeadline();
   updateReceipt();
@@ -792,15 +829,20 @@ function closerStatus(text, { busy = false } = {}) {
   swapText($('closer-status-text'), text);
 }
 
-// Offered when Gemini Nano read this PDF on the device (or was skipped or stopped). Not offered after a cloud reading,
-// or when the counselor already said "code checks only" to the cloud.
+// Offered after any reading that wasn't already in the cloud: after Gemini Nano (or when it was skipped or stopped),
+// and after code checks only, so the counselor can step up from here instead of starting over. After code checks
+// only, on a laptop with Nano, a second button reads with Nano right here.
 function resetCloserPanel() {
   closerConsent = false;
-  const offer = ['ran', 'failed', 'skipped-by-you'].includes(run.nano) && cloudConsent !== false && !run.closer;
+  const codeOnly = ['code-by-you', 'skipped', 'cloud-failed'].includes(run.nano);
+  const offer = (codeOnly || ['ran', 'failed', 'skipped-by-you'].includes(run.nano)) && !run.closer;
   $('closer-panel').hidden = !offer;
   $('closer-label').textContent = CLOSER_COPY.label;
   $('closer-h').textContent = CLOSER_COPY.title;
-  $('closer-intro').textContent = CLOSER_COPY.intro;
+  $('closer-intro').textContent = codeOnly ? CLOSER_COPY.introCodeOnly : CLOSER_COPY.intro;
+  $('closer-nano').textContent = CLOSER_COPY.nanoButton;
+  $('closer-nano').hidden = !(codeOnly && nanoHere);
+  $('closer-nano').disabled = false;
   $('closer-fine').textContent = CLOSER_COPY.fine;
   $('closer-start').textContent = CLOSER_COPY.button;
   $('closer-start').hidden = false;
@@ -808,9 +850,53 @@ function resetCloserPanel() {
   closerStatus('');
 }
 
+// The step up from code checks only to Gemini Nano, on the results page. Same questions as a Nano reading on the
+// reading page (on the device only), and its flags join the list as maybes, marked "new".
+async function readWithNano() {
+  const current = run;
+  $('closer-nano').disabled = true;
+  $('closer-start').disabled = true;
+  $('res-closer-tip').hidden = true;
+  closerStatus(CLOSER_COPY.nanoReading(0, 0), { busy: true });
+  try {
+    const { models, onDeviceAsker, askMentionOnDevice } = await loadAi();
+    const out = await runAiChecks({
+      app: current.app,
+      codeFlags: current.codeFlags,
+      ask: onDeviceAsker(models),
+      design: 'extract',
+      askMention: (name, sentence) => askMentionOnDevice(models.mentionModel, name, sentence),
+      onProgress: (_message, progress) => { if (progress && run === current) closerStatus(CLOSER_COPY.nanoReading(progress.done, progress.total), { busy: true }); },
+    });
+    if (run !== current) return; // a new PDF was opened meanwhile
+    current.aiFlags = out.flags;
+    current.mentionAnswers = out.mentionAnswers ?? new Map();
+    current.comparisons = out.comparisons;
+    current.tossed = out.dropped.length;
+    current.nano = out.failed ? 'failed' : 'ran';
+    current.cards = presentFlags({ result: current.result, codeFlags: current.codeFlags, aiFlags: current.aiFlags, mentionAnswers: current.mentionAnswers });
+    current.newIds = new Set(out.flags.map((f) => f.id));
+    $('closer-nano').hidden = true;
+    $('closer-intro').textContent = CLOSER_COPY.intro; // now it's the usual after-Nano offer of the cloud
+    buildStack();
+    drawBackground();
+    updateHeadline();
+    updateReceipt();
+    closerStatus(CLOSER_COPY.nanoFound(out.flags.length));
+  } catch (err) {
+    console.error('Gemini Nano stopped:', err.name, err.message); // the error only, never the text
+    closerStatus(CLOSER_COPY.nanoFailed);
+    $('closer-nano').disabled = false;
+  } finally {
+    $('closer-start').disabled = false;
+    updateHeadline();
+  }
+}
+
 async function readCloser() {
   const current = run;
   $('closer-start').disabled = true;
+  $('closer-nano').disabled = true;
   closerConsent = true; // the click is the yes; the panel says exactly what goes
   $('res-closer-tip').hidden = true;
   closerStatus(CLOSER_COPY.reading, { busy: true });
@@ -826,6 +912,7 @@ async function readCloser() {
     current.cards = presentFlags({ result: current.result, codeFlags: current.codeFlags, aiFlags: current.aiFlags, mentionAnswers: current.mentionAnswers });
     current.newIds = new Set(extra.kept.map((f) => f.id));
     $('closer-start').hidden = true; // before the stack, so the end card stops offering it
+    $('closer-nano').hidden = true;
     buildStack();
     updateHeadline();
     updateReceipt();
@@ -844,6 +931,7 @@ async function readCloser() {
     console.error('closer read failed:', err.name, err.message); // the error only, never the text
     closerStatus(CLOSER_COPY.failed);
     $('closer-start').disabled = false;
+    $('closer-nano').disabled = false;
     updateHeadline();
   } finally {
     closerConsent = false;
@@ -934,15 +1022,15 @@ async function sendNames() {
   namesStatus(`Asking Google Search about ${send.length} ${send.length === 1 ? 'name' : 'names'}…`, { busy: true });
   try {
     const { models, checkNamesInCloud } = await loadAi();
-    cloudChecks += 1;
     const answer = await checkNamesInCloud(models.publicModel, send, sentLog, { withSearch: true });
+    cloudChecks += 1; // only a check that went through counts toward the limit
     growWhile($('names-panel'), () => {
       $('names-pick').hidden = true;
       drawAnswers(send, answer);
     });
   } catch (err) {
-    console.error('Name check stopped:', err);
-    namesStatus('The name check didn\'t go through. The cards above are unchanged.');
+    console.error('Name check stopped:', err.name, err.message); // the error only; the names are in the sent log
+    namesStatus('Google Search didn\'t answer this time, so nothing on the list changed. Try again in a minute.');
     boxes.forEach((b) => { b.disabled = false; b.closest('label').classList.remove('asking', 'leaving'); });
   } finally {
     $('names-send').disabled = false;
@@ -1131,6 +1219,7 @@ $('sample').addEventListener('click', async () => {
 
 $('read-back').addEventListener('click', () => { goToStart(); $('pdf').click(); });
 $('nano-get').addEventListener('click', getNano);
+$('read-how').addEventListener('change', (e) => { readChoice = e.target.value; showPickNote(); });
 {
   const note = marginNote(new Date());
   if (note) $('margin-note').textContent = note;
@@ -1148,6 +1237,7 @@ $('closing-sample').addEventListener('click', () => $('sample').click());
 $('again').addEventListener('click', goToStart);
 $('names-start').addEventListener('click', pickNames);
 $('closer-start').addEventListener('click', readCloser);
+$('closer-nano').addEventListener('click', readWithNano);
 $('res-closer-go').addEventListener('click', () => {
   $('closer-panel').scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'center' });
   $('closer-start').focus({ preventScroll: true });

@@ -85,15 +85,40 @@ export function startEyes() {
     setTimeout(() => { following = true; if (cursor) lookAt(...cursor); else aimBoth(0, 0); }, 2950);
   }
 
-  // Click an eye and it winks.
-  [1, 2].forEach((n) => {
-    const eye = document.getElementById(`sr-eye-${n}`);
-    eye?.addEventListener('click', () => {
-      if (reduced()) return;
-      eye.classList.add('wink');
-      setTimeout(() => eye.classList.remove('wink'), 420);
-    });
-  });
+  // Easter egg: click Loomis and he goes googly. Both eyes look at each other, roll around in opposite directions,
+  // blink once, then find the cursor again. The springs above do the bouncing; this only moves the targets.
+  let goofing = false;
+  function blink(delay = 0) {
+    // The Web Animations API, not a class: a class that turns the CSS blink loop off and on restarts that loop, so
+    // the lid sat shut for a second and then snapped open. A script animation plays over the CSS one and hands back.
+    document.querySelectorAll('.sr-eye .sr-lidg').forEach((lid) => lid.animate?.(
+      [{ translate: '0 -72px' }, { translate: '0 0', offset: 0.45 }, { translate: '0 0', offset: 0.55 }, { translate: '0 -72px' }],
+      { duration: 340, delay, easing: 'cubic-bezier(.4,0,.2,1)' },
+    ));
+  }
+  function goGoogly() {
+    if (reduced() || goofing || asleep) { blink(); return; }
+    goofing = true;
+    following = false;
+    aim(0, 26, 6); aim(1, -26, 6); // cross-eyed: each looks at the other
+    const start = performance.now() + 520;
+    const roll = (now) => {
+      const t = (now - start) / 1000;
+      if (t < 0) { requestAnimationFrame(roll); return; }
+      if (t < 1.1) {
+        // Opposite directions, a little out of step, like loose googly eyes.
+        aim(0, Math.cos(t * 13) * 24, Math.sin(t * 13) * 24);
+        aim(1, Math.cos(-t * 13 + 1.6) * 24, Math.sin(-t * 13 + 1.6) * 24);
+        requestAnimationFrame(roll);
+        return;
+      }
+      aimBoth(0, 0);
+      blink(120);
+      setTimeout(() => { goofing = false; following = true; if (cursor) lookAt(...cursor); }, 520);
+    };
+    requestAnimationFrame(roll);
+  }
+  document.getElementById('sr-eyes')?.addEventListener('click', goGoogly);
 
   // A file dragged over the drop sheet (or keyboard focus on it): both eyes look down at it, pupils wide.
   const pupils = () => document.querySelectorAll('.sr-eye .sr-pupil circle:first-child');

@@ -69,19 +69,31 @@ test('the receipt lists what happened, ending with what was sent', () => {
   assert.deepEqual(without.map((r) => r[0]), ['pages read', 'code checks', 'gemini nano', 'sent to the internet']);
   assert.equal(without[2][1], 'not here');
   assert.equal(receiptFor({ pageCount: 4, codeChecks: 6, nano: 'skipped-by-you' })[2][1], 'skipped');
+  // Picked code checks only on the start page: says it was a choice, not a missing model.
+  assert.deepEqual(receiptFor({ pageCount: 4, codeChecks: 6, nano: 'code-by-you' })[2], ['ai reading', 'not picked']);
+  assert.match(headlineFor({ sure: 1, maybes: 0 }, new Map(), ['a'], { nano: 'code-by-you' }).subhead, /You picked code checks only/);
+  // The cloud was picked but didn't answer: says so, never claims Gemini read it.
+  const down = headlineFor({ sure: 1, maybes: 0 }, new Map(), ['a'], { nano: 'cloud-failed' }).subhead;
+  assert.match(down, /couldn't be reached, so only the code checks ran/);
+  assert.doesNotMatch(down, /as you chose/);
+  assert.deepEqual(receiptFor({ pageCount: 4, codeChecks: 6, nano: 'cloud-failed' })[2], ['gemini (cloud)', 'couldn\'t reach']);
+  // Stepped up from code checks only straight to the cloud: never claims Nano read it.
+  const up = headlineFor({ sure: 0, maybes: 1, cloudMaybes: 1 }, new Map(), ['a'], { nano: 'code-by-you', closer: true }).subhead;
+  assert.match(up, /Gemini read it closer in Google's cloud/);
+  assert.doesNotMatch(up, /Gemini Nano/);
   // Read in the cloud with the counselor's yes: the receipt says so.
   assert.equal(receiptFor({ pageCount: 4, codeChecks: 6, nano: 'cloud', nanoQuestions: 9 })[2][0], 'cloud questions (your yes)');
   assert.match(headlineFor({ sure: 1, maybes: 1 }, new Map(), ['a', 'b'], { nano: 'cloud' }).subhead, /in Google's cloud, as you chose/);
 });
 
-test('the sticky note explains Gemini Nano, and says the cloud is only used after asking', async () => {
+test('the sticky note explains Gemini Nano, and says the cloud is only used if picked', async () => {
   const { nanoNote } = await import('../src/core/present.js');
   assert.equal(nanoNote('available').ready, true);
   for (const a of ['downloadable', 'downloading', 'unavailable', undefined]) {
     const n = nanoNote(a);
     assert.equal(n.ready, false);
     assert.match(n.body, /code checks/);
-    assert.match(n.body, /asks before using Gemini in Google's cloud/);
+    assert.match(n.body, /pick Gemini in Google's cloud or code checks only/);
     assert.doesNotMatch(n.body, /Click|Prepare/);
   }
 });

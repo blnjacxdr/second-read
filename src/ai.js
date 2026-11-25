@@ -9,6 +9,8 @@
 //     reading this PDF in the cloud (src/core/consent.js). Nowhere else: PREFER_* modes can send a prompt to the
 //     cloud on their own, so test/guards.test.js allows PREFER_ON_DEVICE only in that one function, and
 //     PREFER_IN_CLOUD nowhere.
+//   createChosenCloudModels: ONLY_IN_CLOUD, no Search. Built only when a counselor whose laptop has Nano picks
+//     "Gemini in Google's cloud" on the start page.
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js';
 import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app-check.js';
@@ -206,6 +208,21 @@ export function createConsentedHybridModels(models) {
     inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
   });
   return { facts: make(FACTS_SCHEMA), mention: make(MENTION_SCHEMA), context: make(CONTEXT_SCHEMA), whole: make(WHOLE_READ_SCHEMA), verify: make(VERIFY_SCHEMA) };
+}
+
+/**
+ * The cloud reading the counselor picked on the start page, on a laptop that HAS Gemini Nano (Nov 25, the builder's
+ * decision). ONLY_IN_CLOUD, not the hybrid mode: with Nano here, PREFER_ON_DEVICE would quietly answer on the laptop,
+ * which isn't what they picked. No Google Search: application text never goes with a search. Same shape as
+ * createConsentedHybridModels, so the reading code treats both alike. app.js builds this only on a line that checks
+ * cloudConsent === true (test/guards.test.js).
+ */
+export function createChosenCloudModels(models) {
+  const cloud = getGenerativeModel(models.ai, {
+    mode: InferenceMode.ONLY_IN_CLOUD,
+    inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
+  });
+  return { facts: cloud, mention: cloud, context: cloud, whole: cloud, verify: cloud };
 }
 
 // Each prompt goes in the sent log before it is sent, so "What was sent" is complete.
