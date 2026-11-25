@@ -18,12 +18,11 @@ import { deepWinAnsi } from '../tools/winansi.js';
 import { locateQuote } from '../src/core/quotes.js';
 
 // Which set to score: eval/heldout by default, or another folder under eval/ (node eval/score.mjs fresh).
+// "practice" and "final" stand for all their batch folders.
+const GROUPS = { practice: ['practice-1', 'practice-2', 'practice-3'], final: ['final-1', 'final-2'] };
 const set = process.argv.slice(2).find((a) => !a.startsWith('--')) ?? 'heldout';
 if (!/^[a-z0-9-]+$/.test(set)) throw new Error('set name: letters, digits and dashes only');
-const dir = fileURLToPath(new URL(`./${set}/`, import.meta.url));
-// Key quotes get the same character swap as the PDFs (tools/winansi.js), so they still match.
-const key = deepWinAnsi(JSON.parse(readFileSync(join(dir, 'answer-key.json'), 'utf8')));
-const apps = readdirSync(dir).filter((f) => /^app-\d+\.json$/.test(f)).sort();
+const folders = GROUPS[set] ?? [set];
 
 async function readPdf(path) {
   const doc = await getDocument({ data: new Uint8Array(readFileSync(path)), verbosity: 0 }).promise;
@@ -33,6 +32,12 @@ async function readPdf(path) {
 }
 
 const scores = [];
+for (const folder of folders) {
+const dir = fileURLToPath(new URL(`./${folder}/`, import.meta.url));
+if (!existsSync(join(dir, 'answer-key.json'))) { console.log(`${folder}: no answer-key.json, skipped`); continue; }
+// Key quotes get the same character swap as the PDFs (tools/winansi.js), so they still match.
+const key = deepWinAnsi(JSON.parse(readFileSync(join(dir, 'answer-key.json'), 'utf8')));
+const apps = readdirSync(dir).filter((f) => /^app-\d+\.json$/.test(f)).sort((a, b) => parseInt(a.slice(4), 10) - parseInt(b.slice(4), 10));
 for (const file of apps) {
   const pdfPath = join(dir, file.replace('.json', '.pdf'));
   { // rebuilt every run, so a change to the PDF tool always shows up
@@ -54,13 +59,16 @@ for (const file of apps) {
         `${place.quote.split(/\s+/).length} words${anywhere ? `, but found in ${anywhere}` : ''}`);
     }
   }
-  console.log(`${file}: caught ${score.caught}/${score.planted}, false alarms ${score.falseAlarms}, ` +
+  console.log(`${folder}/${file}: caught ${score.caught}/${score.planted}, false alarms ${score.falseAlarms}, ` +
     `tricky cases flagged ${score.trickyTriggered}/${(entry.trickyConsistent ?? []).length}` +
     `${result.missing.length ? `, READER MISSED: ${result.missing.join(', ')}` : ''}` +
     `${score.keyQuotesMissing ? `, KEY QUOTES NOT FOUND IN PDF: ${score.keyQuotesMissing}` : ''}`);
 }
 
+}
+
 const total = totalScores(scores);
-console.log(`\nCode checks: caught ${total.caught} of ${total.planted} planted mistakes${total.caughtBySectionOnly ? ` (${total.caughtBySectionOnly} by section only)` : ""}, ${total.falseAlarms} false alarm(s), ` +
+console.log(`\n${set}: ${scores.length} applications. Code checks: caught ${total.caught} of ${total.planted} planted mistakes${total.caughtBySectionOnly ? ` (${total.caughtBySectionOnly} by section only)` : ""}, ${total.falseAlarms} false alarm(s), ` +
   `${total.trickyTriggered} tricky consistent case(s) flagged.`);
+console.log(`Answer-key quotes not found in the PDFs: ${total.keyQuotesMissing}`);
 console.log('By kind (caught/planted):', Object.entries(total.byKind).map(([k, v]) => `${k} ${v.caught}/${v.planted}`).join(', '));

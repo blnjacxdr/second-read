@@ -19,11 +19,17 @@
 shows only the scores, never the applications. Build the PDFs first with <code>node eval/score.mjs fresh</code>.
 Gemini Nano runs 3 times (it varies run to run). The cloud runs once and needs a browser WITHOUT Gemini Nano (for
 example Opera GX); it scores narrow questions alone and with the whole-application read, from the same run.</p>
-<label>Test set <select id="set"><option value="fresh">fresh (18 applications)</option><option value="heldout">heldout (5 applications)</option></select></label>
+<label>Test set <select id="set">
+  <option value="practice">practice (all three batches)</option>
+  <option value="practice-1">practice-1</option><option value="practice-2">practice-2</option><option value="practice-3">practice-3</option>
+  <option value="fresh">fresh (18, old practice set)</option>
+  <option value="heldout">heldout (5)</option>
+  <option value="final">FINAL (run once, after the freeze)</option>
+</select></label>
 <label>Engine <select id="engine"><option value="cloud">Gemini in the cloud</option><option value="nano">Gemini Nano on this laptop</option></select></label>
 <input type="hidden" id="design" value="extract">
 <p><label><input type="checkbox" id="skip-narrow" checked> Cloud: skip the narrow questions (the app skips them in the cloud too)</label><br>
-<label><input type="checkbox" id="review"> List each false alarm so I can judge it (fresh set only; shows application text)</label></p>
+<label><input type="checkbox" id="review"> List each false alarm so I can judge it (practice sets only; shows application text)</label></p>
 <button id="run">Score the test set</button>
 <p id="status">Ready.</p>
 <pre id="out"></pre>

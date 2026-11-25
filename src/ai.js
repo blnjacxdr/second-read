@@ -213,6 +213,7 @@ async function askHybrid(model, prompt, schema, sentLog) {
   const full = withJsonShape(prompt, schema);
   sentLog.record(CLOUD_PURPOSE, full);
   const result = await model.generateContent(full);
+  sentLog.addUsage?.(result.response.usageMetadata);
   return parseModelJson(result.response.text());
 }
 

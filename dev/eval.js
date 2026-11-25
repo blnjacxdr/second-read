@@ -1,7 +1,6 @@
-// Scores Second Read on a fictional test set (eval/fresh or eval/heldout), with Gemini Nano or in the cloud.
-// Dev only (App Check debug token). Shows NUMBERS ONLY: the held-out
-// applications are never displayed, so whoever tunes the checks can't
-// tune them to these particular applications.
+// Scores Second Read on fictional test sets (eval/<set>/), with Gemini Nano or in the cloud.
+// Dev only (App Check debug token). Shows NUMBERS ONLY by default, so whoever tunes the checks can't tune them to
+// these particular applications. The optional false-alarm list (practice sets only) is for the person running it.
 self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
 
 import { readPdfRows } from '../src/pdf.js';
@@ -13,116 +12,168 @@ import { onDeviceAvailability } from '../src/core/privacy.js';
 import { createSentLog } from '../src/core/sent-log.js';
 import { wholeReadFlags, applyVerdicts } from '../src/core/whole-read.js';
 
-const RUNS = 3;
-const reviewVariant = 'D'; // the false-alarm list shows this setup's false alarms // Gemini Nano answers differently run to run, so one run proves little
+const NANO_RUNS = 3; // Gemini Nano answers differently run to run, so one run proves little
+const CLOUD_AT_ONCE = 4; // applications read in parallel in the cloud; Nano reads one at a time
+const REVIEW_VARIANT = 'D'; // the false-alarm list shows this setup's false alarms
+// Gemini 3.5 Flash list prices (USD per million tokens), for a rough cost line. Thinking bills as output.
+const PRICE = { input: 1.5, output: 9 };
+
+// A choice in the Test set menu can stand for several folders.
+const GROUPS = {
+  practice: ['practice-1', 'practice-2', 'practice-3'],
+  final: ['final-1', 'final-2'],
+};
+const isFinal = (folder) => folder.startsWith('final');
+const canReview = (folder) => folder === 'fresh' || folder.startsWith('practice');
+
+const VARIANTS = {
+  A: 'A original read',
+  B: 'B data first',
+  C: 'C data first + second look',
+  D: 'D = C + check step (strict)',
+  E: 'E = C + check step (keeps unsure)',
+  F: 'F = B + check step (strict)',
+};
+
 const $ = (id) => document.getElementById(id);
 const say = (text) => { $('status').textContent = text; };
-
 const line = (label, t) =>
   `${label}: caught ${t.caught}/${t.planted}${t.caughtBySectionOnly ? ` (${t.caughtBySectionOnly} by section only)` : ''}, false alarms ${t.falseAlarms}, tricky cases flagged ${t.trickyTriggered}`;
 const kinds = (t) => Object.entries(t.byKind).map(([k, v]) => `${k} ${v.caught}/${v.planted}`).join(', ') +
   `\n  false alarms by check: ${Object.entries(t.falseAlarmKinds).map(([k, n]) => `${k} ${n}`).join(', ') || 'none'}`;
 
+/** Runs task(item, index) over items, at most `limit` at a time, keeping results in order. */
+async function pool(items, limit, task) {
+  const results = new Array(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < items.length) {
+      const i = next++;
+      results[i] = await task(items[i], i);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return results;
+}
+
+/** Reads every PDF in the chosen folders once. */
+async function loadApplications(folders) {
+  const apps = [];
+  for (const folder of folders) {
+    const response = await fetch(`../eval/${folder}/answer-key.json`);
+    if (!response.ok) throw new Error(`eval/${folder}/answer-key.json not found.`);
+    const key = await response.json();
+    for (const entry of key.applications) {
+      const pdf = entry.file.replace('.json', '.pdf');
+      say(`Reading ${folder}/${pdf}…`);
+      const file = await fetch(`../eval/${folder}/${pdf}`);
+      if (!file.ok) throw new Error(`${folder}/${pdf} not found. Run "node eval/score.mjs ${folder}" once to build the PDFs.`);
+      const result = readCommonApp((await readPdfRows(await file.blob())).rows);
+      const app = checkInputFromPdf(result);
+      apps.push({ folder, entry: { ...entry, file: `${folder}/${entry.file}` }, result, app, codeFlags: runCodeChecks(app) });
+    }
+  }
+  return apps;
+}
+
+/** One application in the cloud: every setup in VARIANTS from the same answers. */
+async function cloudVariants(module, hybrid, sentLog, a, base, onFail) {
+  const ask = (opts) => module.wholeReadConsented(hybrid, sentLog, a.app, opts).catch((err) => { onFail(err); return null; });
+  const flagsFrom = (answer, existing) => wholeReadFlags(answer, a.app.sections, existing).kept;
+  const [answerA, answerB] = await Promise.all([ask({ layout: 'instructions-first' }), ask({ layout: 'data-first' })]);
+  const flagsA = flagsFrom(answerA, base);
+  const flagsB = flagsFrom(answerB, base);
+  const flagsC = [...flagsB, ...flagsFrom(await ask({ layout: 'data-first', alreadyFound: flagsB }), [...base, ...flagsB])];
+  const verdicts = flagsC.length
+    ? await module.verifyConsented(hybrid, sentLog, a.app, flagsC).catch((err) => { onFail(err); return null; })
+    : null;
+  const forB = verdicts ? { verdicts: (verdicts.verdicts ?? []).filter((v) => v.n <= flagsB.length) } : null;
+  return {
+    A: flagsA, B: flagsB, C: flagsC,
+    D: applyVerdicts(flagsC, verdicts),
+    E: applyVerdicts(flagsC, verdicts, { keepUnsure: true }),
+    F: applyVerdicts(flagsB, forB),
+  };
+}
+
 $('run').addEventListener('click', async () => {
   $('run').disabled = true;
-  const set = $('set').value;
+  const choice = $('set').value;
+  const folders = GROUPS[choice] ?? [choice];
   const engine = $('engine').value;
-  const report = [`Set: ${set}. Engine: ${engine === 'cloud' ? 'Gemini in the cloud' : 'Gemini Nano'}.`];
+  const report = [`Set: ${choice}. Engine: ${engine === 'cloud' ? 'Gemini in the cloud' : 'Gemini Nano'}.`];
+  const toReview = [];
   try {
+    if (folders.some(isFinal) && !window.confirm('This is the FINAL test set. Run it only once, after the feature freeze. Run it now?')) {
+      throw new Error('not run.');
+    }
     const nano = (await onDeviceAvailability()) === 'available';
     if (engine === 'nano' && !nano) throw new Error('Gemini Nano is not ready in this browser.');
     if (engine === 'cloud' && nano) throw new Error('This browser has Gemini Nano, so the hybrid models would stay on the device. Open this page in a browser without it (Opera GX) to test the cloud.');
-    const key = await (await fetch(`../eval/${set}/answer-key.json`)).json();
 
-    // Read every PDF once.
-    const apps = [];
-    for (const entry of key.applications) {
-      const pdf = entry.file.replace('.json', '.pdf');
-      say(`Reading ${pdf}…`);
-      const response = await fetch(`../eval/${set}/${pdf}`);
-      if (!response.ok) throw new Error(`${pdf} not found. Run "node eval/score.mjs ${set}" once to build the PDFs.`);
-      const result = readCommonApp((await readPdfRows(await response.blob())).rows);
-      const app = checkInputFromPdf(result);
-      apps.push({ entry, result, app, codeFlags: runCodeChecks(app) });
-    }
-
+    const apps = await loadApplications(folders);
     const codeTotal = totalScores(apps.map((a) => scoreApplication(a.codeFlags, a.entry, a.result.sections)));
-    report.push(line('Code checks only', codeTotal), `  by kind: ${kinds(codeTotal)}`);
+    report.push(`${apps.length} applications.`, line('Code checks only', codeTotal), `  by kind: ${kinds(codeTotal)}`);
+    $('out').textContent = report.join('\n');
 
     const module = await import('../src/ai.js');
     const models = module.createSecondReadAI();
     const sentLog = createSentLog();
     const hybrid = engine === 'cloud' ? module.createConsentedHybridModels(models) : null;
-    const runs = engine === 'cloud' ? 1 : RUNS;
-    let seconds = 0;
+    const skipNarrow = hybrid && $('skip-narrow').checked;
+    const runs = hybrid ? 1 : NANO_RUNS;
     let failed = 0;
-    const toReview = [];
+    let done = 0;
+    const onFail = (err) => { failed += 1; console.warn(err.message); };
+    const started = performance.now();
+
     for (let r = 1; r <= runs; r++) {
-      const narrow = [];
-      const withWhole = {};
-      for (const [i, a] of apps.entries()) {
-        const started = performance.now();
-        const skipNarrow = hybrid && $('skip-narrow').checked;
+      const results = await pool(apps, hybrid ? CLOUD_AT_ONCE : 1, async (a) => {
         const run = skipNarrow ? { flags: [], failed: 0 } : await runAiChecks({
           app: a.app,
           codeFlags: a.codeFlags,
           ask: hybrid ? module.consentedAsker(hybrid, sentLog) : module.onDeviceAsker(models),
           design: 'extract',
           askMention: async () => null, // mention ordering never hides a flag, so it doesn't change the score
-          onProgress: (m) => say(`Run ${r} of ${runs}, application ${i + 1} of ${apps.length}: ${m}`),
         });
         failed += run.failed;
         const base = [...a.codeFlags, ...run.flags];
-        narrow.push(scoreApplication(base, a.entry, a.result.sections));
+        const out = { narrow: scoreApplication(base, a.entry, a.result.sections), variants: {} };
         if (hybrid) {
-          // Four cloud setups from one run, so they can be compared on the same applications:
-          //   A: Nov 24 original (instructions first, one pass)
-          //   B: data first, one pass
-          //   C: B plus a second look for other disagreements
-          //   D: C plus the check step (strict: keep "conflict" only; lenient: keep "unsure" too)
-          const ask = (opts) => module.wholeReadConsented(hybrid, sentLog, a.app, opts).catch((err) => { failed += 1; console.warn(err.message); return null; });
-          const flagsFrom = (answer, existing) => wholeReadFlags(answer, a.app.sections, existing).kept;
-          say(`Application ${i + 1} of ${apps.length}: original read…`);
-          const flagsA = flagsFrom(await ask({ layout: 'instructions-first' }), base);
-          say(`Application ${i + 1} of ${apps.length}: data-first read…`);
-          const flagsB = flagsFrom(await ask({ layout: 'data-first' }), base);
-          say(`Application ${i + 1} of ${apps.length}: second look…`);
-          const flagsC = [...flagsB, ...flagsFrom(await ask({ layout: 'data-first', alreadyFound: flagsB }), [...base, ...flagsB])];
-          let verdicts = null;
-          if (flagsC.length) {
-            say(`Application ${i + 1} of ${apps.length}: checking each flag…`);
-            verdicts = await module.verifyConsented(hybrid, sentLog, a.app, flagsC).catch((err) => { failed += 1; console.warn(err.message); return null; });
-          }
-          const variants = {
-            A: flagsA, B: flagsB, C: flagsC,
-            D: applyVerdicts(flagsC, verdicts), E: applyVerdicts(flagsC, verdicts, { keepUnsure: true }),
-            F: applyVerdicts(flagsB, verdicts ? { verdicts: verdicts.verdicts.filter((v) => v.n <= flagsB.length) } : null),
-          };
-          for (const [k, extra] of Object.entries(variants)) {
-            const scored = scoreApplication([...base, ...extra], a.entry, a.result.sections);
-            (withWhole[k] ??= []).push(scored);
-            if (k === reviewVariant && r === runs) toReview.push(...scored.wrongFlags.map((f) => ({ file: a.entry.file, flag: f })));
-          }
+          const variants = await cloudVariants(module, hybrid, sentLog, a, base, onFail);
+          for (const [k, extra] of Object.entries(variants)) out.variants[k] = scoreApplication([...base, ...extra], a.entry, a.result.sections);
         }
-        if (!hybrid && r === runs) {
-          toReview.push(...narrow.at(-1).wrongFlags.map((f) => ({ file: a.entry.file, flag: f })));
-        }
-        seconds += (performance.now() - started) / 1000;
+        done += 1;
+        say(`Run ${r} of ${runs}: ${done - (r - 1) * apps.length} of ${apps.length} applications done…`);
+        return out;
+      });
+
+      if (!skipNarrow) {
+        const t = totalScores(results.map((x) => x.narrow));
+        report.push(line(`Code + narrow questions, run ${r}`, t), `  by kind: ${kinds(t)}`);
       }
-      const t = totalScores(narrow);
-      report.push(line(`Code + narrow questions, run ${r}`, t), `  by kind: ${kinds(t)}`);
-      if (hybrid) {
-        const names = { A: 'A original read', B: 'B data first', C: 'C data first + second look', D: 'D = C + check step (strict)', E: 'E = C + check step (keeps unsure)', F: 'F = B + check step (strict)' };
-        for (const [k, label] of Object.entries(names)) {
-          const w = totalScores(withWhole[k]);
-          report.push(line(`Code + ${label}`, w), `  by kind: ${kinds(w)}`);
-        }
+      for (const [k, label] of Object.entries(hybrid ? VARIANTS : {})) {
+        const w = totalScores(results.map((x) => x.variants[k]));
+        report.push(line(`Code + ${label}`, w), `  by kind: ${kinds(w)}`);
+      }
+      if (r === runs) {
+        results.forEach((x, i) => {
+          const scored = hybrid ? x.variants[REVIEW_VARIANT] : x.narrow;
+          if (canReview(apps[i].folder)) toReview.push(...scored.wrongFlags.map((f) => ({ file: apps[i].entry.file, flag: f })));
+        });
       }
       $('out').textContent = report.join('\n');
     }
-    report.push(`AI time: ${(seconds / runs).toFixed(0)} s per run for ${apps.length} applications${failed ? `; ${failed} AI call(s) failed` : ''}` +
-      (hybrid ? `; ${sentLog.entries().length} prompts sent to the cloud` : ''));
-    if ($('review').checked && set === 'fresh') showReview(toReview);
+
+    const seconds = (performance.now() - started) / 1000;
+    report.push(`AI time: ${seconds.toFixed(0)} s in all for ${apps.length} applications${failed ? `; ${failed} AI call(s) failed` : ''}`);
+    if (hybrid) {
+      const u = sentLog.usage();
+      const dollars = (u.input * PRICE.input + u.output * PRICE.output) / 1e6;
+      report.push(`Cloud: ${u.calls} prompts, ${u.input.toLocaleString()} input + ${u.output.toLocaleString()} output tokens, ` +
+        `about $${dollars.toFixed(2)} for this run (about $${(dollars / apps.length).toFixed(3)} per application, all six setups together)`);
+    }
+    if ($('review').checked) showReview(toReview);
     say('Done. Copy the numbers below and paste them into the chat.');
   } catch (err) {
     say(`Stopped: ${err.message}`);
@@ -133,7 +184,7 @@ $('run').addEventListener('click', async () => {
   }
 });
 
-/** The false alarms, for the person running the page to judge. Fresh set only: held-out text is never shown. */
+/** The false alarms, for the person running the page to judge. Practice sets only. */
 function showReview(items) {
   const list = $('review-list');
   list.replaceChildren();
