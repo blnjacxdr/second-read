@@ -18,7 +18,7 @@ import { deepWinAnsi } from '../tools/winansi.js';
 import { locateQuote } from '../src/core/quotes.js';
 
 // Which set to score: eval/heldout by default, or another folder under eval/ (node eval/score.mjs fresh).
-const set = process.argv[2] ?? 'heldout';
+const set = process.argv.slice(2).find((a) => !a.startsWith('--')) ?? 'heldout';
 if (!/^[a-z0-9-]+$/.test(set)) throw new Error('set name: letters, digits and dashes only');
 const dir = fileURLToPath(new URL(`./${set}/`, import.meta.url));
 // Key quotes get the same character swap as the PDFs (tools/winansi.js), so they still match.
