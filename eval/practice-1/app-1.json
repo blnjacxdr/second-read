@@ -1,0 +1,148 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Isabel Navarro",
+    "school": "San Joaquin Heights High School (Fresno, CA)",
+    "graduationYear": 2027,
+    "email": "isabel.navarro27@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Music: Instrumental",
+      "position": "Violinist; Section Leader (12)",
+      "organization": "Mariachi Los Halcones (school mariachi)",
+      "description": "Violin in our 14-member school mariachi. We play quinceañeras, Sunday Mass, and Fresno's Cinco de Mayo festival.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Instrumental",
+      "position": "Student Performer",
+      "organization": "Tucson International Mariachi Conference",
+      "description": "Took violin and vocal workshops with professional mariachis and played in the student showcase concert.",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 20,
+      "weeksPerYear": 1,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Packing Line Worker",
+      "organization": "Fruit packing house (Reedley, CA)",
+      "description": "Sort and pack peaches and plums in the summer. 10-hour shifts, 6 days a week in July.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 40,
+      "weeksPerYear": 8,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Academic",
+      "position": "Researcher",
+      "organization": "National History Day",
+      "description": "Website project on the 1933 San Joaquin Valley cotton strike, built around oral histories from my family's town.",
+      "grades": [
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Reading Volunteer",
+      "organization": "Fresno County Public Library",
+      "description": "Read with elementary kids in Spanish and English during the summer reading program.",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 8,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Family Responsibilities",
+      "position": "Caregiver",
+      "organization": "Family",
+      "description": "Pick up my two younger brothers from school, make dinner, and help with homework while my parents work late.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 52
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "National History Day California, 2nd Place, Senior Individual Website",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "My great-grandmother Cuca could not read music, but she knew about four hundred songs.\n\nShe learned them picking cotton near Corcoran in the 1930s, from the women in the rows next to her, and she sang them to my grandma, who sang them to my mom, who sang exactly two of them to me before deciding she was a terrible singer and giving up. By the time I was old enough to ask, Cuca was ninety-one and living in our back bedroom, and most of the songs were still in her, somewhere, if you sat with her long enough.\n\nSo I sat with her. I was in eighth grade and I had just started violin in a school program because it was free. Every afternoon I would play her a scale, badly, and she would make a face like she smelled something, and then she would hum something and wait for me to find it on the strings. It took me a week to learn the first song. It was a ranchera about a woman waiting at a train station for someone who never comes back, which I thought was way too sad for an old lady to like so much. Later I found out her brother left for Los Angeles in 1942 and she never saw him again.\n\nWhen I got to high school, I joined our mariachi, Los Halcones. Mariachi is not a hobby at my school. It's more like a family with matching outfits. We rehearse ten hours a week, we play at quinceañeras and funerals and Sunday Mass, and on Cinco de Mayo we play the big festival downtown where half of Fresno shows up. I'm one of the four violins, and this year I'm section leader, which mostly means I'm the one who tells the freshmen their bows are crooked.\n\nWhat mariachi gave me was a place to put Cuca's songs. Our director lets us bring arrangements, and sophomore year I brought the train station song. I wrote out the melody the way she hummed it and the whole group built the arrangement around it. The first time we played it at a quinceañera, an old man at the back table stood up and started singing along. He knew all the words. He'd learned them in the fields too.\n\nI think that was when I understood that the songs were never really just my family's. They belonged to a whole generation of farmworkers in this valley who didn't leave much behind on paper. That's partly why I did my National History Day project on the 1933 cotton strike. I wanted to know what was happening around the women who taught Cuca those songs. I found out they were striking, getting evicted, and singing anyway.\n\nCuca died the spring of my sophomore year. At her funeral, Los Halcones played the train station song. I didn't cry until the trumpets came in.\n\nI still don't know all four hundred songs. I have about thirty written down in a notebook, with dates and the names of the people who sang them to her, when she remembered. I don't think it's a complete history. But it's a start, and it's in my handwriting, and that seems like the least I can do for a woman who carried all that music around in her head for ninety years without anybody writing it down."
+  },
+  "supplements": [
+    {
+      "id": "supplement-stanford",
+      "college": "Stanford University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Tell us about something that is meaningful to you, and why.",
+      "wordLimit": 250,
+      "text": "I have a green spiral notebook with thirty-one songs in it. It is the most meaningful thing I own, and it cost a dollar at a drugstore.\n\nEach page is a song my great-grandmother taught me before she died. She grew up picking cotton in the San Joaquin Valley and learned hundreds of songs from other farmworker women. She couldn't read music, so I wrote them down while she hummed. Next to each song I put whatever she remembered: who sang it to her, what year, what town.\n\nSome pages are messy. Some are missing verses she couldn't find anymore. One page just says \"the one about the horse — ask Tía Lupe,\" because she fell asleep before she finished.\n\nThe notebook matters to me because it's proof that history doesn't only live in archives. For my National History Day project, which won first at state, I went looking for farmworker women from the 1930s in official records and found almost nothing. But they're in this notebook. Their songs survived because people passed them along by ear, at funerals and kitchen tables and in the fields.\n\nI want to keep doing this work in college, studying history and maybe ethnomusicology, and learning how to collect oral histories carefully. I've started asking other families in my mariachi if their grandparents have songs too. Some of them do.\n\nThe notebook isn't finished. I don't think it ever will be. That's kind of the point."
+    }
+  ],
+  "publicNames": [
+    "Tucson International Mariachi Conference",
+    "National History Day",
+    "National History Day California",
+    "Fresno County Public Library",
+    "AP Scholar",
+    "Stanford University"
+  ]
+}

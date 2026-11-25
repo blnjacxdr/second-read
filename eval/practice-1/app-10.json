@@ -1,0 +1,155 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Shiloh Yazzie",
+    "school": "Ponderosa Mesa High School (Flagstaff, AZ)",
+    "graduationYear": 2027,
+    "email": "shiloh.yazzie@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Art",
+      "position": "Director & Editor",
+      "organization": "Independent documentary films",
+      "description": "Made 3 short documentaries: Diné elders, uranium mines, and hauling water. One screened at the Flagstaff Mountain Film Festival.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Journalism/Publication",
+      "position": "Video Editor",
+      "organization": "Ponderosa Mesa High School Morning News",
+      "description": "Edit our daily 8-minute morning broadcast and train new camera operators.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Cashier",
+      "organization": "Bashas'",
+      "description": "Cashier and bagger on weeknights and Saturdays. Saving for a better camera.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 46,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Cultural",
+      "position": "Youth Volunteer",
+      "organization": "Museum of Northern Arizona",
+      "description": "Help artists set up and translate for elders at the museum's Navajo Festival of Arts & Culture each summer.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 20,
+      "weeksPerYear": 1,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Basketball",
+      "position": "Varsity Guard",
+      "organization": "Ponderosa Mesa Girls Basketball",
+      "description": "Starting guard for 2 seasons. I also film our games for the team's highlight reels.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 16,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Foreign Language",
+      "position": "Student",
+      "organization": "Diné Language Class",
+      "description": "Three years of Diné bizaad at school, plus practice with my grandmother on weekends.",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Flagstaff Mountain Film Festival, Official Selection",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AIA State Basketball Tournament Qualifier (team)",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "There is a moment in editing a documentary that I call \"the click.\" You've been sitting with the same twenty minutes of footage for hours, trying every possible order, and then suddenly two shots go next to each other and the whole thing makes sense. It's like a joke you finally get. I've stayed up until 3 a.m. chasing the click more times than my mom knows about.\n\nI started making documentaries in tenth grade with a used camera and my cousin's laptop. My first one was about my grandmother, who lives outside Tuba City and still weaves rugs on the same loom her mother used. I filmed her for a whole weekend. Most of the footage was terrible. The camera wobbled, the sound was full of wind, and at one point a sheep walked directly into the lens. But when I sat down to edit, I found something I didn't expect. In one clip, my grandmother is explaining a pattern in Diné bizaad, and she stops in the middle of a sentence and just laughs. I don't know what she was laughing at. I still don't. But when I put that laugh right after a shot of her hands on the loom, it was the click. Suddenly it wasn't a video about weaving. It was a video about her.\n\nThat's what captivates me about editing. It's where the story actually gets written. You can film the same day a hundred different ways, but in the edit, you decide what it means. That's a lot of power, and I've learned to be careful with it.\n\nThe most careful I've had to be was on my third film, about the abandoned uranium mines on the Navajo Nation. There are more than five hundred of them, left over from the Cold War, and a lot of families lived near them without knowing how dangerous they were. I interviewed a man whose father worked in the mines and died of lung cancer. In one take he got angry and said things about the government that were raw and true. In another take, a few minutes later, he was calm and sad. I sat with those two clips for a week. Which one was more honest? In the end I used both, back to back, and let the audience feel the shift. I wanted people to see that grief isn't one emotion. It can be anger and sorrow at the same time.\n\nAcross my four short documentaries, I've learned that the camera isn't neutral, and neither is the editor. On the reservation especially, a lot of outsiders have made films about us. Some of them are good. Many of them show us only as poor or sad. When I edit, I try to remember that the people in my footage are my relatives and neighbors. They're going to see this. They deserve to be shown the way they actually are: complicated, funny, stubborn, alive.\n\nWhen I want to learn more, I watch everything. Old documentaries, music videos, basketball highlights. I've read books about editing by people who cut famous movies. I ask my grandmother what she thinks of my drafts, even though she mostly comments on whether people are dressed nicely. I work twenty hours a week at Bashas', and I've started editing in my head on my breaks, rearranging the cereal aisle into shots.\n\nLast fall, one of my films was shown at the Flagstaff Mountain Film Festival. Afterward, an elder from Kayenta came up to me and said, in Navajo, that I had done a good job of not making her people look pitiful. That's the best review I've ever gotten. I'm still chasing the click."
+  },
+  "supplements": [
+    {
+      "id": "supplement-wesleyan",
+      "college": "Wesleyan University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in Wesleyan?",
+      "wordLimit": 250,
+      "text": "I want to study film at Wesleyan because I want to understand the history of documentary, especially the parts that haven't always been fair to Native people, so I can make better films myself.\n\nI've been making short documentaries for three years, mostly about my family and community on and near the Navajo Nation. As executive producer of our school's morning broadcast, I've also learned how much a team matters in making anything good. Wesleyan's College of Film and the Moving Image feels like the right place to keep learning, because students study film history and theory alongside making their own work. I don't just want to learn how to use a camera. I want to know why certain stories get told and others don't.\n\nI'm also excited about the Wesleyan Cinema Archives, where I could study original materials from filmmakers whose work shaped the way the world sees America. And I love that Wesleyan students can mix film with anthropology or American studies. I'd want to take classes in Native American and Indigenous studies, too, so my film work is grounded in history.\n\nFinally, I'm drawn to Wesleyan's culture of students making things together. On my reservation, films are a community project. I want to be at a school where people show each other rough cuts and give real feedback.\n\nWesleyan is far from Arizona, and I know I'll miss the mountains. But I think it's where I can learn to tell my community's stories the right way."
+    }
+  ],
+  "publicNames": [
+    "Flagstaff Mountain Film Festival",
+    "Bashas'",
+    "Museum of Northern Arizona",
+    "Navajo Festival of Arts & Culture",
+    "Arizona Interscholastic Association (AIA)",
+    "Navajo Nation",
+    "Wesleyan University",
+    "College of Film and the Moving Image",
+    "Wesleyan Cinema Archives"
+  ]
+}

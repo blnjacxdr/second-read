@@ -1,0 +1,149 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Leah Kim",
+    "school": "Mission Bay Heights High School (San Diego, CA)",
+    "graduationYear": 2027,
+    "email": "leah.kim.cello@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Music: Instrumental",
+      "position": "Principal Cello (12); Section Cello (10-11)",
+      "organization": "San Diego Youth Symphony",
+      "description": "Top orchestra of SDYS. Lead cello sectionals and bowings; played our spring tour concerts.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Art",
+      "position": "Composer",
+      "organization": "Independent film scoring",
+      "description": "Scored 5 student short films and a video for a local nonprofit. I record live cello over my own MIDI mockups.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Internship",
+      "position": "Sound Design Intern",
+      "organization": "The Old Globe",
+      "description": "Summer internship: built sound cues and ran playback in rehearsals for an outdoor Shakespeare production.",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 30,
+      "weeksPerYear": 6,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Cello Teacher",
+      "organization": "Self-employed",
+      "description": "Teach beginner cello to 6 elementary students in my neighborhood.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 44,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Foreign Language",
+      "position": "Student; Teaching Assistant (11)",
+      "organization": "Korean language school (San Diego)",
+      "description": "Saturday Korean school since age 6; helped teach the kindergarten class my last year.",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 32,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer Musician",
+      "organization": "Rady Children's Hospital",
+      "description": "Play cello in the lobby and on the floors with a small string group, twice a month.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "San Diego Youth Symphony Concerto Competition, 2nd Place",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "California All-State Orchestra",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "The first time I noticed film music, I was nine, crying at an animated movie about a house tied to balloons, and I realized the thing making me cry wasn't on the screen.\n\nIt was the music. A little waltz that started happy and slowly went sad, playing over a montage with no dialogue at all. I made my mom buy the soundtrack. I played that track on repeat until my little brother hid the speaker. I didn't know yet that someone's whole job was to write that music, to sit in a room and decide exactly how an audience should feel. When I found out, I thought it was the coolest job in the world. I still do.\n\nI've played cello since I was seven. For a long time, cello was about technique: scales, etudes, the left-hand shifts my teacher made me practice until my fingers had grooves. When I joined my youth symphony in tenth grade, I was the last chair of the cello section, and I spent most of the first year just trying not to be the person who came in early. But even then, my favorite part of rehearsal wasn't playing. It was listening to how the composer had built the piece, how the cellos would hold a low note while the violins moved above us, how a single French horn could change the whole color of a chord.\n\nThat's when I started composing. At first it was just imitation. I'd watch a scene from a movie with the sound off and try to score it myself on my laptop, then compare mine to the real one. Mine were always worse. But I started to see why. A real film composer doesn't just write a pretty melody. They write for the picture. They know exactly when a character is about to make a decision, and they hold back the music until right after, so you feel it.\n\nI can spend an entire Saturday on ten seconds of music. I'll move one note half a beat later and suddenly a scene goes from awkward to heartbreaking. When I'm working on a cue, I forget to eat. My mom has started leaving kimbap outside my door like I'm a cat.\n\nLast summer, my sound design internship at La Jolla Playhouse showed me a different side of this. I worked on an outdoor Shakespeare production, building sound effects and helping the designer place music cues. Theater is live, so the timing changes every night. I learned that sound isn't just something you add. It's part of how the story breathes.\n\nWhen I want to learn more, I go everywhere. I read interviews with film composers. I watch \"making of\" videos and pause them to study the sheet music on the stands. I take apart scores by ear, writing down the orchestration, figuring out which instruments are doubling which. I've also learned a lot from my younger brother, who is a brutally honest critic. If he's bored during one of my student film scores, I know it needs work.\n\nI've now scored five short films for student filmmakers and one video for a nonprofit that helps refugee families in San Diego. On every project, I record my own cello parts, which makes me feel like I'm in the room with the story.\n\nI don't know exactly where this will take me. Maybe film, maybe theater, maybe video games. But I know I want to spend my life in that invisible place where the music is doing something to you before you even notice it's there."
+  },
+  "supplements": [
+    {
+      "id": "supplement-usc",
+      "college": "University of Southern California",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Describe how you plan to pursue your academic interests and why you want to explore them at USC specifically.",
+      "wordLimit": 250,
+      "text": "I want to study music composition at USC Thornton, with a focus on writing for film and media, and I can't think of anywhere else where that path is so connected to the industry I want to work in.\n\nRight now, I'm a cellist who composes in her bedroom. I've scored five student short films, and last year, after winning our youth symphony's concerto competition, I started taking composition more seriously. But I've mostly taught myself, and I know there are huge gaps in what I understand about orchestration, harmony, and how film scores are actually recorded.\n\nThornton's composition program would give me the theory and training I need, and USC's School of Cinematic Arts means the student filmmakers I'd want to work with would be right across campus. I love the idea of scoring student films at USC, learning how directors and composers communicate, and building relationships early.\n\nI'm also excited to keep playing cello in the Thornton ensembles, because performing reminds me what it feels like to be inside the music, not just writing it.\n\nLos Angeles matters too. Being near scoring stages and studios where real film scores are recorded would let me see how the work actually happens. I'd love to intern or assist on recording sessions.\n\nIn the long run, I want to write music that makes people feel something before they know why. USC is where I can learn how."
+    }
+  ],
+  "publicNames": [
+    "San Diego Youth Symphony (SDYS)",
+    "The Old Globe",
+    "Rady Children's Hospital",
+    "California All-State Orchestra",
+    "La Jolla Playhouse",
+    "University of Southern California (USC)",
+    "USC Thornton School of Music",
+    "USC School of Cinematic Arts"
+  ]
+}

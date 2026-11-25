@@ -1,0 +1,149 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Rohan Iyer",
+    "school": "Flatirons Peak High School (Boulder, CO)",
+    "graduationYear": 2027,
+    "email": "rohan.iyer@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Academic",
+      "position": "Team Captain (12); Member (10-11)",
+      "organization": "National High School Ethics Bowl",
+      "description": "Research and argue real ethical cases on a 5-person team. We won our regional bowl junior year.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 26,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Instrumental",
+      "position": "Pianist",
+      "organization": "Private classical piano study",
+      "description": "Study classical piano; accompany our school choir and play at a senior living center once a month.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 50,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Academic",
+      "position": "Founder & Discussion Leader",
+      "organization": "Flatirons Peak High School Philosophy Club",
+      "description": "Started a weekly club where we read one short text and argue about it, from Plato to Peter Singer. 12 regulars.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Math & Piano Tutor",
+      "organization": "Self-employed",
+      "description": "Tutor 5 middle schoolers in algebra and beginner piano.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 40,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Teen Volunteer",
+      "organization": "Boulder Public Library",
+      "description": "Shelve, help at the summer reading desk, and run a monthly chess afternoon for kids.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Environmental",
+      "position": "Youth Trail Crew",
+      "organization": "Boulder County Parks & Open Space",
+      "description": "Summer trail crew: built drainage, removed invasive plants, and rebuilt switchbacks.",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 6,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "National High School Ethics Bowl, Colorado Regional, 1st Place",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar with Distinction",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?",
+    "wordLimit": 650,
+    "text": "I used to think every question had a right answer, and that the people who disagreed with me just hadn't done the math yet.\n\nThat belief served me well for a long time. I was the kid who liked proofs. I liked that in algebra, if you followed the rules, you could know you were right. Even piano, which people think of as emotional, felt like this to me. There's a correct note. You play it or you don't. My piano teacher used to say I played Bach \"like an accountant,\" which I took as a compliment.\n\nSo when my friend Leah talked me into joining the Ethics Bowl team sophomore year, I assumed it would be like a math competition with feelings. You get a case, you figure out the right answer, you explain it clearly, you win. For most of that first year, I barely spoke in rounds. I sat there taking notes, waiting for someone on the other team to make an error I could correct.\n\nThe case that changed my mind was about a hospital in a small town. A doctor has one dose of an experimental drug and two patients who need it: a young mother and an elderly man who had been the town's doctor for forty years and had probably saved hundreds of lives. Who gets the drug?\n\nI had my answer ready. Expected years of life saved. The young mother. Done. I even had the numbers.\n\nBut in the round, the other team didn't disagree with my numbers. They disagreed with whether numbers were the right tool at all. One of them, a girl from a school in Denver, asked me something I still think about. \"If the old doctor were your grandfather,\" she said, \"would you be comfortable explaining your math to him?\"\n\nI said yes. Then I thought about my actual grandfather, who lives with us, and I wasn't sure. That was the first time in my life I'd been unsure about an answer I had already calculated.\n\nWe lost that round. And for maybe the first time, losing didn't feel like failing. It felt like finding a door in a room I'd thought was closed.\n\nSince then, I've started to see ethics less like math and more like music, which is funny given what my piano teacher said. In a Bach fugue, several voices play at the same time, each following its own logic, and the beauty comes from how they move against each other without canceling out. A good ethical argument is like that. It doesn't flatten everything into one number. It lets several true things exist at once and asks how to act anyway.\n\nThat doesn't mean I think every answer is equally good. I still believe some arguments are better than others, and I still like evidence. But now I spend more time asking what a question is really about before I try to answer it.\n\nJunior year, our team won our regional bowl. At nationals, in Chapel Hill, we lost our very first round, to a team that argued circles around us on a case about AI and art. I wasn't even upset. I spent the whole bus ride to the airport arguing about it with my teammates, still trying to figure out who was right.\n\nI started a philosophy club at school after that, mostly so I'd have people to argue with year-round. We read one text a week. Last week it was Peter Singer. Next week it's a Confucian dialogue. The members disagree about almost everything. I love that.\n\nMy piano teacher says my Bach sounds different now. Less like an accountant. I asked her what it sounds like instead. She said, \"Like you're listening.\""
+  },
+  "supplements": [
+    {
+      "id": "supplement-uchicago",
+      "college": "University of Chicago",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "How does the University of Chicago, as you know it now, satisfy your desire for a particular kind of learning, community, and future? Please address with some specificity your own wishes and how they relate to UChicago.",
+      "wordLimit": 300,
+      "text": "I want to go to a college where people argue about ideas at dinner, and I've been told that UChicago is basically one long dinner argument.\n\nWhat draws me most is the Core. I love that every student reads some of the same foundational texts and then argues about them in small seminars. In my philosophy club, we read one short text a week and discuss it, and those conversations are the best part of my week. The idea of having that experience in nearly every class, with people who've done the reading, sounds like exactly what I've been looking for.\n\nI'm especially interested in the Fundamentals: Issues and Texts major, because it lets students organize their education around a single question and read deeply across disciplines to answer it. My question right now would probably be something like, \"When is it right to put a number on a human life?\" That came out of an Ethics Bowl case that I still haven't stopped thinking about. I'd want to read philosophy, economics, medical ethics, and literature to try to answer it.\n\nI'd also love to keep playing piano, maybe through UChicago's chamber music program, and to join a debate or ethics group on campus.\n\nAs for community, I want to be surrounded by people who disagree with me in interesting ways. Ethics Bowl taught me that the most valuable conversations happen when you're willing to be wrong in front of smart people. I get the sense that UChicago is full of people who'd rather be challenged than comfortable.\n\nMy future probably involves law, philosophy, or public policy. Wherever I end up, I want to be the kind of person who knows how to think carefully about hard questions. UChicago seems like the best place to learn how."
+    }
+  ],
+  "publicNames": [
+    "National High School Ethics Bowl",
+    "Boulder Public Library",
+    "Boulder County Parks & Open Space",
+    "AP Scholar with Distinction",
+    "University of Chicago",
+    "The Core (UChicago)",
+    "Fundamentals: Issues and Texts"
+  ]
+}

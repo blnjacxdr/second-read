@@ -1,0 +1,155 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Tomás Echeverría",
+    "school": "Treasure Valley West High School (Boise, ID)",
+    "graduationYear": 2027,
+    "email": "tomas.echeverria@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Dance",
+      "position": "Dancer",
+      "organization": "Oinkari Basque Dancers",
+      "description": "Perform traditional Basque dances at the San Inazio festival and at Basque festivals around the West.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Academic",
+      "position": "Archive Volunteer & Tour Guide",
+      "organization": "Basque Museum & Cultural Center",
+      "description": "Digitized letters from Basque sheepherders in the 1920s and give tours of the Cyrus Jacobs-Uberuaga House.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 28,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Foreign Language",
+      "position": "Student",
+      "organization": "Euskara classes at the Basque Center (Boise)",
+      "description": "Weekly evening classes in Euskara, the Basque language. Third year; I can finally argue with my aitona.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Journalism/Publication",
+      "position": "Staff Writer",
+      "organization": "The Boise River Ledger (school newspaper)",
+      "description": "Write features and a monthly column about local history and places most people drive past.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Work (Paid)",
+      "position": "Busser & Server",
+      "organization": "Basque restaurant on the Basque Block (Boise)",
+      "description": "Bus and serve on weekend nights; carry more plates of croquetas than any human should.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 46,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Soccer",
+      "position": "Midfielder",
+      "organization": "Treasure Valley West High School Soccer",
+      "description": "JV two years, varsity junior and senior year.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 14,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards, Gold Key, Personal Essay & Memoir",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "In the mountains north of Boise there's an aspen tree with my great-grandfather's name carved into it. Below his name it says 1931, and below that, a little drawing of a sheep that honestly looks more like a cloud with legs.\n\nMy great-grandfather, Joseba, came to Idaho from the Basque Country when he was seventeen, to herd sheep. He spent years alone in the high country with a dog, a horse, and two thousand sheep, seeing another person maybe once a month when the camp tender brought supplies. A lot of Basque herders carved their names, dates, and drawings into aspen bark to pass the time. Historians call them arborglyphs. Thousands of them are still out there in the forests of Idaho and Nevada, slowly disappearing as the trees die.\n\nI found Joseba's tree when I was twelve, on a hike with my aitona, my grandfather. He had been looking for it for thirty years. When we finally found it, he put his hand flat on the carving and didn't say anything for a long time. Then he said something in Euskara that I didn't understand, and I asked him to translate, and he said, \"Some words don't come across.\"\n\nThat bothered me for a long time. It's part of why I started taking Basque classes. Euskara is one of the oldest languages in Europe and isn't related to any other language on earth. It's also hard. Really hard. But I wanted to know what my grandfather had said to that tree.\n\nBeing Basque in Boise is a strange thing. On one hand, Boise has one of the biggest Basque communities outside of Europe. We have a Basque Block downtown, a Basque museum, Basque restaurants, a Basque festival every summer where thousands of people come to eat chorizo and watch the dancers. I'm one of those dancers now. On the other hand, most people I meet at school have no idea what \"Basque\" means. Someone once asked me if it was a kind of salad dressing.\n\nWhat I've come to understand is that identity isn't something you just have. It's something you keep doing, or it fades, like the carvings on the aspens. My family has been in Idaho for almost a hundred years. We could have let the Basque part go. A lot of families did. But my grandfather kept speaking Euskara, my mom kept sending me to dance practice, and I keep showing up to class every Tuesday night even when I'd rather be anywhere else.\n\nThis has become the center of my writing, too. Sophomore year I wrote an essay about Joseba's tree for my English class. My teacher submitted it to the Scholastic Awards, and that winter it won a Gold Key. I've been writing about Basque history ever since, for the school paper and for myself, trying to put down the stories before they disappear.\n\nLast summer, my aitona and I went back to the tree. The bark has started to split, and the \"1931\" is getting hard to read. In a few more years it'll be gone. I took photos and measurements and added them to a database that researchers use to track arborglyphs. Then my grandfather put his hand on the tree again and said the same thing he'd said five years before.\n\nThis time, I understood it. It means, roughly, \"We're still here.\"\n\nHe was right. Some words don't come across. You have to go to them."
+  },
+  "supplements": [
+    {
+      "id": "supplement-scu",
+      "college": "Santa Clara University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in Santa Clara University, and how will you contribute to our community?",
+      "wordLimit": 250,
+      "text": "I want to go to Santa Clara because I want to study history and English in a place that cares about the ethical side of telling people's stories.\n\nMost of my writing is about the Basque community in Idaho, especially the sheepherders who came here a century ago. When I wrote about my great-grandfather's arborglyph for English class, it won a Gold Key from the Scholastic Awards, which are run by the National Endowment for the Arts. That essay made me realize how much responsibility comes with writing about real people, especially people who can't speak for themselves anymore.\n\nThat's why the Markkula Center for Applied Ethics stands out to me. I'd love to learn how journalists and historians make decisions about privacy, memory, and truth. I'm also drawn to Santa Clara's Jesuit focus on educating the whole person, and the idea of service as part of learning.\n\nI'll bring a strong sense of community, because I come from one. In Boise's Basque community, everyone shows up: for funerals, for festivals, for dance practice at 7 p.m. on a Tuesday. I'm going to keep studying Euskara in college, even if I have to do it online, and I'd love to share Basque culture with other students, maybe through a dance performance or a cooking night. (I make a decent tortilla de patatas.)\n\nMostly, I want to keep learning how to tell stories that are true, fair, and worth remembering."
+    }
+  ],
+  "publicNames": [
+    "Oinkari Basque Dancers",
+    "San Inazio Festival",
+    "Basque Museum & Cultural Center",
+    "Cyrus Jacobs-Uberuaga House",
+    "Basque Center (Boise)",
+    "Basque Block",
+    "Scholastic Art & Writing Awards",
+    "AP Scholar",
+    "Santa Clara University",
+    "Markkula Center for Applied Ethics",
+    "National Endowment for the Arts"
+  ]
+}

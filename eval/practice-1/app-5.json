@@ -1,0 +1,154 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Henry Sato",
+    "school": "River City Heights High School (Sacramento, CA)",
+    "graduationYear": 2027,
+    "email": "henry.sato@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Music: Instrumental",
+      "position": "Drummer; Youth Ensemble Leader (12)",
+      "organization": "Sacramento Taiko Dan",
+      "description": "Lead warmups for the youth ensemble and teach new drummers. Play Obon festivals and our big spring concert.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Academic",
+      "position": "Oral History Volunteer",
+      "organization": "Japanese American Citizens League, Florin Chapter",
+      "description": "Record and transcribe interviews with former incarcerees and their families for the chapter's oral history archive.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 25,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Counter Staff",
+      "organization": "Japanese bakery (Sacramento)",
+      "description": "Run the counter on weekends; box mochi and manjū orders for New Year's and funerals.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 46,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Debate/Speech",
+      "position": "Competitor, Original Oratory",
+      "organization": "Speech & Debate Team",
+      "description": "Wrote and performed a 10-minute speech on what my family didn't say about the camps.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 26,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Youth Volunteer",
+      "organization": "Tule Lake Pilgrimage",
+      "description": "Helped run registration and led a small-group discussion for teens at the pilgrimage to the Tule Lake site.",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 30,
+      "weeksPerYear": 1,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Religious",
+      "position": "Youth Member",
+      "organization": "Buddhist Church of Sacramento",
+      "description": "Set up and clean up for the summer Obon festival; help the little kids learn the bon odori dances.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "CHSSA State Championship, Semifinalist, Original Oratory",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar with Honor",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on something that someone has done for you that has made you happy or thankful in a surprising way. How has this gratitude affected or motivated you?",
+    "wordLimit": 650,
+    "text": "For sixteen years, the only thing my Jiichan ever told me about Tule Lake was that it was cold.\n\nThat was it. Cold. If I asked anything else, about why his family was there, or what they ate, or whether he had friends, he would change the subject to the Giants or ask if I'd eaten yet. My grandfather was born in 1938. He was four when his family was forced out of their farm in Florin and sent to an incarceration camp, and he was seven when they got out. I knew all of this from a school report and a few photos at my great-aunt's house. I did not know any of it from him.\n\nI want to be clear that I wasn't angry about this. My family is not a family that talks about feelings. We talk about food. Silence about the camps was just how it was, the same as in a lot of Japanese American families. My dad says his dad never talked about it either. I figured that was the end of it.\n\nThen, last summer, my grandfather surprised me.\n\nI had been volunteering for almost two years with our local JACL chapter, recording oral histories with people who had been in the camps. It was mostly other people's grandparents. I would set up the microphone, ask the questions from our list, and transcribe afterward. Some interviews were funny. Some were hard to listen to. One woman described watching her father burn the family's letters from Japan in their backyard, because they were afraid of being accused of being spies. I came home from that one and couldn't eat dinner.\n\nI never asked my grandfather to do an interview. I assumed it would be rude, or that he would just say \"cold\" again.\n\nBut one night in June, he called me into the living room and said he wanted to go to the Tule Lake Pilgrimage. He'd never been. He was eighty-seven, and he asked if I would drive him. It's about five hours north. We left at five in the morning, and somewhere past Redding, without me asking anything, he started talking.\n\nHe talked for two hours. About the barbed wire. About the boy in the next barrack who taught him to play marbles. About his mother crying in the latrine because it was the only place with any privacy. About the day a guard gave him a candy bar and he didn't know whether to eat it or throw it away. I didn't record any of it. I didn't want to break whatever was happening. I just drove and listened, and when I couldn't see the road very well, I pretended it was the sun.\n\nAt the site, he stood at the edge of the old camp for a long time. Then he said, \"It was cold,\" and laughed, and I laughed too.\n\nI've thought a lot about why he chose to tell me then. I think maybe it was the interviews. He'd been watching me sit with other people's stories for two years, and maybe he decided I could handle his. That's the most surprising gift anyone has ever given me: not the story itself, but his trust that I would carry it carefully.\n\nIt changed how I see my taiko, too. Last spring's concert ran six performances over two weekends, and for the first time I understood the drums differently. Taiko came to America with people like my grandfather's parents. It's loud on purpose. It's a way of taking up space that a lot of Japanese Americans weren't allowed to take for a long time.\n\nJiichan came to the last performance. Afterward, he said my drumming was too loud. Then he said, \"Good.\""
+  },
+  "supplements": [
+    {
+      "id": "supplement-swarthmore",
+      "college": "Swarthmore College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in Swarthmore?",
+      "wordLimit": 250,
+      "text": "I want to study history at Swarthmore because I'm interested in how communities remember things that were done to them, and how silence can be a kind of history too.\n\nFor two years I've recorded oral histories with Japanese Americans who were incarcerated during World War II. Last summer I finally heard my grandpa Tom's story for the first time, on a drive to the Tule Lake Pilgrimage. It made me want to learn how historians handle memories like his: how you check them, how you honor them, and how you write about trauma without turning people into symbols.\n\nSwarthmore appeals to me because of its small seminars and the Honors Program, where students defend their work in front of outside examiners. I'd also love to use the Swarthmore College Peace Collection, which has records from activists and conscientious objectors during the war. I want to know how people who disagreed with incarceration spoke up, and who didn't.\n\nI'd also keep drumming. Taiko is my way of being loud about history. I've been in an ensemble that puts on two concerts a year, and I'd love to find or start a taiko group at Swarthmore or in Philadelphia.\n\nI think Swarthmore's Quaker roots, especially the focus on listening before speaking, fit me. I learned the hardest lesson of my life by keeping my mouth shut for two hours while someone I love finally talked. I want to go somewhere that values that kind of listening."
+    }
+  ],
+  "publicNames": [
+    "Sacramento Taiko Dan",
+    "Japanese American Citizens League (JACL)",
+    "Florin JACL",
+    "Tule Lake Pilgrimage",
+    "Buddhist Church of Sacramento",
+    "California High School Speech Association (CHSSA)",
+    "AP Scholar with Honor",
+    "San Francisco Giants",
+    "Swarthmore College",
+    "Swarthmore Honors Program",
+    "Swarthmore College Peace Collection"
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Aaliyah Grant",
+    "school": "Five Points Preparatory High School (Denver, CO)",
+    "graduationYear": 2027,
+    "email": "aaliyah.grant.dance@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Dance",
+      "position": "Company Member",
+      "organization": "Cleo Parker Robinson Dance Youth Ensemble",
+      "description": "Perform modern and Dunham technique pieces in the youth ensemble's winter and spring concerts and community shows.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Dance",
+      "position": "Captain & Choreographer",
+      "organization": "Five Points Prep Hip-Hop Dance Team",
+      "description": "Choreograph our routines for pep rallies and the spring showcase; run tryouts and Monday practices.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 30,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Front Desk Attendant",
+      "organization": "Denver Parks & Recreation",
+      "description": "Check in members, answer phones and help with youth programs at a neighborhood rec center.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 45,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Cultural",
+      "position": "President (12)",
+      "organization": "Black Student Alliance",
+      "description": "Plan our Black History Month assembly and a monthly natural hair and self-care night.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Youth Volunteer",
+      "organization": "Blair-Caldwell African American Research Library",
+      "description": "Help with family history workshops and set up for author talks at the library.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Religious",
+      "position": "Alto, Youth Choir",
+      "organization": "Church youth choir (Denver)",
+      "description": "Sing at Sunday service and help teach the younger kids their parts.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 45,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Cleo Parker Robinson Dance International Summer Dance Institute, Scholarship Recipient",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "I learned the name Katherine Dunham at fourteen, from a woman in her eighties who could still do a better hip isolation than me.\n\nHer name was Miss Velma, and she taught one master class at my dance studio the fall I started the youth ensemble. I almost didn't go. I was a hip-hop kid. I'd been battling in my cousin's garage since I was ten, and I thought modern dance was something rich girls did in leotards. My mom made me go because she'd already paid.\n\nMiss Velma walked in with a cane, set it against the wall, and said, \"Today we're doing Dunham technique.\" Then she told us who Katherine Dunham was: a Black dancer and anthropologist who went to Haiti and the Caribbean in the 1930s, studied the dances of the African diaspora, and built a whole technique out of them. She toured the world with her company when Black dancers couldn't even stay in the hotels where they performed.\n\nI'd never heard of her. I'd been dancing for years, and nobody had ever told me.\n\nThen Miss Velma taught the class. The isolations, the rolling spine, the way your pelvis and ribs move separately. About ten minutes in, I realized something that made my whole body feel hot. I already knew some of these movements. Not from a class. From the garage. From watching my aunties at cookouts. From the hip-hop I'd been doing for years. Those movements had come from somewhere, from a long line of people across Africa and the Caribbean and the American South, and Katherine Dunham had studied them seriously and named them, and then the world had mostly forgotten her.\n\nThat class sparked something I'm still inside of. I started reading everything I could about Dunham, and then about Alvin Ailey, Pearl Primus, Cleo Parker Robinson. I learned that Dunham technique had been taught at my own studio for decades, which nobody had mentioned to me in the months I'd been going there. I went to the Blair-Caldwell library and found old programs from Black dance companies that performed in Denver in the 1970s. I started volunteering there partly so I could keep digging.\n\nThe biggest change was in how I see myself. I used to think I was a hip-hop dancer who was learning modern on the side. Now I think of all of it as one thing. Hip-hop, Dunham, the dances at family reunions, the praise dancing at my grandmother's church. They're branches of the same tree. When I choreograph for my school's hip-hop team now, I put Dunham isolations into the routines. Nobody notices. That's fine. I know they're there.\n\nIt also changed how I see other people. I used to judge the ballet girls at my studio for being stiff. Now I know they come from their own long line, with its own history and its own politics. I've started trading lessons with one of them. I teach her how to hit, and she teaches me how to turn. We're both bad at the other thing. We laugh a lot.\n\nMiss Velma died last year. At her memorial, the youth ensemble performed a Dunham piece, and I danced in the front row. I thought about how the movements in my body had traveled from Haiti to Chicago to New York to Denver, and from her body to mine.\n\nThat's what I want to do with my life. Keep the line going. Make sure the next fourteen-year-old knows the names."
+  },
+  "supplements": [
+    {
+      "id": "supplement-spelman",
+      "college": "Spelman College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in attending Spelman College?",
+      "wordLimit": 250,
+      "text": "I want to go to Spelman because I want to study dance and history at a place where Black women's art and scholarship are the center, not the side note.\n\nMost of what I know about the history of Black dance, I learned on my own. Katherine Dunham, Pearl Primus, Cleo Parker Robinson. I found them in library archives and old programs, not in my classes. At Spelman, I'd be able to study that history seriously, with professors who know it deeply, and take dance technique and choreography at the same time. Spelman's Dance Performance and Choreography program is a big reason I'm applying.\n\nRight now I'm in the studio about 25 hours a week between my youth ensemble and my school's hip-hop team, so I know I want dance to stay a huge part of my life. I can't wait to choreograph for a student hip-hop crew in college and to keep mixing hip-hop with modern technique.\n\nI'm also excited about Atlanta. It's a center of Black culture and history, and being near the Atlanta University Center, with Morehouse and Clark Atlanta right there, would mean an even bigger community of students who care about the same things I do.\n\nMost of all, I want to be surrounded by Black women who are building things. My grandmother, my mom, and Miss Velma showed me what that looks like. I want four years of it."
+    }
+  ],
+  "publicNames": [
+    "Cleo Parker Robinson Dance",
+    "Cleo Parker Robinson Dance Youth Ensemble",
+    "Denver Parks & Recreation",
+    "Black Student Alliance",
+    "Blair-Caldwell African American Research Library",
+    "International Summer Dance Institute",
+    "AP Scholar",
+    "Spelman College",
+    "Spelman Dance Performance and Choreography program",
+    "Atlanta University Center",
+    "Morehouse College",
+    "Clark Atlanta University"
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Naomi Feldman",
+    "school": "Cedar Hills High School (Portland, OR)",
+    "graduationYear": 2027,
+    "email": "naomi.feldman.plays@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Theater/Drama",
+      "position": "Playwright & Student Director",
+      "organization": "Cedar Hills High School Theatre",
+      "description": "Wrote and directed a one-act for our student-written festival. Ran 3 performances; I also run lights for mainstage shows.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 26,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Bookseller",
+      "organization": "Powell's City of Books",
+      "description": "Shelve, help customers, and run registers. I'm the unofficial expert on where the plays are.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 25,
+      "weeksPerYear": 12,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Religious",
+      "position": "Chapter Programming VP (12)",
+      "organization": "BBYO",
+      "description": "Plan Shabbat dinners, a Holocaust remembrance program, and our chapter's winter retreat for 40 teens.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Theater/Drama",
+      "position": "Teen Ambassador",
+      "organization": "Portland Center Stage",
+      "description": "Usher student matinees, help run post-show talkbacks, and sat in on two new-play readings.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer",
+      "organization": "Oregon Food Bank",
+      "description": "Repack bulk food at the warehouse with my BBYO chapter once a month.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 10,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Debate/Speech",
+      "position": "Witness",
+      "organization": "Classroom Law Project High School Mock Trial",
+      "description": "Played witnesses in our team's case; good practice for writing characters who lie.",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 12,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "The Blank Theatre Young Playwrights Festival, Finalist",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "National Merit Commended Student",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "The first time anyone read my play out loud, a boy named Marcus fell asleep during the second scene.\n\nTo be fair, it was 3:45 on a Thursday, and Marcus had cross country practice that morning. But I didn't see it that way. I saw a play I'd spent six months writing, about my grandmother losing her memory, put to sleep a sixteen-year-old in under ten minutes. I went home and told my mom I was quitting playwriting forever. She said, \"Okay, Nechama,\" which is my Hebrew name and also what she calls me when she thinks I'm being dramatic.\n\nThe play was called The Kitchen Drawer. My Bubbe Ruth had Alzheimer's for the last four years of her life, and the most specific thing I remember is that she kept a drawer in her kitchen full of rubber bands, twist ties, and birthday candles, and in her last year she would open it over and over, looking for something she couldn't name. I wanted to write a play about that drawer. I thought if I wrote it well enough, I would understand what she was looking for.\n\nThe draft that put Marcus to sleep was forty pages of my grandmother remembering things. Long monologues about Brooklyn in the 1950s, about my grandfather, about the factory where she sewed coats. It was all true and I loved all of it. And in the reading, it just sat there.\n\nAfter everybody left, our theater teacher, Mr. Abara, stayed and asked me one question. \"What does she want?\" I said, \"To remember.\" He said, \"That's not something you can watch someone do.\"\n\nIt took me a long time to understand what he meant. In a play, characters have to want something they can try to get, and the audience has to watch them try. My Bubbe in the draft didn't want anything. She just remembered, beautifully, and the audience just listened. It was a eulogy, not a play.\n\nSo I started over. I cut almost every monologue. I made the play about a single afternoon. A granddaughter comes to visit, and the grandmother is looking for something in the drawer, and the granddaughter tries to help her find it without knowing what it is. They empty the drawer onto the table. They find rubber bands, a matchbook, a recipe card, a key to an apartment that doesn't exist anymore. Every object becomes a fight about the past. In the end, the grandmother finds what she was looking for, and it's a birthday candle. She doesn't remember why she needs it. The granddaughter lights it anyway.\n\nThe new version was twenty-two pages. When we read it in class, nobody fell asleep. Marcus actually cried, and then denied it.\n\nWhat I learned from that failure wasn't just how to write a better play. It was that loving something isn't the same as knowing how to share it. I had confused my own feelings about my grandmother with an experience I could give an audience. I've started noticing that difference everywhere, in essays, in speeches, even in arguments with my friends. It's not enough to feel something deeply. You have to build a way for someone else to feel it too.\n\nThe Kitchen Drawer was performed at our student-written festival last spring. My mom sat in the front row every night. Afterward she said, \"Bubbe would have hated it,\" and then, after a pause, \"and she would have told everyone about it.\"\n\nI've worked at Powell's every weekend since last fall, and I still spend my breaks in the drama section, reading plays by people who figured this out before me."
+  },
+  "supplements": [
+    {
+      "id": "supplement-vassar",
+      "college": "Vassar College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in attending Vassar?",
+      "wordLimit": 250,
+      "text": "I want to go to Vassar because I want to write plays in a place where theater is taken seriously, but where I can also take a class on the history of memory, or neuroscience, or Yiddish literature, and have all of it end up in my writing.\n\nMy last play, about my grandmother's Alzheimer's, was a finalist in a national playwriting competition, and working on it taught me that good plays come from knowing a lot about things that aren't theater. I had to learn about dementia, about Brooklyn garment factories in the 1950s, about how memory works. I want four years of learning like that.\n\nVassar's Drama Department is a big draw, especially its focus on new work and on students making their own productions. I'm also excited that Powerhouse Theater happens on campus every summer. The idea of being around professional playwrights developing new plays, even as an intern or an audience member, is kind of a dream.\n\nI also like that Vassar doesn't make you pick a box. I could major in drama and still take classes in psychology or Jewish studies without anyone telling me I'm doing it wrong. My best writing has always come from combining things that don't seem like they go together.\n\nFinally, I love that Vassar feels like a community of people who are a little bit intense about what they care about. I'm one of those people. I've rewritten one play nine times. I think I'd fit in."
+    }
+  ],
+  "publicNames": [
+    "Powell's City of Books",
+    "BBYO",
+    "Portland Center Stage",
+    "Oregon Food Bank",
+    "Classroom Law Project",
+    "The Blank Theatre",
+    "Young Playwrights Festival (The Blank Theatre)",
+    "National Merit Scholarship Program",
+    "Vassar College",
+    "Vassar Drama Department",
+    "Powerhouse Theater"
+  ]
+}

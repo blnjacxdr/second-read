@@ -1,0 +1,136 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Elena Petrov",
+    "school": "Truckee Meadows Ridge High School (Reno, NV)",
+    "graduationYear": 2027,
+    "email": "elena.petrov.dance@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Dance",
+      "position": "Pre-Professional Student",
+      "organization": "Reno ballet school (pre-professional division)",
+      "description": "Have trained 5 days a week since age 12: ballet, pointe and contemporary. Danced Snow Queen in our Nutcracker last December.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 46,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Foreign Language",
+      "position": "Student; Teaching Assistant (11-12)",
+      "organization": "Russian Saturday school (Reno)",
+      "description": "Studied Russian grammar and literature on Saturdays for 8 years. Now I help teach 7-year-olds to read Cyrillic.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Host",
+      "organization": "Italian restaurant (downtown Reno)",
+      "description": "Seat guests, answer phones and manage the waitlist on Friday and Saturday nights.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 40,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Other Club/Activity",
+      "position": "Founder",
+      "organization": "Translated Lit Book Club",
+      "description": "Monthly club that reads books in translation: Chekhov, Murakami, Ferrante. 9 members and too many snacks.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer",
+      "organization": "Food Bank of Northern Nevada",
+      "description": "Sort donations and help at the mobile pantry with my ballet friends twice a month.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 24,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "YoungArts, Honorable Mention, Dance",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Principal's List",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "level": "School"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "The X-ray showed a thin gray line on the second metatarsal of my left foot, and the doctor said, very kindly, \"No dancing for eight weeks.\"\n\nI was fifteen. I had been taking ballet since I was four. I trained six days a week at the barre, the way I had since I was twelve, plus conditioning, plus Saturday rehearsals. My whole life was organized around class. I didn't know who I was without it, and I definitely didn't know what to do with eight empty weeks in a walking boot.\n\nThe first week I mostly cried and watched other people's ballet videos on my phone, which is a terrible idea when you have a stress fracture. My mom, who doesn't believe in moping, finally took my phone away and handed me a book from her shelf. It was a collection of Chekhov short stories in Russian, with a cracked spine and her handwriting in the margins from when she was a student in Saint Petersburg.\n\nI had gone to Russian Saturday school since I was nine, so I could read it, but slowly. Very slowly. The first story took me three days. It was \"The Lady with the Dog,\" and when I finished it I didn't understand why my mom had given it to me. Nothing happens in it, really. Two people fall in love when they shouldn't, and then they can't figure out what to do about it. The story just stops.\n\nI complained about that to my mom. She said, \"That's the point. Life doesn't end where you want it to.\"\n\nSo I read another one. And then another one. By week four, I was reading a story a day, sitting on the couch with my boot propped on a pillow and a Russian dictionary I mostly didn't need anymore. Chekhov was a doctor, and you can tell. He watches people the way a doctor watches a patient, closely and without judgment, noticing the little things. A woman's hands. A man who keeps saying he's fine. He doesn't tell you what to feel. He just shows you what's there.\n\nI started to realize that's what my ballet teacher had been trying to get me to do for years. She always told me I danced too \"loud.\" I was technically strong, but I performed every emotion like I was trying to make the back row understand. Chekhov made me see a different way. What if you didn't push the feeling at the audience? What if you just let it be there and trusted them to notice?\n\nWhen I finally went back to class, I was weak and out of shape and my extensions were embarrassing. But something had changed. In adagio, I stopped trying to show everything. I let my arms be quiet. My teacher noticed on the first day. She didn't say anything at all, which for her is the highest compliment.\n\nThe next year, I submitted a solo to YoungArts and got an Honorable Mention. It was a contemporary piece set to a Rachmaninoff prelude, and I choreographed it to feel like a Chekhov story: small movements, no big climax, an ending that just stops.\n\nI think the fracture taught me that the thing I love can't be the only thing I have. Ballet is still at the center of my life. But now there's also Russian literature, and a book club I started for books in translation, and a way of paying attention that I learned from a doctor who died in 1904.\n\nMy foot healed fine. The gray line is gone. But I still keep my mom's Chekhov on my nightstand, with my own handwriting in the margins now, next to hers."
+  },
+  "supplements": [
+    {
+      "id": "supplement-middlebury",
+      "college": "Middlebury College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in attending Middlebury College?",
+      "wordLimit": 250,
+      "text": "I want to go to Middlebury because it's one of the few places where I could study Russian literature seriously and keep dancing seriously, without having to give up either one.\n\nI've spoken Russian at home my whole life and studied it at a Saturday school for eight years, but I've never had the chance to study it with professors who love the literature as much as I do. Middlebury's Russian department is famous for exactly that, and the Middlebury Language Schools make it feel like a place where language isn't just a requirement but a way of living. I'd love to spend a summer in the Russian School, or study abroad, and read Chekhov and Tolstoy with people who argue about them.\n\nAt the same time, Middlebury's Dance Program would let me keep choreographing. Last year I earned a YoungArts award, which comes from the Kennedy Center, for a solo I made to a Rachmaninoff prelude. I want to keep making dances that are inspired by what I read. I love that Middlebury students can combine programs in unusual ways, and I'd like to explore how literature and choreography can talk to each other.\n\nI also like that Middlebury is small and in the mountains. I grew up in Reno, with the Sierra Nevada right outside town, and I think best when I can see mountains.\n\nMostly, I want to be surrounded by people who are curious about the world in more than one language."
+    }
+  ],
+  "publicNames": [
+    "YoungArts (National YoungArts Foundation)",
+    "Food Bank of Northern Nevada",
+    "Middlebury College",
+    "Middlebury Language Schools",
+    "Middlebury Dance Program",
+    "The Kennedy Center"
+  ]
+}

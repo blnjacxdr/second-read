@@ -1,0 +1,805 @@
+{
+  "about": "Answer key for practice batch 1 (theme: West and Mountain states, arts and humanities): 20 fictional Common App applications for testing a consistency checker. Students, high schools, emails and personal stories are invented; cities, colleges, programs, awards and organizations are real. Each 'mistake' is a planted inconsistency between two or more places, except kind 'real-world', which is a single place that states something false about a real program or organization. 'trickyConsistent' items look like contradictions but are both true. Applications app-5, app-9, app-14 and app-18 have no mistakes. Quotes follow the printed PDF: essay, supplement and description text is copied exactly; short fields are quoted as printed, e.g. activity heading '<organization>, <position>', grades '10, 11, 12 (School)', time '12 hr/wk, 50 wk/yr', plans 'Will continue', honor grades '10, 11'. publicNames gives real names in full form; the text may use a shorter form. High school names are invented and not listed.",
+  "applications": [
+    {
+      "file": "app-1.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "hours",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "6 hr/wk, 34 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "We rehearse ten hours a week"
+            }
+          ],
+          "explanation": "The mariachi activity lists 6 hours a week, but the essay says the group rehearses ten hours a week."
+        },
+        {
+          "id": "m2",
+          "kind": "placing",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "National History Day California, 2nd Place, Senior Individual Website"
+            },
+            {
+              "sectionId": "supplement-stanford",
+              "quote": "For my National History Day project, which won first at state"
+            }
+          ],
+          "explanation": "The honors list says the National History Day project took 2nd place at the California state contest, but the Stanford supplement says it won first at state."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Violin in our 14-member school mariachi."
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "I'm one of the four violins"
+            }
+          ],
+          "explanation": "Not a mistake: the mariachi has 14 members in all, and four of them are violins."
+        }
+      ]
+    },
+    {
+      "file": "app-2.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "role",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "The Clark Fork Review (school literary magazine), Fiction Editor"
+            },
+            {
+              "sectionId": "supplement-kenyon",
+              "quote": "As editor-in-chief of our lit mag"
+            }
+          ],
+          "explanation": "The activity lists him as the literary magazine's fiction editor, but the Kenyon supplement calls him editor-in-chief."
+        },
+        {
+          "id": "m2",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "I spent three weeks at Interlochen, in the woods of northern Wisconsin"
+            }
+          ],
+          "explanation": "Interlochen Arts Camp is in Interlochen, Michigan, near Traverse City, not in Wisconsin."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-3.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "role",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "Pacific Islander Student Union, Founder & President"
+            },
+            {
+              "sectionId": "supplement-pomona",
+              "quote": "As vice president of our Pacific Islander Student Union"
+            }
+          ],
+          "explanation": "The activity lists her as founder and president of the Pacific Islander Student Union, but the Pomona supplement calls her vice president."
+        },
+        {
+          "id": "m2",
+          "kind": "count",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "35 members"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Our twenty members voted to host a college night"
+            }
+          ],
+          "explanation": "The activity says the Pacific Islander Student Union has 35 members, but the essay says twenty."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-4.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "grades",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "10, 11, 12 (School)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "I didn't touch clay until junior year."
+            }
+          ],
+          "explanation": "Ceramics is listed for grades 10 through 12, but the essay says she didn't start working with clay until junior year."
+        },
+        {
+          "id": "m2",
+          "kind": "duplicate",
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "Clay remembers everything you do to it. If you rush, it cracks in the kiln, and you don't find out until it's too late to fix."
+            },
+            {
+              "sectionId": "supplement-barnard",
+              "quote": "Clay remembers everything you do to it. If you rush, it cracks in the kiln, and you don't find out until it's too late to fix."
+            }
+          ],
+          "explanation": "The same two sentences about clay appear word for word in the personal essay and the Barnard supplement."
+        },
+        {
+          "id": "m3",
+          "kind": "other-college",
+          "places": [
+            {
+              "sectionId": "supplement-barnard",
+              "quote": "That is the kind of community I'd find at Smith"
+            }
+          ],
+          "explanation": "The Barnard supplement names Smith in its last paragraph, as if pasted from another school's essay."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-5.json",
+      "mistakes": [],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "Last spring's concert ran six performances over two weekends"
+            },
+            {
+              "sectionId": "supplement-swarthmore",
+              "quote": "an ensemble that puts on two concerts a year"
+            }
+          ],
+          "explanation": "Not a mistake: 'two concerts a year' counts concert programs, and the spring concert alone ran six performances."
+        },
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "the only thing my Jiichan ever told me about Tule Lake"
+            },
+            {
+              "sectionId": "supplement-swarthmore",
+              "quote": "my grandpa Tom's story"
+            }
+          ],
+          "explanation": "Not a mistake: 'Jiichan' is Japanese for grandpa. Jiichan and 'grandpa Tom' are the same person."
+        }
+      ]
+    },
+    {
+      "file": "app-6.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "organization",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "Las Cruces Sun-News, Summer Photo Intern"
+            },
+            {
+              "sectionId": "supplement-wellesley",
+              "quote": "My summer at the Albuquerque Journal"
+            }
+          ],
+          "explanation": "The summer photo internship is with the Las Cruces Sun-News in the activity list and in the essay, but the Wellesley supplement says the Albuquerque Journal."
+        },
+        {
+          "id": "m2",
+          "kind": "plans",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Will not continue"
+            },
+            {
+              "sectionId": "supplement-wellesley",
+              "quote": "I'd keep shooting for the Wellesley News from my first week"
+            }
+          ],
+          "explanation": "The school newspaper photo activity is marked 'Will not continue', but the supplement says she'll shoot for the Wellesley News from her first week."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-7.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "count",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "a ranch of about 250 cow-calf pairs"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "My family runs four hundred head of cattle"
+            }
+          ],
+          "explanation": "The activity says the ranch runs about 250 cow-calf pairs, but the essay says four hundred head of cattle. (250 pairs would be about 500 animals counting calves, so neither reading makes the two numbers match.)"
+        },
+        {
+          "id": "m2",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "the National Cowboy Poetry Gathering in Cody"
+            }
+          ],
+          "explanation": "The National Cowboy Poetry Gathering is held in Elko, Nevada, not in Cody, Wyoming. The supplement repeats the same mistake ('They always do in Cody')."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-8.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "weeks",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "11, 12 (Break)"
+            },
+            {
+              "sectionId": "activity-2",
+              "quote": "25 hr/wk, 12 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "I've worked at Powell's every weekend since last fall"
+            }
+          ],
+          "explanation": "The Powell's job is listed as a break-only job of 12 weeks a year, but the essay says she has worked there every weekend since last fall, which would be a school-year job."
+        },
+        {
+          "id": "m2",
+          "kind": "level",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "State/Regional"
+            },
+            {
+              "sectionId": "supplement-vassar",
+              "quote": "a finalist in a national playwriting competition"
+            }
+          ],
+          "explanation": "The Blank Theatre's Young Playwrights Festival is listed as a State/Regional honor, but the supplement calls it a national competition (it is open to young writers across the US)."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "She said, \"Okay, Nechama,\" which is my Hebrew name"
+            }
+          ],
+          "explanation": "Not a mistake: Nechama is Naomi's Hebrew name, not a different name for the applicant."
+        }
+      ]
+    },
+    {
+      "file": "app-9.json",
+      "mistakes": [],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "National High School Ethics Bowl, Colorado Regional, 1st Place"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "At nationals, in Chapel Hill, we lost our very first round"
+            }
+          ],
+          "explanation": "Not a mistake: the team won the Colorado regional, which sent it to the national championship in Chapel Hill, where it lost in the first round. The 1st place and the loss are at two different levels."
+        },
+        {
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "National High School Ethics Bowl, Team Captain (12); Member (10-11)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "For most of that first year, I barely spoke in rounds."
+            }
+          ],
+          "explanation": "Not a mistake: he was a quiet member in 10th grade and is captain now; the heading shows the role changed over time."
+        }
+      ]
+    },
+    {
+      "file": "app-10.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "count",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Made 3 short documentaries"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Across my four short documentaries"
+            }
+          ],
+          "explanation": "The activity says she has made 3 short documentaries, but the essay says four."
+        },
+        {
+          "id": "m2",
+          "kind": "hours",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "12 hr/wk, 46 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "I work twenty hours a week at Bashas'"
+            }
+          ],
+          "explanation": "The Bashas' job is listed at 12 hours a week, but the essay says twenty."
+        },
+        {
+          "id": "m3",
+          "kind": "role",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "Ponderosa Mesa High School Morning News, Video Editor"
+            },
+            {
+              "sectionId": "supplement-wesleyan",
+              "quote": "As executive producer of our school's morning broadcast"
+            }
+          ],
+          "explanation": "The morning news activity lists her as video editor, but the Wesleyan supplement calls her executive producer."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-11.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "count",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Have trained 5 days a week since age 12"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "I trained six days a week at the barre"
+            }
+          ],
+          "explanation": "The ballet activity says she trains 5 days a week, but the essay says six days a week, and both describe the same years since age 12."
+        },
+        {
+          "id": "m2",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "supplement-middlebury",
+              "quote": "a YoungArts award, which comes from the Kennedy Center"
+            }
+          ],
+          "explanation": "YoungArts awards are given by the National YoungArts Foundation, based in Miami, not by the Kennedy Center."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-12.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "placing",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "Youth Speaks Teen Poetry Slam, Grand Slam Finals, 3rd Place"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "when I won the Youth Speaks Grand Slam"
+            }
+          ],
+          "explanation": "The honors list says he placed 3rd in the Youth Speaks Grand Slam Finals, but the essay says he won it."
+        },
+        {
+          "id": "m2",
+          "kind": "weeks",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "11, 12 (School)"
+            },
+            {
+              "sectionId": "activity-2",
+              "quote": "5 hr/wk, 30 wk/yr"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Every Sunday of the year, even in the summer"
+            }
+          ],
+          "explanation": "SFJAZZ All-Stars is listed as a school-year activity of 30 weeks a year, but the essay says he rehearses every Sunday of the year, even in summer."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "Youth Speaks Teen Poetry Slam, Grand Slam Finals, 3rd Place"
+            },
+            {
+              "sectionId": "supplement-brown",
+              "quote": "When I made the Bay Area team for Brave New Voices"
+            }
+          ],
+          "explanation": "Not a mistake: the Bay Area's Brave New Voices team is made up of several top finishers at the Grand Slam, not only the winner, so a 3rd-place finish fits making the team."
+        }
+      ]
+    },
+    {
+      "file": "app-13.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "grades",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "10, 11, 12 (Year)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "freshman year I joined the youth mural crew at the arts center"
+            }
+          ],
+          "explanation": "The youth mural program is listed for grades 10 through 12, but the essay says she joined the crew freshman year."
+        },
+        {
+          "id": "m2",
+          "kind": "other-college",
+          "places": [
+            {
+              "sectionId": "supplement-risd",
+              "quote": "That's the reason I want to study at SAIC."
+            }
+          ],
+          "explanation": "The RISD supplement ends by naming SAIC (the School of the Art Institute of Chicago) instead of RISD."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-14.json",
+      "mistakes": [],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "Scouting America, Troop 25, Senior Patrol Leader; Eagle Scout"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "I've been in the Boy Scouts since I was eleven"
+            }
+          ],
+          "explanation": "Not a mistake: Boy Scouts of America renamed itself Scouting America in 2024. They are the same organization."
+        },
+        {
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "My friends call me Ben the Archivist now"
+            }
+          ],
+          "explanation": "Not a mistake: Ben is short for Benjamin, the name in personalInfo."
+        }
+      ]
+    },
+    {
+      "file": "app-15.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "role",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Desert Bloom (school literary magazine), Editor-in-Chief (12); Poetry Editor (11)"
+            },
+            {
+              "sectionId": "supplement-amherst",
+              "quote": "As the magazine's managing editor this year"
+            }
+          ],
+          "explanation": "The activity lists her as the literary magazine's editor-in-chief this year (12th grade), but the Amherst supplement calls her managing editor."
+        },
+        {
+          "id": "m2",
+          "kind": "count",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "Lead a staff of 12."
+            },
+            {
+              "sectionId": "supplement-amherst",
+              "quote": "our twenty-person staff"
+            }
+          ],
+          "explanation": "The activity says she leads a literary magazine staff of 12, but the Amherst supplement says the staff has twenty people."
+        },
+        {
+          "id": "m3",
+          "kind": "duplicate",
+          "places": [
+            {
+              "sectionId": "personal-essay",
+              "quote": "My nani says a ghazal is a conversation with someone who isn't in the room. Every couplet stands on its own, but they all circle the same ache."
+            },
+            {
+              "sectionId": "supplement-amherst",
+              "quote": "My nani says a ghazal is a conversation with someone who isn't in the room. Every couplet stands on its own, but they all circle the same ache."
+            }
+          ],
+          "explanation": "The same two sentences about the ghazal appear word for word in the personal essay and the Amherst supplement."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-16.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "plans",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "Will not continue"
+            },
+            {
+              "sectionId": "supplement-scu",
+              "quote": "I'm going to keep studying Euskara in college"
+            }
+          ],
+          "explanation": "The Euskara classes are marked 'Will not continue', but the supplement says he will keep studying Euskara in college."
+        },
+        {
+          "id": "m2",
+          "kind": "grades",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "11"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "Sophomore year I wrote an essay about Joseba's tree"
+            }
+          ],
+          "explanation": "The Gold Key is listed in 11th grade, but the essay says he wrote it sophomore year and it won that winter, which is 10th grade."
+        },
+        {
+          "id": "m3",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "supplement-scu",
+              "quote": "the Scholastic Awards, which are run by the National Endowment for the Arts"
+            }
+          ],
+          "explanation": "The Scholastic Art & Writing Awards are run by the Alliance for Young Artists & Writers, a nonprofit, not by the National Endowment for the Arts."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-17.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "placing",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "San Diego Youth Symphony Concerto Competition, 2nd Place"
+            },
+            {
+              "sectionId": "supplement-usc",
+              "quote": "after winning our youth symphony's concerto competition"
+            }
+          ],
+          "explanation": "The honors list says she took 2nd place in the San Diego Youth Symphony concerto competition, but the USC supplement says she won it."
+        },
+        {
+          "id": "m2",
+          "kind": "organization",
+          "places": [
+            {
+              "sectionId": "activity-3",
+              "quote": "The Old Globe, Sound Design Intern"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "my sound design internship at La Jolla Playhouse"
+            }
+          ],
+          "explanation": "The summer sound design internship on an outdoor Shakespeare production is at The Old Globe in the activity list, but the essay says La Jolla Playhouse."
+        }
+      ],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "San Diego Youth Symphony, Principal Cello (12); Section Cello (10-11)"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "I was the last chair of the cello section"
+            }
+          ],
+          "explanation": "Not a mistake: she was a section cellist (last chair) in 10th grade and is principal cello now; the heading shows the role changed over time."
+        }
+      ]
+    },
+    {
+      "file": "app-18.json",
+      "mistakes": [],
+      "trickyConsistent": [
+        {
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "140 pages drafted so far."
+            },
+            {
+              "sectionId": "supplement-reed",
+              "quote": "Last spring I printed the first 32-page issue"
+            }
+          ],
+          "explanation": "Not a mistake: 140 pages is the whole draft, and the 32-page issue is the first part he has printed."
+        },
+        {
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "2 hr/wk, 30 wk/yr"
+            },
+            {
+              "sectionId": "activity-2",
+              "quote": "an annual 24-hour comics day"
+            }
+          ],
+          "explanation": "Not a mistake: 2 hours a week is the usual commitment; the 24-hour comics day is a single yearly event."
+        }
+      ]
+    },
+    {
+      "file": "app-19.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "hours",
+          "places": [
+            {
+              "sectionId": "activity-1",
+              "quote": "10 hr/wk, 44 wk/yr"
+            },
+            {
+              "sectionId": "activity-2",
+              "quote": "6 hr/wk, 30 wk/yr"
+            },
+            {
+              "sectionId": "supplement-spelman",
+              "quote": "about 25 hours a week between my youth ensemble and my school's hip-hop team"
+            }
+          ],
+          "explanation": "The youth ensemble (10 hr/wk) and the hip-hop team (6 hr/wk) add up to 16 hours a week, but the supplement says about 25 hours a week between the two."
+        },
+        {
+          "id": "m2",
+          "kind": "plans",
+          "places": [
+            {
+              "sectionId": "activity-2",
+              "quote": "Will not continue"
+            },
+            {
+              "sectionId": "supplement-spelman",
+              "quote": "I can't wait to choreograph for a student hip-hop crew in college"
+            }
+          ],
+          "explanation": "The hip-hop team activity is marked 'Will not continue', but the supplement says she can't wait to choreograph for a hip-hop crew in college."
+        }
+      ],
+      "trickyConsistent": []
+    },
+    {
+      "file": "app-20.json",
+      "mistakes": [
+        {
+          "id": "m1",
+          "kind": "grades",
+          "places": [
+            {
+              "sectionId": "honor-1",
+              "quote": "11"
+            },
+            {
+              "sectionId": "honor-2",
+              "quote": "11"
+            },
+            {
+              "sectionId": "personal-essay",
+              "quote": "In March of my sophomore year, I won the state championship."
+            }
+          ],
+          "explanation": "The Poetry Out Loud state championship (and the nationals trip that follows it) is listed in 11th grade, but the essay says he won it in March of his sophomore year."
+        },
+        {
+          "id": "m2",
+          "kind": "real-world",
+          "places": [
+            {
+              "sectionId": "supplement-yale",
+              "quote": "Poetry Out Loud, which is run by the Academy of American Poets"
+            }
+          ],
+          "explanation": "Poetry Out Loud is run by the National Endowment for the Arts and the Poetry Foundation, with state arts agencies, not by the Academy of American Poets."
+        }
+      ],
+      "trickyConsistent": []
+    }
+  ]
+}

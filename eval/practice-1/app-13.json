@@ -1,0 +1,153 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Olivia Martinez-Reyes",
+    "school": "Bessemer Park High School (Pueblo, CO)",
+    "graduationYear": 2027,
+    "email": "olivia.mreyes.art@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Art",
+      "position": "Lead Muralist",
+      "organization": "Sangre de Cristo Arts and Conference Center, Youth Mural Program",
+      "description": "Designed and painted 4 public murals with a youth crew, including a 60-foot wall on the East Side about steelworkers.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Chile Roaster",
+      "organization": "Family chile stand (Pueblo, CO)",
+      "description": "Run the drum roaster and sell Pueblo chiles at our family's roadside stand during the August-September harvest.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 25,
+      "weeksPerYear": 6,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Art",
+      "position": "President",
+      "organization": "National Art Honor Society",
+      "description": "Run our chapter's monthly art nights and a chalk festival fundraiser that raised $2,400 for art supplies.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Archive Volunteer",
+      "organization": "Steelworks Center of the West",
+      "description": "Scan and label photos for the steel mill archive and help with school tours.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Softball",
+      "position": "Catcher",
+      "organization": "Bessemer Park High School Softball",
+      "description": "JV catcher for two years, varsity backup junior year.",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 14,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Family Responsibilities",
+      "position": "Caregiver",
+      "organization": "Family",
+      "description": "Help care for my grandfather after his stroke: meds, rides to physical therapy, and dinner three nights a week.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 52
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Congressional Art Competition, 1st Place, Colorado's 3rd District",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Scholastic Art & Writing Awards, Gold Key, Painting",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "My grandfather worked at the steel mill in Pueblo for thirty-one years, and the first thing he said when he saw the mural was, \"You got my hands wrong.\"\n\nI had spent two months on that wall. Sixty feet long, eleven feet high, on the side of a laundromat on the East Side, a few blocks from the house where my mom grew up. It shows steelworkers at the CF&I mill in the 1950s, Mexican American, Slovenian, Italian, Black, all pouring molten steel in a line, their faces orange from the heat. My grandfather is in it. I painted him from a photograph of him at twenty-two, standing in front of the open hearth with his arms crossed.\n\nI started painting murals in eighth grade, helping my tío on a wall behind his auto shop, and freshman year I joined the youth mural crew at the arts center. By the time I got to the steelworkers wall, I thought I knew what I was doing. I had done the research. I had interviewed retired workers at the Steelworks Center archive. I'd gotten the hard hats right, the gloves, even the kind of boots.\n\nBut my grandfather walked up to the wall, looked at himself for a long time, and said, \"My hands weren't that clean.\"\n\nHe held them out. He's eighty-nine now, and his hands are covered in old burn scars, white and shiny, and two of his fingers don't fully straighten. I had seen his hands my whole life. I had never really looked at them.\n\n\"That's the job,\" he said. \"You don't come out of there with clean hands.\"\n\nI went home and thought about it all night. I realized I had painted a version of the mill that was heroic and beautiful, and it was those things, but it wasn't the whole truth. The mill also burned people, broke their backs, gave them lung problems. Some of the men in my photographs didn't live to retire. I had made a monument when what my grandfather wanted was a portrait.\n\nThe next week, I went back with a ladder and repainted his hands. I added the scars. I darkened the knuckles. Then, because it felt wrong to only fix his, I went through every single worker on the wall and gave them the hands they would have had: blistered, cut, grimy, real. It took another eleven days. My crew thought I was crazy.\n\nWhen we unveiled the mural, a woman I'd never met came up to me crying. Her father had worked the same shift as my grandfather. She pointed at one of the men, a stranger I'd painted from an old union photo, and said, \"Those are his hands. That's exactly what they looked like.\"\n\nThat was the moment I understood what murals are for. They're not decorations. They're public memory. In a town like Pueblo, where the mill shrank and a lot of jobs left, people sometimes feel like their history doesn't count. A wall can tell them it does. But only if it's honest.\n\nSince then, I've changed how I work. I spend more time listening before I sketch. I ask people what's missing from the pictures they've seen of themselves. I've learned that the details that make something \"pretty\" are often the ones that make it false.\n\nMy grandfather had a stroke last spring. Now I'm the one who drives him to physical therapy. Sometimes on the way home he asks me to take the long way past the laundromat. He doesn't say anything. He just looks at his hands on the wall, and then at his hands in his lap."
+  },
+  "supplements": [
+    {
+      "id": "supplement-risd",
+      "college": "Rhode Island School of Design",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in attending RISD, and how do you see yourself contributing to its community?",
+      "wordLimit": 250,
+      "text": "I want to study painting at RISD because I want to learn how to make public art that's both beautiful and honest, and I think that takes more skill than I have yet.\n\nFor the last few years I've painted murals in my hometown of Pueblo, Colorado, mostly about steelworkers and the families who built this city. I've learned a lot on scaffolding, but I've taught myself most of it from YouTube and by making mistakes on walls everyone can see. I want to understand color, composition, and figure drawing at a deeper level, and I want to be around people who take art as seriously as I do.\n\nRISD's Foundation year is a big reason I'm applying. I love that every student starts by building core skills in drawing, design, and spatial dynamics before choosing a major. I'm also excited about RISD's connection to Brown and the RISD Museum, where I could study how artists have represented working people across history.\n\nI'd bring a lot to RISD's community, I hope: a perspective from a working-class town that doesn't get many art schools visiting, a strong work ethic from roasting chiles in 100-degree heat, and a belief that art should belong to everyone, not only galleries. I'd love to start a group that partners with Providence neighborhoods on community murals.\n\nMost of all, I want to learn how to paint hands right. Real ones, with scars. That's the reason I want to study at SAIC."
+    }
+  ],
+  "publicNames": [
+    "Sangre de Cristo Arts and Conference Center",
+    "National Art Honor Society",
+    "Steelworks Center of the West",
+    "Congressional Art Competition",
+    "Scholastic Art & Writing Awards",
+    "Colorado Fuel & Iron (CF&I)",
+    "YouTube",
+    "Rhode Island School of Design (RISD)",
+    "RISD Museum",
+    "Brown University",
+    "School of the Art Institute of Chicago (SAIC)"
+  ]
+}

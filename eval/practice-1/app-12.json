@@ -1,0 +1,137 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Jalen Brooks",
+    "school": "Lake Merritt High School (Oakland, CA)",
+    "graduationYear": 2027,
+    "email": "jalen.brooks.poet@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Art",
+      "position": "Poet & Workshop Co-Leader",
+      "organization": "Youth Speaks",
+      "description": "Write and perform spoken word. Co-lead a Tuesday writing workshop for middle schoolers in East Oakland.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Instrumental",
+      "position": "Second Trumpet",
+      "organization": "SFJAZZ High School All-Stars",
+      "description": "Audition-only big band. Rehearse Sundays in San Francisco and play the season concerts.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Music: Instrumental",
+      "position": "Lead Trumpet",
+      "organization": "Lake Merritt High School Jazz Band",
+      "description": "Lead trumpet and section coach. Arranged our band's version of a Bay Area hip-hop track for the spring show.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Barista",
+      "organization": "Peet's Coffee",
+      "description": "Opening shifts on Saturdays and two afternoons a week. I know 40 regulars' orders by heart.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 46,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Homework Help Volunteer",
+      "organization": "Oakland Public Library",
+      "description": "Help 3rd-6th graders with reading and math at my neighborhood branch after school.",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Youth Speaks Teen Poetry Slam, Grand Slam Finals, 3rd Place",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Brave New Voices International Youth Poetry Slam Festival, Bay Area Team",
+      "grades": [
+        11
+      ],
+      "level": "International"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Share an essay on any topic of your choice. It can be one you've already written, one that responds to a different prompt, or one of your own design.",
+    "wordLimit": 650,
+    "text": "The trumpet taught me how to breathe, and poetry taught me what to do with it.\n\nI picked up the trumpet in sixth grade because my uncle had one in his closet. It had a dent in the bell and a valve that stuck, and the first time I blew into it the sound came out like a goose getting stepped on. My uncle laughed so hard he had to sit down. Then he showed me how to breathe from my stomach instead of my chest, how to fill up slow and let it out even. \"The horn's just a tube,\" he said. \"You're the instrument.\"\n\nFor years trumpet was the only place I knew how to say anything. I wasn't a big talker. In class I kept my head down. At home, my mom worked doubles and my little sister did enough talking for all three of us. But in jazz band, I could take a solo and say something nobody had to translate.\n\nThen, sophomore year, a teaching artist from Youth Speaks came to my English class and performed a poem about her grandmother's hands. She didn't read it. She performed it, standing up, no paper, and her voice went up and down like a melody. She took breaths in strange places, right in the middle of a line, and I realized she was phrasing it like a horn player. I went up to her after class and asked how she did that. She said, \"Come to a workshop and find out.\"\n\nI went. I was terrible. My first poem was about Oakland and had the word \"concrete\" in it four times. But the workshop leaders didn't care. They cared whether I was telling the truth. The first time I read a poem out loud in front of the group, my voice shook so bad I had to stop and breathe the way my uncle taught me. From the stomach. Slow. When I finished, the whole room snapped.\n\nSince then, I've been living in both worlds. Every Sunday of the year, even in the summer, I take BART across the bay to rehearse with the SFJAZZ All-Stars. Every Tuesday, I'm in a library in East Oakland helping middle schoolers write their first poems. I've noticed that the two things keep teaching each other. Jazz taught me that you can play the same tune a hundred times and make it new each time. Poetry taught me that silence is a sound. When I solo now, I leave more space. When I perform a poem, I think about it like a chart: where the bridge is, where the band would drop out.\n\nLast spring, when I won the Youth Speaks Grand Slam, I performed a poem about my uncle. He died two years ago, before I ever played in a real band. The poem is about the dented trumpet. In the middle of it, there's a spot where I stop talking and play four bars of the first song he taught me. The first time I did it, in the finals, I almost couldn't. But I filled up slow and let it out even, and the sound came out clean.\n\nPeople ask me which one I'm going to choose, poetry or music. I don't think I have to. They're both just breath, shaped into something someone else can feel. My uncle was right. The horn's just a tube. So is a microphone. I'm the instrument."
+  },
+  "supplements": [
+    {
+      "id": "supplement-brown",
+      "college": "Brown University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Tell us about a place or community you call home. How has it shaped your perspective?",
+      "wordLimit": 250,
+      "text": "Home is the 7:42 BART train from Lake Merritt to Embarcadero on a Sunday morning, with my trumpet case between my knees.\n\nThe ride is twenty minutes, and I've taken it so many times I know which car is the quietest. For a long time, that train felt like the line between two worlds. On the Oakland side, I was a kid from a neighborhood people outside the Bay make assumptions about. On the San Francisco side, I was a jazz musician in rehearsal with kids from private schools who had better horns than me.\n\nSomewhere along the way, I stopped feeling like I had to switch. The train became its own place, where I'd write poems on my phone between stops and listen to old Clifford Brown recordings. Some of my best lines came from strangers on that train: a lady arguing with her son about church, a guy selling candy for his basketball team.\n\nThat's what Oakland taught me. You can learn from everybody, if you're paying attention. My community at Youth Speaks taught me that too. When I made the Bay Area team for Brave New Voices, our coaches made us spend a whole afternoon just listening to each other's stories before we wrote anything.\n\nAt Brown, I want to study Literary Arts and Africana Studies, and keep playing trumpet. I think I'll bring the train with me: the habit of listening to everyone, and the belief that the space between two worlds can be a home."
+    }
+  ],
+  "publicNames": [
+    "Youth Speaks",
+    "Youth Speaks Teen Poetry Slam",
+    "SFJAZZ High School All-Stars",
+    "SFJAZZ",
+    "Peet's Coffee",
+    "Oakland Public Library",
+    "Brave New Voices International Youth Poetry Slam Festival",
+    "BART (Bay Area Rapid Transit)",
+    "Brown University",
+    "Literary Arts (Brown)",
+    "Africana Studies (Brown)"
+  ]
+}

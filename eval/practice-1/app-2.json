@@ -1,0 +1,151 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Theo Lindgren",
+    "school": "Sentinel Butte High School (Missoula, MT)",
+    "graduationYear": 2027,
+    "email": "theo.lindgren@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Journalism/Publication",
+      "position": "Fiction Editor",
+      "organization": "The Clark Fork Review (school literary magazine)",
+      "description": "Choose and edit the fiction for our spring issue, run Tuesday workshop meetings, and lay out pages in InDesign.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Shop Clerk & Junior Guide",
+      "organization": "Fly shop (Missoula, MT)",
+      "description": "Tie flies, run the counter, and row the drift boat on guided trips on the Blackfoot River in July and August.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 35,
+      "weeksPerYear": 10,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Academic",
+      "position": "Creative Writing Student",
+      "organization": "Interlochen Arts Camp",
+      "description": "Three-week creative writing session with daily fiction workshops and a public reading at the end.",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 40,
+      "weeksPerYear": 3,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Teen Writing Group Leader",
+      "organization": "Missoula Public Library",
+      "description": "Run a monthly writing group for middle and high schoolers. We print a zine of everyone's work every spring.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Football",
+      "position": "Varsity Offensive Lineman",
+      "organization": "Sentinel Butte High School Football",
+      "description": "Left tackle, 3 years varsity. Our line coach makes us read one book per season, which is how I got hooked on Ivan Doig.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 14,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Other Club/Activity",
+      "position": "Volunteer",
+      "organization": "Montana Book Festival",
+      "description": "Set up readings and run the book tables for visiting authors every September.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 1,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards, Gold Key, Short Story",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "MHSA Academic All-State",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "I am six foot three and weigh two hundred and forty pounds, and for most of high school I hid a notebook in my football bag like it was contraband.\n\nNobody told me linemen couldn't write. It was more that nobody told me they could. In Missoula, if you're big, you play football, and if you play football, people make assumptions about you. My teammates assumed I was there to block. My English teachers assumed I was there to get a C. For a long time I assumed they were both right.\n\nThe notebook started in eighth grade, after my grandpa died. He was a logger up the Blackfoot for forty years and he told the best stories of anyone I've ever met, about grizzlies and floods and a guy named Swede who supposedly lost a finger and didn't notice until lunch. After the funeral I realized nobody had written any of them down. So I tried. They came out terrible. But I kept going.\n\nThe realization that changed things came from my offensive line coach, of all people. Coach Ferris makes all his linemen read one book per season. He says it's to teach us patience, but I think he just likes books. Freshman year he handed me Ivan Doig's This House of Sky, about growing up on Montana ranches. I read it in two nights. It was the first time I'd seen my world, the mountains and the weather and quiet men who don't say what they mean, written down like it mattered.\n\nI brought it back to him and, before I could stop myself, said, \"I write stuff like this.\" He didn't laugh. He said, \"Then show me.\" So the next week, after practice, I handed him the Swede story. He read it right there in the locker room while I took the longest shower of my life. When I came out, he'd written one word on the top in red pen: \"More.\"\n\nThat was when I realized the people I was hiding from were mostly in my own head. I joined our literary magazine the next fall. At first I sat in the back and didn't say anything, which is hard to do when you take up most of a couch. But eventually I started editing, and then running workshops, and I found out that the same thing that makes me good at football makes me good at editing. A lineman's job is to protect someone else so they can do the thing everyone sees. An editor's job is basically the same.\n\nLast summer I spent three weeks at Interlochen, in the woods of northern Wisconsin, at a creative writing camp. It was the first time I'd ever been in a room full of people who wrote every day. On the first day a girl from Brooklyn asked what I wrote about, and I said, \"Loggers, mostly.\" She said, \"That's so specific,\" and I couldn't tell if it was a compliment. By the end of the three weeks she'd asked to read the Swede story twice.\n\nI'm not hiding the notebook anymore. It's on my desk, and there are three more next to it. My teammates know I write. A couple of them have asked me to help with their college essays, which is funny, because here I am writing mine.\n\nI still play left tackle on Friday nights. But I've stopped thinking of myself as a football player who writes. I'm a writer who also happens to be very hard to get around."
+  },
+  "supplements": [
+    {
+      "id": "supplement-kenyon",
+      "college": "Kenyon College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in attending Kenyon, and how do you see yourself contributing to our community?",
+      "wordLimit": 250,
+      "text": "I want to go to Kenyon because I want to be somewhere small enough that writers know each other by name, and quiet enough that I can actually hear myself think.\n\nI grew up in Missoula, which is a writing town in its own way. But most of my writing life has happened alone, in notebooks, or in a weekly workshop with nine other teenagers in a classroom that smells like old pizza. As editor-in-chief of our lit mag, I've learned how much a good workshop can do. I want four years of that, every day.\n\nKenyon's English department and the Kenyon Review are a big part of why I'm applying. The idea of working as a student associate on a real literary magazine, reading submissions and learning how editors make decisions, is basically my dream job right now. I'd also love to take creative writing workshops while studying history, because the stories I care most about writing come out of the past, especially the working lives of people in rural places.\n\nI know Gambier is in the middle of nowhere. That's a selling point. I'm from a place where you can drive twenty minutes and not see anybody, and I write best when it's quiet.\n\nAs for contributing, I'll bring a big, slightly awkward Montanan who reads everything, gives honest edits, and will help you move a couch."
+    }
+  ],
+  "publicNames": [
+    "Interlochen Arts Camp",
+    "Missoula Public Library",
+    "Montana Book Festival",
+    "Scholastic Art & Writing Awards",
+    "Montana High School Association (MHSA)",
+    "Adobe InDesign",
+    "Kenyon College",
+    "The Kenyon Review"
+  ]
+}

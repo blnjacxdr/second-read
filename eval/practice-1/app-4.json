@@ -1,0 +1,138 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Ruby Castellanos",
+    "school": "Saguaro Vista High School (Tucson, AZ)",
+    "graduationYear": 2027,
+    "email": "ruby.castellanos@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Dance",
+      "position": "Dancer; Assistant Instructor (12)",
+      "organization": "Folklórico troupe (Tucson community center)",
+      "description": "Dance Jalisco, Veracruz and Sonora styles at Tucson Meet Yourself and the All Souls Procession. Teach the 6-9 year olds.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 7,
+      "weeksPerYear": 46,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Art",
+      "position": "Ceramics Student & Studio Assistant",
+      "organization": "Saguaro Vista High School Ceramics Studio",
+      "description": "Throw and glaze functional pottery. I mix glazes, recycle clay, and load the kiln for three classes.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Cashier & Prep Cook",
+      "organization": "Taquería on South 4th Avenue (Tucson)",
+      "description": "Take orders, prep salsas and tortilla dough, close on Friday nights.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 48,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Family Day Volunteer",
+      "organization": "Tucson Museum of Art",
+      "description": "Help run free family art days and talk with visitors in the Latin American folk art galleries.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Foreign Language",
+      "position": "President",
+      "organization": "Spanish Club",
+      "description": "Plan our Día de los Muertos ofrenda and a weekly conversation table for heritage and non-heritage speakers.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards, Silver Key, Ceramics & Glass",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Saguaro Vista Art Department Award",
+      "grades": [
+        11
+      ],
+      "level": "School"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "The first bowl I ever made exploded.\n\nNot dramatically. There was no bang. I just opened the kiln the next morning and found my bowl in four pieces, plus a crumb of glaze on my friend's mug next to it, which she has never fully forgiven me for. My ceramics teacher, Ms. Ortega, picked up one of the pieces, turned it over, and pointed to a little bubble in the wall. \"Air pocket,\" she said. \"You didn't wedge it enough.\"\n\nI didn't touch clay until junior year. Before that I was a dancer, and only a dancer. I've done folklórico since I was six, and I still do, but dance always felt like something I inherited. My mom danced, my tía danced, my abuela sewed all of our skirts by hand. Clay was the first thing I ever chose by myself, for no reason except that I walked past the ceramics room one day and saw someone centering a lump on the wheel, and it looked like the most peaceful thing in the world.\n\nIt is not peaceful. Not at first. Centering clay on a wheel is like trying to hold a wet, spinning animal perfectly still with your hands. If you push too hard, it collapses. If you don't push hard enough, it wobbles off-center and everything you build on it will be crooked. I spent three weeks just centering before Ms. Ortega let me try to pull up a wall.\n\nBut somewhere in those three weeks I started losing track of time. I would sit down at the wheel after school and look up and it would be dark outside. The janitor started saying goodnight to me by name.\n\nClay remembers everything you do to it. If you rush, it cracks in the kiln, and you don't find out until it's too late to fix. That's what I love about it. Clay doesn't care how talented you are or how much you want it. It only responds to what you actually do. You can't fake wedging. You can't fake patience. For somebody like me, who has always been a little bit of a performer, that was terrifying and also kind of a relief.\n\nThe more I learned, the more I wanted to know where it all came from. I started reading about the pottery traditions of the Tohono Oʼodham, whose land Tucson is built on, and about the potters of Mata Ortiz in Chihuahua, who revived a whole style from broken shards they found in the desert. I went to the Tucson Museum of Art and stood in front of a Mata Ortiz pot for twenty minutes. The walls were thinner than an eggshell. I couldn't figure out how a human being had done it.\n\nNow I volunteer at the museum. I've watched YouTube videos of potters all over the world, from Japan to Oaxaca. I bug Ms. Ortega with questions about glaze chemistry until she sends me home. When I want to learn more, I mostly just make more. Every mistake teaches me something specific. Air pocket. Too thin at the base. Glaze too thick, ran onto the shelf.\n\nI've thrown probably three hundred pieces since that first bowl. Most of them aren't good. But last spring one of my pitchers won a Silver Key, and my abuela put it in the center of her kitchen table and won't let anyone use it, which is the highest honor in my family. She says it's too nice to pour things out of. I keep telling her that's not how pitchers work."
+  },
+  "supplements": [
+    {
+      "id": "supplement-barnard",
+      "college": "Barnard College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "What factors influenced your decision to apply to Barnard College, and why do you think the College would be a good fit for you?",
+      "wordLimit": 250,
+      "text": "I've never lived anywhere but Tucson, and I've never been in a classroom that was only women. Both of those things are part of why I want to go to Barnard.\n\nI first got interested because of an art history class I took online, taught by a professor who talked about how many women artists, especially Latina and Indigenous potters, have been left out of museums. I want to study art history and visual arts, and Barnard's location means I would have the Metropolitan Museum, El Museo del Barrio, and every gallery in New York City as part of my education. I've only seen pottery from Mata Ortiz in one museum. In New York I could see it next to ceramics from around the world.\n\nI also love that Barnard students can take classes at Columbia, so I could study ceramics in a studio and art history in a lecture hall in the same week. Clay remembers everything you do to it. If you rush, it cracks in the kiln, and you don't find out until it's too late to fix. I want my academic work to be like that too: careful, patient, and real.\n\nMost of all, I want a community of women who push each other. My family is full of strong women, my mom, my tía, my abuela, and they taught me that women don't wait for permission. That is the kind of community I'd find at Smith, and it's what I'm looking for in college."
+    }
+  ],
+  "publicNames": [
+    "Tucson Meet Yourself",
+    "All Souls Procession",
+    "Tucson Museum of Art",
+    "Scholastic Art & Writing Awards",
+    "Tohono Oʼodham Nation",
+    "YouTube",
+    "Barnard College",
+    "The Metropolitan Museum of Art",
+    "El Museo del Barrio",
+    "Columbia University",
+    "Smith College"
+  ]
+}

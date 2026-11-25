@@ -1,0 +1,153 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Gabriel Moreno",
+    "school": "Sangre Ridge High School (Santa Fe, NM)",
+    "graduationYear": 2027,
+    "email": "gabe.moreno.sf@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Debate/Speech",
+      "position": "Competitor",
+      "organization": "Poetry Out Loud",
+      "description": "Recite classic and contemporary poems from memory. New Mexico state champion; competed at nationals in Washington, D.C.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Vocal",
+      "position": "Tenor; Section Leader (11-12)",
+      "organization": "Sangre Ridge High School Chamber Choir",
+      "description": "Sing in our auditioned chamber choir; we perform at the Cathedral Basilica every December.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Usher",
+      "organization": "Santa Fe Opera",
+      "description": "Seat patrons, run the coat check on cold nights, and watch the second act from the back whenever I can.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 20,
+      "weeksPerYear": 9,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Youth Docent",
+      "organization": "New Mexico History Museum",
+      "description": "Lead short gallery talks for school groups about Santa Fe's Spanish colonial and Pueblo history.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 24,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Cultural",
+      "position": "Matachines Dancer",
+      "organization": "Parish matachines group (Santa Fe)",
+      "description": "Dance in the matachines at Christmas and on our parish feast day, a northern New Mexico tradition my abuelo danced too.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 8,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Work (Paid)",
+      "position": "Stand Assistant",
+      "organization": "Santa Fe Farmers' Market",
+      "description": "Sell my tío's chile, apples, and ristras on Saturday mornings at the Railyard.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 40,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Poetry Out Loud, New Mexico State Champion",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Poetry Out Loud National Semifinalist",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "My abuelo could not read a single poem, but he talked in them all day.\n\nHe spoke in dichos, the old Spanish sayings that people in northern New Mexico have passed down for centuries. If I complained, he'd tell me that the one who gets up early gets help from God. If I bragged, he'd remind me that the shrimp that falls asleep gets carried away by the current. He had a dicho for every situation, and he said them in a sing-song rhythm that I didn't realize until much later was basically meter.\n\nHe died when I was twelve. At his rosary, my tía stood up and said every dicho she could remember, one after another, and the whole room laughed and cried at the same time. That was the first time I thought words could be a kind of music.\n\nSo it shouldn't have surprised me when I fell in love with memorizing poetry. It started in tenth grade, when my English teacher made the whole class do Poetry Out Loud, the national recitation contest. You pick poems from an official anthology, memorize them, and perform them without any notes. Most people in my class hated it. I couldn't stop.\n\nWhat I love about memorizing a poem is that you can't skim it. You have to live inside every word. When I memorize, I walk around my house saying the lines over and over, sometimes for hours, until they stop being words on a page and start being something in my body. My mom says I sound like a priest muttering a rosary. Which is kind of true. My abuelo would have understood.\n\nThe more poems I memorize, the more I notice what poets are doing with sound. A line can be fast and choppy, like someone out of breath. Or long and slow, like someone remembering. You can't really feel that until you say it out loud. Reading poetry silently is like reading sheet music without ever hearing the song.\n\nIn March of my sophomore year, I won the state championship. Then I got to go to nationals, which was the first time I'd been on a plane by myself. I didn't make the finals, but I didn't care. I spent three days with fifty-some kids from every state who also walked around their houses muttering poems. We stayed up until 2 a.m. in the hotel lobby reciting our favorites to each other. It felt like finding my people.\n\nNow I lose track of time in a slightly different way. I've started researching the oral poetry traditions of northern New Mexico: the alabados, the hymns that the Penitente brotherhoods sang, and the décimas, ten-line poems that were improvised at dances and weddings. A lot of them were never written down. They lived in people's memories, like my abuelo's dichos. I've been interviewing older people at my church and recording what they remember. Some of them can still recite verses their grandparents taught them.\n\nWhen I want to learn more, I go to the New Mexico History Museum archives, where I volunteer, and to the elders at my parish, and to the stack of poetry books next to my bed. I also go back to my notebook of my abuelo's dichos, which my tía and I wrote down after his rosary. There are sixty-three of them now.\n\nI think about how many poems disappeared because nobody wrote them down, and how many survived because somebody bothered to memorize them. I want to be one of the people who bothers."
+  },
+  "supplements": [
+    {
+      "id": "supplement-yale",
+      "college": "Yale University",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "What is it about Yale that has led you to apply?",
+      "wordLimit": 125,
+      "text": "I want to study English and Latin American history at Yale, and I'm drawn to how seriously Yale takes poetry, both reading it and saying it out loud.\n\nPoetry Out Loud, which is run by the Academy of American Poets, gave me the chance to compete at nationals, and it convinced me that poems are meant to be heard. I'd love to take classes that study oral traditions and do research in the Beinecke Library, which has collections on the American West and Latin America.\n\nI'm also excited about Yale's residential colleges, which feel like the big, loud family dinners I grew up with in Santa Fe. I want to be part of a community that argues about books late at night."
+    }
+  ],
+  "publicNames": [
+    "Poetry Out Loud",
+    "Cathedral Basilica of St. Francis of Assisi",
+    "Santa Fe Opera",
+    "New Mexico History Museum",
+    "Santa Fe Farmers' Market",
+    "Santa Fe Railyard",
+    "Yale University",
+    "Beinecke Rare Book & Manuscript Library",
+    "Academy of American Poets"
+  ]
+}

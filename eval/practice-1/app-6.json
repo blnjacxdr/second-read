@@ -1,0 +1,151 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Lucía Ibarra",
+    "school": "Organ Mountain High School (Las Cruces, NM)",
+    "graduationYear": 2027,
+    "email": "lucia.ibarra.photo@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Journalism/Publication",
+      "position": "Photo Editor",
+      "organization": "The Organ Mountain Herald (school newspaper)",
+      "description": "Assign and edit photos for every issue; run a lunchtime camera club for freshmen who borrow the school's old Canons.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 34,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Internship",
+      "position": "Summer Photo Intern",
+      "organization": "Las Cruces Sun-News",
+      "description": "Shot local news and sports and wrote cutlines. 11 photos published, including a front page of the monsoon flooding.",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 25,
+      "weeksPerYear": 8,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer Photographer",
+      "organization": "Mesilla Valley Habitat for Humanity",
+      "description": "Photograph build days and home dedications for the affiliate's newsletter and social media.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Seasonal Worker",
+      "organization": "Pecan farm in the Mesilla Valley",
+      "description": "Help the shaker and sweeper crews during the winter harvest; weigh and bag pecans for the farm stand.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 30,
+      "weeksPerYear": 4,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Foreign Language",
+      "position": "Peer Tutor",
+      "organization": "Organ Mountain High School Spanish Department",
+      "description": "Tutor students in AP Spanish Language twice a week before school.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Student Govt./Politics",
+      "position": "Class Secretary",
+      "organization": "Organ Mountain High School Student Council",
+      "description": "Take minutes, run the class Instagram, and photograph every event whether anyone asks or not.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards, Gold Key, Photography",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "National Scholastic Press Association Picture of the Year, Honorable Mention",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "The best photo I took last summer is one I never turned in.\n\nIt was August, the week the monsoon flooded half of Las Cruces. I was interning at the Sun-News, and my editor sent me out with a reporter to a neighborhood near the arroyo where the water had come up past people's front steps. I had my camera, two lenses, and a pair of rain boots I'd borrowed from my dad, which were three sizes too big.\n\nWe walked down one street where the water was still ankle-deep. Furniture was out on the curbs. A man was using a dustpan to scoop mud out of his living room. And on one porch, a woman about my grandmother's age was sitting on a plastic chair holding a soaked photo album, peeling the pages apart one at a time.\n\nI raised my camera. Through the viewfinder it was perfect. The light was soft and gray. Her face was completely still. In the background you could see the waterline on her front door. I knew, the way you just know sometimes, that it was a front-page photo.\n\nI took one frame. Then she looked up at me.\n\nShe didn't say anything. She didn't have to. I lowered the camera and felt my face get hot. I had been so focused on making a good image that I hadn't thought about the fact that I was standing in front of a stranger's house on the worst day of her year, taking something from her without asking.\n\nI walked up to the porch and introduced myself in Spanish. I told her who I worked for and asked if it was okay that I'd taken her picture. She asked to see it. I turned the screen around. She looked at it for a long time, and then she said, very politely, that she would rather it not be in the newspaper. Those were her parents in the album.\n\nI deleted it in front of her. Then I asked if I could help, and I spent the next forty minutes laying photos out on her kitchen table to dry while the reporter interviewed her neighbors. Before I left, she let me take a different picture: her hands, holding one dry photo of her mother as a young woman. That one ran on page three.\n\nMy editor was annoyed at first that I'd lost the shot. But when I told her why, she was quiet for a minute and then said, \"Good. Some photographers never learn that.\"\n\nThat moment sparked something for me that I'm still figuring out. I used to think photojournalism was about being brave enough to point the camera at hard things. And it is. But it's also about knowing that the people in your pictures are not your material. They're people. A good photo can tell the truth about a flood. A bad decision can make someone's worst day even worse.\n\nSince then, I've changed how I work. I talk to people before I shoot when I can. I tell them who I am and what I'm doing. I teach the freshmen in my camera club to ask themselves one question before they press the shutter: would I want this picture of me published? Sometimes the answer is yes anyway, because the story matters. But they have to ask.\n\nI still think about the photo I deleted. It was probably the best composition I've ever made. But the one of her hands is the one I'm proud of."
+  },
+  "supplements": [
+    {
+      "id": "supplement-wellesley",
+      "college": "Wellesley College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "When choosing a college community, you are choosing a place where you believe you can live, learn, and flourish. What inspired you to apply to Wellesley?",
+      "wordLimit": 300,
+      "text": "I want to study at Wellesley because I want to become a photojournalist who knows a lot about more than photography.\n\nMy summer at the Albuquerque Journal showed me how much good journalism depends on understanding the place you're covering. The best photographers I met there knew history, politics, Spanish, and the names of every arroyo in town. I want an education that gives me that kind of depth, and Wellesley's liberal arts approach feels like the right fit. I'm planning to major in Media Arts and Sciences and take as many history and Latin American studies classes as I can.\n\nI'm also inspired by the women who have come out of Wellesley and changed the way the world sees itself. I love that so many of them were writers, journalists, and thinkers who weren't afraid to ask hard questions. As a Latina from a border town, I don't always see people like me in those roles. I want to be surrounded by women who will push me to take up space.\n\nI'd keep shooting for the Wellesley News from my first week, and I'd want to spend time at the Davis Museum, studying how photographers before me have made images of people and places with care. I also love that Wellesley is close to Boston, with its newspapers and museums, but still has its own lake and quiet.\n\nMost of all, I'm looking for a community where people take both their work and each other seriously. That's what I've found in my best newsrooms, and it's what I hope to find at Wellesley."
+    }
+  ],
+  "publicNames": [
+    "Las Cruces Sun-News",
+    "Mesilla Valley Habitat for Humanity",
+    "Habitat for Humanity",
+    "Canon",
+    "Instagram",
+    "Scholastic Art & Writing Awards",
+    "National Scholastic Press Association (NSPA)",
+    "Albuquerque Journal",
+    "Wellesley College",
+    "Wellesley News",
+    "Davis Museum"
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Wesley Harlan",
+    "school": "High Plains Consolidated High School (Cheyenne, WY)",
+    "graduationYear": 2027,
+    "email": "wes.harlan@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Art",
+      "position": "Writer & Performer",
+      "organization": "Cowboy poetry (independent)",
+      "description": "Write and recite my own cowboy poetry at county fairs, brandings, and the open sessions at the National Cowboy Poetry Gathering.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Family Responsibilities",
+      "position": "Ranch Hand",
+      "organization": "Family cattle ranch near Chugwater, WY",
+      "description": "Calve, brand, fix fence and feed through winter on a ranch of about 250 cow-calf pairs. Up at 5 most days.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 20,
+      "weeksPerYear": 52
+    },
+    {
+      "id": "activity-3",
+      "type": "Community Service (Volunteer)",
+      "position": "Parade Committee Volunteer",
+      "organization": "Cheyenne Frontier Days",
+      "description": "Line up floats, bands and horses at 5 a.m. for the downtown parades during the rodeo week in July.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 30,
+      "weeksPerYear": 2,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Athletics: Club",
+      "sport": "Rodeo",
+      "position": "Heeler, Team Roping",
+      "organization": "Wyoming High School Rodeo Association",
+      "description": "Rope with my cousin as the header. Compete at about 10 rodeos a year plus state finals.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Debate/Speech",
+      "position": "Competitor, Poetry Interpretation",
+      "organization": "Speech & Debate Team",
+      "description": "Performed poems by Wyoming and Montana writers in Poetry Interp; made state finals junior year.",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 18,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Work (Paid)",
+      "position": "Farrier's Assistant",
+      "organization": "Local farrier (Laramie County)",
+      "description": "Hold horses, pull old shoes, and clean up hooves for a farrier who works ranches around Cheyenne.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 40,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Wyoming High School Rodeo Association State Finals, 6th Place, Team Roping",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Wyoming State Speech & Debate Championship, Finalist, Poetry Interpretation",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "There's a kind of poetry most people in my English class have never heard of, and I've been reciting it at brandings since I was fifteen.\n\nCowboy poetry is exactly what it sounds like. Poems by ranch people, about ranch life, usually rhymed, usually funny, sometimes so sad you have to look at your boots. It goes back to the trail drives of the 1800s, when cowboys made up verses to pass the time and keep the cattle calm at night. Today it lives mostly at county fairs, ranch rodeos, Grange halls, and kitchens. My great-uncle Dale used to recite them at every Thanksgiving, standing up with his coffee, and nobody was allowed to talk until he was done.\n\nI'm from a ranch outside Chugwater, Wyoming, population about two hundred. My family runs four hundred head of cattle on land my great-great-grandfather homesteaded. I've been pulling calves since I was eleven and riding since before I can remember. I'm also the only person I know who has a poetry notebook in the glove box of a feed truck.\n\nFor a long time, I kept those two parts of my life separate. At school, I was a ranch kid, which meant people assumed I liked rodeo and didn't like reading. Both are half right. I do love rodeo. I've roped with my cousin for four years. But I also love poems, and not just cowboy ones. I fell for Robert Frost in seventh grade because he wrote about fences and snow like they mattered.\n\nThe day those two halves came together was the winter I was fifteen, when my uncle drove me to the National Cowboy Poetry Gathering in Cody. If you've never been, picture a whole town packed with people in hats and wool coats, crowded into auditoriums and bars and church basements, listening to ranchers recite poems. There were old men from Nevada and young women from Montana and a Basque sheepherder who sang in a language I didn't know. Nobody thought it was weird. Poetry was just a thing people did.\n\nAt an open session, my uncle signed me up without asking. I recited one of my own poems, about the morning we lost a heifer in a blizzard. My voice shook so bad I could hear it. But when I finished, a man in the front row with a white mustache stood up and shook my hand and said, \"Son, that's the real thing.\"\n\nI've thought about that a lot. \"The real thing.\" Out here, ranching is getting harder every year. Land prices are up, cattle prices swing wild, and a lot of my friends' families are selling out. Ranches that have been in families for a hundred years are turning into subdivisions and vacation cabins. When those places go, the stories go with them. Cowboy poetry is one way of keeping the record. It's history told by the people who lived it, in a form they can remember without writing it down.\n\nThat's what I want to do with my life, in some form. I want to study history and literature, especially of the rural West, and figure out how to keep the stories of places like Chugwater alive even if the ranches don't make it. Maybe I'll teach. Maybe I'll write. I'll definitely keep reciting.\n\nI still have the notebook in the glove box. It's got calving records on one side and poems on the other. My dad says it's the most organized I've ever been."
+  },
+  "supplements": [
+    {
+      "id": "supplement-cc",
+      "college": "Colorado College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in Colorado College, and how would you take advantage of the Block Plan?",
+      "wordLimit": 250,
+      "text": "I like doing one thing at a time, all the way. That's how calving season works on our ranch. For six weeks, nothing else matters. You check heifers every three hours, day and night, and you get very, very good at one job.\n\nThat's why the Block Plan makes so much sense to me. Taking one class at a time for three and a half weeks sounds a lot like calving season, minus the frozen hands. I want to sink into a subject completely: Western history one block, then poetry, then environmental policy.\n\nI'm especially excited about the chance to take classes in the field. I've read that some CC classes go out to study the landscapes they're learning about. Learning Western history in the actual West, standing on the ground where it happened, is exactly what I want. I'd love to take classes in Southwest studies and do research on how ranching communities have changed in the last century.\n\nColorado Springs is also close enough to Wyoming that I could still get home for branding in the spring. That matters to me. My family needs me some weekends, and I don't want to have to choose between my education and my home.\n\nAt CC, I'd also want to start or find an open mic for poetry, especially the kind of poetry that doesn't usually get read in college classrooms. Ranch poems. Work poems. I think people would show up. They always do in Cody."
+    }
+  ],
+  "publicNames": [
+    "National Cowboy Poetry Gathering",
+    "Cheyenne Frontier Days",
+    "Wyoming High School Rodeo Association",
+    "Colorado College",
+    "Block Plan"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Benjamin Whitaker",
+    "school": "High Desert Pines High School (Bend, OR)",
+    "graduationYear": 2027,
+    "email": "ben.whitaker.fiddle@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Music: Instrumental",
+      "position": "Fiddler",
+      "organization": "Old-time string band (Bend, OR)",
+      "description": "Play old-time fiddle at farmers markets and contra dances; busk every year at the Sisters Folk Festival.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Other Club/Activity",
+      "position": "Senior Patrol Leader; Eagle Scout",
+      "organization": "Scouting America, Troop 25",
+      "description": "Eagle project: built 6 interpretive signs on pioneer and Indigenous history along a local trail. Lead 30 scouts.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Rental Technician",
+      "organization": "Ski shop at Mt. Bachelor",
+      "description": "Fit boots and tune skis on winter weekends and holidays.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 18,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Academic",
+      "position": "Research Volunteer",
+      "organization": "Deschutes Historical Museum",
+      "description": "Transcribe homesteader diaries and helped research an exhibit on Bend's lumber mill era.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 25,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Athletics: Club",
+      "sport": "Mountain Biking",
+      "position": "Varsity Rider",
+      "organization": "NICA Oregon League",
+      "description": "Race cross-country mountain bike in the fall season; help coach the middle school riders.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 14,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Eagle Scout",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Oregon Old Time Fiddlers State Contest, 2nd Place, Junior Division",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "Every old-time fiddle tune is a mystery with no detective.\n\nTake \"Soldier's Joy.\" It's one of the most famous fiddle tunes in America. I learned it when I was ten, from a guy named Russ who ran a Tuesday jam at a pizza place in Bend. Russ told me it was a Civil War tune. Later, I found a recording from Scotland that sounded almost the same, and a book saying it was played in the 1700s. Then I found a version from Kentucky that had a whole different second part. Which one is the real \"Soldier's Joy\"? Nobody knows. That's the point.\n\nOld-time music is passed down mostly by ear, fiddler to fiddler, and every time someone learns a tune, they change it a little. A note here. A slide there. A whole part that one guy forgot and replaced with something he made up. So when you play an old tune, you're actually playing a record of every person who ever played it before you, layered on top of each other like rock strata.\n\nI lose track of time trying to dig through those layers. I'll start by listening to a field recording at the Library of Congress website, some fiddler in Virginia recorded in 1937. Then I'll try to find who he learned it from, and who they learned it from. Some nights I end up three centuries back and four countries away, and it's 1 a.m., and I'm still in my headphones with my fiddle on my lap trying to play the version from 1890 in Missouri.\n\nWhat captivates me isn't just the music. It's the people. Most of the fiddlers who carried these tunes weren't famous. They were farmers, miners, loggers, and their names are attached to tunes only by accident, when someone happened to write them down. One of my favorite tunes is named after a fiddler from eastern Oregon who played at dances in the 1890s. That's all anybody knows about him. But his tune survived. Every time I play it, he's sort of in the room.\n\nThat interest spilled over into history in general. Last year I started volunteering at the Deschutes Historical Museum, transcribing diaries from homesteaders who came to Central Oregon in the early 1900s. One diary belonged to a woman who mentioned going to a dance where \"Mr. Hale played the fiddle until two.\" I got way too excited about that. I spent a week trying to figure out who Mr. Hale was and what he might have played. I never found out. But I'm still looking.\n\nI've been in the Boy Scouts since I was eleven, and for my Eagle project I built six interpretive signs along a trail outside town, about the people who lived and traveled there before Bend was Bend: Indigenous families, pioneers, mill workers. I wanted to put some of those forgotten names back on the land.\n\nWhen I want to learn more, I go in three directions. First, to the recordings, which are the closest thing to time travel. Second, to the old fiddlers who are still alive, who I bother at every jam and festival. Third, to books about American folk music and history, which are great but always a little less fun than the actual tunes.\n\nMy friends call me Ben the Archivist now, which is only half a joke. I don't mind. Somebody has to remember Mr. Hale."
+  },
+  "supplements": [
+    {
+      "id": "supplement-whitman",
+      "college": "Whitman College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "Why are you interested in Whitman College?",
+      "wordLimit": 250,
+      "text": "I want to go to Whitman because it seems like a place where I can study history up close, in the same region where so much of the history I care about happened.\n\nWalla Walla is on the old route of the Oregon Trail and near the homelands of the Cayuse, Umatilla, and Walla Walla peoples. I'm interested in how history in the inland Northwest gets told and who gets left out. My Eagle project, building interpretive signs along a trail near Bend, taught me how hard it is to tell a fair story about a place in a few hundred words. I want to learn to do it better, and I love that Whitman history classes use local archives and the land itself.\n\nI'm also excited about the chance to keep playing music. Whitman's small size means I could join ensembles and still keep up my old-time fiddle playing, maybe even start a regular jam on campus. I've learned more about history from fiddle tunes than from some textbooks, and I'd love to explore that through folklore or ethnomusicology classes.\n\nAnd I'll admit the Outdoor Program is a big draw. I've grown up riding mountain bikes and skiing in Central Oregon, and I can't imagine going to school somewhere without trails nearby.\n\nWhitman feels like a place where I could be curious about everything: a homesteader's diary, a fiddle tune, a river valley. That's the kind of education I want."
+    }
+  ],
+  "publicNames": [
+    "Sisters Folk Festival",
+    "Scouting America (formerly Boy Scouts of America)",
+    "Mt. Bachelor",
+    "Deschutes Historical Museum",
+    "NICA (National Interscholastic Cycling Association) Oregon League",
+    "Eagle Scout",
+    "Oregon Old Time Fiddlers",
+    "Library of Congress",
+    "Whitman College",
+    "Whitman College Outdoor Program"
+  ]
+}

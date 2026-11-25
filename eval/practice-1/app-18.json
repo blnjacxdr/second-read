@@ -1,0 +1,150 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Jasper Nakamura-Cole",
+    "school": "Inland Pines High School (Spokane, WA)",
+    "graduationYear": 2027,
+    "email": "jasper.nc.comics@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Art",
+      "position": "Writer & Artist",
+      "organization": "Self-published graphic novel",
+      "description": "Writing and drawing a graphic novel about my dad's years on a wildland fire hotshot crew. 140 pages drafted so far.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Other Club/Activity",
+      "position": "Teen Advisory Board Member",
+      "organization": "Spokane Public Library",
+      "description": "Plan teen programs like a manga swap and an annual 24-hour comics day. I designed the posters for both.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Bookseller",
+      "organization": "Auntie's Bookstore",
+      "description": "Shelve, ring up, and run the graphic novel section's staff picks shelf on weekends.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 46,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Art",
+      "position": "Founder",
+      "organization": "Comic Arts Club",
+      "description": "Weekly club for students who draw comics; we put out a 40-page anthology every spring.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 28,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer",
+      "organization": "Second Harvest Inland Northwest",
+      "description": "Sort produce and pack boxes at the warehouse, usually with my mom, about once a month.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 10,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Athletics: Club",
+      "sport": "Ultimate Frisbee",
+      "position": "Cutter",
+      "organization": "Spokane youth ultimate frisbee league",
+      "description": "Play spring club ultimate. Mostly I run a lot and drop easy catches.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 12,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards, Gold Key, Comic Art",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar with Honor",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Share an essay on any topic of your choice. It can be one you've already written, one that responds to a different prompt, or one of your own design.",
+    "wordLimit": 650,
+    "text": "My dad has a scar on his left forearm shaped like the state of Florida. For most of my childhood, when I asked about it, he said, \"Fire,\" and went back to whatever he was doing.\n\nBefore I was born, my dad spent nine summers on a hotshot crew, one of the elite teams of wildland firefighters who get sent to the worst fires in the country. He's a high school chemistry teacher now, very calm, kind of a nerd. It was hard to picture him hiking up a burning ridge with a chainsaw. He didn't really talk about it, the way some people don't talk about wars.\n\nI've drawn comics since I was seven. Mostly superheroes at first, then manga-style stuff, then weird little autobiographical strips about my cat. I didn't think comics could hold anything serious until I read Maus in eighth grade and couldn't sleep afterward. A story about the Holocaust, told with mice and cats, somehow hit harder than any textbook. I realized comics could do things words alone couldn't. You could show what someone was feeling in the background of a panel while they said something completely different in a speech bubble.\n\nThe summer before tenth grade, Spokane had a terrible smoke season. For two weeks the sky was orange and you couldn't go outside. One night, sitting in our living room with the air purifier going, my dad finally told me about the scar. It was from a fire in Idaho in 2004, when the wind changed and his crew had to run. He told me about the guy next to him who tripped, and how he grabbed him by his pack and dragged him uphill. He told me how quiet everyone was on the bus afterward.\n\nI went upstairs and started drawing. I didn't stop for about six hours.\n\nThat was the beginning of my graphic novel. It's about a fictional hotshot crew, based on my dad's stories, told over one summer. I've interviewed him for hours. I've also interviewed two of his old crew members, read books about fire science, and studied photos of fire lines until I could draw a drip torch from memory. I've drafted 140 pages so far, which sounds like a lot until you realize each page can take ten hours.\n\nThe hardest part isn't drawing the fire. It's drawing the quiet. My dad's best stories are about the moments when nothing is happening: crews eating cold food at 3 a.m., a guy writing a letter to his daughter, the long bus rides home. Those are the moments where you can see what the work costs people. In comics, silence is a panel with no words, and I've learned that those are often the most important panels on the page.\n\nWorking on this book changed how I see my dad. I used to think of him as a guy who doesn't talk. Now I know he talks in his own way, in fragments, in jokes, in the way he checks the weather forecast every day in August even though he hasn't fought a fire in twenty years. My job, as the person drawing it, is to fill in the spaces between what he says without putting words in his mouth.\n\nLast spring I showed him the first finished chapter. He read it at the kitchen table, slowly, without saying anything. When he got to the page where the character drags his friend uphill, he stopped and traced the drawing of the arm with his finger.\n\nThen he said, \"You got the pack straps right.\" From my dad, that's basically a standing ovation."
+  },
+  "supplements": [
+    {
+      "id": "supplement-reed",
+      "college": "Reed College",
+      "group": "Writing",
+      "answers": [],
+      "prompt": "For you, what makes Reed College a good fit?",
+      "wordLimit": 250,
+      "text": "I want to go to Reed because I want to write a thesis, and I mean that sincerely.\n\nFor the past two years I've been working on a long project, a graphic novel about my dad's time as a wildland firefighter. Last spring I printed the first 32-page issue and sold copies at a local comic shop. Working on something that big taught me that I love going deep: researching, revising, and sticking with one question for a long time. Reed's senior thesis sounds like exactly that kind of work, and I love that every student does one.\n\nI'm also drawn to Hum 110. I like the idea of starting college by reading foundational texts with everyone in my class and arguing about them in conference. My comics are full of history and literature, and I want a stronger background in both.\n\nI'd want to study English or art, and I'm interested in how image and text work together, which is something comics are all about. Reed's small classes would let me get to know professors who could push me on that.\n\nReed also seems like a place where being a little intense about your interests is normal. I've spent whole weekends drawing fire lines and reading about fire behavior. I think I'd fit right in.\n\nPlus Portland has a great comics scene. I'd love to go to local zine fests and keep making comics alongside my classes."
+    }
+  ],
+  "publicNames": [
+    "Spokane Public Library",
+    "Auntie's Bookstore",
+    "Second Harvest Inland Northwest",
+    "Scholastic Art & Writing Awards",
+    "AP Scholar with Honor",
+    "Reed College",
+    "Hum 110 (Reed College)"
+  ]
+}
