@@ -1,0 +1,164 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Kiana Begay",
+    "school": "Hogback Ridge High School (Gallup, NM)",
+    "graduationYear": 2027,
+    "email": "kiana.begay@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Cross Country",
+      "position": "Varsity Runner; Captain (11-12)",
+      "organization": "Hogback Ridge Cross Country",
+      "description": "4-year varsity. 5K PR 18:52. Organize our team's summer morning runs at Red Rock Park.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 16,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Computer/Technology",
+      "position": "Founder & President",
+      "organization": "Girls Who Code Club",
+      "description": "Founded our school's first Girls Who Code club. 16 members build web apps; I teach Python basics.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 28,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Science/Math",
+      "position": "Member",
+      "organization": "American Indian Science and Engineering Society (AISES)",
+      "description": "Attended the AISES National Conference and presented a poster on solar water pumps for homes without running water.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Family Responsibilities",
+      "position": "Caretaker",
+      "organization": "My grandmother's homestead near Chinle, AZ",
+      "description": "Herd and water my grandma's sheep, haul water, and help at shearing time. Weekends and summers.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Academic",
+      "position": "Team Member",
+      "organization": "New Mexico MESA",
+      "description": "Compete at MESA Day in bridge design and coding. Our team went to the state competition twice.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 25,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Work (Paid)",
+      "position": "Sales Associate",
+      "organization": "Family-owned trading post (Gallup, NM)",
+      "description": "Ring up sales, price jewelry and rugs, and explain to tourists which pieces are actually Navajo-made.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 25,
+      "weeksPerYear": 10,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "NCWIT Aspirations in Computing, Honorable Mention (New Mexico Affiliate)",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "NMAA State Cross Country Championships, 9th Place",
+      "grades": [
+        12
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "QuestBridge College Prep Scholar",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.",
+    "wordLimit": 650,
+    "text": "My shimásání, my grandmother, says you should run toward the dawn. When I was little I thought she meant it as advice, like \"eat your vegetables.\" It took me years to understand she meant it literally.\n\nIn Diné tradition, running at dawn is a way of greeting the Holy People and asking for strength. My grandmother ran every morning when she was a girl near Chinle, and her mother before her. Now I run too. On summer mornings at her place, I'm out the door before the sun comes up, running east on the dirt road past the sheep corral while the sky goes from purple to orange. Then I come back and spend the rest of the day with the sheep, from sunrise until it gets dark, moving them to water and keeping an eye out for coyotes.\n\nSo when people ask how I got into cross country, I'm never sure what to tell them. I joined the team freshman year, but I think I'd been training for it my whole life.\n\nThe thing I didn't expect was to fall in love with computers too. It started with a broken phone. Two years ago my grandmother's phone stopped working, and since she doesn't have internet at her house, I was the only one who could figure it out. I spent a whole weekend looking things up when I was in town and fixing it, and when I finally got it to connect, she called my auntie in Phoenix and talked for an hour. I remember thinking that technology wasn't really about technology. It was about who gets to stay connected.\n\nAfter that, I took every computer class my school offered, which was two. Then I started learning on my own, mostly Python, from free courses on my phone. I noticed I was usually the only girl, and definitely the only Native girl, in any coding space I found. So I started our school's Girls Who Code club last fall. The first meeting, three people came and one of them was my cousin. Now we have regulars, and most of them are Diné like me.\n\nI know a lot of people think of the Navajo Nation as a place that's \"behind.\" Around a third of homes on the reservation don't have running water, and plenty don't have good internet. Those numbers are real, and I've hauled enough water barrels to know it. But being behind isn't the same as being without knowledge. My grandmother can read the weather from the color of the mountains. She knows exactly which plants the sheep will get sick from. She has a system for everything, and it's honestly more efficient than some apps I've used.\n\nWhat I want to do with computer science is build things that respect that kind of knowledge instead of replacing it. My AISES poster was about solar-powered water pumps for homes like my grandmother's. In the future I'd love to work on tools for Native communities that are designed with them, not just for them. Things like language apps for Diné bizaad that elders actually help create, or water-tracking systems families can run themselves.\n\nThis fall I placed ninth at the state cross country meet. I wasn't happy with it at first, because I wanted top five. But then I thought about my grandmother, who doesn't really care about places. She just asked me if I had run toward the dawn that morning. I told her I had.\n\n\"Then you did it right,\" she said.\n\nI'm still learning to code, still learning to run, and still learning from her. I think those are all the same thing."
+  },
+  "supplements": [
+    {
+      "id": "supplement-yale",
+      "college": "Yale University",
+      "prompt": "What is it about Yale that has led you to apply?",
+      "wordLimit": 125,
+      "text": "I first heard about Yale from a QuestBridge webinar, where a student talked about the Native American Cultural Center like it was her living room. That stuck with me. I want to study computer science, and I want to do it somewhere I won't be the only Native student in every room.\n\nLast year I won a regional computing award for my work starting a Girls Who Code club, and our nine members taught me that community makes people braver about learning hard things. At Yale I'd want to join the Association of Native Americans at Yale and do research on technology for rural and tribal communities. I want to bring my grandmother's way of thinking with me."
+    }
+  ],
+  "publicNames": [
+    "Red Rock Park",
+    "Girls Who Code",
+    "American Indian Science and Engineering Society (AISES)",
+    "AISES National Conference",
+    "New Mexico MESA",
+    "NCWIT Aspirations in Computing",
+    "New Mexico Activities Association (NMAA)",
+    "QuestBridge",
+    "QuestBridge College Prep Scholars",
+    "Navajo Nation",
+    "Yale University",
+    "Native American Cultural Center (Yale)",
+    "Association of Native Americans at Yale"
+  ]
+}

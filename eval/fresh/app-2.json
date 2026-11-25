@@ -1,0 +1,186 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Hannah Lindqvist",
+    "school": "Lakeview Heights High School (Duluth, MN)",
+    "graduationYear": 2027,
+    "email": "hannah.lindqvist@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Nordic Skiing",
+      "position": "Varsity Skier; Captain (12)",
+      "organization": "Lakeview Heights Nordic Ski Team",
+      "description": "4-yr varsity skate & classic racer, captain senior year. I run summer roller-ski practices at Hartley Nature Center for middle schoolers.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 16,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Research",
+      "position": "Student Research Assistant",
+      "organization": "Large Lakes Observatory, University of Minnesota Duluth",
+      "description": "Help a grad student process water samples from Lake Superior for microplastics. Co-author on a poster at a regional conference.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Environmental",
+      "position": "Aquatics Specialist",
+      "organization": "Minnesota Envirothon",
+      "description": "5-person team tested on forestry, soils, aquatics, wildlife & a current issue. I study aquatics and write our oral presentation.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Music: Vocal",
+      "position": "Alto; Section Leader (11-12)",
+      "organization": "Lakeview Heights Choirs",
+      "description": "Concert Choir and Chamber Singers. Our winter concert at the DECC has 300+ singers and I help run alto sectionals.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Work (Paid)",
+      "position": "Barista",
+      "organization": "Caribou Coffee",
+      "description": "Weekend opener; train new hires on the espresso bar. Saved up for my own skate skis and half of a 2011 Subaru.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Community Service (Volunteer)",
+      "position": "Trail Volunteer",
+      "organization": "Superior Hiking Trail Association",
+      "description": "Trail work days clearing blowdowns and rebuilding steps on sections near Duluth. 60+ hours logged since sophomore year.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 6,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-7",
+      "type": "Other Club/Activity",
+      "position": "Member",
+      "organization": "Key Club",
+      "description": "Bell ringing for the Salvation Army and packing meals at Feed My Starving Children events.",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 1,
+      "weeksPerYear": 20,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Minnesota Envirothon, 2nd Place Team",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "MSHSL Nordic Skiing State Meet Qualifier",
+      "grades": [
+        10,
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Merit Commended Student",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "Sample 14-B was supposed to be from forty meters down. It was not.\n\nI figured that out on a Tuesday in March, in a basement lab at the Large Lakes Observatory, staring at a spreadsheet that didn't make sense. For about a month I had been helping a grad student, Rachel, count microplastic particles in water samples from Lake Superior. My job was mostly unglamorous: filter the water, dry the filters, put them under a microscope, count the little blue and red fibers, write the number down. I was good at it. I'm a careful person. I alphabetize my spices.\n\nThat week, though, my numbers were showing something strange. The deep samples had more plastic than the surface ones, which is the opposite of what everyone expected. For about two hours I was thrilled. I kept imagining Rachel's face, and maybe a paper, and maybe my name somewhere near the end of the author list. Then I went back to the freezer to double-check a label and realized I had swapped two whole sets of vials. The \"deep\" water was surface water. My exciting result was a labeling error, and three weeks of counting were basically garbage.\n\nI'd like to say I handled it well. I didn't. I sat in my car in the parking lot for a while and thought about not saying anything, just quietly redoing it and hoping the dates on the spreadsheet didn't give me away. That's the part I'm least proud of, and the part I learned the most from. Because the thing is, the error wasn't going to stay hidden. Data like this gets checked. And even if it didn't, I would know.\n\nSo the next day I told Rachel. I had a whole speech planned, and I made it about four words in before I started crying, which was humiliating. She waited, handed me a paper towel, and said something I've thought about a lot since: \"Okay. So now we know your system has a weak spot. Let's fix the system.\" Then she told me about the time she contaminated an entire field season's worth of sediment cores in her first year.\n\nWe fixed the system. Now every vial gets a color-coded cap and a second label written by a different person. I re-counted the samples, which took most of April. The real result was boring. The deep water had less plastic, just like everyone thought. But boring and true is better than exciting and wrong, and I didn't really understand that until I almost picked the second one.\n\nI've started noticing the same lesson everywhere. In Nordic skiing, the wax that feels fast in the first kilometer can turn to glue by the fifth, and the only way to know is to test honestly, even when you want it to work. It's the same thing I learned at Envirothon. Junior year, when our team won the state competition, we didn't win because we knew the most. We won because during the oral presentation one of the judges asked a question none of us could answer, and instead of bluffing, my teammate said, \"We don't know, but here's how we'd find out.\" The judge actually smiled.\n\nI used to think being careful meant never making mistakes. Now I think it means building a life where your mistakes get caught, ideally by you, and ideally before they turn into a paper. I'm still careful. I still alphabetize my spices. But I've stopped being afraid of the moment when I have to say, out loud, \"I got this wrong.\""
+  },
+  "supplements": [
+    {
+      "id": "supplement-dartmouth",
+      "college": "Dartmouth College",
+      "prompt": "Dartmouth celebrates the ways in which its profound sense of place informs its programs and engagement opportunities. What aspects of this setting most resonate with you?",
+      "wordLimit": 100,
+      "text": "I grew up where winter is the main event, so Hanover's version of it doesn't scare me. It's the draw. I want the Outing Club trips, the cabins, the Second College Grant, the Skiway twenty minutes up the road. I'm hoping to keep racing on Nordic skis, even at the club level, because I'm not ready to stop. And I want to study Earth sciences somewhere the landscape is the lab, the way Lake Superior has been for me. Middlebury is a place where I can be outside and serious about science at the same time."
+    }
+  ],
+  "publicNames": [
+    "Hartley Nature Center",
+    "Large Lakes Observatory",
+    "University of Minnesota Duluth",
+    "Minnesota Envirothon",
+    "DECC (Duluth Entertainment Convention Center)",
+    "Caribou Coffee",
+    "Subaru",
+    "Superior Hiking Trail Association",
+    "Key Club",
+    "The Salvation Army",
+    "Feed My Starving Children",
+    "MSHSL (Minnesota State High School League)",
+    "National Merit Scholarship Program",
+    "Dartmouth College",
+    "Dartmouth Outing Club",
+    "Second College Grant",
+    "Dartmouth Skiway",
+    "Middlebury College"
+  ]
+}

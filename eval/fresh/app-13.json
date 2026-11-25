@@ -1,0 +1,165 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Grace Okafor",
+    "school": "Westchase Park High School (Houston, TX)",
+    "graduationYear": 2027,
+    "email": "grace.okafor.violin@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Music: Instrumental",
+      "position": "Concertmaster",
+      "organization": "Houston Youth Symphony",
+      "description": "Concertmaster of the Symphony Orchestra, HYS's top ensemble. Lead violin sectionals and play the solos.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Instrumental",
+      "position": "Violin; Section Leader",
+      "organization": "Westchase Park Orchestra",
+      "description": "Section leader in our top school orchestra; help run region audition prep for younger violinists.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 7,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Research",
+      "position": "Independent Researcher",
+      "organization": "Science and Engineering Fair of Houston",
+      "description": "Tested low-cost biochar filters for removing lead from tap water. 1st place in Chemistry at SEFH 2026.",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 25,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Science/Math",
+      "position": "Secretary",
+      "organization": "NSBE Jr. (National Society of Black Engineers)",
+      "description": "Plan our chapter's STEM nights for elementary students and keep track of our competition registrations.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 25,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Religious",
+      "position": "Choir Violinist",
+      "organization": "Nigerian Catholic community church choir",
+      "description": "Play violin with the choir at Sunday Mass and for weddings and Igbo cultural celebrations.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer Violin Teacher",
+      "organization": "Alief community center",
+      "description": "Teach free Saturday beginner violin lessons to 8 kids, using instruments I collected through donations.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "TMEA All-State Symphony Orchestra, Violin",
+      "grades": [
+        10,
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Science and Engineering Fair of Houston, 1st Place, Chemistry",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Merit Semifinalist",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?",
+    "wordLimit": 650,
+    "text": "The list went up at 9:42 p.m. I know because I refreshed the page roughly two hundred times between 9:00 and 9:42.\n\nEvery year, violinists across Texas audition for the TMEA All-State Orchestra. It's a long process, a series of rounds that start in the fall, and it's the biggest thing in high school orchestra here. Sophomore year, I made it to the final round and I was sure I'd make it. My teacher was sure. My mom had already told her entire prayer group.\n\nMy name wasn't on the list.\n\nI took it badly. I'm not proud of how badly. I didn't practice for two weeks, which for me is like not eating for two weeks. I told my mom I wanted to quit violin and focus on science. She said, \"Okay,\" and walked out of the room, which was somehow worse than if she'd argued.\n\nMy mother is not a musician. She's a nurse who works twelve-hour shifts at a hospital in the Texas Medical Center. But she's the reason I play. When I was six, she saw a free string program flyer at our church and signed me up, and when I outgrew the rental violin, she worked extra night shifts for three months to buy me a real one. That violin is the one I still play. So when she didn't fight me about quitting, I realized she wasn't going to make this decision for me. I had to figure out if I actually loved it, or if I just loved winning.\n\nWhat I did next was kind of embarrassing. I took out the recording of my audition, which I'd been avoiding, and listened to it with the judges' rubric in front of me. It was bad in ways I hadn't let myself hear. My intonation in the upper positions was sloppy. I rushed every time I got nervous. I sounded like someone who was trying to get through the music instead of someone who was trying to say something with it.\n\nSo I started over, sort of. I practiced slow. Really slow, with a metronome at half tempo for weeks. I recorded myself every day and listened back, which is the most humbling thing a person can do. I started playing for anyone who would listen, the choir at church, my little brothers, the kids I teach on Saturdays, because I needed to get used to being nervous in front of people and playing anyway.\n\nI made All-State for the first time junior year. When I saw my name on the list, I didn't scream. I just put my phone down and went to find my mom, who was asleep after a night shift. I woke her up. She didn't say \"I told you so.\" She said, \"Now play me something.\"\n\nThe part I'm most grateful for isn't All-State. It's what that failure taught me about failure. In my science fair research on lead filters, my first three prototypes didn't work at all. Old me would have given up. Instead I recorded everything, went back to the data, and figured out the biochar wasn't activated enough. My fourth version removed most of the lead in my test samples.\n\nThis year, as principal second violin in Houston Youth Symphony, I sit next to younger players who are where I was two years ago: talented, terrified, and sure that one list decides who they are. I tell them about refreshing the page two hundred times. I tell them to listen to their own recordings even when it hurts.\n\nI still don't love losing. But I've stopped being afraid of it. Losing is just information, and I've learned that if you listen to it closely enough, it tells you exactly what to practice next."
+  },
+  "supplements": [
+    {
+      "id": "supplement-duke",
+      "college": "Duke University",
+      "prompt": "What is your sense of Duke as a university and a community, and why do you consider it a good match for you?",
+      "wordLimit": 250,
+      "text": "When I visited Duke last spring, the thing I remember most wasn't the chapel, although it's beautiful. It was a conversation I overheard outside the Bryan Center. Two students were arguing about whether a chemistry problem set or a symphony rehearsal was more important that night, and they decided the answer was both.\n\nThat's what I want. At most schools I've looked at, I've been asked to choose between being a scientist and being a musician. At Duke, I don't feel like I'd have to.\n\nI'm planning to study environmental engineering at the Pratt School of Engineering, because my research on low-cost lead filters made me want to work on water access, especially for communities like the ones in Houston where old pipes are still a problem. I'm excited about the chance to take classes at the Nicholas School of the Environment and to get involved in research through Bass Connections, which brings together students from different fields to work on real problems.\n\nI'd also love to audition for the Duke Symphony Orchestra. Violin isn't a side hobby for me. It's how I learned to fail and keep going, and I want to keep growing as a musician alongside my engineering work.\n\nMost of all, Duke seems like a community where people take their work seriously without taking themselves too seriously. That balance is what I'd find at Rice, and it's why I think I would thrive there."
+    }
+  ],
+  "publicNames": [
+    "Houston Youth Symphony",
+    "Science and Engineering Fair of Houston (SEFH)",
+    "National Society of Black Engineers (NSBE)",
+    "NSBE Jr.",
+    "Texas Music Educators Association (TMEA)",
+    "TMEA All-State Symphony Orchestra",
+    "National Merit Scholarship Program",
+    "Texas Medical Center",
+    "Duke University",
+    "Bryan Center",
+    "Pratt School of Engineering",
+    "Nicholas School of the Environment",
+    "Bass Connections",
+    "Duke Symphony Orchestra",
+    "Rice University"
+  ]
+}

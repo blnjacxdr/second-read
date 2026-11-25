@@ -1,0 +1,175 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Sofia Petrakis",
+    "school": "Pinellas Gulf High School (Tarpon Springs, FL)",
+    "graduationYear": 2027,
+    "email": "sofia.petrakis@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Swimming",
+      "position": "Varsity Swimmer, 200 & 500 Free",
+      "organization": "Pinellas Gulf Swimming & Diving",
+      "description": "4-year varsity distance swimmer. Team captain senior year. Run our team's carpool and lane assignments.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 14,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Athletics: Club",
+      "sport": "Swimming",
+      "position": "Distance Group Swimmer",
+      "organization": "YMCA of the Suncoast",
+      "description": "Year-round club swimming with 5 a.m. practices before school and long-course meets in the summer.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 44,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Journalism/Publication",
+      "position": "Editor-in-Chief (12); News Editor (11)",
+      "organization": "The Anclote Current (school newspaper)",
+      "description": "Lead a staff of 18. My investigation into red tide and local fishing jobs won a Scholastic Gold Key.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Cultural",
+      "position": "Dancer & Youth Instructor",
+      "organization": "St. Nicholas Greek Orthodox Cathedral Dance Troupe",
+      "description": "Perform Greek folk dances at Epiphany and our Greek festivals; I teach the youngest group (ages 6-9).",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 35,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Work (Paid)",
+      "position": "Deli Associate",
+      "organization": "Publix",
+      "description": "Slice, pack, and serve at the deli counter on weekends; certified on the meat slicer.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 50,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Community Service (Volunteer)",
+      "position": "Animal Care Volunteer",
+      "organization": "Clearwater Marine Aquarium",
+      "description": "Prepare food and log behavior for rescued sea turtles; talk to visitors at the stingray touch tank.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 8,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-7",
+      "type": "Family Responsibilities",
+      "position": "Shop Helper",
+      "organization": "Family sponge shop on Dodecanese Boulevard",
+      "description": "Clean, trim and sort natural sponges from my grandfather's boat and run the register for tourists.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 10,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards, Gold Key, Journalism",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "FHSAA State Swimming & Diving Championships, Finalist, 500 Freestyle (7th)",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "The first thing I ever reported on was a dead fish.\n\nI was nine. It was the summer of a bad red tide, and the beach near my yiayia's house was covered in hundreds of them, silver and stinking, with their eyes all clouded over. I wrote a \"newspaper\" in crayon about it and slid it under every door on our street. The headline was FISH ARE DYING AND NOBODY IS DOING ANYTHING. My mom still has a copy. It has a lot of spelling mistakes and a very angry drawing of the sun.\n\nEight years later, I'm still asking that question. I just have better tools now.\n\nI'm from Tarpon Springs, Florida, which has the highest percentage of Greek Americans of any city in the country and also a lot of sponges. Greek divers came here in the early 1900s to harvest natural sponges from the Gulf, and my family has been part of that ever since. My grandfather still goes out on his boat. My dad runs our family's sponge shop on Dodecanese Boulevard, where I spend my summers trimming sponges with scissors and explaining to tourists that yes, they are real animals, and no, they don't feel pain.\n\nRed tide is the thing everybody here worries about and nobody fully understands. It's a bloom of an algae called Karenia brevis that releases toxins that kill fish and make people cough, and it can wipe out sponge beds too. Some years it's barely there. Some years it lasts for months and the docks go quiet. Last year, as news editor of our school paper, I decided to find out what a bad red tide actually costs the people in my town.\n\nThat's when I lost track of time. Completely. For three months I spent every free period and most nights reading scientific papers I only half understood, calling marine biologists at the University of South Florida, and interviewing fishermen at the docks before swim practice. I learned that red tide happens naturally, but there's a big scientific argument about whether nutrient runoff from farms and fertilizer makes the blooms worse or longer. I learned that nobody has a good count of how many fishing and tourism jobs disappear during a bad year. I made a spreadsheet of every red tide since 1995, which no one asked for.\n\nThe thing that captivated me wasn't just the science. It was the gap between the science and the people. The researchers I talked to were brilliant, but most of them had never met a sponge diver. The divers knew exactly where the blooms hit first and how the water looked the week before, but nobody had ever asked them. I started to feel like my job as a reporter was to stand in that gap and translate.\n\nThe article ended up being four thousand words, which my adviser said was \"a lot for a high school paper\" in a voice that meant \"too long.\" It won a Gold Key from the Scholastic Awards. It went to nationals and didn't place, and I was honestly fine with that. The best response I got was from one of the old divers, Mr. Kostas, who read it at the docks and told me, \"Finally somebody wrote it down.\"\n\nWhen I want to learn more, I go to two places: scientific journals, and the docks. I read papers from NOAA and Mote Marine Laboratory. I listen to my grandfather complain about the water. I think both are data.\n\nI still haven't answered the question I asked when I was nine. But I'm closer. And now I know that \"nobody is doing anything\" is almost never true. Usually, a lot of people are doing things. They're just not talking to each other yet."
+  },
+  "supplements": [
+    {
+      "id": "supplement-tulane",
+      "college": "Tulane University",
+      "prompt": "Describe why you are interested in joining the Tulane community. Consider your experiences, talents, and values to illustrate what you would contribute to the Tulane community if admitted.",
+      "wordLimit": 250,
+      "text": "I grew up on the Gulf of Mexico, in a town that depends on water that keeps getting sicker. Tulane is one of the only universities I've found where that problem is treated as both a science question and a community question.\n\nI'm especially interested in the ByWater Institute, because it brings together scientists, engineers, and policy people to work on water issues in coastal communities. My investigation into red tide for my school newspaper showed me that the people who live closest to an environmental problem often know the most and get asked the least. Tulane's focus on public service, and the way students work with New Orleans communities, feels like it was built around that same idea.\n\nI'd want to study environmental science and journalism, and I'd love to write for The Tulane Hullabaloo, especially covering the Gulf. I'd also join the club swim team. After four years of 5 a.m. practices, I don't think I know how to stop.\n\nWhat I'd bring to Tulane is a habit of going to the docks. I'm the kind of person who reads the scientific paper and then goes and asks the fisherman. I think a city like New Orleans, where the water is part of everyone's story, would understand that."
+    }
+  ],
+  "publicNames": [
+    "YMCA of the Suncoast",
+    "Scholastic Art & Writing Awards",
+    "St. Nicholas Greek Orthodox Cathedral",
+    "Publix",
+    "Clearwater Marine Aquarium",
+    "FHSAA (Florida High School Athletic Association)",
+    "University of South Florida",
+    "NOAA",
+    "Mote Marine Laboratory",
+    "Tulane University",
+    "ByWater Institute",
+    "The Tulane Hullabaloo"
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Marcus Bell",
+    "school": "Southwest Atlanta Magnet High School (Atlanta, GA)",
+    "graduationYear": 2027,
+    "email": "marcusbell.biz@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Career Oriented",
+      "position": "Chapter President (12); VP of Competition (11)",
+      "organization": "DECA",
+      "description": "State champion, Entrepreneurship Series; competed at ICDC. Grew our chapter from 25 to 60 members.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Team Member & Certified Trainer",
+      "organization": "Chick-fil-A",
+      "description": "Front counter and drive-thru on weekends and some weeknights. Certified trainer for new hires since last spring.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Other Club/Activity",
+      "position": "Founder & Owner",
+      "organization": "Clean Kicks ATL (my sneaker cleaning business)",
+      "description": "Clean and restore sneakers for classmates and neighbors. 140+ pairs, about $3,100 in revenue. Hired 2 friends this summer.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Internship",
+      "position": "Bank of America Student Leader",
+      "organization": "Boys & Girls Clubs of Metro Atlanta",
+      "description": "8-week paid summer internship. Built and taught a 6-week money basics workshop for 30 middle schoolers; went to the Student Leaders Summit.",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 35,
+      "weeksPerYear": 8,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Basketball",
+      "position": "JV Point Guard",
+      "organization": "Southwest Atlanta Magnet Basketball",
+      "description": "Played JV for two seasons before focusing on DECA and my business.",
+      "grades": [
+        9,
+        10
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 18,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Religious",
+      "position": "Youth Usher Board Member",
+      "organization": "Church youth ministry (Southwest Atlanta)",
+      "description": "Usher at 2nd Sunday service and help organize the youth back-to-school supply drive.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Georgia DECA State Career Development Conference, 2nd Place, Entrepreneurship Series",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "DECA International Career Development Conference (ICDC) Qualifier",
+      "grades": [
+        11
+      ],
+      "level": "International"
+    },
+    {
+      "id": "honor-3",
+      "title": "Bank of America Student Leader",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "The worst day of my business career happened in my grandmother's kitchen sink.\n\nI started Clean Kicks ATL sophomore year with a toothbrush, a bottle of dish soap, and a YouTube video. The idea was simple. Everybody at my school cares about their sneakers, but nobody wants to clean them. I charged fifteen dollars a pair. The first month I cleaned eleven pairs, mostly for guys on my JV team, and I thought I was basically a CEO.\n\nThen a senior named Darnell brought me a pair of suede Jordans. They were his favorite shoes. He'd saved up for months for them. And I, a sophomore who had watched exactly one video about suede, scrubbed them with the same soap and water I used on everything else.\n\nIf you don't know sneakers: you cannot do that to suede. The material got stiff and blotchy and turned a color I can only describe as \"wet cardboard.\" I stared at them in my grandmother's sink for ten minutes, hoping they'd dry back to normal. They didn't.\n\nI thought about lying. I thought about saying they came to me like that. Instead I texted Darnell and told him the truth and that I would pay him back. It took me almost two months of cleaning shoes for free to save up the $190, and Darnell didn't talk to me for a while.\n\nThat would have been a good place to quit. But my grandmother, whose kitchen I had been using as a workshop without exactly asking, sat me down and said something I still think about. She said, \"Baby, you didn't fail because you messed up. You'd fail if you messed up the same way twice.\"\n\nSo I started learning for real. I bought a suede kit and practiced on thrift store shoes. I made a checklist for every material: leather, canvas, mesh, suede, nubuck. I started asking customers to sign a little form, which I typed up after DECA taught me what a liability waiver was. That was when I realized business wasn't just about having an idea. It was about building systems so the idea doesn't fall apart when something goes wrong.\n\nThe biggest growth, though, came this summer. I was selected as a Bank of America Student Leader and spent eight weeks working at the Boys & Girls Club teaching middle schoolers about money. On the first day I asked them what a budget was and a kid in the back said, \"It's when you're broke.\" Everyone laughed, but he wasn't really joking. A lot of those kids had never seen an adult in their life plan ahead with money, because there wasn't enough money to plan with.\n\nI told them the suede story. They thought it was hilarious. But then I told them about paying Darnell back, and how I'd tracked every dollar in a notebook until I got there, and I could see some of them actually listening. By week six, one of the girls had started her own business selling hair ties.\n\nAt the end of the summer I flew to New York for the Student Leaders Summit with the other students from around the country. I met kids who were working at food banks and health clinics and housing nonprofits, and I realized something. The thing all of us had in common wasn't that we were the smartest. It was that we'd all seen something in our neighborhoods that wasn't working and decided to do something about it.\n\nI don't clean shoes in my grandmother's sink anymore. I have a real setup in our garage, and two friends who work for me. But I kept the Jordans. Darnell let me have them when I paid him back. They sit on a shelf in my room, wet cardboard color, so I never forget what it feels like to get it wrong."
+  },
+  "supplements": [
+    {
+      "id": "supplement-vanderbilt",
+      "college": "Vanderbilt University",
+      "prompt": "Vanderbilt offers a community where students find balance between their academic and social experiences. Please briefly elaborate on how one of your extracurricular activities or work experiences has influenced you.",
+      "wordLimit": 250,
+      "text": "If you want to learn how to treat people, work a Chick-fil-A drive-thru on a Saturday at noon.\n\nI've worked there since junior year, and with the 25 hours a week I work, I've probably said \"my pleasure\" about forty thousand times. At first I thought the whole thing was kind of corny. Then I watched my manager, Ms. Tanya, handle a customer who was yelling about a missing sauce. She didn't argue. She looked him in the eye, apologized, gave him the sauce and a free cookie, and asked how his day was going. By the time he pulled away he was laughing.\n\nAfterward she told me, \"Nobody's really mad about the sauce.\" I've thought about that a lot. Most of the time when people are upset, it's about something bigger than what they're yelling about.\n\nThat idea changed how I run my sneaker business and how I lead my DECA chapter. When someone is frustrated, I try to figure out what's really going on before I react. When I became a certified trainer, I started teaching new team members to do the same thing.\n\nAt Vanderbilt, I want to study Human and Organizational Development, because I'm interested in why people and organizations act the way they do. I think a drive-thru taught me the first lesson."
+    }
+  ],
+  "publicNames": [
+    "DECA",
+    "DECA International Career Development Conference (ICDC)",
+    "Georgia DECA",
+    "Chick-fil-A",
+    "Bank of America Student Leaders",
+    "Bank of America",
+    "Boys & Girls Clubs of Metro Atlanta",
+    "YouTube",
+    "Air Jordan (Jordans)",
+    "Vanderbilt University",
+    "Human and Organizational Development (Vanderbilt Peabody College)"
+  ]
+}

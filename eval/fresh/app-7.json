@@ -1,0 +1,151 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Rowan Pierce",
+    "school": "Foothills Ridge High School (Boise, ID)",
+    "graduationYear": 2027,
+    "email": "rowan.pierce.sm@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Theater/Drama",
+      "position": "Stage Manager",
+      "organization": "Foothills Ridge Theatre Company",
+      "description": "Called cues for 3 mainstage shows, including our spring musical. Write rehearsal reports and run a 20-person crew.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Theater/Drama",
+      "position": "Volunteer Usher & Box Office",
+      "organization": "Idaho Shakespeare Festival",
+      "description": "Usher at the amphitheater in the summer season. Shadowed the production stage manager for two shows in 2026.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 10,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "LGBT",
+      "position": "President (11-12)",
+      "organization": "Gender & Sexuality Alliance",
+      "description": "Rebuilt our GSA from 4 to 25 members. Organized a staff training on supporting trans students with a local nonprofit.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Courtesy Clerk",
+      "organization": "WinCo Foods",
+      "description": "Bag groceries, stock shelves and gather carts. Closing shifts 3 nights a week.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 48,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Debate/Speech",
+      "position": "Competitor, Dramatic Interpretation",
+      "organization": "Speech & Debate Team",
+      "description": "Competed in Dramatic Interp. Broke to semifinals at the state tournament sophomore year.",
+      "grades": [
+        9,
+        10
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 20,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer",
+      "organization": "The Idaho Foodbank",
+      "description": "Sort donations at the warehouse and help with mobile pantry days in Canyon County.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 15,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Idaho Thespian Festival, Superior Rating, Stage Management",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Honor Thespian, International Thespian Society",
+      "grades": [
+        11,
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "\"Standby lights forty-two. Standby sound G. Standby fly four.\"\n\nIf you've never been on headset during a show, that sentence probably sounds like nonsense. To me it's the most calming thing in the world. It means that in about eight seconds, three different people in three different parts of a building are going to do three different things at the exact same moment, because I said so. And then the audience will gasp, and none of them will know I exist.\n\nThat's my favorite part of stage managing: being invisible on purpose.\n\nI didn't start out wanting to be invisible. Freshman year I did Dramatic Interp in speech and debate, which is basically acting alone in a classroom while a judge with a clipboard watches you cry about a fictional dead brother. I was okay at it. I made semis at state once. But what I actually loved was the tournaments' backstage energy, the schedules, the room assignments, the person running tab who knew where every single competitor was supposed to be. I remember thinking, that person has the best job here.\n\nThen the summer after sophomore year, my aunt drove me to the Oregon Shakespeare Festival in Portland to see three shows in two days. During the second one, a set piece got stuck halfway onstage. The actors just kept going, and within maybe twenty seconds it smoothly finished moving like nothing had happened. Nobody in the audience noticed. I noticed. I spent the whole intermission trying to figure out how they'd fixed it without stopping the show, and I asked an usher, who laughed and said, \"That's the SM. She's in the booth.\" I went home and emailed our theater teacher that night asking how to get on crew.\n\nSince then I've lost probably a thousand hours to the prompt book. The prompt book is the stage manager's bible: every cue, every blocking note, every line change, every allergy, every rehearsal report. Across the eleven shows I've stage-managed since freshman year, I've developed a system that my director calls \"frankly concerning.\" Color-coded tabs. A cue numbering system that never breaks, even when cues get added at tech. A spreadsheet that tracks which actors have which costume pieces in which scene so the quick changes don't turn into a fire drill.\n\nPeople think stage managing is about being bossy. It's actually about paying attention to people. During our spring musical this year, one of our leads had a panic attack at places on opening night. I was the one who knew she'd been sleeping three hours a night because she was working at her mom's restaurant after rehearsals, because it was in my rehearsal report from two weeks earlier. I called a five-minute hold, brought her water and her favorite dumb playlist, and she went on and was incredible. The audience thought the show started a little late. That's all.\n\nAs a queer kid in Idaho, I've spent a lot of my life being hyperaware of rooms: who's safe, who isn't, where the exits are, what tone everybody's using. I used to think of that as something I had to do to survive. Stage managing showed me it could also be a skill. The same attention that kept me safe in hallways is what lets me notice when a fly rail is out of trim or an actor's voice sounds off.\n\nWhen I want to learn more, I read stage management handbooks, and I volunteer at the Idaho Shakespeare Festival so I can bother the professionals. Last summer their PSM let me sit next to her for two whole performances. I didn't touch anything. I just watched her watch everything.\n\n\"Lights forty-two, go.\""
+  },
+  "supplements": [
+    {
+      "id": "supplement-northwestern",
+      "college": "Northwestern University",
+      "prompt": "We want to be sure we're considering your application in the context of your personal experiences. What aspects of your background, identity, or community have most shaped how you see yourself engaging in Northwestern's community, academically and socially?",
+      "wordLimit": 300,
+      "text": "I grew up in Boise, where I was usually one of the only openly queer people in a room. When I joined sophomore year, our school's GSA had four members and met in a storage closet next to the band room. Literally a closet. We made a lot of jokes about it.\n\nBy junior year I was president and we had twenty-five members and a real classroom. That didn't happen because I gave great speeches. It happened because I treated the club like a production. I made a schedule, I figured out who needed what, and I followed up with every person who came once and didn't come back. That's stage-manager thinking, and it's how I want to engage at Northwestern too.\n\nI'm applying to study theatre with a focus on stage management and production. I'm excited by the Wirtz Center's student productions and by the idea of stage managing something like the Waa-Mu Show, where students write a brand-new musical from scratch. I want to be in rooms where people are making things that don't exist yet.\n\nSocially, I'm not the loudest person at a party. I'm the person who notices who's standing by the wall and goes to talk to them. Coming from a place where I didn't always feel welcome has made me really protective of other people's sense of belonging. At Northwestern I'd want to get involved with queer student groups, and also just be someone who makes rehearsal rooms feel safe.\n\nTheater taught me that a good production is a community that agrees, for a few weeks, to take care of each other. That's the kind of community I want to help build."
+    }
+  ],
+  "publicNames": [
+    "Idaho Shakespeare Festival",
+    "Gender & Sexuality Alliance (GSA)",
+    "WinCo Foods",
+    "The Idaho Foodbank",
+    "Idaho Thespian Festival",
+    "International Thespian Society",
+    "Oregon Shakespeare Festival",
+    "Northwestern University",
+    "Wirtz Center for the Performing Arts",
+    "Waa-Mu Show"
+  ]
+}

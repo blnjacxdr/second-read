@@ -1,0 +1,151 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Mei-Lin Huang",
+    "school": "Cascade Sound High School (Seattle, WA)",
+    "graduationYear": 2027,
+    "email": "meilin.huang.writes@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Journalism/Publication",
+      "position": "Co-Editor-in-Chief (12); Opinion Editor (11)",
+      "organization": "The Sound Current (school newspaper)",
+      "description": "Co-lead a 28-person staff with one other editor. Launched our first online edition and a climate beat.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 9,
+      "weeksPerYear": 34,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Environmental",
+      "position": "Restoration Volunteer",
+      "organization": "Mountains to Sound Greenway Trust",
+      "description": "Plant native trees and pull invasive blackberry along salmon streams in the Snoqualmie Valley, about twice a month.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Academic",
+      "position": "Student, Poetry",
+      "organization": "Iowa Young Writers' Studio",
+      "description": "Two-week residential creative writing program. Workshopped poems daily and read at the final showcase.",
+      "grades": [
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 40,
+      "weeksPerYear": 2,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Cashier",
+      "organization": "Uwajimaya",
+      "description": "Weekend shifts at the Chinatown-International District store. I help older customers in Mandarin.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 48,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Cross Country",
+      "position": "Varsity Runner",
+      "organization": "Cascade Sound Cross Country",
+      "description": "4-year runner, varsity since sophomore year. Organize our team's post-race potlucks, which is the actual best part.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 14,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Environmental",
+      "position": "Co-Founder",
+      "organization": "Cascade Sound Earth Club",
+      "description": "Started a school compost program with the cafeteria; we diverted about 2 tons of food waste last year.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Scholastic Art & Writing Awards, Silver Key, Poetry",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Washington Journalism Education Association State Conference, Excellent Rating, Editorial Writing",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?",
+    "wordLimit": 650,
+    "text": "For two years, I believed poetry was a waste of time.\n\nNot other people's poetry. Mine. Other people's poetry was fine. It was something you read in English class and analyzed for imagery. But I had decided, sometime around ninth grade, that writing poems myself was selfish. The world was literally on fire. Every summer the smoke from wildfires turned the Seattle sky orange, and I couldn't go running, and my grandmother couldn't go outside without coughing. Writing a sonnet about it felt like playing violin on the Titanic.\n\nSo I became a journalist. Journalism was useful. Journalism had facts. I joined our school paper as a sophomore and started writing about climate: the district's lack of a composting program, the heat in our un-air-conditioned classrooms, how salmon runs in local streams were collapsing. I liked that my articles could actually change something. When I wrote about food waste in the cafeteria, the principal called me into her office, and a month later we had compost bins. That felt like power.\n\nI still wrote poems. I just didn't tell anyone. They lived in a notes app called \"DELETE LATER.\"\n\nWhat changed my mind was the summer after sophomore year, when I went to the Iowa Young Writers' Studio in Ames. I almost didn't apply. I only did because my English teacher found one of my \"DELETE LATER\" poems in a document I'd accidentally shared and basically threatened me. I went in expecting two weeks of people writing about their feelings in coffee shops. And there was some of that. But there was also a girl from rural Kentucky writing about mountaintop removal mining, and a boy from Phoenix writing about heat deaths, and their poems hit me harder than any article I had ever written.\n\nOn the fourth day, our workshop leader asked us a question I still think about. She asked, \"What can a poem do that a newspaper can't?\" I raised my hand and said, \"Nothing useful.\" Everyone laughed, including me. But then she read us a poem about a river, and asked if anyone in the room would remember the river's water quality statistics a year from now. Nobody said yes. Then she asked if anyone would remember the poem. Almost everyone did.\n\nI realized I had been thinking about usefulness too narrowly. Facts tell people what's happening. But they don't always make people care. Poems can't fix a policy, but they can make someone feel the loss of a salmon run in their chest, and maybe that's what makes them read the article in the first place.\n\nWhen I came home, I started writing differently. I stopped keeping my poems in the DELETE LATER folder. I submitted one to the Scholastic Awards and it won a Silver Key, which made my mom cry, even though she doesn't really read poetry. As the paper's first solo editor-in-chief, I also started a monthly \"Climate Notebook\" column where students can write personal reflections, poems, and photo essays alongside our reporting.\n\nI still believe in journalism. I'm still the person who checks every number twice. But I don't think of poetry as a luxury anymore. On smoky summer days, when the air quality index goes purple and everybody stays inside, I think people need both: someone to tell them what the smoke is made of, and someone to tell them what it feels like.\n\nThe notes app is still called DELETE LATER. I just never do."
+  },
+  "supplements": [
+    {
+      "id": "supplement-brown",
+      "college": "Brown University",
+      "prompt": "Brown's Open Curriculum allows students to explore broadly while also diving deeply into their academic pursuits. Tell us about any academic interests that excite you, and how you might pursue them at Brown.",
+      "wordLimit": 250,
+      "text": "I want to study the climate crisis from two directions: the data and the story. Right now those feel like separate worlds. In my school paper, I write about salmon runs, cafeteria compost, and smoke days. In my notebook, I write poems about the same things. Most schools would ask me to pick one. Brown's Open Curriculum is the first system I've seen that doesn't.\n\nI'm excited about concentrating in Environmental Studies through the Institute at Brown for Environment and Society, especially courses that look at climate justice and how environmental harm hits some communities harder than others. My grandmother has asthma, and on smoke days she can't leave the house. I want to understand the science behind that, and also the policy decisions that make some neighborhoods breathe worse air than others.\n\nAt the same time, I want to take Literary Arts workshops. My summer at a writing program showed me that poems can make people care about things statistics can't. I'd love to learn how writers like Rachel Carson combined science and storytelling, and to try it myself.\n\nI'd also want to write for The Brown Daily Herald, maybe covering environmental issues in Providence and Rhode Island.\n\nAt Brown, I could take a chemistry lab in the morning, a poetry workshop in the afternoon, and write a news story at night, and nobody would think that was strange. That's exactly the kind of education I want."
+    }
+  ],
+  "publicNames": [
+    "Mountains to Sound Greenway Trust",
+    "Iowa Young Writers' Studio",
+    "Uwajimaya",
+    "Scholastic Art & Writing Awards",
+    "Washington Journalism Education Association",
+    "Brown University",
+    "Open Curriculum",
+    "Institute at Brown for Environment and Society",
+    "Literary Arts (Brown)",
+    "The Brown Daily Herald"
+  ]
+}

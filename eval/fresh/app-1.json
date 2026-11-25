@@ -1,0 +1,163 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Diego Ramírez",
+    "school": "Mesa Vista High School (El Paso, TX)",
+    "graduationYear": 2027,
+    "email": "diego.ramirez27@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Robotics",
+      "position": "Mechanical Subteam Lead",
+      "organization": "FIRST Robotics Competition (school team)",
+      "description": "Lead 9-student mech subteam; designed our 2026 swerve drivetrain & climber. Run the CNC router and train freshmen on shop safety.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 15,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Tire Technician",
+      "organization": "Ramírez Tire & Auto (family shop)",
+      "description": "Mount/balance tires, patch flats, do oil changes, and translate for customers at my dad's shop. Open Saturdays on my own since 16.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 50,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Science/Math",
+      "position": "Team Member, Build Events",
+      "organization": "Science Olympiad",
+      "description": "Compete in build events like Robot Tour; built our team's first Robot Tour car from scrap parts. Regional medalist 2 yrs.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Peer Math Tutor",
+      "organization": "Mesa Vista Math Lab",
+      "description": "Tutor Algebra I and Geometry before school, mostly in Spanish for newcomer students who just moved from Juárez and Chihuahua.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Religious",
+      "position": "Youth Group Member, Setup Crew",
+      "organization": "Parish youth ministry",
+      "description": "Set up sound and chairs for youth Mass; help run the Christmas toy drive for 200+ families in the Lower Valley.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Other Club/Activity",
+      "position": "Member",
+      "organization": "National Honor Society",
+      "description": "Organized a free bike-repair day at the rec center. Fixed 34 kids' bikes with parts donated by local shops.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 25,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "FIRST in Texas District Event, Excellence in Engineering Award (team)",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar with Distinction",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "College Board National Hispanic Recognition Program",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "The first thing my dad taught me about engines is that they're always telling you something. A squeal on startup is usually a belt. A tick that speeds up when you rev it might be a lifter. A smell like burnt syrup means coolant is going somewhere it shouldn't. I was maybe eleven when he made me close my eyes in the bay of our shop and guess what was wrong with a customer's Silverado just by listening. I guessed wrong. He laughed and said, \"Okay. Listen again.\"\n\nI've been listening ever since.\n\nMy family owns Ramírez Tire & Auto on the east side of El Paso. It's a small shop, two bays and a front office with a coffee machine older than me. I work twenty hours a week there, even during the school year, mounting tires, patching flats, doing oil changes, and translating when my dad needs help explaining a repair to a customer who only speaks English. People assume the shop is just a job for me. It is a job. But it's also where I figured out that I don't only like fixing things. I like figuring out why they broke.\n\nThat difference matters to me. Anyone can swap a part. What I lose hours on is the diagnosis, the moment when a weird symptom finally connects to a cause. Last spring a lady brought in a Corolla that pulled hard to the right, but only when it was cold out. We checked the alignment, the tire pressure, rotated the tires. Nothing. I ended up staying until almost nine, after my dad went home, reading forum posts and a service manual on my phone. It turned out a brake caliper slide pin was sticking until it warmed up. When I found it I actually yelled, alone, in an empty shop.\n\nRobotics gave me a whole new set of problems to get lost in. Our FRC team builds a robot of about 120 pounds every year in a few weeks, and sophomore year I didn't even know what CAD was. By junior year I was designing our swerve drivetrain, where each wheel steers independently. Swerve is notoriously finicky. Our first version kept losing calibration mid-match, and the robot would slowly spin in a circle like it was confused. Everybody had a theory. I spent three straight Saturdays with a laptop and the robot up on blocks, logging encoder values until I saw that one module's magnet had shifted a couple millimeters. A couple millimeters. We fixed it with a 3D-printed spacer that cost about eleven cents.\n\nWhat I've noticed is that the shop and the robotics lab teach me the same thing from opposite directions. At the shop, the machine already exists and I work backward to find the problem. In robotics, the problem exists and I work forward to build the machine. Engineering, I think, is just being comfortable going both ways.\n\nWhen I want to learn more, I go to people first. My dad, obviously. Mr. Saucedo, our robotics mentor, who used to design assembly lines at a factory in Juárez. YouTube channels where guys take apart transmissions in their garages. Lately I've been reading about how NASA engineers diagnose problems on rovers they can't touch, which is the most extreme version of listening to an engine I can imagine.\n\nMy dad still quizzes me. Last month he started a customer's truck, raised an eyebrow, and waited. Exhaust leak, front manifold, driver's side. He nodded and handed me the wrench."
+  },
+  "supplements": [
+    {
+      "id": "supplement-gatech",
+      "college": "Georgia Institute of Technology",
+      "prompt": "Why do you want to study your chosen major specifically at Georgia Tech and how do you think Georgia Tech will prepare you for your future?",
+      "wordLimit": 300,
+      "text": "Right now I can tell you how to fix a sticking brake caliper, but I couldn't tell you how to design one. That gap is why I want to study mechanical engineering, and why I want to do it at Georgia Tech.\n\nLast season I led our twelve-person mechanical subteam through the build of a swerve drivetrain. During build season we're in the lab thirty-plus hours a week, and honestly a lot of that time I was guessing. I could make the modules work, but I didn't really understand why our gear ratios felt sluggish or why our aluminum tubing bent where it did. I want the theory to catch up to my hands.\n\nGeorgia Tech is the only school I've found where those two things seem equally important. The Invention Studio being run by students and open to anyone is the main reason I started looking at Tech. I like the idea of a shop where a freshman can walk in and use a laser cutter once they've done the training, because that's how our robotics lab works and it's how I learned. I'd also want to join RoboJackets right away, since I've only ever built robots under FRC rules and I want to see what else is out there.\n\nThe co-op program matters to me too, and not only because of money (although, yes, also money). My family's shop taught me that I learn fastest when something real is on the line. Alternating semesters in industry would let me test what I learn in class against actual machines and actual deadlines.\n\nEventually I want to design equipment for small manufacturers, the kind of places along the border that can't afford a whole engineering department. I think Georgia Tech can teach me how."
+    }
+  ],
+  "publicNames": [
+    "FIRST Robotics Competition (FRC)",
+    "FIRST in Texas",
+    "Excellence in Engineering Award",
+    "Science Olympiad",
+    "National Honor Society",
+    "AP Scholar with Distinction",
+    "College Board",
+    "National Hispanic Recognition Program",
+    "YouTube",
+    "NASA",
+    "Georgia Institute of Technology",
+    "Invention Studio",
+    "RoboJackets"
+  ]
+}

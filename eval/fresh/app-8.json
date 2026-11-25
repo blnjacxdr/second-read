@@ -1,0 +1,161 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Fatima Al-Sayed",
+    "school": "Rouge River High School (Dearborn, MI)",
+    "graduationYear": 2027,
+    "email": "fatima.alsayed@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Career Oriented",
+      "position": "Chapter Vice President",
+      "organization": "HOSA-Future Health Professionals",
+      "description": "Compete in Medical Terminology; placed 3rd at state in 2026. Run weekly study sessions for 20 first-year members.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer English Tutor",
+      "organization": "ACCESS (Arab Community Center for Economic and Social Services)",
+      "description": "Tutor newly arrived families in conversational English and help their kids with homework on Saturday mornings.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Counter & Baker's Helper",
+      "organization": "Al-Sayed Family Bakery",
+      "description": "Work the weekend counter, fold fatayer and pack ka'ak orders during the Ramadan and Eid rush. Take catering calls in Arabic.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 50,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Religious",
+      "position": "Secretary",
+      "organization": "Muslim Student Association",
+      "description": "Plan our interfaith iftar each Ramadan (150+ guests last year) and keep minutes for board meetings.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Tennis",
+      "position": "Varsity, #2 Doubles",
+      "organization": "Rouge River Girls Tennis",
+      "description": "4-year player, varsity since sophomore year. Play in a sports hijab and helped convince the league to update its uniform policy.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 14,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Community Service (Volunteer)",
+      "position": "Youth Docent",
+      "organization": "Arab American National Museum",
+      "description": "Lead weekend gallery tours for school groups in English and Arabic.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 25,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Michigan HOSA State Leadership Conference, 1st Place, Medical Terminology",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AP Scholar with Honor",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "National Merit Commended Student",
+      "grades": [
+        12
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?",
+    "wordLimit": 650,
+    "text": "For most of my life, I believed that good English was something you earned by giving up Arabic.\n\nI didn't think about it that way, exactly. But I absorbed it. In elementary school, the kids who had \"an accent\" got pulled out for ESL, and the rest of us stayed in the room. I stayed in the room, and I was proud of it. At home I spoke Arabic with my parents and my grandmother, but at school I made sure nobody heard me say a single word. When my mom picked me up and called out \"yalla, habibti,\" I would walk faster to the car.\n\nI'm embarrassed by that now. But I didn't really question it until I started tutoring at ACCESS.\n\nACCESS is a community center in Dearborn that helps new immigrants, a lot of them from Yemen, Iraq, Syria, and Lebanon. I volunteer there every Saturday for three years now, six hours at a time, helping families practice conversational English and helping their kids with homework. I signed up because I thought it would look good for pre-med and because my mom told me to, in that order.\n\nThe second week, I was assigned to a nine-year-old girl named Rania, who had just arrived from Sanaa. She was doing a worksheet about the water cycle and refused to say anything. Not in English, not in Arabic. Her mom told me she'd been like that at school too. The teacher thought she didn't understand.\n\nI tried everything I could think of. Flashcards. Drawing. Bribery with Hot Cheetos. Nothing worked. Finally, out of frustration more than strategy, I started explaining evaporation to myself out loud in Arabic, the way my grandmother explains things, with a lot of hand motions and a story about a puddle that wanted to visit the sky. Rania looked up. Then she corrected my grammar.\n\nShe knew exactly what evaporation was. She had learned it in Arabic in Yemen. What she didn't have was permission to use what she already knew. And sitting there, I realized I had spent years denying myself that same permission.\n\nAfter that, I changed how I tutored. I started letting kids answer in Arabic first and then build the English from there. I learned that there's actual research on this, called translanguaging, which basically says that bilingual students learn better when they're allowed to use their whole language system instead of being forced to shut half of it off. When I read about it, I felt like someone had written a paper about my entire childhood.\n\nIt changed things at home, too. My grandmother has diabetes, and for years I went with her to doctor's appointments to interpret. I always treated it like a chore, a translation job where my goal was to get in and out. Now I pay attention to how much gets lost between the two languages. The doctor says \"manage your carbs\" and the word that comes out in Arabic sounds like \"stop eating bread,\" which to my grandmother is basically a threat. Finding the right words is not just translation. It's medicine.\n\nI still want to become a doctor. But now I want to be the kind of doctor who doesn't make patients leave half of themselves at the door. Dearborn has thousands of families who are told, in a hundred quiet ways, that their language is a problem to be fixed. I used to be one of the people saying it.\n\nRania is in fifth grade now. Last month she gave me a drawing of a puddle with a face, floating up to a cloud. She wrote the caption in both languages."
+  },
+  "supplements": [
+    {
+      "id": "supplement-umich",
+      "college": "University of Michigan",
+      "prompt": "Everyone belongs to many different communities and/or groups defined by (among other things) shared geography, religion, ethnicity, income, cuisine, interest, race, ideology, or intellectual heritage. Choose one of the communities to which you belong, and describe that community and your place within it.",
+      "wordLimit": 300,
+      "text": "My community smells like anise and toasted sesame, at least from 5 a.m. to noon on Sundays. That's when I work the counter at my uncle's bakery on Warren Avenue.\n\nThe bakery isn't fancy. There are three tables, a display case of ka'ak and baklawa, and a TV in the corner that is permanently tuned to Lebanese news. But it might be the most important gathering place I know. Old men come in at six and argue about politics over coffee. Moms come in after dropping kids off at Sunday Arabic school. Young guys come in at noon still in their work clothes. During Ramadan, the line before iftar goes out the door and halfway down the block.\n\nMy place in this community started as the kid who packed boxes. Now I'm the one who answers the phone, because I'm the only one at the counter who can take a catering order in Arabic and then email the invoice in English. I'm a kind of bridge, and I've realized I like being one.\n\nThat's actually why I want to come to Michigan. I want to study public health and eventually go to medical school, and I'd love to do research connected to the Arab American community through programs in Ann Arbor and here in Dearborn. Health outcomes in immigrant communities depend on a lot of things that don't happen in a clinic: what people eat, who they trust, what language they're comfortable asking questions in.\n\nI learned all of that at a bakery counter. The old men arguing over coffee taught me more about community health than any textbook so far. I want to take that with me."
+    }
+  ],
+  "publicNames": [
+    "HOSA-Future Health Professionals",
+    "Michigan HOSA State Leadership Conference",
+    "ACCESS (Arab Community Center for Economic and Social Services)",
+    "Muslim Student Association",
+    "Arab American National Museum",
+    "AP Scholar with Honor",
+    "National Merit Scholarship Program",
+    "Hot Cheetos",
+    "University of Michigan"
+  ]
+}

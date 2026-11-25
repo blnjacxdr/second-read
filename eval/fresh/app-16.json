@@ -1,0 +1,154 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Caleb Thompson",
+    "school": "Chugach View High School (Anchorage, AK)",
+    "graduationYear": 2027,
+    "email": "caleb.thompson.cap@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Career Oriented",
+      "position": "Cadet Captain; Cadet Commander (12)",
+      "organization": "Civil Air Patrol",
+      "description": "Joined in Colorado Springs; moved to an Anchorage squadron midway through 10th grade. Lead 30 cadets. 5 orientation flights.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Cashier",
+      "organization": "Fred Meyer",
+      "description": "Front-end cashier, mostly evenings. Trained on the fuel center register.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 36,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Owner",
+      "organization": "Self-employed snow removal",
+      "description": "Shovel and snowblow driveways for 18 neighbors, many with deployed spouses. Runs October to April.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 24,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Track & Field",
+      "position": "Varsity, 800m & 1600m",
+      "organization": "Track & Field",
+      "description": "Ran varsity at two schools (Colorado Springs, then Anchorage). Help lead our distance group's off-season runs.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 14,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer",
+      "organization": "Food Bank of Alaska",
+      "description": "Sort donations and help at mobile food pantry days in Anchorage and Mat-Su.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Other Club/Activity",
+      "position": "Teen Mentor",
+      "organization": "Boys & Girls Clubs of Southcentral Alaska (JBER Youth Center)",
+      "description": "Mentor younger military kids at the base youth center and help newly arrived families find their way around.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Civil Air Patrol Gen. Billy Mitchell Award",
+      "grades": [
+        10
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "ASAA State Track & Field Championships, 6th Place, 1600m",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "There is a cardboard box in my closet that has been to six states. It's labeled CALEB: OPEN FIRST, in my mom's handwriting, and it's been taped and re-taped so many times it's more tape than cardboard.\n\nMy dad is in the Air Force, which means I've moved five times since kindergarten: from Ohio to Texas, then Georgia, Virginia, Colorado, and now Alaska. Every time, the OPEN FIRST box has the same things in it: a nightlight shaped like a moon (I'm seventeen, I know), a framed photo of my grandparents in Ohio, a Swiss Army knife my grandpa gave me, and a list I started writing when I was eight called \"Things That Are the Same Everywhere.\"\n\nThe list began as a kid's coping strategy. I was the new kid again, crying in a strange bedroom in Georgia, and my mom told me to write down everything I knew would be the same at my new school. The first entries are pretty basic. \"Recess.\" \"Pizza on Fridays.\" \"The moon.\" Later ones get more specific. \"Some kid will ask if I've been to war.\" \"The library always has a quiet corner.\" \"Somebody will be nice by Wednesday.\"\n\nFor a long time I thought the point of moving was to survive it. Get through the first week, find a lunch table, don't get too attached, because you'll be leaving in two or three years anyway. I got very good at being new. I was so good at it that I never really let myself get past it.\n\nThe thing that changed that was Civil Air Patrol. I joined as a freshman in Colorado Springs, mostly because my dad thought I needed something to do besides video games. And I loved it. The uniforms, the aerospace classes, the first time I took the controls of a Cessna on an orientation flight and the instructor let me bank over Pikes Peak. I worked harder than I'd ever worked on anything, and in the fall of my sophomore year I earned the Billy Mitchell Award, which is a big milestone for cadets.\n\nTwo months later, we got orders to Alaska.\n\nI remember being angry in a way I hadn't been since I was little. I had finally built something that mattered, and I had to leave it again. But the first week in Anchorage, I looked up the local CAP squadron, and when I walked in, a cadet I'd never met saluted, looked at the Mitchell ribbon on my uniform, and said, \"Oh good, you can help teach the new kids.\" That was it. No awkward first week. No lunch table problem. Just, here's what we need you for.\n\nThat moment made me realize something I'd been missing about my own list. \"Things That Are the Same Everywhere\" wasn't only about what I could expect from a new place. It was also about what I could bring to it. I didn't have to just wait for someone to be nice by Wednesday. I could be the somebody.\n\nSince then, I've tried to live that way. I mentor younger military kids at the youth center on base, especially the ones who just arrived and look the way I used to. I started a snow-shoveling business mostly because I noticed how many families on my street had a parent deployed and nobody to clear the driveway at 6 a.m. Now I'm Cadet Commander of my squadron, and the first thing I do with every new cadet is ask where they moved from.\n\nThe OPEN FIRST box is still in my closet. When I leave for college, it will go with me, and I'll open it first like always. But I added a new line to the list this year. \"You don't have to wait to belong. You can start.\""
+  },
+  "supplements": [
+    {
+      "id": "supplement-notredame",
+      "college": "University of Notre Dame",
+      "prompt": "What excites you about the University of Notre Dame that may not be shared by other universities?",
+      "wordLimit": 200,
+      "text": "I've lived in six states, so I've learned to notice what makes a place feel like home. At Notre Dame, it seems to be the dorms. I love that students stay in the same residence hall for years, with its own traditions and rivalries and Masses. When you've moved as many times as I have, the idea of a community that keeps you on purpose sounds pretty amazing.\n\nI'm also excited about Notre Dame's Air Force ROTC detachment. Growing up in a military family, I've seen what good leadership looks like and what bad leadership costs people. Civil Air Patrol gave me my first chance to lead, and I want to keep developing that while I study aerospace engineering.\n\nNotre Dame talks about educating the mind and the heart, and I think that matters for anyone who wants to lead other people. I don't just want to learn how to design aircraft. I want to learn how to be the kind of officer, and the kind of person, who notices the new kid in the room."
+    }
+  ],
+  "publicNames": [
+    "Civil Air Patrol",
+    "Fred Meyer",
+    "Food Bank of Alaska",
+    "Boys & Girls Clubs of Southcentral Alaska",
+    "Joint Base Elmendorf-Richardson (JBER)",
+    "Gen. Billy Mitchell Award",
+    "Alaska School Activities Association (ASAA)",
+    "U.S. Air Force",
+    "Cessna",
+    "University of Notre Dame",
+    "Notre Dame Air Force ROTC"
+  ]
+}

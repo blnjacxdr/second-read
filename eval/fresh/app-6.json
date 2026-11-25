@@ -1,0 +1,152 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Leilani Kahananui",
+    "school": "Koko Head High School (Honolulu, HI)",
+    "graduationYear": 2027,
+    "email": "leilani.kahananui@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Athletics: Club",
+      "sport": "Outrigger Canoe Paddling",
+      "position": "Paddler; Steersman (12)",
+      "organization": "Hui Nalu Canoe Club",
+      "description": "Race OC6 in summer regattas and distance races. Steering our Girls 18 crew this year.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 14,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Community Service (Volunteer)",
+      "position": "Assistant Coach, Keiki Program",
+      "organization": "Hui Nalu Canoe Club",
+      "description": "Coach 14 keiki paddlers ages 8-12 on water safety, technique, and canoe protocol. Help run our youth regatta tent.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 12,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Cultural",
+      "position": "Haumana (student)",
+      "organization": "Hālau hula (Honolulu)",
+      "description": "Study hula kahiko and ʻauana with my kumu. Perform at Lei Day and help the younger girls learn chants.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 45,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Research",
+      "position": "Student Researcher",
+      "organization": "Independent project (mentor at University of Hawaiʻi at Mānoa)",
+      "description": "Measured how fast invasive gorilla ogo spreads on reef flats compared to native limu. 2-year science fair project.",
+      "grades": [
+        10,
+        11
+      ],
+      "timing": "School",
+      "hoursPerWeek": 4,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Work (Paid)",
+      "position": "Counter Staff",
+      "organization": "Shave ice shop in Hawaiʻi Kai",
+      "description": "Make shave ice, close out the register, and help Japanese tourists with the menu using my 3 years of Japanese.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 45,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Environmental",
+      "position": "Volunteer",
+      "organization": "Surfrider Foundation, Oʻahu Chapter",
+      "description": "Monthly beach cleanups; I sort and log debris types for Surfrider's data. 40+ cleanups since freshman year.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 12,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Hawaiʻi State Science and Engineering Fair, 2nd Place, Plant Sciences",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "Hawaiian Canoe Racing Association State Championships, Gold, Girls 16",
+      "grades": [
+        10
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Share an essay on any topic of your choice. It can be one you've already written, one that responds to a different prompt, or one of your own design.",
+    "wordLimit": 650,
+    "text": "The person in seat six doesn't get to paddle as hard as everyone else. That took me a while to accept.\n\nIn an outrigger canoe there are six seats. Seat one sets the pace, seats two through five are the engine, and seat six is the steersman, who sits in the back and keeps the canoe pointed where it needs to go. For my first three years at Hui Nalu, I was an engine. I was seat three, which is basically the seat for people who are strong and don't talk much. I loved it. I loved the burn in my lats on the third turn, and the way our whole crew would exhale together when we crossed the finish. Paddling hard was the only way I knew how to help.\n\nSo when my coach told me last spring that she wanted me to learn to steer, I was kind of offended. Steering felt like being benched. You still paddle, but mostly your blade is a rudder. You're reading the wind, the swell, the other canoes, the current around the reef. You're thinking about five other people more than yourself.\n\nThe first time I steered in a real race, I panicked at the turn flag. A canoe from another club cut inside us, and I overcorrected, and we nearly huli'd, which means flipped. My crew was soaked and annoyed. In the parking lot afterward, one of the older aunties from the club, who has paddled for forty years, said something I didn't understand at first. She said, \"Steersman doesn't paddle for herself. She paddles for the canoe.\"\n\nI started thinking about that in a lot of places. It's the idea of kuleana, which my kumu hula talks about all the time. It's usually translated as \"responsibility,\" but it's more than that. It's a responsibility you have because of your relationship to something: your family, your place, your people. Kuleana isn't a burden someone hands you. It's the shape of where you belong.\n\nFor the last two summers I've also been coaching our keiki paddlers, which has turned out to be a lot like steering. Little kids don't need you to paddle harder than them. They need you to see the whole canoe. All twelve of my keiki are completely different: one girl is terrified of the deep water past the reef, two boys only want to race each other, one kid just wants to know the names of all the fish. My job isn't to make them paddle like me. It's to keep them pointed in the same direction and get them home safe.\n\nMy science project ended up being about the same thing, in a weird way. I spent two years measuring how gorilla ogo, an invasive seaweed, takes over reef flats near my house and crowds out native limu. At first I just wanted to prove it was bad. But the more I measured, the more I realized the real question was about kuleana again: who is responsible for the reef, and how do you restore a place that belongs to everyone? Some of the best data I got came from uncles who've fished that reef their whole lives, who told me exactly where the limu used to be thick when they were kids.\n\nI still miss seat three sometimes. It's simpler there. But this summer at the state championships, I steered our Girls 18 crew through the final turn clean, no panic, and I felt something I never felt as an engine. I felt like I was holding everyone at once.\n\nI don't think I'll stop paddling for the canoe. I think the canoe just keeps getting bigger."
+  },
+  "supplements": [
+    {
+      "id": "supplement-uw",
+      "college": "University of Washington",
+      "prompt": "Our families and communities often define us and our individual worlds. Describe the world you come from and how you, as a product of it, might add to the diversity of the UW.",
+      "wordLimit": 300,
+      "text": "I come from a world where your grandmother's grandmother is still part of the conversation. In my family, when we make decisions, someone always asks what the kūpuna, our elders, would think. Sometimes that means my actual Tūtū, and sometimes it means people who've been gone for a hundred years.\n\nThat way of thinking shaped how I do science. When I studied invasive gorilla ogo on the reef near my house, I didn't just take measurements. I talked to uncles who've fished there for fifty years, and they told me where the native limu used to grow thick. Their memories became part of my data. That project won first place at the state science fair, but honestly the best part was being trusted with those stories.\n\nAt UW, I want to study at the School of Aquatic and Fishery Sciences and eventually do research at Friday Harbor Labs. I know Seattle is cold and gray compared to home. But the Pacific is the same ocean, and the Coast Salish nations have their own long relationships with the water there. I'd love to learn from Indigenous students and researchers whose communities, like mine, have been taking care of their coastlines for generations.\n\nWhat I'll bring is a habit of asking whose knowledge is missing from the room. In a lab, that can mean asking who lived here before the data started. In a dorm, it can just mean making sure the quiet kid gets a seat in the canoe."
+    }
+  ],
+  "publicNames": [
+    "Hui Nalu Canoe Club",
+    "University of Hawaiʻi at Mānoa",
+    "Surfrider Foundation",
+    "Hawaiʻi State Science and Engineering Fair",
+    "Hawaiian Canoe Racing Association",
+    "Lei Day",
+    "University of Washington",
+    "School of Aquatic and Fishery Sciences",
+    "Friday Harbor Laboratories"
+  ]
+}

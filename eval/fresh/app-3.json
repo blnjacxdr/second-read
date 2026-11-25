@@ -1,0 +1,159 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Jamal Whitfield",
+    "school": "Garrison Heights High School (Baltimore, MD)",
+    "graduationYear": 2027,
+    "email": "jwhitfield.debate@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Debate/Speech",
+      "position": "Varsity Policy Debater; Captain (12)",
+      "organization": "Baltimore Urban Debate League",
+      "description": "2-person policy team. Qualified to NSDA Nationals as a junior. Run Saturday practice for 15 middle school novices.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 32,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Music: Instrumental",
+      "position": "Trumpet; Section Leader",
+      "organization": "Garrison Heights Marching & Jazz Band",
+      "description": "Lead a 9-person trumpet section. Play lead trumpet in jazz band and wrote our stand tune arrangement this fall.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Student Govt./Politics",
+      "position": "Class Treasurer",
+      "organization": "Garrison Heights Student Government",
+      "description": "Manage the junior/senior class budget (~$6,000). Pushed to move prom money into a fund for seniors who can't afford fees.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 36,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Work (Paid)",
+      "position": "Counter & Stock",
+      "organization": "Seafood stall at Lexington Market",
+      "description": "Saturdays at a family friend's crab and seafood stall. Count the drawer, run the lunch rush, pick crabs faster than the owner.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 50,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Reading Buddy",
+      "organization": "Enoch Pratt Free Library",
+      "description": "Read with K-2 kids at my neighborhood branch during the library's summer reading program.",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "timing": "Break",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 8,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Social Justice",
+      "position": "Chapter Founder & President",
+      "organization": "Junior State of America (JSA)",
+      "description": "Started our JSA chapter; we host monthly debates on city issues like the water bill crisis and youth curfews. 22 members.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 28,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "NSDA National Tournament Qualifier, Policy Debate",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-2",
+      "title": "Baltimore Urban Debate League City Championship, 1st Place Varsity Policy",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-3",
+      "title": "Principal's Honor Roll",
+      "grades": [
+        9,
+        10,
+        11
+      ],
+      "level": "School"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "My grandmother has been winning arguments against me since I could talk. When I was seven I tried to convince her that I didn't need a coat because I \"wasn't cold on the inside.\" She asked me to explain what the inside was. I lost. I wore the coat.\n\nSo I guess it makes sense that I ended up in debate, but it didn't feel like it at the time. I didn't join debate until the spring of sophomore year, and only because my friend Terrence needed a partner and promised there would be free pizza at tournaments. (There was pizza. It was not always free.) My first round, I was so nervous that I read my evidence too fast and skipped a whole page. The judge wrote one sentence on my ballot: \"Slow down and tell me why it matters.\" I still have it in my binder.\n\nIn debate, you don't get to choose which side you're on. You find out twenty minutes before the round, and then you have to argue it like you believed it your whole life. At first that felt fake to me. How was I supposed to defend a policy I didn't even agree with? It seemed like lying with extra steps.\n\nThe realization that changed things for me came at a tournament in Washington my junior year. We were negative against a team from a private school arguing for more police in public schools. I had my arguments ready, mostly statistics. But in cross-examination one of their debaters said something like, \"Well, in neighborhoods like the ones these schools are in, people want more protection.\" And I realized he was talking about my neighborhood, and he had never been there. He had a statistic for it. I had a whole life.\n\nI didn't throw out my evidence. But in my rebuttal I slowed down, like the ballot told me to, and I talked about the officer who used to stand outside my middle school, and how some kids felt safer and some kids took the long way around the block to avoid him, and how both of those things were true at once. I told the judge that the real question wasn't whether people want protection. Everybody does. It's who gets to decide what protection looks like.\n\nWe won that round. We lost the next one, actually, pretty badly. But something shifted for me. I stopped thinking of debate as a game where you try to sound right, and started thinking of it as practice for listening to the argument underneath the argument. The other team wasn't evil. They had just never had to think about the person taking the long way around the block.\n\nThat changed how I act outside of rounds too. When my class argued last year about whether to spend money on a fancier prom, I didn't just vote no. I asked who wasn't going to prom at all because of the ticket price, and we found out it was almost a third of the senior class. We moved part of the budget into a fund for senior fees instead. Nobody had been against those kids. Nobody had been thinking about them either.\n\nNow I coach the middle school novices on Saturdays, and the first thing I teach them is the sentence from my ballot. Slow down and tell me why it matters. Most of them roll their eyes. Then they watch someone talk fast and say nothing, and they get it.\n\nMy grandmother still wins most of our arguments. But last Thanksgiving I convinced her to let my cousin bring her girlfriend to dinner. I didn't use any statistics. I just asked her who she'd want at the table if it were her. She thought about it for a long time and then said, \"Fine. Tell her to bring rolls.\""
+  },
+  "supplements": [
+    {
+      "id": "supplement-jhu",
+      "college": "Johns Hopkins University",
+      "prompt": "Tell us about an aspect of your identity (e.g., race, gender, sexuality, religion, community) or a life experience that has shaped you as an individual and how that influenced what you'd like to pursue in college at Hopkins.",
+      "wordLimit": 400,
+      "text": "I've grown up about fifteen minutes from Homewood my whole life, but for a long time Hopkins felt like a different city. It was the place with the nice lawns where people came to study Baltimore, not live in it. When I was in middle school, a research team came to my rec center and asked us a bunch of questions about \"neighborhood safety\" and then we never heard from them again. I remember thinking, I hope that paper is good, because it's about me.\n\nBeing from West Baltimore isn't the only thing about me. But it's the thing that taught me to pay attention to who's in the room when decisions get made, and who isn't.\n\nDebate gave me a way to put that into words. In debate, you don't get to choose which side you're on. You find out twenty minutes before the round, and then you have to argue it like you believed it your whole life. That forced me to understand people I disagreed with. It also showed me how often the people being argued about are never asked.\n\nAt Hopkins I want to study public health and political science, specifically how cities make policy about neighborhoods like mine. I'm interested in the Center for Social Concern because it seems to connect students to Baltimore as partners, not just as research subjects. I'd also love to join the debate team and keep coaching novices, maybe through a program with Baltimore City schools.\n\nI want to be the person who does the survey at the rec center and then comes back."
+    }
+  ],
+  "publicNames": [
+    "Baltimore Urban Debate League",
+    "National Speech & Debate Association (NSDA)",
+    "Lexington Market",
+    "Enoch Pratt Free Library",
+    "Junior State of America (JSA)",
+    "Johns Hopkins University",
+    "Center for Social Concern"
+  ]
+}

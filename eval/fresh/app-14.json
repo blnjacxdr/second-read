@@ -1,0 +1,140 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Ethan Kowalski",
+    "school": "Allegheny Heights High School (Pittsburgh, PA)",
+    "graduationYear": 2027,
+    "email": "ekowalski.dev@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Computer/Technology",
+      "position": "Developer",
+      "organization": "Congressional App Challenge",
+      "description": "Built BusBuddy, an app that predicts late PRT buses from real-time data. Used by 1,200 students in my district.",
+      "grades": [
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Cashier",
+      "organization": "Giant Eagle",
+      "description": "Cashier and self-checkout attendant. Usually close on Fridays and work Sunday mornings.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 12,
+      "weeksPerYear": 40,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Music: Instrumental",
+      "position": "Snare; Drumline Section Leader",
+      "organization": "Allegheny Heights Marching Band",
+      "description": "Lead an 11-person drumline. Wrote two of our street beats and run summer band camp sectionals.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 10,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Teen Tech Volunteer",
+      "organization": "Carnegie Library of Pittsburgh",
+      "description": "Help seniors at my neighborhood branch set up phones, email, and telehealth apps, Thursday afternoons.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Science/Math",
+      "position": "Member; Problem Writer (12)",
+      "organization": "Allegheny Heights Math Club",
+      "description": "Write the weekly problem set and help run our school's AMC 10/12 sitting every fall.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "Congressional App Challenge, Winner, Pennsylvania's 12th District",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "AIME Qualifier",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Describe a topic, idea, or concept you find so engaging that it makes you lose all track of time. Why does it captivate you? What or who do you turn to when you want to learn more?",
+    "wordLimit": 650,
+    "text": "The 54 bus is supposed to come every twenty minutes. That is a lie, and I can prove it.\n\nI got my first job at Giant Eagle the summer after junior year, and the only way to get there from my house is the 54. Every shift, I'd stand at the stop on Liberty Avenue with the PRT app open, watching the little bus icon say \"4 min\" for twelve minutes. I was late three times in my first two weeks. My manager was nice about it, but I could tell she didn't believe the bus thing.\n\nSo I started keeping track. At first it was just a note on my phone: scheduled time, actual time, weather. After a week I had enough to be annoyed. After a month I had enough to notice patterns. The bus wasn't randomly late. It was predictably late. Rain added about six minutes. Pirates home games added more. The 4:15 was almost always fine, and the 4:35 was almost always a disaster, because it got stuck behind school traffic on the Bloomfield Bridge.\n\nThat was the moment I lost track of time, in a way that has continued for about a year. I found out that PRT publishes real-time vehicle location data that anybody can use. I didn't know how to use an API. I didn't really know what an API was. I learned it from documentation, Stack Overflow posts, and a very patient computer science teacher who let me eat lunch in his room.\n\nWhat I ended up building was BusBuddy, an app that takes the real-time data, combines it with weather and event schedules, and tells you not just where the bus is, but when it's actually going to show up. The first version was ugly and broke every time it rained, which is ironic, since rain was the whole point. The second version worked. I entered it in the Congressional App Challenge, and to my genuine shock, it won for our district.\n\nThe thing that captivates me isn't really buses. It's the idea that there's a pattern hiding in something everyone just accepts as chaos. Everybody in Pittsburgh complains about the buses. Almost nobody had looked at the numbers. Once I started looking, the city kind of opened up for me. I started noticing patterns everywhere: which Giant Eagle registers got the longest lines and when, why our drumline always rushed the same measure of our cadence (it's the measure right after the tenors come in, and it's because the bass drums can't hear the snares).\n\nAbout 300 people use BusBuddy now, mostly students at my school and a few at Pitt. The best message I've ever gotten was from a nursing student who said it helped her stop being late to clinicals. I printed it out. It's on my wall.\n\nWhen I want to learn more, I go to the actual data first, then to people who've been doing this longer than me. I read transportation research from Carnegie Mellon's Mobility21 center. I watch talks about traffic modeling. I've emailed two professors, and one of them actually wrote back, which I'm still a little stunned about.\n\nI also go to the bus stop. Data can tell you the 4:35 is late, but it can't tell you that the lady who rides it every day with her grandson has started leaving fifteen minutes early because she doesn't trust it anymore. I met her because I was standing there doing research. She asked what I was doing, and when I told her, she said, \"Well, when you fix it, let me know.\"\n\nI haven't fixed it. But she uses BusBuddy now."
+  },
+  "supplements": [
+    {
+      "id": "supplement-cmu",
+      "college": "Carnegie Mellon University",
+      "prompt": "Most students choose their intended major or area of study based on a passion or inspiration that's developed over time. What passion or inspiration led you to choose this area of study?",
+      "wordLimit": 300,
+      "text": "I want to study computer science because of a bus that was always late.\n\nThe 54 runs past my house, and when I started tracking how late it really was, I found out that the delays weren't random. They followed patterns. Rain, traffic, event days, the time school lets out. I taught myself how to pull PRT's real-time data and built an app called BusBuddy that predicts when buses will actually arrive. It won the Congressional App Challenge for my district, which was cool, but what really hooked me was realizing that code can take something everyone thinks is chaos and make it understandable.\n\nI'm interested in the parts of computer science that touch real life, especially machine learning and urban systems. I've been reading about the work at CMU's Traffic21 and Mobility21 centers, and the idea that I could do research on transportation in the same city where I first got interested in it is honestly kind of amazing. Pittsburgh is my test case. I know the potholes personally.\n\nI also like that CMU's School of Computer Science seems to care about building things, not just studying them. I learned to code by making something I needed, breaking it, and fixing it again. I want a program where that kind of learning is normal.\n\nMostly, I want to keep doing what started on Liberty Avenue: looking at the things people complain about, finding the pattern underneath, and building something that helps. A late bus was the first problem I tried to solve. I don't think it'll be the last."
+    }
+  ],
+  "publicNames": [
+    "Congressional App Challenge",
+    "Pittsburgh Regional Transit (PRT)",
+    "Giant Eagle",
+    "Carnegie Library of Pittsburgh",
+    "American Mathematics Competitions (AMC 10/12)",
+    "AIME (American Invitational Mathematics Examination)",
+    "Stack Overflow",
+    "Pittsburgh Pirates",
+    "University of Pittsburgh (Pitt)",
+    "Carnegie Mellon University",
+    "Mobility21",
+    "Traffic21",
+    "School of Computer Science (CMU)"
+  ]
+}

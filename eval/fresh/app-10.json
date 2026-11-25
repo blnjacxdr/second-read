@@ -1,0 +1,144 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Owen Gallagher",
+    "school": "Neponset Valley High School (Boston, MA)",
+    "graduationYear": 2027,
+    "email": "owen.gallagher.dot@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Ice Hockey",
+      "position": "Varsity Defenseman; Alternate Captain (12)",
+      "organization": "Neponset Valley Boys Ice Hockey",
+      "description": "3-year varsity defenseman. Alternate captain senior year. Lead our team's monthly volunteer shifts.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 16,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Academic",
+      "position": "Documentary Filmmaker",
+      "organization": "National History Day",
+      "description": "Made documentaries on the Boston busing crisis and the Great Molasses Flood. Interviewed 6 Boston residents on camera.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Work (Paid)",
+      "position": "Shift Lead",
+      "organization": "Dunkin'",
+      "description": "Open the store at 5 a.m. on weekends, train new crew, count drawers, handle the line when the Red Sox are home.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 14,
+      "weeksPerYear": 50,
+      "plans": "Will not continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Religious",
+      "position": "Altar Server & Lector",
+      "organization": "Catholic parish (Dorchester)",
+      "description": "Altar server since age 10, now a lector at Sunday Mass. Help run the parish's Thanksgiving dinner for 80 seniors.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 2,
+      "weeksPerYear": 50,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Community Service (Volunteer)",
+      "position": "Volunteer",
+      "organization": "The Greater Boston Food Bank",
+      "description": "Sort and pack food at the warehouse once a month with my hockey team.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 9,
+      "plans": "Will continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "National History Day Massachusetts, 1st Place, Senior Individual Documentary",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "National History Day National Contest, Finalist, Senior Individual Documentary",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    },
+    {
+      "id": "honor-3",
+      "title": "John and Abigail Adams Scholarship",
+      "grades": [
+        12
+      ],
+      "level": "State/Regional"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Discuss an accomplishment, event, or realization that sparked a period of personal growth and a new understanding of yourself or others.",
+    "wordLimit": 650,
+    "text": "My great-uncle Frank doesn't talk about 1974. I found that out the hard way, on camera.\n\nI'd been working on my National History Day documentary for about two months. The topic was the Boston busing crisis, when a federal judge ordered the city to desegregate its schools by busing students between neighborhoods, and parts of white Boston, especially South Boston and Charlestown, responded with protests that turned violent. I picked it because I thought it would be a good story. I knew the basics from a textbook: the court order, the buses with rocks thrown at them, the famous photo of a man swinging an American flag at a Black lawyer outside City Hall.\n\nWhat I didn't know was that my own family was in that story.\n\nI only found out because my grandmother mentioned it at Sunday dinner. \"Ask your Uncle Frank,\" she said. \"He was at Southie High that year.\" So I did. I set up my camera in his kitchen in Quincy and asked him what he remembered. He was quiet for a long time. Then he said, \"I was fifteen and I was stupid.\" And then he asked me to turn the camera off.\n\nI turned it off. We sat there for almost an hour. He told me about the morning the buses came, and how everyone on his street was out on the sidewalk, and how he threw something, he wouldn't say what, at a bus full of kids his own age. He told me his father was proud of him that night, and that it took him twenty years to understand why that was the worst part.\n\nI drove home and didn't know what to do. I had a deadline in three weeks, and the best interview I'd ever gotten was one I'd promised not to use.\n\nI ended up rebuilding the whole documentary. Instead of just telling the story of what happened, I tried to tell the story of how a neighborhood remembers something it would rather forget. I interviewed six people: two Black women who rode the buses from Roxbury, a retired teacher, a priest, a historian, and a woman from Southie who still believes the busing order was wrong. I didn't use Uncle Frank's interview. But I put a line at the end, in white text on black: \"Some people who were there asked not to be recorded. Their silence is part of this history too.\"\n\nThat documentary won the state contest and I ended up competing at Nationals at Georgetown in D.C., which was surreal. I didn't win, but I got to talk to a judge who had grown up in Boston, and she told me the ending made her cry. That meant more to me than a medal.\n\nWhat changed for me wasn't really about the contest. Growing up Irish Catholic in Dorchester, I'd always thought of my family's history as something to be proud of: immigrants, cops, firefighters, people who worked hard and took care of their own. All of that is true. But I'd never asked who \"our own\" left out. I think I'd assumed history was something that happened to other people.\n\nI've played hockey since I was five, and in hockey you learn to watch the whole ice, not just the puck. I think that's what history is supposed to teach too. Not just what happened, but who was standing where, and who got hit, and who was cheering.\n\nUncle Frank came to the screening at my school. Afterward he didn't say much. He just shook my hand and said, \"You did that right.\" Then, on his way out, he told me that if I ever wanted to try the interview again, he'd think about it."
+  },
+  "supplements": [
+    {
+      "id": "supplement-bc",
+      "college": "Boston College",
+      "prompt": "Jesuit education seeks to form people who use their gifts for others. How do you hope to make a difference in the world, and how might Boston College help you do it?",
+      "wordLimit": 400,
+      "text": "I've been an altar server or lector at my parish since I was ten, so I've heard a lot of homilies about being \"men and women for others.\" For a long time I thought that meant volunteering: food bank shifts, the Thanksgiving dinner for seniors, that kind of thing. I still do all of that and I'm glad I do.\n\nBut making my National History Day documentary about Boston's busing crisis changed what I think \"for others\" means. Sometimes serving people means listening to a part of their story they'd rather not tell, and then telling it carefully. I learned that in my great-uncle's kitchen, with the camera off.\n\nI want to study history at Boston College, probably with a minor in film studies, and eventually make documentaries about cities and the people who get left out of their official stories. BC feels like the right place for that for a few reasons. The history department's focus on Boston and Irish history means I could keep working on the questions that started in my own family. And I love that BC asks students to think about the \"why\" of their work, not just the \"what.\" The Jesuit idea of reflection, of stopping to ask what something means and who it's for, is basically what happened to me when I turned the camera off.\n\nI also want to stay close to home. My mom is a nurse at Boston Medical Center and works nights, and I help with my younger sisters. BC would let me be part of a new community while staying connected to the one that raised me.\n\nI hope to make a difference by telling stories about Boston that are honest, even when they're uncomfortable. I think BC can teach me how to do that with both skill and care."
+    }
+  ],
+  "publicNames": [
+    "National History Day",
+    "Dunkin'",
+    "Boston Red Sox",
+    "The Greater Boston Food Bank",
+    "John and Abigail Adams Scholarship",
+    "Georgetown University",
+    "Boston College",
+    "Boston Medical Center"
+  ]
+}

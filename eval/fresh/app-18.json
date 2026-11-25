@@ -1,0 +1,151 @@
+{
+  "notice": "Fictional applicant for testing.",
+  "personalInfo": {
+    "name": "Kayla Simmons",
+    "school": "Sea Island Ridge High School (Charleston, SC)",
+    "graduationYear": 2027,
+    "email": "kayla.simmons.cooks@example.com"
+  },
+  "activities": [
+    {
+      "id": "activity-1",
+      "type": "Career Oriented",
+      "position": "Culinary Team Captain",
+      "organization": "ProStart",
+      "description": "Lead our 4-person culinary team: a 3-course menu in 60 minutes on 2 butane burners. Build menus around Lowcountry ingredients.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 6,
+      "weeksPerYear": 30,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-2",
+      "type": "Work (Paid)",
+      "position": "Line Cook",
+      "organization": "Seafood restaurant on Shem Creek (Mount Pleasant, SC)",
+      "description": "Work fry and sauté stations on Friday and Saturday nights. Started as a dishwasher at 15.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 20,
+      "weeksPerYear": 48,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-3",
+      "type": "Art",
+      "position": "Apprentice Weaver",
+      "organization": "Family sweetgrass basket stand (Mount Pleasant, SC)",
+      "description": "Learning to sew sweetgrass baskets from my grandmother, a Gullah basket maker. Help at her stand on Highway 17 on summer weekends.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 5,
+      "weeksPerYear": 40,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-4",
+      "type": "Community Service (Volunteer)",
+      "position": "Kitchen Volunteer",
+      "organization": "Lowcountry Food Bank",
+      "description": "Prep and portion meals in the food bank's kitchen program and sort produce at the warehouse.",
+      "grades": [
+        10,
+        11,
+        12
+      ],
+      "timing": "School",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 20,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-5",
+      "type": "Music: Vocal",
+      "position": "Soprano",
+      "organization": "Church choir (Johns Island)",
+      "description": "Sing at Sunday service and in our gospel choir's spring revival concert.",
+      "grades": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "timing": "All year",
+      "hoursPerWeek": 3,
+      "weeksPerYear": 45,
+      "plans": "Will continue"
+    },
+    {
+      "id": "activity-6",
+      "type": "Athletics: JV/Varsity",
+      "sport": "Track & Field",
+      "position": "Shot Put & Discus",
+      "organization": "Sea Island Ridge Track & Field",
+      "description": "Threw shot put and discus before restaurant shifts took over my weekends.",
+      "grades": [
+        9,
+        10
+      ],
+      "timing": "School",
+      "hoursPerWeek": 8,
+      "weeksPerYear": 14,
+      "plans": "Will not continue"
+    }
+  ],
+  "honors": [
+    {
+      "id": "honor-1",
+      "title": "South Carolina ProStart Invitational, 2nd Place, Culinary",
+      "grades": [
+        11
+      ],
+      "level": "State/Regional"
+    },
+    {
+      "id": "honor-2",
+      "title": "ServSafe Food Protection Manager Certification",
+      "grades": [
+        11
+      ],
+      "level": "National"
+    }
+  ],
+  "personalEssay": {
+    "id": "personal-essay",
+    "prompt": "Reflect on something that someone has done for you that has made you happy or thankful in a surprising way. How has this gratitude affected or motivated you?",
+    "wordLimit": 650,
+    "text": "The first thing Chef Andre ever said to me was, \"You're holding that knife like it owes you money.\"\n\nI was fifteen and had been a dishwasher at the restaurant for about three weeks. I had begged to be allowed on the line. One slow Tuesday, the head line cook, Andre, finally let me cut onions. I lasted about ninety seconds before he took the knife away.\n\nI thought that was the end of it. I figured I'd be scrubbing pans until I graduated. But the next Tuesday, Andre was waiting by the prep table with a bag of onions and a cheap chef's knife he'd bought at a restaurant supply store. \"This one's yours,\" he said. \"Don't touch mine.\" Then he showed me how to hold it. Pinch the blade, not the handle. Curl your fingers. Let the knife do the work.\n\nFor the next six months, every slow Tuesday, he taught me something. How to break down a flounder. How to tell when the oil is hot enough by the sound. How to make a roux the color of a penny, then the color of chocolate. He never told me I was doing a good job. The highest compliment I ever got was \"that'll work.\"\n\nWhat surprised me most wasn't that he taught me to cook. It was that he didn't have to. Andre wasn't my teacher or my boss. He was a guy working ten-hour shifts who could have spent his breaks on his phone like everybody else. When I finally asked him why he'd bothered, he shrugged and said, \"Somebody did it for me.\" He'd started out washing dishes in a hotel kitchen in Savannah when he was sixteen, and an older cook named Miss Bernice took him under her wing. He'd been paying her back ever since, one dishwasher at a time.\n\nI didn't really understand what that meant until I joined ProStart. ProStart is a culinary and restaurant management program, and every year teams from around the state compete by cooking a three-course meal in an hour on two butane burners, no electricity. Junior year, I was captain, and the five of us practiced every afternoon for months. We designed a menu based on Lowcountry food: shrimp and grits with tasso gravy, a red rice cake with fried okra, and a sweet potato pie with benne seed brittle. Benne seeds came to the Carolinas with enslaved West Africans, and my grandmother still calls them by that name.\n\nOn the day of the competition, everything went wrong for about four minutes. Our gravy broke, and one of my teammates, Jada, froze. I knew exactly how she felt because I'd been her, at the prep table, holding the knife wrong. So I did what Andre would have done. I didn't take over. I stood next to her and said, quietly, \"Okay. Whisk in a little cold stock. Let it do the work.\" It came back together. We finished with nine seconds left.\n\nDre was our alternate, so he didn't get to cook that day, but he was the loudest one cheering. That night I texted Andre a picture of our team. He wrote back two words: \"That'll work.\"\n\nI want to go into hospitality because I love food, but more than that because I love what kitchens can be. They're loud and hot and stressful, but they're also one of the last places where people still teach each other by hand. Someday I want to run a restaurant that trains young people from places like Johns Island, kids who might not have a culinary school nearby but have grandmothers who know how to make red rice.\n\nI still have the knife Andre gave me. It's not a good knife. I've upgraded twice since then. But it's the one I bring to every competition, because somebody did it for me."
+  },
+  "supplements": [
+    {
+      "id": "supplement-cornell",
+      "college": "Cornell University",
+      "prompt": "Cornell Peter and Stephanie Nolan School of Hotel Administration: Hospitality, at its core, is about connecting people. Why are you drawn to studying hospitality at the Nolan School, and how will it help you pursue your goals?",
+      "wordLimit": 650,
+      "text": "I've worked in a restaurant kitchen since I was fifteen, so I know what hospitality looks like from the back of the house. It looks like burns on your forearms and a ticket printer that won't stop. It also looks like a line cook teaching a dishwasher how to hold a knife on his break, for no reason except that someone once did it for him.\n\nThat's the part of hospitality I want to study. Not just how to make guests happy, but how to build places where the people who work there grow.\n\nThe Nolan School is the only program I've found that treats hospitality as a serious academic field while keeping it hands-on. I'm excited about courses in food and beverage management and in hospitality real estate, because someday I want to own a restaurant, and I know great food isn't enough to keep the doors open. Most of the restaurants I've seen close in Charleston didn't fail because of the cooking. They failed because of rent, staffing, and money.\n\nI'm also drawn to Hotel Ezra Cornell, where students run an entire conference from start to finish. Last spring, after our team won state at the ProStart Invitational, I realized that the part I loved most wasn't plating. It was planning: figuring out who did what, when, and how to recover when something broke. I'd love to learn how to do that at a much bigger scale.\n\nCharleston's food scene is famous, but a lot of the people who built it, especially Black and Gullah cooks, never got to own the places they cooked in. I want to change that. My goal is to open a restaurant on Johns Island that serves Lowcountry food and runs a paid training program for local teenagers, so the next generation of cooks can learn the business side, not just the kitchen side.\n\nCornell would give me the business tools to make that real. And I'd bring something I think every hospitality classroom needs: someone who knows exactly what it feels like when the gravy breaks with four minutes left, and how to stay calm enough to fix it."
+    }
+  ],
+  "publicNames": [
+    "ProStart",
+    "South Carolina ProStart Invitational",
+    "Lowcountry Food Bank",
+    "ServSafe",
+    "Cornell University",
+    "Cornell Peter and Stephanie Nolan School of Hotel Administration",
+    "Hotel Ezra Cornell"
+  ]
+}
