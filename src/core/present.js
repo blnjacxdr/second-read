@@ -55,7 +55,7 @@ const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 /**
  * The big line at the top of the results, and the line under it.
  * @param {{ sure: number, maybes: number, cloudMaybes?: number }} counts  cloudMaybes: how many maybes came from the cloud
- * @param {Map<string, 'fixed'|'kept'>} decisions  what the student chose per card
+ * @param {Map<string, 'fixed'|'kept'>} decisions  the counselor's choice per card: 'fixed' = ask the student, 'kept' = it's fine
  * @param {string[]} ids  every card id shown (sure and maybes)
  * @param {{ nano: 'ran'|'skipped'|'failed'|'cloud'|'skipped-by-you', closer?: boolean }} options  closer: the closer read ran
  */
@@ -73,10 +73,11 @@ export function headlineFor(counts, decisions, ids, { nano = 'ran', closer = fal
   const left = ids.filter((id) => !decisions.has(id)).length;
   const kept = ids.filter((id) => decisions.get(id) === 'kept').length;
   if (left === 0 && kept === total) {
-    return { headline: `All ${total} on purpose.`, subhead: 'The student\'s call, every time. Nothing left to look at.', state: 'all-kept' };
+    return { headline: `All ${total} are fine.`, subhead: 'Nothing to send the student this time.', state: 'all-kept' };
   }
   if (left === 0) {
-    return { headline: 'Every spot handled.', subhead: 'Download the PDF again from Common App to check the new version.', state: 'done' };
+    const ask = total - kept;
+    return { headline: 'Every spot handled.', subhead: `${plural(ask, 'spot', 'spots')} for the student. The list is at the end, ready to copy or print.`, state: 'done' };
   }
   const parts = [];
   if (counts.sure) parts.push(`${plural(counts.sure, 'sure one', 'sure ones')} from the code checks`);
@@ -122,4 +123,23 @@ export function nanoNote(availability) {
     default:
       return { ready: false, title: 'No Gemini Nano in this browser', body: `In Chrome on a laptop, Gemini Nano reads the essays right on the device. ${without}` };
   }
+}
+
+/**
+ * The list for the student: every card the counselor marked "Ask the student", in order, with both places quoted
+ * exactly and where to fix it. Only the application's own words and fixed wording; never a suggested rewrite.
+ * @returns {{ items: Array<{ title: string, places: Array<{ where: string, text: string }>, fixIn: string[] }>, text: string }}
+ */
+export function studentList(cards, decisions) {
+  const items = [...cards.sure, ...cards.maybes]
+    .filter((c) => decisions.get(c.id) === 'fixed')
+    .map((c) => ({ title: c.title, places: c.quotes.map((q) => ({ where: q.where, text: q.text })), fixIn: c.fixIn }));
+  const lines = items.length ? ['Second Read found these spots in your Common App to check. Each one quotes your application exactly.', ''] : [];
+  items.forEach((item, i) => {
+    lines.push(`${i + 1}. ${item.title}`);
+    for (const p of item.places) lines.push(`   ${p.where}: "${p.text}"`);
+    if (item.fixIn.length) lines.push(`   Where to fix it: ${item.fixIn.join('; ')}.`);
+    lines.push('');
+  });
+  return { items, text: lines.join('\n').trim() };
 }

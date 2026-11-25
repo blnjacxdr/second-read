@@ -1,7 +1,7 @@
 // Tests for the results screen's words (src/core/present.js). Made-up result data.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { placeOf, presentFlags, headlineFor, receiptFor } from '../src/core/present.js';
+import { placeOf, presentFlags, headlineFor, receiptFor, studentList } from '../src/core/present.js';
 
 const result = {
   college: 'Tufts University',
@@ -47,7 +47,7 @@ test('the headline follows what the student has decided', () => {
   assert.equal(headlineFor({ sure: 2, maybes: 1 }, new Map(), ids).subhead, '2 sure ones from the code checks, and 1 maybe from Gemini Nano.');
   assert.equal(headlineFor({ sure: 2, maybes: 1 }, new Map([['a', 'fixed']]), ids).headline, '2 spots to look at.');
   assert.equal(headlineFor({ sure: 2, maybes: 1 }, new Map([['a', 'fixed'], ['b', 'kept'], ['c', 'fixed']]), ids).state, 'done');
-  assert.equal(headlineFor({ sure: 2, maybes: 1 }, new Map([['a', 'kept'], ['b', 'kept'], ['c', 'kept']]), ids).headline, 'All 3 on purpose.');
+  assert.equal(headlineFor({ sure: 2, maybes: 1 }, new Map([['a', 'kept'], ['b', 'kept'], ['c', 'kept']]), ids).headline, 'All 3 are fine.');
   assert.equal(headlineFor({ sure: 1, maybes: 0 }, new Map(), ['a']).headline, '1 spot to look at.');
 });
 
@@ -100,4 +100,15 @@ test('after a closer read that found nothing, the maybes stay credited to Gemini
   const ids = ['a', 'b'];
   assert.match(headlineFor({ sure: 1, maybes: 1, cloudMaybes: 0 }, new Map(), ids, { nano: 'ran', closer: true }).subhead, /1 maybe from Gemini Nano,|1 maybe from Gemini Nano\./);
   assert.match(headlineFor({ sure: 0, maybes: 3, cloudMaybes: 2 }, new Map(), ['a', 'b', 'c'], { nano: 'ran', closer: true }).subhead, /1 maybe from Gemini Nano, and 2 maybes from Gemini's closer read\./);
+});
+
+test('the student list has only the "ask the student" cards, quoted exactly, with where to fix them', () => {
+  const card = (id, title) => ({ id, title, quotes: [{ where: 'Activity 2', text: '12 hr/wk, 50 wk/yr' }, { where: 'Personal essay', text: 'twenty hours a week' }], fixIn: ['Activities, item 2'] });
+  const cards = { sure: [card('a', 'Hours differ'), card('b', 'Role differs')], maybes: [card('c', 'Award differs')] };
+  const list = studentList(cards, new Map([['a', 'fixed'], ['b', 'kept'], ['c', 'fixed']]));
+  assert.deepEqual(list.items.map((i) => i.title), ['Hours differ', 'Award differs']);
+  assert.match(list.text, /^Second Read found these spots/);
+  assert.match(list.text, /1\. Hours differ\n   Activity 2: "12 hr\/wk, 50 wk\/yr"\n   Personal essay: "twenty hours a week"\n   Where to fix it: Activities, item 2\./);
+  assert.match(list.text, /2\. Award differs/);
+  assert.equal(studentList(cards, new Map()).text, '');
 });

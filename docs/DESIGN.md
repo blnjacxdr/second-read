@@ -150,3 +150,10 @@ ignores dev, eval, test, tools and docs; every phase walked in light, dark, phon
 The pencil-eyes character is named Loomis (a nod to Andrew Loomis's pencil drawing books). The product stays
 Second Read. The name appears only where the character is doing something: the reading card ("Loomis is reading,
 on this laptop", "Loomis is done reading"). Keep it to a few places so it never feels like a gimmick.
+
+## Nov 25: counselor choices
+- Cards now say "Ask the student" / "It's fine" (stored as 'fixed' / 'kept', the names the re-check uses). Keys:
+  A asks the student, F marks fine. Notes: "on the list." / "all good." No strike-through.
+- The end card builds the list for the student: every "Ask the student" card with both quotes and where to fix it,
+  with Copy, and Print prints only that list. Never a suggested rewrite.
+- Closer read: a one-line offer under the headline, new cards tagged "new", a toast and a jump to the first new card.

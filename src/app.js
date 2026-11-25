@@ -14,7 +14,7 @@ import { onDeviceAvailability } from './core/privacy.js';
 import { cloudQuestions, placeConflicts, answerStatus, sourcesByAnswer, levelMismatch } from './core/cloud-names.js';
 import { createSentLog } from './core/sent-log.js';
 import { safeLinkUrl } from './core/grounding.js';
-import { presentFlags, headlineFor, receiptFor, nanoNote } from './core/present.js';
+import { presentFlags, headlineFor, receiptFor, nanoNote, studentList } from './core/present.js';
 import { compareChecks, carriedDecisions, recheckSummary } from './core/recheck.js';
 import { startEyes, startLogo } from './ui/eyes.js';
 import { startScrolling } from './ui/scroll.js';
@@ -415,7 +415,10 @@ const SOURCE = {
   pen: { text: 'Sure. Code found both quotes, word for word.', icon: ICONS.check },
   pencil: { text: 'Maybe. Gemini Nano\'s reading, so give it a look.', icon: ICONS.pencil },
 };
-const NOTES = { fixed: 'nice.', kept: 'their call.' };
+// The counselor's two choices. Stored as 'fixed' (ask the student) and 'kept' (it's fine), the names the re-check
+// already uses: a "fine" choice carries over to the same problem in the student's next PDF.
+const NOTES = { fixed: 'on the list.', kept: 'all good.' };
+const CHOICE = { fixed: 'Ask the student', kept: 'It\'s fine' };
 
 function cardFor(card) {
   const article = el('article', undefined, `sr-card ${card.tone}`);
@@ -427,6 +430,11 @@ function cardFor(card) {
   const fromCloud = run?.nano === 'cloud' || String(card.id).startsWith('cloud:');
   const tagText = card.tone === 'pencil' && fromCloud ? 'Maybe. Gemini\'s reading in the cloud, so give it a look.' : SOURCE[card.tone].text;
   tag.append(icon(SOURCE[card.tone].icon, { size: 15 }), tagText);
+  // Found by the closer read just now: marked, so it doesn't slip in unnoticed.
+  if (run?.newIds?.has(card.id)) {
+    article.classList.add('is-new');
+    tag.append(el('span', 'new', 'sr-new'));
+  }
   const heading = el('h3');
   heading.append(el('span', card.title, 'sr-title'));
   top.append(tag, heading);
@@ -447,8 +455,8 @@ function cardFor(card) {
   const parts = [top, quotes, el('p', card.detail, 'sr-detail')];
   if (card.fixIn.length) parts.push(el('p', `Fix it in Common App: ${card.fixIn.join('; ')}.`, 'sr-fixin'));
   const actions = el('div', undefined, 'sr-actions');
-  const fix = el('button', 'Fixed it', 'fix');
-  const keep = el('button', 'That\'s on purpose', 'keep');
+  const fix = el('button', CHOICE.fixed, 'fix');
+  const keep = el('button', CHOICE.kept, 'keep');
   const note = el('span', '', 'note');
   note.setAttribute('aria-hidden', 'true');
   for (const [button, choice] of [[fix, 'fixed'], [keep, 'kept']]) {
@@ -461,6 +469,37 @@ function cardFor(card) {
   parts.push(actions);
   article.append(...parts);
   return article;
+}
+
+// The end card's list for the student: the "Ask the student" cards, quoted exactly, with Copy.
+function drawStudentList() {
+  const box = $('student-list');
+  if (!box || !run?.cards) return;
+  const list = studentList(run.cards, run.decisions);
+  box.hidden = list.items.length === 0;
+  if (box.hidden) return box.replaceChildren();
+  const head = el('div', undefined, 'sr-studentlist-head');
+  head.append(el('h4', `For the student: ${list.items.length} ${list.items.length === 1 ? 'spot' : 'spots'}`));
+  const copy = el('button', 'Copy the list', 'sr-textbtn');
+  copy.type = 'button';
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(list.text);
+      toast('Copied. Paste it into an email or a note for the student.');
+    } catch {
+      toast('Couldn\'t copy here. Use Print or save as PDF instead.');
+    }
+  });
+  head.append(copy);
+  const ol = el('ol');
+  for (const item of list.items) {
+    const li = el('li');
+    li.append(el('strong', item.title));
+    for (const p of item.places) li.append(el('span', `${p.where}: "${p.text}"`, 'sr-studentlist-q'));
+    if (item.fixIn.length) li.append(el('span', `Where to fix it: ${item.fixIn.join('; ')}.`, 'sr-studentlist-fix'));
+    ol.append(li);
+  }
+  box.replaceChildren(head, ol);
 }
 
 function paintDecision(id) {
@@ -481,17 +520,19 @@ function decide(id, choice, { fromKeyboard = false } = {}) {
   if (decisions.get(id) === choice) decisions.delete(id); else decisions.set(id, choice);
   if (decisions.has(id)) {
     const at = run.slots.findIndex((n) => n.dataset.id === id);
-    toast(choice === 'fixed' ? 'Marked as fixed.' : 'Marked as on purpose.', () => {
+    toast(choice === 'fixed' ? 'Added to the student\'s list.' : 'Marked as fine.', () => {
       if (before) decisions.set(id, before); else decisions.delete(id);
       clearTimeout(run.advance);
       paintDecision(id);
       updateHeadline();
+      drawStudentList();
       updateCount();
       if ($('res-stack').classList.contains('one') && at >= 0) showCard(at, -1);
     });
   }
   paintDecision(id);
   updateHeadline();
+  drawStudentList();
   if (decisions.get(id) === 'fixed' && !$('logo-eyes').classList.contains('face-happy')) face('logo', 'happy', 900);
   updateCount();
   // In the one-at-a-time stack, a decision moves on to the next card after a beat, so you see it land.
@@ -514,8 +555,13 @@ function buildStack() {
     items.push(...maybes.map(cardFor));
   }
   const end = el('div', undefined, 'sr-endcard');
-  end.append(el('h3', 'That\'s every card.'), el('p', 'Fixed something in Common App? Download the new PDF and check it here. Second Read will tell you what\'s gone, what\'s still there and what\'s new.'));
-  const again = el('button', 'Check the new PDF', 'sr-cta');
+  end.append(el('h3', 'That\'s every card.'), el('p', 'When the student sends a new PDF, check it here. Second Read will tell you what\'s gone, what\'s still there and what\'s new.'));
+  // The list for the student, filled in as cards are marked "Ask the student" (drawStudentList).
+  const list = el('div', undefined, 'sr-studentlist');
+  list.id = 'student-list';
+  list.hidden = true;
+  end.append(list);
+  const again = el('button', 'Check a new PDF', 'sr-cta');
   again.type = 'button';
   again.addEventListener('click', goToStart);
   const names = el('button', 'Fact-check the names next', 'sr-textbtn');
@@ -545,6 +591,7 @@ function buildStack() {
   // Open on the first card still to decide (after a re-check, "on purpose" ones carried over).
   const firstOpen = [...sure, ...maybes].findIndex((c) => !run.decisions.has(c.id));
   run.at = firstOpen === -1 ? 0 : firstOpen;
+  drawStudentList();
   // Each card gets a view-transition name, so Show all can move the very same cards (see setStackMode).
   items.forEach((node, i) => { node.dataset.vt = `card-${i}`; });
   // One tick per card: where you are, and which ones you've decided. Click one to jump to it.
@@ -636,7 +683,7 @@ function paintTicks() {
     b.classList.toggle('fixed', choice === 'fixed');
     b.classList.toggle('kept', choice === 'kept');
     b.setAttribute('aria-current', String(one && i === run.at));
-    b.setAttribute('aria-label', `Card ${i + 1}: ${cards[i].title}${choice ? (choice === 'fixed' ? ', fixed' : ', on purpose') : ''}`);
+    b.setAttribute('aria-label', `Card ${i + 1}: ${cards[i].title}${choice ? (choice === 'fixed' ? ', ask the student' : ', fine') : ''}`);
   });
 }
 
@@ -645,7 +692,10 @@ function updateHeadline() {
   const ids = [...cards.sure, ...cards.maybes].map((c) => c.id);
   const nano = ['ran', 'cloud', 'failed', 'skipped-by-you'].includes(run.nano) ? run.nano : 'skipped';
   // What Gemini would add, said once under the headline when it didn't run.
-  $('res-nano-tip').hidden = nano === 'ran' || nano === 'cloud' || run.closer !== undefined;
+  // After Nano's reading, a one-line offer of the closer read sits under the headline (the panel lower down has the
+  // details and the button that sends). When it's offered, it replaces the tip below.
+  $('res-closer-tip').hidden = $('closer-panel').hidden || $('closer-start').hidden || $('closer-start').disabled;
+  $('res-nano-tip').hidden = nano === 'ran' || nano === 'cloud' || run.closer !== undefined || !$('res-closer-tip').hidden;
   $('res-nano-tip').textContent = nano === 'skipped-by-you'
     ? 'Gemini also reads hours, titles and awards in the essays. Use "Read it closer" below, or check this PDF again and let Gemini Nano finish.'
     : nano === 'failed'
@@ -762,6 +812,7 @@ async function readCloser() {
   const current = run;
   $('closer-start').disabled = true;
   closerConsent = true; // the click is the yes; the panel says exactly what goes
+  $('res-closer-tip').hidden = true;
   closerStatus(CLOSER_COPY.reading, { busy: true });
   try {
     const { models, createCloserReadModel, closerReadConsented } = await loadAi();
@@ -773,16 +824,27 @@ async function readCloser() {
     current.closer = extra.kept.length;
     current.tossed += extra.dropped.filter((d) => d.reason === 'quote not found in the application').length;
     current.cards = presentFlags({ result: current.result, codeFlags: current.codeFlags, aiFlags: current.aiFlags, mentionAnswers: current.mentionAnswers });
+    current.newIds = new Set(extra.kept.map((f) => f.id));
     $('closer-start').hidden = true; // before the stack, so the end card stops offering it
     buildStack();
     updateHeadline();
     updateReceipt();
     drawSentLog();
     closerStatus(extra.kept.length ? CLOSER_COPY.found(extra.kept.length) : CLOSER_COPY.none);
+    if (extra.kept.length) {
+      // Take them to the first new card, so the new spots are the first thing they see.
+      toast(extra.kept.length === 1 ? '1 new spot from Gemini\'s closer read.' : `${extra.kept.length} new spots from Gemini's closer read.`);
+      const first = run.slots.findIndex((n) => current.newIds.has(n.dataset.id));
+      if (first >= 0) {
+        if ($('res-stack').classList.contains('one')) showCard(first, 1, { instant: true });
+        (($('res-stack').classList.contains('one') ? $('stackbar') : run.slots[first])).scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'start' });
+      }
+    }
   } catch (err) {
     console.error('closer read failed:', err.name, err.message); // the error only, never the text
     closerStatus(CLOSER_COPY.failed);
     $('closer-start').disabled = false;
+    updateHeadline();
   } finally {
     closerConsent = false;
   }
@@ -1086,6 +1148,10 @@ $('closing-sample').addEventListener('click', () => $('sample').click());
 $('again').addEventListener('click', goToStart);
 $('names-start').addEventListener('click', pickNames);
 $('closer-start').addEventListener('click', readCloser);
+$('res-closer-go').addEventListener('click', () => {
+  $('closer-panel').scrollIntoView({ behavior: reduced() ? 'instant' : 'smooth', block: 'center' });
+  $('closer-start').focus({ preventScroll: true });
+});
 // "Try a sample" in the top links runs the sample, not just scrolls to it.
 $('nav-sample').addEventListener('click', (e) => { e.preventDefault(); $('sample').click(); });
 $('names-send').addEventListener('click', sendNames);
@@ -1102,6 +1168,7 @@ window.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') { e.preventDefault(); showCard(run.at + 1, 1, { instant: true }); }
   if (e.key === 'ArrowLeft') { e.preventDefault(); showCard(run.at - 1, -1, { instant: true }); }
   const card = run.slots[run.at];
-  if (card?.dataset.id && (e.key === 'f' || e.key === 'F')) { e.preventDefault(); decide(card.dataset.id, 'fixed', { fromKeyboard: true }); }
-  if (card?.dataset.id && (e.key === 'p' || e.key === 'P')) { e.preventDefault(); decide(card.dataset.id, 'kept', { fromKeyboard: true }); }
+  // A: ask the student. F: it's fine.
+  if (card?.dataset.id && (e.key === 'a' || e.key === 'A')) { e.preventDefault(); decide(card.dataset.id, 'fixed', { fromKeyboard: true }); }
+  if (card?.dataset.id && (e.key === 'f' || e.key === 'F')) { e.preventDefault(); decide(card.dataset.id, 'kept', { fromKeyboard: true }); }
 });

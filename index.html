@@ -200,8 +200,9 @@
         <div id="res-file" style="font-size: 15px; color: var(--muted)"></div>
         <h1 id="res-headline" aria-live="polite" style="margin: 0; font-weight: 900; font-size: clamp(40px, 5.4vw, 68px); line-height: 0.96; letter-spacing: -0.045em; text-wrap: balance"></h1>
         <p id="res-subhead" style="margin: 0; color: var(--ink-2); max-width: 600px"></p>
+        <p id="res-closer-tip" class="sr-closer-tip" hidden><span>Want a closer read? Gemini in Google's cloud reads the whole application at once.</span> <button type="button" id="res-closer-go" class="sr-textbtn">Read it closer</button></p>
         <p id="res-nano-tip" class="sr-nanotip" hidden></p>
-        <p id="res-allkept" class="sr-note-in" aria-hidden="true" hidden style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 30px; color: var(--pen); transform: rotate(-2deg)">all on purpose? bold strategy. respect.</p>
+        <p id="res-allkept" class="sr-note-in" aria-hidden="true" hidden style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 30px; color: var(--pen); transform: rotate(-2deg)">all fine? lucky student.</p>
         <div id="res-done" class="sr-done" aria-hidden="true" hidden>
           <svg class="sr-done-eyes" width="132" height="66" viewBox="0 0 230 112">
             <g class="sr-done-spark"><path d="M14 22 L2 12" pathLength="1"></path><path d="M10 44 L-4 42" pathLength="1"></path><path d="M216 22 L228 12" pathLength="1"></path><path d="M220 44 L234 42" pathLength="1"></path></g>
@@ -226,7 +227,7 @@
         </span>
       </div>
       <div id="res-stack" class="sr-stack"></div>
-      <p class="sr-keys" id="stack-keys" hidden>Keys: <kbd>←</kbd> <kbd>→</kbd> move, <kbd>F</kbd> fixed it, <kbd>P</kbd> on purpose.</p>
+      <p class="sr-keys" id="stack-keys" hidden>Keys: <kbd>←</kbd> <kbd>→</kbd> move, <kbd>A</kbd> ask the student, <kbd>F</kbd> it's fine.</p>
       <details id="res-background" class="sr-fold-group" hidden>
         <summary id="res-background-sum"></summary>
         <p class="sr-fold-note">Gemini read these as background, like someone the student knows went there. They aren't counted above, but they're here so nothing is hidden.</p>
@@ -249,7 +250,7 @@
           <div>
             <p class="sr-pen-label" aria-hidden="true">public names only</p>
             <h2 id="names-h">Fact-check the names</h2>
-            <p class="sr-names-intro">Google Search can check public names like programs, awards and places, for example whether a summer program is really held where the student wrote it is. You pick which names go. Nothing else does.</p>
+            <p class="sr-names-intro">Google Search checks public names, like whether a summer program is really held where the student says. You pick which names go; nothing else does.</p>
           </div>
           <button type="button" id="names-start" class="sr-cta">Find the names</button>
         </div>
