@@ -234,10 +234,13 @@ function nearbyText(question, sections) {
 /** What the student sees for one answer: 'fine', 'look' (worth a look before submitting) or 'unsure'. */
 // "Not found" is not a problem by itself: Google rarely knows a local club or a small business.
 // Worth a look means Google contradicts the application: "not part of this college", or held somewhere else.
-export function answerStatus(question, answer, conflicts = []) {
+// searched: Google Search actually ran and returned sources. Gemini decides for itself whether to search, and
+// sometimes answers from memory. An unsearched "looks right" is never shown as confirmed; it becomes "couldn't
+// confirm". A possible problem still shows as "worth a look", because that only asks the counselor to check.
+export function answerStatus(question, answer, conflicts = [], { searched = true } = {}) {
   if (!answer || answer.verdict === 'unsure' || answer.verdict === 'not_found') return 'unsure';
   if (answer.verdict === 'no' || conflicts.length > 0 || levelMismatch(question, answer)) return 'look';
-  return 'fine';
+  return searched ? 'fine' : 'unsure';
 }
 
 /**

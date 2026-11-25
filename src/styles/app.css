@@ -811,25 +811,117 @@ body.phase-reading .sr-screen{display:contents}
   .sr-studentlist-head button{display:none}
 }
 
-/* The reading picker above the drop sheet (Nov 25). Three radio buttons styled as cards: the real radio is hidden
-   but still focusable, so arrow keys and screen readers work; the card shows which one is picked. */
-.sr-how{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:10px}
-.sr-how legend{padding:0;margin-bottom:10px;font-weight:800;font-size:19px;color:var(--ink)}
-.sr-how-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
-.sr-how-opt{position:relative;display:flex;flex-direction:column;gap:2px;padding:12px 16px 14px 16px;border-radius:var(--radius-sheet);background:var(--sheet);border:2px solid var(--line);cursor:pointer;transition:border-color .2s,background .2s}
-.sr-how-opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
-.sr-how-opt strong{font-size:16px;font-weight:700;color:var(--ink);line-height:1.25;padding-right:22px}
-.sr-how-note{font-family:var(--font-hand);font-size:22px;line-height:1;color:var(--pen)}
-.sr-how-sub{font-size:14px;color:var(--muted);line-height:1.35}
-.sr-how-opt::after{content:"";position:absolute;top:14px;right:14px;width:14px;height:14px;border-radius:50%;border:2px solid var(--line-strong);box-sizing:border-box;transition:border-width .2s,border-color .2s}
-.sr-how-opt:hover{border-color:var(--line-strong)}
-.sr-how-opt:has(input:checked){border-color:var(--pen);background:var(--pen-tint)}
-.sr-how-opt:has(input:checked)::after{border:5px solid var(--pen)}
-.sr-how-opt:has(input:focus-visible){outline:3px solid var(--pen);outline-offset:3px}
-.sr-how-opt:has(input:disabled){cursor:not-allowed;background:transparent;border-style:dashed}
-.sr-how-opt:has(input:disabled) strong,.sr-how-opt:has(input:disabled) .sr-how-note{color:var(--faint)}
-.sr-how-what{margin:0;padding:12px 16px;border-radius:var(--radius-sheet);background:var(--pen-tint);border:1px solid var(--line-2);font-size:15px;color:var(--ink-2);max-width:70ch}
-@media (prefers-reduced-motion: reduce){.sr-how-opt,.sr-how-opt::after{transition:none}}
 .sr-closer-btns{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-/* Click Loomis on the start page and he goes googly (src/ui/eyes.js). */
+
+/* ==== Start page, Nov 25 redesign: "a careful second reader".
+   One point of view instead of stationery props: no ruled lines, binder holes, margin line, paper clip, tape or
+   tilted cards. The product is the picture (a real fix card, built by cardFor), Loomis reads it, and the choice of
+   reader and the drop zone are one tool. Handwriting stays for one small note per screen. */
+.sr-wrap{max-width:1240px;padding-left:40px;padding-right:40px}
+@media (max-width:720px){.sr-wrap{padding-left:20px;padding-right:20px}}
+
+.sr-screen-first{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-areas:"hero show" "drop show" "see see";column-gap:72px;row-gap:28px;align-items:start;align-content:center}
+#hero{grid-area:hero;display:flex;flex-direction:column;gap:18px}
+#drop{grid-area:drop}
+#showcase{grid-area:show;align-self:center}
+.sr-screen-first .sr-seehow{grid-area:see;justify-self:center}
+#hero h1{font-size:clamp(46px,5.4vw,84px)!important;line-height:.94!important}
+.sr-eyebrow{margin:0;font-size:15px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pen)}
+.sr-hero-lede{margin:0;max-width:560px;font-size:20px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
+@media (max-width:1000px){
+  .sr-screen-first{grid-template-columns:minmax(0,1fr);grid-template-areas:"hero" "drop" "show" "see";column-gap:0}
+}
+body.phase-reading #showcase{display:none!important}
+
+/* The showcase: Loomis peeks over a real card. */
+.sr-show{margin:0;position:relative;display:flex;flex-direction:column;gap:20px}
+/* Loomis sits on the card's top edge: about 40% of the eyes overlap the card, in front of it. */
+.sr-show-stage{position:relative;padding-top:40px}
+.sr-show-eyes{position:absolute;top:0;right:36px;z-index:2;filter:drop-shadow(0 6px 8px rgba(0,0,0,.25))}
+.sr-show-eyes svg{width:66px;height:66px}
+.sr-show-eyes > div{box-shadow:none!important}
 #sr-eyes{cursor:pointer}
+.sr-show-card{position:relative;z-index:1}
+.sr-show-card .sr-card{box-shadow:0 0 0 1px var(--line),0 30px 60px -30px rgba(0,0,0,.55);border-radius:12px;padding:26px 28px;gap:16px}
+.sr-show-card .sr-quotes{flex-direction:column}
+.sr-show-card .sr-quotes figure{flex:0 0 auto}
+/* The link between the two places: a short pen line instead of the swap arrows. */
+.sr-show-card .sr-vs{flex:0 0 auto;width:2px;height:26px;margin:2px 0 2px 10px;background:var(--pen);border-radius:2px}
+.sr-show-card .sr-vs svg{display:none}
+.sr-show-card .sr-actions button{pointer-events:none}
+.sr-show > figcaption{display:flex;align-items:flex-end;gap:8px;padding:0 4px 0 6px}
+.sr-show-note{font-family:var(--font-hand);font-size:24px;line-height:1;color:var(--pen)}
+.sr-show-cap{font-size:15px;color:var(--muted);max-width:44ch}
+
+/* One tool: what reads it, then the drop zone. */
+.sr-start{display:flex;flex-direction:column;gap:14px}
+.sr-startsheet{display:flex;flex-direction:column;gap:18px;padding:20px;border-radius:14px;background:var(--sheet);box-shadow:0 0 0 1px var(--line),0 24px 48px -32px rgba(0,0,0,.5)}
+.sr-how{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:10px}
+.sr-how legend{padding:0 0 8px;font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sr-how-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;border-radius:10px;background:var(--fill)}
+@media (max-width:640px){.sr-how-opts{grid-template-columns:minmax(0,1fr)}}
+.sr-how-opt{position:relative;display:flex;flex-direction:column;gap:1px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .2s,box-shadow .2s}
+.sr-how-opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.sr-how-opt strong{font-size:16px;font-weight:700;color:var(--ink-2);line-height:1.25}
+.sr-how-sub{font-size:13.5px;color:var(--muted);line-height:1.3}
+.sr-how-opt:hover{background:color-mix(in srgb,var(--sheet) 55%,transparent)}
+.sr-how-opt:has(input:checked){background:var(--sheet);box-shadow:0 0 0 1px var(--line-strong),0 2px 6px rgba(0,0,0,.18)}
+.sr-how-opt:has(input:checked) strong{color:var(--ink)}
+.sr-how-opt:has(input:focus-visible){outline:3px solid var(--pen);outline-offset:2px}
+.sr-how-opt:has(input:disabled){cursor:not-allowed}
+.sr-how-opt:has(input:disabled) strong{color:var(--faint)}
+/* Ready Nano gets a small green dot, the only status color on the page. */
+.sr-how-opt.is-ready .sr-how-sub::before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--ok);vertical-align:1px}
+.sr-nanorow{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:15px;color:var(--ink-2)}
+.sr-nanorow .sr-textbtn{min-height:36px;font-size:14px}
+.sr-how-what{margin:0;padding:12px 14px;border-radius:8px;background:var(--pen-tint);font-size:15px;line-height:1.5;color:var(--ink-2)}
+.sr-how-diff{font-size:15px;color:var(--ink-2)}
+.sr-how-diff summary{cursor:pointer;width:fit-content;font-weight:600;color:var(--pen);list-style:none;min-height:32px;display:flex;align-items:center}
+.sr-how-diff summary::-webkit-details-marker{display:none}
+.sr-how-diff summary::after{content:"";width:6px;height:6px;margin-left:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .25s var(--ease-out)}
+.sr-how-diff[open] summary::after{transform:rotate(-135deg) translateY(-1px)}
+.sr-how-diff dl{margin:8px 0 0;display:grid;gap:10px}
+.sr-how-diff dt{font-weight:700;color:var(--ink)}
+.sr-how-diff dd{margin:0;line-height:1.5}
+
+.sr-dropzone{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:34px 24px 28px;border-radius:10px;border:1.5px dashed var(--line-strong);cursor:pointer;transition:border-color .2s,background .2s}
+.sr-dropzone:hover,body.dragging .sr-dropzone{border-color:var(--pen);background:var(--pen-tint)}
+.sr-dropzone:focus-within{outline:3px solid var(--pen);outline-offset:3px}
+.sr-dropicon{color:var(--pen);margin-bottom:2px}
+.sr-drop-title{font-size:22px;font-weight:700;letter-spacing:-.015em;color:var(--ink)}
+.sr-drop-sub{font-size:15px;color:var(--muted);max-width:42ch}
+.sr-dropzone .sr-pick{margin-top:10px;display:inline-flex;align-items:center;min-height:46px;padding:0 24px;border-radius:999px;background:var(--pen-fill);color:var(--on-fill);font-weight:700;font-size:16px;transition:background .2s}
+.sr-dropzone:hover .sr-pick{background:var(--pen-fill);color:var(--on-fill);filter:brightness(1.15)}
+.sr-under-drop{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:center}
+.sr-sample{border:0;padding:0 20px!important;min-height:44px;background:var(--fill);color:var(--pen)}
+
+.sr-closing-how{font-size:16px!important;color:var(--muted)!important}
+.sr-closing-how strong{color:var(--ink)}
+.sr-closing-how a{color:var(--pen);font-weight:600;margin-left:4px}
+
+@media (prefers-reduced-motion: reduce){.sr-how-opt,.sr-dropzone,.sr-dropzone .sr-pick,.sr-how-diff summary::after{transition:none}}
+
+/* Proofreader's marks down both margins, on every phase (src/ui/marks.js places them). They draw in as they
+   scroll into view where the browser can tie animation to scrolling; elsewhere they simply show. */
+.sr-margin-marks{position:absolute;inset:0;pointer-events:none;z-index:0}
+.sr-mark{position:absolute;overflow:visible;fill:none;stroke:var(--pen);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:.45}
+.sr-mark path{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset .9s var(--ease-out)}
+.sr-mark.is-drawn path{stroke-dashoffset:0}
+.sr-mark-word text{font-family:var(--font-hand);font-size:34px;fill:var(--pen);stroke:none;opacity:0;transition:opacity .6s var(--ease-out)}
+.sr-mark-word.is-drawn text{opacity:1}
+@media (max-width:1480px){.sr-margin-marks{display:none}}
+@media (prefers-reduced-motion: reduce){.sr-mark path{transition:none;stroke-dashoffset:0}.sr-mark-word text{transition:none;opacity:1}}
+.sr-show-arrow{flex:0 0 auto;margin-bottom:-8px;fill:none;stroke:var(--pen);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+
+/* "See how it works": the way into the walkthrough, sized like a real call to action (Nov 25). */
+.sr-screen-first .sr-seehow{flex-direction:row;align-items:center;gap:10px;margin-top:8px;padding:10px 26px;border-radius:16px;font-size:22px;font-weight:700;letter-spacing:-.015em;transition:background .2s,color .2s}
+.sr-screen-first .sr-seehow:hover{background:var(--pen-tint)}
+.sr-screen-first .sr-seehow svg{width:20px;height:32px}
+
+/* Loomis gets his own box again: a small rounded card of his own, tilted a little, perched on the example's corner. */
+.sr-show-eyes{top:-6px;right:28px;padding:10px 14px;border-radius:22px;background:var(--sheet);box-shadow:0 0 0 1px var(--line),0 14px 28px -14px rgba(0,0,0,.5);rotate:-5deg;filter:none}
+.sr-show-eyes svg{width:58px;height:58px}
+.sr-show-stage{padding-top:48px}
+@media (prefers-reduced-motion: reduce){.sr-screen-first .sr-seehow{transition:none}}
+/* Loomis's box sits on its own above the note and the example (Nov 25): in the flow, not over the card. */
+.sr-show .sr-show-eyes{position:relative;top:auto;right:auto;align-self:center;margin-bottom:-4px}

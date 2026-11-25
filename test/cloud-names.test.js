@@ -152,6 +152,9 @@ test('no conflict when the answer agrees, when the college is far away, or when 
 
 test('what the student sees for each answer', () => {
   assert.equal(answerStatus(RSI, atMit), 'fine');
+  // Gemini answered from memory (no search, no sources): never shown as confirmed.
+  assert.equal(answerStatus(RSI, atMit, [], { searched: false }), 'unsure');
+  assert.equal(answerStatus(RSI, atMit, [{ written: 'Stanford University' }], { searched: false }), 'look');
   assert.equal(answerStatus(RSI, { verdict: 'not_found' }), 'unsure'); // Google rarely knows a local club
   assert.equal(answerStatus(RSI, { verdict: 'no' }), 'look');
   assert.equal(answerStatus(RSI, { verdict: 'unsure' }), 'unsure');

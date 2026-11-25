@@ -55,14 +55,20 @@ export function describeOnDeviceStatus(availability) {
  * 'unavailable'), or undefined where the browser has no on-device model.
  * Needs no Firebase, so it works even when Google's servers can't be reached.
  */
-export async function onDeviceAvailability() {
+export async function onDeviceAvailability({ timeoutMs = 4000 } = {}) {
   if (typeof globalThis.LanguageModel === 'undefined') return undefined;
+  // Some browsers have LanguageModel but never answer (seen in headless Chrome, Nov 25). Without a time limit the
+  // page would wait forever and the reading picker would have nothing picked. No answer counts as no Nano.
+  let timer;
+  const giveUp = new Promise((resolve) => { timer = setTimeout(() => resolve('unavailable'), timeoutMs); });
   try {
-    return await globalThis.LanguageModel.availability({
+    return await Promise.race([globalThis.LanguageModel.availability({
       expectedInputs: [{ type: 'text', languages: ['en'] }],
       expectedOutputs: [{ type: 'text', languages: ['en'] }],
-    });
+    }), giveUp]);
   } catch {
     return 'unavailable';
+  } finally {
+    clearTimeout(timer);
   }
 }

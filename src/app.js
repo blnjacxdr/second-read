@@ -16,9 +16,10 @@ import { cloudQuestions, placeConflicts, answerStatus, sourcesByAnswer, levelMis
 import { createSentLog } from './core/sent-log.js';
 import { safeLinkUrl } from './core/grounding.js';
 import { presentFlags, headlineFor, receiptFor, nanoNote, studentList } from './core/present.js';
-import { compareChecks, carriedDecisions, recheckSummary } from './core/recheck.js';
+import { compareChecks, carriedDecisions, recheckSummary, sameApplicant } from './core/recheck.js';
 import { startEyes, startLogo } from './ui/eyes.js';
 import { startScrolling } from './ui/scroll.js';
+import { startMarks } from './ui/marks.js';
 import { addFace, setFace } from './ui/face.js';
 import { marginNote } from './core/margin-note.js';
 import { contextSentences, googleSays, contextFinding } from './core/name-context.js';
@@ -185,11 +186,12 @@ function openLastResults() {
 async function showNanoStatus() {
   const availability = await onDeviceAvailability().catch(() => 'unavailable');
   const note = nanoNote(availability);
-  $('nano-title').textContent = note.title;
-  $('nano-body').textContent = note.body;
-  $('nano-dot').style.background = note.ready ? 'var(--ok)' : 'var(--warn)';
-  $('nano-dot').classList.toggle('sr-ready', note.ready); // only a ready model gets the breathing dot
-  $('nano-extra').hidden = !note.ready; // the not-ready message already says this
+  // Gemini Nano's status lives on its own choice in the picker. A line under the choices appears only when there's
+  // something to do (download it) or wait for (downloading).
+  document.querySelector('.sr-how-opt:has(input[value="nano"])')?.classList.toggle('is-ready', note.ready);
+  $('nano-row').hidden = !(note.canDownload || availability === 'downloading');
+  $('nano-body').textContent = note.canDownload ? 'Chrome can add Gemini Nano to this laptop. It\'s a one-time download.'
+    : availability === 'downloading' ? 'Chrome is downloading Gemini Nano. It\'ll be ready in a few minutes.' : '';
   $('nano-get').hidden = !note.canDownload;
   nanoHere = availability === 'available';
   showPicker(availability);
@@ -202,12 +204,15 @@ function showPicker(availability) {
   const { picked, nano } = readingChoices(availability, readChoice);
   readChoice = picked;
   document.querySelector('input[name="read-how"][value="nano"]').disabled = !nano.enabled;
-  $('read-how-nano-why').textContent = nano.enabled ? 'Nothing leaves the laptop' : nano.why;
+  $('read-how-nano-why').textContent = nano.enabled ? 'Ready, on this laptop' : nano.why;
   document.querySelector(`input[name="read-how"][value="${picked}"]`).checked = true;
   showPickNote();
 }
 
+const PICK_NAMES = { nano: 'Gemini Nano, on this laptop', cloud: 'Gemini in Google\'s cloud', code: 'code checks only' };
+
 function showPickNote() {
+  $('closing-how').textContent = PICK_NAMES[readChoice] ?? PICK_NAMES.code;
   const box = $('read-how-what');
   growWhile($('read-how'), () => {
     box.hidden = readChoice !== 'cloud';
@@ -360,7 +365,7 @@ async function askNano(current, choice) {
     return;
   }
   const cloud = choice === 'cloud';
-  if (cloud) document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini in Google\'s cloud (you picked it)';
+  if (cloud) document.querySelector('#read-stages li[data-stage="nano"] .what').textContent = 'Ask Gemini, in Google\'s cloud';
   if (cloud) $('read-title').textContent = 'Loomis is reading, with Gemini in the cloud';
   stage('nano', 'active', 'starting');
   let skipped = false;
@@ -767,7 +772,9 @@ function updateReceipt() {
 function applyRecheck() {
   const banner = $('res-recheck');
   banner.hidden = true;
-  if (!last) return;
+  // Only the same student's PDFs are compared. A counselor's next student starts fresh: nothing is called "fixed"
+  // and no "It's fine" carries over to someone else's application.
+  if (!last || !sameApplicant(last.result, run.result)) return;
   const comparison = compareChecks([...last.cards.sure, ...last.cards.maybes], [...run.cards.sure, ...run.cards.maybes]);
   for (const [id, choice] of carriedDecisions(comparison, last.decisions)) run.decisions.set(id, choice);
   const summary = recheckSummary(comparison);
@@ -1022,7 +1029,13 @@ async function sendNames() {
   namesStatus(`Asking Google Search about ${send.length} ${send.length === 1 ? 'name' : 'names'}…`, { busy: true });
   try {
     const { models, checkNamesInCloud } = await loadAi();
-    const answer = await checkNamesInCloud(models.publicModel, send, sentLog, { withSearch: true });
+    let answer = await checkNamesInCloud(models.publicModel, send, sentLog, { withSearch: true });
+    // Gemini decides for itself whether to search. If it answered from memory (no sources), ask once more; the
+    // same public names, and both requests are in the sent log.
+    if (!answer.sources.length) {
+      namesStatus('Google didn\'t search the first time. Asking once more…', { busy: true });
+      answer = await checkNamesInCloud(models.publicModel, send, sentLog, { withSearch: true });
+    }
     cloudChecks += 1; // only a check that went through counts toward the limit
     growWhile($('names-panel'), () => {
       $('names-pick').hidden = true;
@@ -1064,7 +1077,7 @@ function drawAnswers(send, answer) {
   send.forEach((q, i) => {
     const a = answer.answers.find((x) => x.id === q.id);
     const conflicts = a ? placeConflicts(q, a, run.result.sections) : [];
-    const status = answerStatus(q, a, conflicts);
+    const status = answerStatus(q, a, conflicts, { searched: answer.sources.length > 0 });
     if (status === 'look') looks += 1;
     const li = el('li', undefined, status);
     li.dataset.qid = String(q.id);
@@ -1089,7 +1102,7 @@ function drawAnswers(send, answer) {
   // Google requires the sources and its search suggestions to be shown. Sources that back no single answer go here.
   const rest = sourceLinks(other);
   if (rest) { rest.prepend(el('span', 'Other sources Google used', 'lead')); $('names-sources').replaceChildren(rest); }
-  else if (!answer.sources.length) $('names-sources').replaceChildren(el('p', 'Gemini answered from memory this time, so there are no sources. Try again to search.', 'sr-small'));
+  else if (!answer.sources.length) $('names-sources').replaceChildren(el('p', 'Google didn\'t search, even when asked twice, so these answers are Gemini\'s memory with no sources. None of them counts as confirmed.', 'sr-small'));
   else $('names-sources').replaceChildren();
   // A new frame each time, added after its box is showing: Chrome can leave a frame blank for good if it was
   // created while hidden. Sandboxed with no scripts and no same-origin access.
@@ -1105,7 +1118,7 @@ function drawAnswers(send, answer) {
   }
   namesStatus(looks
     ? `${looks} ${looks === 1 ? 'name is' : 'names are'} worth a look.`
-    : `Checked ${send.length}. Nothing looks off.`);
+    : answer.sources.length ? `Checked ${send.length}. Nothing looks off.` : `Asked about ${send.length}, but Google didn't search, so nothing is confirmed.`);
   if (looks) face('logo', 'worried', 1800);
   checkNamesInContext(send, answer, looks);
 }
@@ -1181,7 +1194,22 @@ for (const id of ['drop-label', 'sample', 'closing-pick']) {
   $(id).addEventListener('mouseleave', () => face('hero', null));
 }
 
+// The start page shows one real fix card, built by the same cardFor as the results, from Riley's made-up
+// application (sample/expected-flags.json, dates-tutoring: a code check, so a "sure" card, worded as checks.js
+// words it). It's a picture of the product, so it's inert.
+const DEMO_CARD = {
+  id: 'demo', tone: 'pen', title: 'Start year 2024 in an activity, 2023 in an essay',
+  quotes: [
+    { where: 'Activity 3: Tutoring', text: 'Founded club in 2024' },
+    { where: 'University of Michigan essay', text: 'Since I started the tutoring club in 2023' },
+  ],
+  detail: 'These seem to describe the same start. Check which year is right.',
+  fixIn: ['Activities, item 3', 'My Colleges, University of Michigan, Questions'],
+};
+$('show-card').append(cardFor(DEMO_CARD));
+
 const eyes = startEyes();
+startMarks();
 const scrolling = startScrolling();
 startLogo(() => (document.body.classList.contains('phase-start') ? scrolling.toTop() : goToStart()));
 showNanoStatus();

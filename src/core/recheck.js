@@ -13,6 +13,28 @@ const exactKey = (card) => `${card.kind}|${card.quotes.map((q) => words(q.text))
 const placeKey = (card) => `${card.kind}|${card.quotes.map((q) => q.where).sort().join('|')}`;
 
 /**
+ * Is this PDF the same student as the last one? A counselor checks many different students in one tab, and comparing
+ * student B with student A would call A's problems "fixed" and could carry an "It's fine" over to a different
+ * student. Activity headings ("Organization, Position") barely change between one student's drafts and college PDFs,
+ * and almost never match between two students. Falls back to the personal essay's opening when there are too few
+ * activities to tell. When unsure, says no: a missed comparison costs nothing, a wrong one hides a problem.
+ * @param {{ activities: Array<{ heading: string }>, personalEssay?: { text: string }|null }} a  readCommonApp output
+ * @param {{ activities: Array<{ heading: string }>, personalEssay?: { text: string }|null }} b
+ */
+export function sameApplicant(a, b) {
+  if (!a || !b) return false;
+  const headings = (r) => new Set((r.activities ?? []).map((x) => words(x.heading ?? '')).filter(Boolean));
+  const ha = headings(a);
+  const hb = headings(b);
+  if (ha.size >= 2 && hb.size >= 2) {
+    const shared = [...ha].filter((h) => hb.has(h)).length;
+    return shared / Math.min(ha.size, hb.size) >= 0.5;
+  }
+  const opening = (r) => words(r.personalEssay?.text ?? '').split(' ').slice(0, 25).join(' ');
+  return opening(a).split(' ').length >= 10 && opening(a) === opening(b);
+}
+
+/**
  * @param {object[]} previous  cards from the last check (presentFlags output, sure and maybes)
  * @param {object[]} current   cards from this check
  * @returns {{ fixed: object[], still: Array<{ card: object, was: object, changed: boolean }>, fresh: object[] }}

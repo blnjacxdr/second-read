@@ -15,7 +15,6 @@
 </head>
 <body>
 <div class="sr-paper" id="page" style="color: var(--ink); font-family: Gabarito, system-ui, sans-serif; font-size: 18px; line-height: 1.5; position: relative; overflow: clip">
-  <div class="sr-margin sr-holes" aria-hidden="true"></div>
   <div class="sr-margin" aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: 64px; width: 2px; background: var(--margin-line)"></div>
 
   <header class="sr-wrap sr-head">
@@ -39,53 +38,56 @@
 
   <main class="sr-wrap" id="view-start" style="padding-top: 28px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 56px">
     <div class="sr-screen sr-screen-first">
-    <section id="hero" style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center">
-      <div style="flex: 999 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
-        <h1 style="margin: 0; font-weight: 900; font-size: clamp(50px, 7.4vw, 96px); line-height: 0.92; letter-spacing: -0.05em; text-wrap: balance"><span class="sr-word" style="--i: 0">Every</span> <span class="sr-word" style="--i: 1">application,</span> <span class="sr-word" style="--i: 2">read</span> <span class="sr-word sr-twice" style="--i: 3">twice.<svg aria-hidden="true" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 15 C 60 6, 120 20, 180 11 S 260 6, 296 13" pathLength="1" fill="none" stroke="#2340D9" stroke-width="7" stroke-linecap="round"></path></svg></span></h1>
-        <p class="sr-lede" style="margin: 0; max-width: 600px; font-size: 21px; color: var(--ink-2); text-wrap: pretty">For counselors, educators and parents. Second Read reads a student's Common App PDF on your own laptop and finds every spot where it disagrees with itself. It points. The student fixes. It never writes a word for anyone.</p>
-      </div>
-      <div class="sr-drift" style="flex: 1 1 280px; display: flex; flex-direction: column; align-items: center; gap: 14px">
-        <div style="transform: rotate(-6deg); filter: drop-shadow(0 6px 0 rgba(22,24,29,.1)) drop-shadow(0 16px 20px rgba(22,24,29,.18))">
-          <div id="sr-lean"><div style="background: var(--sheet); border-radius: 36px; padding: 24px 30px">
-            <div id="eyes-wrap" style="position: relative"><span class="sr-zz" aria-hidden="true"><b>z</b><b>z</b><b>z</b></span><div id="sr-eyes" role="img" aria-label="Second Read's pencil eyes, watching your cursor" style="display: flex; gap: 10px">
-                            <svg class="sr-eye" id="sr-eye-1" aria-hidden="true" width="100" height="100" viewBox="0 0 112 112" style="--d: .15s"><defs><clipPath id="sr-wood-1"><circle cx="56" cy="56" r="31"></circle></clipPath></defs><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><g class="sr-pupil"><circle cx="56" cy="56" r="14" fill="#16181D"></circle><circle cx="61" cy="50" r="3.5" fill="#FFFFFF" opacity=".85"></circle></g><g clip-path="url(#sr-wood-1)"><g class="sr-lidg"><rect x="20" y="16" width="72" height="72" fill="#FFC21A"></rect><path d="M24 88 H 88" stroke="#E0A800" stroke-width="4" stroke-linecap="round"></path></g></g></svg>
-              <svg class="sr-eye" id="sr-eye-2" aria-hidden="true" width="100" height="100" viewBox="0 0 112 112" style="--d: .27s"><defs><clipPath id="sr-wood-2"><circle cx="56" cy="56" r="31"></circle></clipPath></defs><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><g class="sr-pupil"><circle cx="56" cy="56" r="14" fill="#16181D"></circle><circle cx="61" cy="50" r="3.5" fill="#FFFFFF" opacity=".85"></circle></g><g clip-path="url(#sr-wood-2)"><g class="sr-lidg"><rect x="20" y="16" width="72" height="72" fill="#FFC21A"></rect><path d="M24 88 H 88" stroke="#E0A800" stroke-width="4" stroke-linecap="round"></path></g></g></svg>
-            </div>
-          </div>
-          </div>
-          </div>
-        </div>
-        <p id="margin-note" aria-hidden="true" style="margin: 0; font-family: 'Nanum Pen Script', cursive; font-size: 28px; line-height: 1.05; color: var(--pen); transform: rotate(-3deg); text-align: center">the second read happens on your laptop. not a server, not us.</p>
-      </div>
+    <section id="hero" class="sr-hero">
+      <p class="sr-eyebrow sr-lede">For counselors, educators and parents</p>
+      <h1 style="margin: 0; font-weight: 900; font-size: clamp(50px, 7.4vw, 96px); line-height: 0.92; letter-spacing: -0.05em; text-wrap: balance"><span class="sr-word" style="--i: 0">Every</span> <span class="sr-word" style="--i: 1">application,</span> <span class="sr-word" style="--i: 2">read</span> <span class="sr-word sr-twice" style="--i: 3">twice.<svg aria-hidden="true" viewBox="0 0 300 24" preserveAspectRatio="none"><path d="M4 15 C 60 6, 120 20, 180 11 S 260 6, 296 13" pathLength="1" fill="none" stroke="#2340D9" stroke-width="7" stroke-linecap="round"></path></svg></span></h1>
+      <p class="sr-lede sr-hero-lede">Second Read finds every spot where a student's Common App disagrees with itself, and quotes both places. It never writes a word for anyone.</p>
     </section>
+
+    <figure id="showcase" class="sr-show">
+      <div class="sr-show-eyes" id="sr-lean">
+        <div id="eyes-wrap" style="position: relative"><span class="sr-zz" aria-hidden="true"><b>z</b><b>z</b><b>z</b></span><div id="sr-eyes" role="img" aria-label="Loomis, Second Read's pencil eyes, reading along" style="display: flex; gap: 8px">
+          <svg class="sr-eye" id="sr-eye-1" aria-hidden="true" width="100" height="100" viewBox="0 0 112 112" style="--d: .15s"><defs><clipPath id="sr-wood-1"><circle cx="56" cy="56" r="31"></circle></clipPath></defs><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><g class="sr-pupil"><circle cx="56" cy="56" r="14" fill="#16181D"></circle><circle cx="61" cy="50" r="3.5" fill="#FFFFFF" opacity=".85"></circle></g><g clip-path="url(#sr-wood-1)"><g class="sr-lidg"><rect x="20" y="16" width="72" height="72" fill="#FFC21A"></rect><path d="M24 88 H 88" stroke="#E0A800" stroke-width="4" stroke-linecap="round"></path></g></g></svg>
+          <svg class="sr-eye" id="sr-eye-2" aria-hidden="true" width="100" height="100" viewBox="0 0 112 112" style="--d: .27s"><defs><clipPath id="sr-wood-2"><circle cx="56" cy="56" r="31"></circle></clipPath></defs><path d="M56 6 L104 33 L104 79 L56 106 L8 79 L8 33 Z" fill="#FFC21A"></path><circle cx="56" cy="56" r="31" fill="#EBCB9E"></circle><g class="sr-pupil"><circle cx="56" cy="56" r="14" fill="#16181D"></circle><circle cx="61" cy="50" r="3.5" fill="#FFFFFF" opacity=".85"></circle></g><g clip-path="url(#sr-wood-2)"><g class="sr-lidg"><rect x="20" y="16" width="72" height="72" fill="#FFC21A"></rect><path d="M24 88 H 88" stroke="#E0A800" stroke-width="4" stroke-linecap="round"></path></g></g></svg>
+        </div></div>
+      </div>
+      <figcaption><svg class="sr-show-arrow" aria-hidden="true" width="40" height="44" viewBox="0 0 40 44"><path d="M6 4 C 4 18, 12 30, 26 38" pathLength="1"></path><path d="M17 39 L 27 39 L 25 29" pathLength="1"></path></svg><span id="margin-note" class="sr-show-note">an example from Riley's made-up application</span><span class="sr-vh">In the example, Activity 3 says "Founded club in 2024" and the University of Michigan essay says "Since I started the tutoring club in 2023".</span></figcaption>
+      <div id="show-card" class="sr-show-card" inert aria-hidden="true"></div>
+    </figure>
+
 
     <section id="drop" style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
       <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-        <div id="view-idle" style="display: contents">
-          <fieldset id="read-how" class="sr-how">
-            <legend>How closely should it read?</legend>
-            <div class="sr-how-opts">
-              <label class="sr-how-opt"><input type="radio" name="read-how" value="cloud"><span class="sr-how-note">closest read</span><strong>Gemini in Google's cloud</strong><span class="sr-how-sub">On Google's servers, never used for training</span></label>
-              <label class="sr-how-opt"><input type="radio" name="read-how" value="nano"><span class="sr-how-note">good, and private</span><strong>Gemini Nano, on this laptop</strong><span class="sr-how-sub" id="read-how-nano-why">Nothing leaves the laptop</span></label>
-              <label class="sr-how-opt"><input type="radio" name="read-how" value="code"><span class="sr-how-note">a first pass</span><strong>Code checks only</strong><span class="sr-how-sub">Instant, and stays on the laptop</span></label>
-            </div>
-            <p id="read-how-what" class="sr-how-what" aria-live="polite" hidden></p>
-          </fieldset>
-          <label class="sr-drop" id="drop-label" for="pdf" style="position: relative; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; background: var(--sheet); border-radius: 6px; padding: 46px 40px 38px; box-shadow: 0 1px 0 var(--line), 0 18px 30px -20px rgba(22,24,29,.25); cursor: pointer">
-            <svg class="sr-clip" aria-hidden="true" width="34" height="74" viewBox="0 0 34 74" fill="none" stroke="#8A919E" stroke-width="2.5" stroke-linecap="round" style="position: absolute; top: -26px; left: 36px"><path d="M10 50V14a7 7 0 0 1 14 0v42a11 11 0 0 1-22 0V20"></path></svg>
-            <span style="font-weight: 900; font-size: 36px; line-height: 1.02; letter-spacing: -0.035em">Drop a student's Common App PDF here.</span>
-            <span style="color: var(--ink-2); max-width: 540px">The PDF from Common App's Print preview. Each college gets its own, with the shared sections plus that college's questions, so check each one the student is sending.</span>
-            <span style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 6px">
-              <span class="sr-pick" style="display: inline-flex; align-items: center; gap: 10px; min-height: 50px; padding: 0 22px; border-radius: 999px; background: var(--pen-fill); color: var(--on-fill); font-weight: 800; font-size: 17px; transition: background .2s">
-                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M5 20h14"></path></svg>
-                Choose a PDF
-              </span>
-              <span style="font-size: 15px; color: var(--muted)">Stays in this tab. Nothing gets uploaded.</span>
-            </span>
-            <input id="pdf" class="sr-vh" type="file" accept="application/pdf">
-          </label>
+        <div id="view-idle" class="sr-start">
+          <div class="sr-startsheet">
+            <fieldset id="read-how" class="sr-how">
+              <legend>Read with</legend>
+              <div class="sr-how-opts">
+                <label class="sr-how-opt"><input type="radio" name="read-how" value="nano"><strong>Gemini Nano</strong><span class="sr-how-sub" id="read-how-nano-why">On this laptop</span></label>
+                <label class="sr-how-opt"><input type="radio" name="read-how" value="cloud"><strong>Gemini in the cloud</strong><span class="sr-how-sub">Closest, on Google's servers</span></label>
+                <label class="sr-how-opt"><input type="radio" name="read-how" value="code"><strong>Code checks only</strong><span class="sr-how-sub">Instant, on this laptop</span></label>
+              </div>
+              <p id="nano-row" class="sr-nanorow" hidden><span id="nano-body"></span><button type="button" id="nano-get" class="sr-textbtn" hidden>Download Gemini Nano</button></p>
+              <p id="read-how-what" class="sr-how-what" aria-live="polite" hidden></p>
+              <details class="sr-how-diff">
+                <summary>How do these differ?</summary>
+                <dl>
+                  <div><dt>Gemini Nano</dt><dd>A smaller Gemini model built into Chrome on some laptops. It reads the essays for hours, titles and awards, and nothing leaves the laptop.</dd></div>
+                  <div><dt>Gemini in the cloud</dt><dd>The closest read: it reads the whole application at once and usually finds the most. The text goes to Google's servers, only if you pick it. Google doesn't train on it, and every word sent is listed.</dd></div>
+                  <div><dt>Code checks only</dt><dd>Fast and exact, but they only catch what they have a rule for, so they miss plenty. A clean result isn't a sign-off.</dd></div>
+                </dl>
+              </details>
+            </fieldset>
+            <label class="sr-dropzone" id="drop-label" for="pdf">
+              <svg class="sr-dropicon" aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"></path><path d="M14 3v5h5"></path><path d="M12 17v-6"></path><path d="M9.5 13.5 12 11l2.5 2.5"></path></svg>
+              <span class="sr-drop-title">Drop a student's Common App PDF</span>
+              <span class="sr-drop-sub">The Print preview PDF. It stays in this tab.</span>
+              <span class="sr-pick">Choose a PDF</span>
+              <input id="pdf" class="sr-vh" type="file" accept="application/pdf">
+            </label>
+          </div>
           <div class="sr-under-drop">
-            <button type="button" id="sample" class="sr-again" style="align-self: flex-start; min-height: 48px">No PDF handy? Try Riley's made-up application</button>
+            <button type="button" id="sample" class="sr-textbtn sr-sample">No PDF handy? Try Riley's made-up application</button>
             <details class="sr-guide">
               <summary>Where do I get the PDF?</summary>
               <ol>
@@ -97,6 +99,7 @@
             </details>
           </div>
         </div>
+
 
         <div id="view-reading" hidden>
           <div class="sr-readcard">
@@ -127,13 +130,6 @@
         </div>
       </div>
 
-      <aside class="sr-note" style="flex: 1 1 260px; min-width: 0; background: var(--sticky); padding: 22px 22px 26px; box-shadow: 0 10px 18px -14px rgba(22,24,29,.35); transform: rotate(1.4deg); display: flex; flex-direction: column; gap: 8px">
-        <span class="sr-tape" aria-hidden="true"></span>
-        <div style="display: flex; gap: 10px; align-items: center; font-weight: 800"><span class="sr-ready" id="nano-dot" aria-hidden="true" style="width: 10px; height: 10px; border-radius: 50%; background: var(--ok)"></span><span id="nano-title" aria-live="polite">Checking for Gemini Nano…</span></div>
-        <p id="nano-body" style="margin: 0; font-size: 16px; color: var(--sticky-ink)">It's the AI built into Chrome, and it runs right here on this laptop. It reads what the essays mean, so it catches mismatches code alone can't.</p>
-        <p id="nano-extra" style="margin: 0; font-size: 15px; color: var(--sticky-ink)">On a Chromebook or another browser? Under "How closely should it read?", pick Gemini in the cloud or code checks only.</p>
-        <button type="button" id="nano-get" class="sr-cta sr-note-btn" hidden>Download Gemini Nano</button>
-      </aside>
     </section>
     <a class="sr-seehow js-goto" href="#fold">See how it works<svg aria-hidden="true" width="22" height="36" viewBox="0 0 26 44" fill="none" stroke="#2340D9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 C 9 14, 17 24, 13 39"></path><path d="M5 31 L13 40 L21 30"></path></svg></a>
     </div>
@@ -176,18 +172,11 @@
       <p style="flex: 1 1 260px; margin: 0; color: var(--ink-2); font-size: 17px"><svg class="sr-doodle" aria-hidden="true" width="56" height="40" viewBox="0 0 56 40" fill="none" stroke="#2340D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6 H48 C50 6 51 7 51 9 V25 C51 27 50 28 48 28 H22 L13 36 V28 H8 C6 28 5 27 5 25 V9 C5 7 6 6 8 6 M15 17 C 18 13, 21 21, 24 17 S 30 13, 33 17 S 39 21, 42 16" pathLength="1"></path></svg><strong style="display: block; color: var(--ink); font-weight: 900; font-size: 22px; letter-spacing: -0.02em">Their voice stays theirs.</strong>No suggested wording, no rewrites. Admissions wants to hear the student, so we stay out of it.</p>
     </section>
 
-    <section id="modes" class="sr-modes" aria-labelledby="modes-h">
-      <h2 id="modes-h">How closely it reads depends on the laptop.</h2>
-      <ol class="sr-modes-list">
-        <li><span class="sr-modes-note">closest read</span><strong>Gemini in Google's cloud</strong>Pick it before you drop the PDF, or ask for it after Nano's reading. Never unless you pick it. Google doesn't train on it and keeps it only briefly, and every word sent is listed.</li>
-        <li><span class="sr-modes-note">good, and private</span><strong>Gemini Nano, on this laptop</strong>A smaller Gemini model built into Chrome on some laptops. It reads the essays without anything leaving the laptop.</li>
-        <li><span class="sr-modes-note">a first pass</span><strong>Code checks only</strong>Fast and exact, but they only catch mistakes they have a rule for, so they miss plenty. A clean result here isn't a sign-off. Read it yourself too.</li>
-      </ol>
-    </section>
 
     <section id="closing" class="sr-closing" aria-labelledby="closing-h">
       <h2 id="closing-h">Try it on one.</h2>
-      <p>Drop in a student's Common App PDF. It takes about a minute, and it stays on this laptop unless you say yes.</p>
+      <p>Drop in a student's Common App PDF. It takes about a minute.</p>
+      <p class="sr-closing-how">Reads with <strong id="closing-how">Gemini Nano</strong>. <a href="#drop" class="js-goto">Change</a></p>
       <div class="sr-closing-actions">
         <label for="pdf" class="sr-cta" tabindex="0" id="closing-pick">Choose a PDF</label>
         <button type="button" id="closing-sample" class="sr-again">Try Riley's made-up application</button>

@@ -1,7 +1,7 @@
 // Tests for re-checking after fixes (src/core/recheck.js). Made-up cards.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { compareChecks, carriedDecisions, recheckSummary } from '../src/core/recheck.js';
+import { compareChecks, carriedDecisions, recheckSummary, sameApplicant } from '../src/core/recheck.js';
 
 const card = (id, kind, ...quotes) => ({ id, kind, quotes: quotes.map(([where, text]) => ({ where, text })) });
 const year = card('p1', 'start-year', ['Activity 3', 'Founded club in 2024.'], ['Tufts essay', 'Since I started the club in 2023']);
@@ -44,4 +44,31 @@ test('the summary line, and the all-fixed moment', () => {
   assert.equal(recheckSummary(compareChecks([year, title], [{ ...title, id: 'n' }])).line, 'Since the last check: 1 fixed, 1 still there, 0 new.');
   assert.equal(recheckSummary(compareChecks([year, title], [])).allFixed, true);
   assert.equal(recheckSummary(compareChecks([], [])).allFixed, false);
+});
+
+// Made-up students. A counselor checks many students in one tab; only the same student's PDFs are compared.
+const student = (headings, essay = 'I learned to build things by breaking them first, one gear at a time, in a garage full of parts.') => ({
+  activities: headings.map((heading) => ({ heading })),
+  personalEssay: { prompt: null, text: essay },
+});
+const riley = student(['Varsity Soccer, Co-Captain', 'Robotics Team, Build Lead', 'Peer Tutoring Club, Founder', 'Food Bank, Volunteer']);
+
+test('the same student is recognized across drafts and colleges, even with an activity changed', () => {
+  assert.equal(sameApplicant(riley, student(['Varsity Soccer, Co-Captain', 'Robotics Team, Build Lead', 'Peer Tutoring Club, Founder', 'Food Bank, Volunteer'])), true);
+  assert.equal(sameApplicant(riley, student(['Varsity Soccer, Captain', 'Robotics Team, Build Lead', 'Peer Tutoring Club, Founder', 'Food Bank, Volunteer'])), true);
+});
+
+test('a different student is never compared, so nothing is called fixed and no choice carries over', () => {
+  const jordan = student(['Debate Team, Captain', 'Hospital, Volunteer', 'School Newspaper, Editor', 'Jazz Band, Trumpet'], 'My grandmother kept a notebook of every recipe she ever cooked, and I inherited it the summer I turned twelve.');
+  assert.equal(sameApplicant(riley, jordan), false);
+  // Two students who happen to share one common activity heading are still different students.
+  assert.equal(sameApplicant(riley, student(['Food Bank, Volunteer', 'Debate Team, Captain', 'Jazz Band, Trumpet', 'Chess Club, Member'])), false);
+});
+
+test('with too few activities to tell, the personal essay opening decides, and unsure means no', () => {
+  const short = (essay) => student(['Robotics Team, Build Lead'], essay);
+  assert.equal(sameApplicant(short(riley.personalEssay.text), short(riley.personalEssay.text)), true);
+  assert.equal(sameApplicant(short(riley.personalEssay.text), short('Something else entirely happened to me one summer at camp by the lake.')), false);
+  assert.equal(sameApplicant(student([], ''), student([], '')), false);
+  assert.equal(sameApplicant(null, riley), false);
 });

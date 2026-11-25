@@ -79,6 +79,15 @@ test('contradiction prompt contains both texts and forbids rewriting', () => {
   assert.deepEqual(CONTRADICTION_SCHEMA.properties.contradictions.items.properties.kind.enum, CONTRADICTION_KINDS);
 });
 
+test('a browser whose on-device model never answers counts as having none', async () => {
+  globalThis.LanguageModel = { availability: () => new Promise(() => {}) }; // never settles
+  try {
+    assert.equal(await onDeviceAvailability({ timeoutMs: 20 }), 'unavailable');
+  } finally {
+    delete globalThis.LanguageModel;
+  }
+});
+
 test('onDeviceAvailability is undefined where the browser has no on-device model (here, Node)', async () => {
   assert.equal(await onDeviceAvailability(), undefined);
 });
