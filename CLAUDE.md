@@ -5,7 +5,8 @@ and parents, built for
 #BuildHybridAI 2026 (deadline Nov 30, 2026, 2:00 PM Pacific). It flags problems with
 exact quotes from both places. It NEVER writes, rewrites or suggests application text.
 
-For history, decisions, setup and the day-by-day plan, read `docs/HANDOFF.md` first.
+For history, decisions, setup and the day-by-day plan, read `private/HANDOFF.md` first. `private/` is kept off
+GitHub on purpose (personal and security notes): never commit it, and never copy its contents into tracked files.
 
 ## Privacy rules
 1. Application text goes to deterministic code and the on-device model (`InferenceMode.ONLY_ON_DEVICE`) by
