@@ -1,6 +1,6 @@
-# Second Read: rules for anyone (human or AI) working on this repo
+# Loomis (formerly Second Read): rules for anyone (human or AI) working on this repo
 
-Second Read is a private consistency checker for a Common App application, for counselors, educators
+Loomis is a private consistency checker for a Common App application, for counselors, educators
 and parents, built for
 #BuildHybridAI 2026 (deadline Nov 30, 2026, 2:00 PM Pacific). It flags problems with
 exact quotes from both places. It NEVER writes, rewrites or suggests application text.
