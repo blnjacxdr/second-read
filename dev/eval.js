@@ -24,7 +24,8 @@ const GROUPS = {
   final: ['final-1', 'final-2'],
 };
 const isFinal = (folder) => folder.startsWith('final');
-const canReview = (folder) => folder === 'fresh' || folder.startsWith('practice');
+// Never the held-out set. Final sets only for a hand audit after the one run (Nov 27): nothing is tuned on it.
+const canReview = (folder) => folder === 'fresh' || folder.startsWith('practice') || folder.startsWith('final');
 
 // Nov 24, practice-1: the check step removed more real catches than false alarms, so it's no longer run here
 // (verifyConsented stays in src/ai.js). Two independent reads are compared instead: each read misses different things.
@@ -215,4 +216,14 @@ function showReview(items) {
     list.append(li);
   }
   $('review-box').hidden = items.length === 0;
+  // Plain text of the same list, for pasting into an audit chat.
+  reviewText = items.map(({ file, flag }, i) => [
+    `${i + 1}. ${file}: ${flag.title} (${flag.check === 'on-device' ? 'Gemini' : 'code'})`,
+    ...(flag.citations ?? []).map((c) => `   ${c.sectionId}: "${c.quote}"`),
+    ...(flag.detail ? [`   Why: ${flag.detail}`] : []),
+  ].join('\n')).join('\n\n');
 }
+let reviewText = '';
+$('review-copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(reviewText); say('False-alarm list copied.'); } catch { say('Could not copy; select the list and copy it by hand.'); }
+});
