@@ -81,10 +81,14 @@ export function findCollegeMentions(text, colleges = COLLEGES) {
 }
 
 /** The list entry for the college this PDF is for, if it's in the list. */
+// Common App often prints the official name with a leading "The" ("The University of Texas at Austin"), which the
+// list doesn't have. Without this, the student's own college counted as "another college" (Nov 27 bug).
 function ownCollege(collegeName, colleges) {
   if (!collegeName) return null;
-  return colleges.find((c) => c.name === collegeName) ??
-    findCollegeMentions(collegeName, colleges).find((m) => m.start === 0 && m.end === collegeName.length)?.college ?? null;
+  const name = collegeName.trim().replace(/^the\s+/i, '').replace(/[.,]+$/, '');
+  const lower = name.toLowerCase();
+  return colleges.find((c) => c.name.toLowerCase().replace(/^the\s+/, '') === lower) ??
+    findCollegeMentions(name, colleges).find((m) => m.start === 0 && m.end === name.length)?.college ?? null;
 }
 
 export function checkOtherCollegeNames(app, colleges = COLLEGES) {

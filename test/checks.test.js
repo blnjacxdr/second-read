@@ -176,6 +176,17 @@ test('counts: the same thing counted differently is flagged; growth sentences ar
 });
 
 test('the longer college list finds safe short names and skips surnames', () => {
-  const names = findCollegeMentions('I loved the Villanova tour, then Texas A&M and UConn. My coach, Mr. Temple, went to Smith.').map((m) => m.college.name);
-  assert.deepEqual(names, ['Villanova University', 'Texas A&M University', 'University of Connecticut']);
+  const names = findCollegeMentions('I loved the Baylor tour, then Texas A&M and UConn. My coach, Mr. Temple, went to Smith.').map((m) => m.college.name);
+  assert.deepEqual(names, ['Baylor University', 'Texas A&M University', 'University of Connecticut']);
+});
+
+test('the student\'s own college counts even when Common App prints it with "The", and rivers are not colleges', () => {
+  const app = {
+    college: 'The University of Texas at Austin',
+    collegeEssayIds: ['college-essay-1'],
+    sections: { 'college-essay-1': 'At UT Austin I want to study rivers. I grew up kayaking the Willamette and interned at the Puget Sound Institute.' },
+  };
+  assert.deepEqual(checkOtherCollegeNames(app), []);
+  const other = { ...app, sections: { 'college-essay-1': 'That is the community I hope to find at Northwestern.' } };
+  assert.equal(checkOtherCollegeNames(other).length, 1);
 });
