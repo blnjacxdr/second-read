@@ -66,7 +66,11 @@ async function loadApplications(folders) {
   const apps = [];
   for (const folder of folders) {
     const response = await fetch(`../eval/${folder}/answer-key.json`);
-    if (!response.ok) throw new Error(`eval/${folder}/answer-key.json not found.`);
+    if (!response.ok) {
+      // A group (practice, final) may have batches that don't exist yet: skip those, but a single folder must exist.
+      if (folders.length > 1) continue;
+      throw new Error(`eval/${folder}/answer-key.json not found.`);
+    }
     const key = await response.json();
     for (const entry of key.applications) {
       const pdf = entry.file.replace('.json', '.pdf');
