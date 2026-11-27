@@ -826,7 +826,8 @@ body.phase-reading .sr-screen{display:contents}
 #showcase{grid-area:show;align-self:center}
 .sr-screen-first .sr-seehow{grid-area:see;justify-self:center}
 #hero h1{font-size:clamp(46px,5.4vw,84px)!important;line-height:.94!important}
-.sr-eyebrow{margin:0;font-size:15px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--pen)}
+/* Who it's for, as a pen note in the margin (Nov 27: was a tracked all-caps eyebrow, a stock template look). */
+.sr-eyebrow{margin:0 0 -6px;font-family:var(--font-hand);font-size:28px;line-height:1;color:var(--pen);rotate:-2deg;transform-origin:left}
 .sr-hero-lede{margin:0;max-width:560px;font-size:20px;line-height:1.55;color:var(--ink-2);text-wrap:pretty}
 @media (max-width:1000px){
   .sr-screen-first{grid-template-columns:minmax(0,1fr);grid-template-areas:"hero" "drop" "show" "see";column-gap:0}
@@ -857,7 +858,7 @@ body.phase-reading #showcase{display:none!important}
 .sr-start{display:flex;flex-direction:column;gap:14px}
 .sr-startsheet{display:flex;flex-direction:column;gap:18px;padding:20px;border-radius:14px;background:var(--sheet);box-shadow:0 0 0 1px var(--line),0 24px 48px -32px rgba(0,0,0,.5)}
 .sr-how{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:10px}
-.sr-how legend{padding:0 0 8px;font-size:14px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sr-how legend{padding:0 0 8px;font-size:16px;font-weight:700;color:var(--ink)}
 .sr-how-opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:4px;border-radius:10px;background:var(--fill)}
 @media (max-width:640px){.sr-how-opts{grid-template-columns:minmax(0,1fr)}}
 .sr-how-opt{position:relative;display:flex;flex-direction:column;gap:1px;padding:10px 12px;border-radius:7px;cursor:pointer;transition:background .2s,box-shadow .2s}

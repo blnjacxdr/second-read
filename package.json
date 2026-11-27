@@ -1,5 +1,5 @@
 {
-  "name": "second-read",
+  "name": "loomis",
   "version": "0.1.0",
   "description": "A private consistency checker for a Common App application. Flags problems with exact quotes; never writes or rewrites text.",
   "type": "module",

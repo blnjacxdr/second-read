@@ -1,14 +1,18 @@
-# Second Read
+# Loomis
 
-A private consistency checker for a Common App application. It finds contradictions
-between sections (hours, roles, dates, awards), another college's name inside a
-supplement, repeated passages and over-limit drafts, and shows the exact quotes from
-both places. It never writes or rewrites your text.
+Loomis is a private consistency checker for Common App applications, for counselors, educators and parents.
+It finds the spots where an application disagrees with itself (hours, roles, dates, awards, another college's
+name left in a supplement, a repeated passage) and quotes both places word for word. It never writes or rewrites
+a word of the application.
 
-Your application text never leaves your computer: it is checked by plain code and by
-Gemini Nano running inside Chrome. Only public names (clubs, programs, colleges) are sent
-to a cloud model with Google Search, to check they exist and are named correctly, and the
-app lists every string it sent.
+How it reads, closest first:
+- **Gemini in Google's cloud**, only after you say yes. Google doesn't train on the text and keeps it only
+  briefly to check for abuse. Every word sent is listed under "What was sent".
+- **Gemini Nano**, built into Chrome on some laptops. Nothing leaves the laptop.
+- **Code checks only**: fast and exact, but they miss plenty, so a clean result isn't a sign-off.
+
+Fact-checking public names (programs, awards, places) with Google Search is optional too, and you pick which
+names go.
 
 Built for #BuildHybridAI 2026 with Firebase AI Logic.
 

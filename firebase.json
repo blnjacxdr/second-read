@@ -1,46 +1,78 @@
 {
-  "hosting": {
-    "public": ".",
-    "cleanUrls": true,
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/.*/**",
-      ".git/**",
-      "**/node_modules/**",
-      "dev/**",
-      "eval/**",
-      "test/**",
-      "tools/**",
-      "docs/**",
-      "private/**",
-      "*.pdf",
-      "*.docx",
-      "*.md",
-      "LICENSE",
-      "package.json",
-      "package-lock.json",
-      "sample/expected-flags.json",
-      "sample/paste-in-drafts.txt"
-    ],
-    "headers": [
-      {
-        "source": "**",
-        "headers": [
-          {
-            "key": "Content-Security-Policy",
-            "value": "default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com https://www.recaptcha.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.gstatic.com https://www.google.com; connect-src 'self' https://firebasevertexai.googleapis.com https://firebaseappcheck.googleapis.com https://content-firebaseappcheck.googleapis.com https://firebaseinstallations.googleapis.com https://www.google.com https://www.recaptcha.net; frame-src https://www.google.com https://recaptcha.google.com https://www.recaptcha.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
-          },
-          { "key": "X-Content-Type-Options", "value": "nosniff" },
-          { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-          { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()" },
-          { "key": "Cross-Origin-Opener-Policy", "value": "same-origin-allow-popups" }
-        ]
-      },
-      {
-        "source": "**/*.@(js|mjs|css|svg|pdf)",
-        "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "target": "app",
+      "public": ".",
+      "cleanUrls": true,
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/.*/**",
+        ".git/**",
+        "**/node_modules/**",
+        "dev/**",
+        "eval/**",
+        "test/**",
+        "tools/**",
+        "docs/**",
+        "private/**",
+        "*.pdf",
+        "*.docx",
+        "*.md",
+        "LICENSE",
+        "package.json",
+        "package-lock.json",
+        "sample/expected-flags.json",
+        "sample/paste-in-drafts.txt",
+        "redirect/**"
+      ],
+      "headers": [
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "Content-Security-Policy",
+              "value": "default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com https://www.recaptcha.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://www.gstatic.com https://www.google.com; connect-src 'self' https://firebasevertexai.googleapis.com https://firebaseappcheck.googleapis.com https://content-firebaseappcheck.googleapis.com https://firebaseinstallations.googleapis.com https://www.google.com https://www.recaptcha.net; frame-src https://www.google.com https://recaptcha.google.com https://www.recaptcha.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "Permissions-Policy",
+              "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+            },
+            {
+              "key": "Cross-Origin-Opener-Policy",
+              "value": "same-origin-allow-popups"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|mjs|css|svg|pdf)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=3600"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "old",
+      "public": "redirect",
+      "redirects": [
+        {
+          "source": "**",
+          "destination": "https://NEW-SITE-ID.web.app",
+          "type": 301
+        }
+      ]
+    }
+  ]
 }

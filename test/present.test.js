@@ -119,7 +119,7 @@ test('the student list has only the "ask the student" cards, quoted exactly, wit
   const cards = { sure: [card('a', 'Hours differ'), card('b', 'Role differs')], maybes: [card('c', 'Award differs')] };
   const list = studentList(cards, new Map([['a', 'fixed'], ['b', 'kept'], ['c', 'fixed']]));
   assert.deepEqual(list.items.map((i) => i.title), ['Hours differ', 'Award differs']);
-  assert.match(list.text, /^Second Read found these spots/);
+  assert.match(list.text, /^Loomis found these spots/);
   assert.match(list.text, /1\. Hours differ\n   Activity 2: "12 hr\/wk, 50 wk\/yr"\n   Personal essay: "twenty hours a week"\n   Where to fix it: Activities, item 2\./);
   assert.match(list.text, /2\. Award differs/);
   assert.equal(studentList(cards, new Map()).text, '');

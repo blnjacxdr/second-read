@@ -142,7 +142,7 @@ export function studentList(cards, decisions) {
   const items = [...cards.sure, ...cards.maybes]
     .filter((c) => decisions.get(c.id) === 'fixed')
     .map((c) => ({ title: c.title, places: c.quotes.map((q) => ({ where: q.where, text: q.text })), fixIn: c.fixIn }));
-  const lines = items.length ? ['Second Read found these spots in your Common App to check. Each one quotes your application exactly.', ''] : [];
+  const lines = items.length ? ['Loomis found these spots in your Common App to check. Each one quotes your application exactly.', ''] : [];
   items.forEach((item, i) => {
     lines.push(`${i + 1}. ${item.title}`);
     for (const p of item.places) lines.push(`   ${p.where}: "${p.text}"`);

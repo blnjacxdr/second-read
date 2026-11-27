@@ -150,7 +150,7 @@ async function setPhase(name) {
       if (i === at) li.setAttribute('aria-current', 'step'); else li.removeAttribute('aria-current');
     });
     updateTabs(name);
-    document.title = { start: 'Second Read: every Common App, read twice', reading: 'Reading the PDF | Second Read', results: `${$('res-headline').textContent || 'Fix list'} | Second Read` }[name];
+    document.title = { start: 'Loomis: every Common App, read twice', reading: 'Reading the PDF | Loomis', results: `${$('res-headline').textContent || 'Fix list'} | Loomis` }[name];
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
   if (document.startViewTransition && !reduced()) await document.startViewTransition(apply).finished.catch(() => {});
@@ -300,7 +300,7 @@ async function check(file, label) {
   const started = performance.now();
   stage('pdf', 'active');
   if (file.type && file.type !== 'application/pdf' && !/\.pdf$/i.test(file.name || '')) {
-    readingError('That isn\'t a PDF.', 'Second Read reads the PDF from Common App\'s Print preview: My Colleges, pick a college, Review and submit, Print preview, then download.');
+    readingError('That isn\'t a PDF.', 'Loomis reads the PDF from Common App\'s Print preview: My Colleges, pick a college, Review and submit, Print preview, then download.');
     return;
   }
   if (file.size > MAX_PDF_BYTES) {
@@ -589,7 +589,7 @@ function buildStack() {
     items.push(...maybes.map(cardFor));
   }
   const end = el('div', undefined, 'sr-endcard');
-  end.append(el('h3', 'That\'s every card.'), el('p', 'When the student sends a new PDF, check it here. Second Read will tell you what\'s gone, what\'s still there and what\'s new.'));
+  end.append(el('h3', 'That\'s every card.'), el('p', 'When the student sends a new PDF, check it here. Loomis will tell you what\'s gone, what\'s still there and what\'s new.'));
   // The list for the student, filled in as cards are marked "Ask the student" (drawStudentList).
   const list = el('div', undefined, 'sr-studentlist');
   list.id = 'student-list';
@@ -738,11 +738,11 @@ function updateHeadline() {
     ? 'Gemini also reads hours, titles and awards in the essays. Use "Read it closer" below, or check this PDF again and let Gemini Nano finish.'
     : nano === 'failed'
       ? 'Gemini Nano stopped partway. Use "Read it closer" below, or check this PDF again to give Nano another try.'
-      : 'With Gemini Nano (in Chrome on a laptop), or with Gemini in the cloud if you pick it, Second Read also reads hours, titles and awards in the essays and checks names in the student\'s own sentences, so it catches more.';
+      : 'With Gemini Nano (in Chrome on a laptop), or with Gemini in the cloud if you pick it, Loomis also reads hours, titles and awards in the essays and checks names in the student\'s own sentences, so it catches more.';
   const cloudMaybes = cards.maybes.filter((c) => String(c.id).startsWith('cloud:')).length;
   const h = headlineFor({ sure: cards.sure.length, maybes: cards.maybes.length, cloudMaybes }, decisions, ids, { nano, closer: run.closer !== undefined });
   swapText($('res-headline'), h.headline);
-  if (!$('view-results').hidden) document.title = `${h.headline} | Second Read`;
+  if (!$('view-results').hidden) document.title = `${h.headline} | Loomis`;
   swapText($('res-subhead'), h.subhead);
   // When everything is handled, the eyes from the logo show up beside the headline, pleased.
   const celebrate = h.state === 'done' || h.state === 'clean';
