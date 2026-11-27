@@ -104,7 +104,10 @@ test('the PDF reader loads pdf.js from the repo, never from another website', ()
 // and .git was live on the site until Nov 25. '**/.*/**' covers the folders' contents.
 test('Firebase Hosting never serves dev/, eval/, test/, tools/, docs/, private/ or dot folders like .git', async () => {
   const { readFileSync } = await import('node:fs');
-  const hosting = JSON.parse(readFileSync(new URL('../firebase.json', import.meta.url), 'utf8')).hosting;
+  // Two hosting targets since the Loomis rename: the app, and the old address that only redirects.
+  const targets = [].concat(JSON.parse(readFileSync(new URL('../firebase.json', import.meta.url), 'utf8')).hosting);
+  const hosting = targets.find((t) => t.target === 'app') ?? targets[0];
+  for (const t of targets.filter((x) => x !== hosting)) assert.equal(t.public, 'redirect', 'any other site serves only the redirect folder');
   for (const dir of ['dev/**', 'eval/**', 'test/**', 'tools/**', 'docs/**', 'private/**', '**/node_modules/**', '**/.*', '**/.*/**', '.git/**']) {
     assert.ok(hosting.ignore.includes(dir), `firebase.json hosting.ignore is missing ${dir}`);
   }
