@@ -14,7 +14,7 @@ import { wholeReadFlags } from '../src/core/whole-read.js';
 
 const NANO_RUNS = 3; // Gemini Nano answers differently run to run, so one run proves little
 const CLOUD_AT_ONCE = 4; // applications read in parallel in the cloud; Nano reads one at a time
-const REVIEW_VARIANT = 'G'; // the false-alarm list shows this setup's false alarms
+const REVIEW_VARIANT = 'A'; // the setup the app uses // the false-alarm list shows this setup's false alarms
 // Gemini 3.5 Flash list prices (USD per million tokens), for a rough cost line. Thinking bills as output.
 const PRICE = { input: 1.5, output: 9 };
 
