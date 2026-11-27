@@ -16,7 +16,9 @@ const NANO_RUNS = 3; // Gemini Nano answers differently run to run, so one run p
 const CLOUD_AT_ONCE = 4; // applications read in parallel in the cloud; Nano reads one at a time
 const REVIEW_VARIANT = 'A'; // the setup the app uses // the false-alarm list shows this setup's false alarms
 // Gemini 3.5 Flash list prices (USD per million tokens), for a rough cost line. Thinking bills as output.
-const PRICE = { input: 1.5, output: 9 }; // 3.5 Flash; other models' prices differ, so check Cloud Billing for those
+// List prices, USD per million tokens (thinking bills as output). 3.7 and 3.8 Flash: introductory through Dec 31, 2026,
+// then $1.50 / $7.50.
+const PRICES = { 'gemini-3.5-flash': { input: 1.5, output: 9 }, 'gemini-3.7-flash': { input: 0.75, output: 3.75 }, 'gemini-3.8-flash': { input: 0.75, output: 3.75 } };
 
 // A choice in the Test set menu can stand for several folders.
 const GROUPS = {
@@ -179,7 +181,8 @@ $('run').addEventListener('click', async () => {
     report.push(`AI time: ${seconds.toFixed(0)} s in all for ${apps.length} applications${failed ? `; ${failed} AI call(s) failed` : ''}`);
     if (hybrid) {
       const u = sentLog.usage();
-      const dollars = (u.input * PRICE.input + u.output * PRICE.output) / 1e6;
+      const price = PRICES[cloudModel];
+      const dollars = (u.input * price.input + u.output * price.output) / 1e6;
       report.push(`Cloud: ${u.calls} prompts, ${u.input.toLocaleString()} input + ${u.output.toLocaleString()} output tokens, ` +
         `about $${dollars.toFixed(2)} for this run (about $${(dollars / apps.length).toFixed(3)} per application for 3 reads; one read is about a third)`);
     }

@@ -30,6 +30,11 @@ export const CLOUD_MODEL = 'gemini-3.5-flash-lite';
 // The search-grounded check uses full Flash: Flash-Lite often skips the search or returns no grounding data,
 // and judges and students should see sources every time. Still a fraction of a cent per check.
 export const GROUNDED_MODEL = 'gemini-3.5-flash';
+// The model that reads application text in the cloud (the picked cloud reading, the closer read). Nov 27: 3.8 Flash
+// beat 3.5 Flash on practice-1 (26 vs 25 of 31 in reach, fewer false alarms, no inexact quotes) at half the price
+// through Dec 31, 2026. Pinned on purpose: change it only after the test page compares models.
+// The Google Search name check stays on GROUNDED_MODEL, which is what it was tested with.
+export const READ_MODEL = 'gemini-3.8-flash';
 
 // Chrome asks every on-device request to name its languages, so it can
 // tune quality and safety checks for them. Second Read is English-only for now.
@@ -202,7 +207,7 @@ export function onDeviceAsker(models) {
  * asked for JSON and the shape is spelled out in the prompt.
  */
 // cloudModel: the test page passes another Gemini model to compare (dev/eval.html); the app always uses the default.
-export function createConsentedHybridModels(models, { cloudModel = GROUNDED_MODEL } = {}) {
+export function createConsentedHybridModels(models, { cloudModel = READ_MODEL } = {}) {
   const make = (schema) => getGenerativeModel(models.ai, {
     mode: InferenceMode.PREFER_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: schema } },
@@ -221,7 +226,7 @@ export function createConsentedHybridModels(models, { cloudModel = GROUNDED_MODE
 export function createChosenCloudModels(models) {
   const cloud = getGenerativeModel(models.ai, {
     mode: InferenceMode.ONLY_IN_CLOUD,
-    inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
+    inCloudParams: { model: READ_MODEL, generationConfig: { responseMimeType: 'application/json' } },
   });
   return { facts: cloud, mention: cloud, context: cloud, whole: cloud, verify: cloud };
 }
@@ -263,7 +268,7 @@ export function wholeReadConsented(hybrid, sentLog, app, options = {}) {
 export function createCloserReadModel(models) {
   return getGenerativeModel(models.ai, {
     mode: InferenceMode.ONLY_IN_CLOUD,
-    inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
+    inCloudParams: { model: READ_MODEL, generationConfig: { responseMimeType: 'application/json' } },
   });
 }
 
