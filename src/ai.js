@@ -201,11 +201,12 @@ export function onDeviceAsker(models) {
  * when Chrome has it, otherwise Gemini in the cloud. The same narrow questions as on the device; the cloud model is
  * asked for JSON and the shape is spelled out in the prompt.
  */
-export function createConsentedHybridModels(models) {
+// cloudModel: the test page passes another Gemini model to compare (dev/eval.html); the app always uses the default.
+export function createConsentedHybridModels(models, { cloudModel = GROUNDED_MODEL } = {}) {
   const make = (schema) => getGenerativeModel(models.ai, {
     mode: InferenceMode.PREFER_ON_DEVICE,
     onDeviceParams: { createOptions: english, promptOptions: { responseConstraint: schema } },
-    inCloudParams: { model: GROUNDED_MODEL, generationConfig: { responseMimeType: 'application/json' } },
+    inCloudParams: { model: cloudModel, generationConfig: { responseMimeType: 'application/json' } },
   });
   return { facts: make(FACTS_SCHEMA), mention: make(MENTION_SCHEMA), context: make(CONTEXT_SCHEMA), whole: make(WHOLE_READ_SCHEMA), verify: make(VERIFY_SCHEMA) };
 }

@@ -16,7 +16,7 @@ const NANO_RUNS = 3; // Gemini Nano answers differently run to run, so one run p
 const CLOUD_AT_ONCE = 4; // applications read in parallel in the cloud; Nano reads one at a time
 const REVIEW_VARIANT = 'A'; // the setup the app uses // the false-alarm list shows this setup's false alarms
 // Gemini 3.5 Flash list prices (USD per million tokens), for a rough cost line. Thinking bills as output.
-const PRICE = { input: 1.5, output: 9 };
+const PRICE = { input: 1.5, output: 9 }; // 3.5 Flash; other models' prices differ, so check Cloud Billing for those
 
 // A choice in the Test set menu can stand for several folders.
 const GROUPS = {
@@ -109,7 +109,7 @@ $('run').addEventListener('click', async () => {
   const choice = $('set').value;
   const folders = GROUPS[choice] ?? [choice];
   const engine = $('engine').value;
-  const report = [`Set: ${choice}. Engine: ${engine === 'cloud' ? 'Gemini in the cloud' : 'Gemini Nano'}.`];
+  const report = [`Set: ${choice}. Engine: ${engine === 'cloud' ? `Gemini in the cloud (${$('cloud-model').value})` : 'Gemini Nano'}.`];
   const toReview = [];
   dropReasons = {};
   try {
@@ -128,7 +128,8 @@ $('run').addEventListener('click', async () => {
     const module = await import('../src/ai.js');
     const models = module.createSecondReadAI();
     const sentLog = createSentLog();
-    const hybrid = engine === 'cloud' ? module.createConsentedHybridModels(models) : null;
+    const cloudModel = $('cloud-model').value;
+    const hybrid = engine === 'cloud' ? module.createConsentedHybridModels(models, { cloudModel }) : null;
     const skipNarrow = hybrid && $('skip-narrow').checked;
     const runs = hybrid ? 1 : NANO_RUNS;
     let failed = 0;
