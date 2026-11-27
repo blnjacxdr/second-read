@@ -926,3 +926,7 @@ body.phase-reading #showcase{display:none!important}
 @media (prefers-reduced-motion: reduce){.sr-screen-first .sr-seehow{transition:none}}
 /* Loomis's box sits on its own above the note and the example (Nov 25): in the flow, not over the card. */
 .sr-show .sr-show-eyes{position:relative;top:auto;right:auto;align-self:center;margin-bottom:-4px}
+
+/* Riley's sample: the whole PDF, so people can check the cards against it (Nov 27). */
+.sr-sample-pdf{font-size:15px;font-weight:600}
+#res-open-sample{margin-left:6px;font-weight:600;white-space:nowrap}

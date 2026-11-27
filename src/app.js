@@ -798,9 +798,11 @@ function drawBackground() {
 async function showResults() {
   run.cards = presentFlags({ result: run.result, codeFlags: run.codeFlags, aiFlags: run.aiFlags, mentionAnswers: run.mentionAnswers });
   const college = run.result.college;
-  $('res-file').textContent = run.label
+  $('res-file-name').textContent = run.label
     ? `${run.label}, ${college ? `${college} version` : 'Common App PDF'}`
     : `The ${college ?? 'Common App'} PDF`;
+  // With Riley's sample, let people open the whole application and check every card against it.
+  $('res-open-sample').hidden = run.label !== SAMPLE.label;
   applyRecheck();
   resetCloserPanel(); // before the stack: the end card offers the closer read only while the panel does
   buildStack();
