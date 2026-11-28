@@ -1,7 +1,7 @@
 // Prompt text and output schemas. Pure, so tests can check exactly what each
 // prompt contains (and, for the cloud prompt, that it contains nothing private).
 //
-// Second Read never writes or rewrites application text. The on-device prompt
+// Loomis never writes or rewrites application text. The on-device prompt
 // asks only for categories and exact quotes; no free-text suggestions.
 
 export const CONTRADICTION_KINDS = ['hours', 'role', 'dates', 'award', 'other'];

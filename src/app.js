@@ -1,4 +1,4 @@
-// Second Read, the app. One page, five phases:
+// Loomis (formerly Second Read), the app. One page, five phases:
 //   1 Your PDF (start page) -> 2 hand it over -> 3 the second read (reading stage) -> 4 fix list -> 5 re-check
 // Privacy: the PDF never leaves the tab. By default application text goes only to code and to Gemini Nano
 // (ONLY_ON_DEVICE, in src/ai.js). It goes to Gemini in Google's cloud only when the counselor picks that on the start

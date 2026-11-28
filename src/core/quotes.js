@@ -1,6 +1,6 @@
 // Quote verification. Adapted from Hashmark's verifyCitation().
 //
-// The one rule that matters most in Second Read: every flag shows two quotes,
+// The one rule that matters most in Loomis: every flag shows two quotes,
 // and each quote must appear word for word in the section it claims to come
 // from. A flag whose quotes don't verify is dropped, never shown.
 //

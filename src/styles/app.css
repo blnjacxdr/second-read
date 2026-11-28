@@ -1,4 +1,4 @@
-/* Second Read app styles. Ported from the approved canvas (Main and Results screens, Nov 22 to 23).
+/* Loomis app styles. Ported from the approved canvas (Main and Results screens, Nov 22 to 23).
    Colors and type also live as variables in tokens.css; rationale in docs/DESIGN.md.
    Motion respects prefers-reduced-motion throughout. */
 body{margin:0}

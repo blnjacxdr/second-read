@@ -29,8 +29,8 @@ export function assertOnDevice(response) {
 
 /**
  * Explains why on-device checks can't run, in words for the user.
- * Second Read never falls back to the cloud for private text; it runs the
- * code-only checks and says so.
+ * Loomis never falls back to the cloud for private text on its own: without a model on the device it runs the
+ * code-only checks and says so, unless the counselor picked Gemini in Google's cloud (src/core/consent.js).
  *
  * @param {string|undefined} availability  result of LanguageModel.availability(), or undefined if the API is missing
  * @returns {{ canRun: boolean, message: string }}

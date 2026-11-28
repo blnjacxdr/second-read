@@ -37,7 +37,7 @@ export const GROUNDED_MODEL = 'gemini-3.5-flash';
 export const READ_MODEL = 'gemini-3.8-flash';
 
 // Chrome asks every on-device request to name its languages, so it can
-// tune quality and safety checks for them. Second Read is English-only for now.
+// tune quality and safety checks for them. Loomis is English-only for now.
 const english = {
   expectedInputs: [{ type: 'text', languages: ['en'] }],
   expectedOutputs: [{ type: 'text', languages: ['en'] }],

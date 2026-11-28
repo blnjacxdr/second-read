@@ -1,4 +1,4 @@
-/* Second Read design tokens. The one place colors, type and spacing live.
+/* Loomis design tokens. The one place colors, type and spacing live.
    Matches the approved canvas (Nov 22). Rationale and rules: docs/DESIGN.md.
    Every text color below passes WCAG AA (4.5:1) on the surface it's used on. */
 :root {

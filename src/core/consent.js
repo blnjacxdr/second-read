@@ -1,6 +1,6 @@
 // The cloud fallback, asked for and agreed to (Nov 24).
 //
-// Second Read reads applications on the device with Gemini Nano by default. Since Nov 25 the counselor picks how
+// Loomis reads applications on the device with Gemini Nano by default. Since Nov 25 the counselor picks how
 // closely to read on the start page (readingChoices below). Only when they pick Gemini in Google's cloud does
 // src/ai.js build a cloud model: the hybrid models (prefer-on-device) when this laptop has no Nano, or cloud-only
 // models when it has Nano, so the cloud reading they picked can't quietly run on Nano instead. Every prompt is recorded in the sent log

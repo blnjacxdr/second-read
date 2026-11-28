@@ -1,6 +1,6 @@
 // The whole-application read (Nov 25). Only in the cloud, only after the user's yes (src/core/consent.js).
 //
-// Gemini Nano is too small to read a whole application at once, so on the device Second Read asks narrow questions
+// Gemini Nano is too small to read a whole application at once, so on the device Loomis asks narrow questions
 // and code compares the answers. A cloud model can read everything together, so after a yes it is also asked to list
 // every pair of places that state the same fact differently. Like every AI flag, both quotes must be in the
 // application word for word (locateQuote), in two different sections, or the conflict is dropped.
